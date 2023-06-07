@@ -7,8 +7,9 @@ scripts:
         flutter packages pub get
     - name: Build AAB with Flutter
       script: | 
-        flutter build appbundle --release
+        flutter build appbundle --release 
+        ./gradlew assembleReleas
     artifacts:
-      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/*.apk
       - build/**/outputs/**/mapping.txt
       - flutter_drive.log
