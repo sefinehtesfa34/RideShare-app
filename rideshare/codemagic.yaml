@@ -1,17 +1,25 @@
 workflows:
-  rideshare:
-    instance_type:mac_pro
-    max_build_duration:100
+  default-workflow:
+    name: Default work flow
+    working_directory: rideshare
+    instance_type: mac_pro
+    max_build_duration: 100
     environment:
+      android_signing:
+        - keystore_reference
       groups:
         - keystore_credentials
         - app_store_credentials
 
       vars:
         GOOGLE_PLAY_TRACK:'beta'
-      flutter:stable
-      xcode:stable
-      
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    publishing:
+      email:
+        recipients:
+          - sefinehtesfa34@gmail.com
     scripts:
         - name: Set up local.properties
           script: | 
