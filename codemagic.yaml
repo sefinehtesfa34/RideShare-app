@@ -11,7 +11,7 @@ workflows:
         - app_store_credentials
 
       vars:
-        GOOGLE_PLAY_TRACK:'beta'
+        GOOGLE_PLAY_TRACK: beta
       flutter: stable
       xcode: latest
       cocoapods: default
