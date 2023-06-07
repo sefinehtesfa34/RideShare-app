@@ -5,7 +5,7 @@ workflows:
     max_build_duration: 100
     environment:
       android_signing:
-        - keystore_reference
+        - rideshare
       groups:
         - keystore_credentials
         - app_store_credentials
