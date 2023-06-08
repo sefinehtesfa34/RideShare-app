@@ -2,6 +2,7 @@ workflows:
   default-workflow:
     name: Default work flow
     instance_type: mac_mini_m1
+    working_directory: rideshare
     max_build_duration: 100
     environment:
       android_signing:
