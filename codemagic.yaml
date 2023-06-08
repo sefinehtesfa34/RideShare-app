@@ -34,6 +34,6 @@ workflows:
           - hiwotderese16@gmail.com
         notify:
           success: true
-          failure: true
+          failure: false
 
       # Add additional steps like testing, code signing, deployment, etc.
