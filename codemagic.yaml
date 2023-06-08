@@ -34,8 +34,5 @@ workflows:
         notify:
           success: true
           failure: true
-      google_play:
-        track: $GOOGLE_PLAY_TRACK
-        submit_as_draft: true
 
       # Add additional steps like testing, code signing, deployment, etc.
