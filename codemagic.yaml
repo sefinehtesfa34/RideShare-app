@@ -14,6 +14,7 @@ workflows:
 
       - name: Build Android App
         script: |
+          cd rideshare  # Change to the correct working directory
           flutter pub get
           flutter build apk --release
 
