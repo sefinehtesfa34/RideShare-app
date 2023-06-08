@@ -10,6 +10,7 @@ workflows:
     scripts:
       - name: Flutter unit tests
         script: | 
+          cd rideshare
           flutter test
       - name: Set Flutter SDK Path
         script: |
