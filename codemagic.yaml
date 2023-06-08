@@ -7,20 +7,10 @@ workflows:
         FLUTTER_SDK_PATH: "$HOME/flutter"
         GRADLE_VERSION: "7.0.2"
 
-    before_script:
-      # Download and set up Flutter SDK
-      - name: Download Flutter SDK
-        script: |
-          echo "Downloading Flutter SDK..."
-          curl -sSLO "https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/flutter_${FLUTTER_VERSION}-stable.tar.xz"
-          tar xf "flutter_${FLUTTER_VERSION}-stable.tar.xz" -C "$HOME"
-          echo "export PATH=\"$FLUTTER_SDK_PATH/bin:\$PATH\"" >> "$HOME/.bashrc"
-          export PATH="$FLUTTER_SDK_PATH/bin:$PATH"
-
     scripts:
       - name: Set Flutter SDK Path
         script: |
-          echo "flutter.sdk=$FLUTTER_SDK_PATH" > android/local.properties
+          echo "flutter.sdk=$FLUTTER_SDK_PATH" > rideshare/android/local.properties
 
       - name: Build Android App
         script: |
@@ -28,10 +18,3 @@ workflows:
           flutter build apk --release
 
       # Add additional steps like testing, code signing, deployment, etc.
-
-    post_build:
-      # Archive and publish artifacts
-      - name: Archive Build Artifacts
-        script: |
-          mkdir -p $CM_ARCHIVE_DIR
-          mv build/app/outputs/apk/release/app-release.apk $CM_ARCHIVE_DIR
