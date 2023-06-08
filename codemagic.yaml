@@ -11,6 +11,7 @@ workflows:
       - name: Flutter unit tests
         script: | 
           cd rideshare
+          flutter analyze --custom-analysis-file=analysis_options.yaml
           flutter test
       - name: Set Flutter SDK Path
         script: |
