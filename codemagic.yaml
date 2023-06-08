@@ -6,8 +6,11 @@ workflows:
         FLUTTER_VERSION: "2.5.3"
         FLUTTER_SDK_PATH: "$HOME/flutter"
         GRADLE_VERSION: "7.0.2"
-
+    
     scripts:
+      - name: Flutter unit tests
+        script: | 
+          flutter test
       - name: Set Flutter SDK Path
         script: |
           echo "flutter.sdk=$FLUTTER_SDK_PATH" > rideshare/android/local.properties
@@ -17,5 +20,20 @@ workflows:
           cd rideshare  # Change to the correct working directory
           flutter pub get
           flutter build apk --release
+    artifacts:
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/mapping.txt
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - $CM_REPOSITORY_USER_EMAIL
+        notify:
+          success: true
+          failure: true
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: $GOOGLE_PLAY_TRACK
+        submit_as_draft: true
 
       # Add additional steps like testing, code signing, deployment, etc.
