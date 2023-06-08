@@ -27,7 +27,10 @@ workflows:
     publishing:
       email:
         recipients:
-          - $CM_REPOSITORY_USER_EMAIL
+          - sefinehtesfa34@gmail.com
+          - yaredtsegaye120@gmail.com
+          - natnaeldenbi1@gmail.com
+          - hiwotderese16@gmail.com
         notify:
           success: true
           failure: true
