@@ -1,37 +1,37 @@
 workflows:
-  default-workflow:
-    name: Default work flow
-    instance_type: mac_mini_m1
-    working_directory: rideshare
-    max_build_duration: 100
+  android:
     environment:
-      android_signing:
-        - rideshare
-      groups:
-        - keystore_credentials
-        - app_store_credentials
-
       vars:
-        GOOGLE_PLAY_TRACK: beta
-      flutter: stable
-      xcode: latest
-      cocoapods: default
-    publishing:
-      email:
-        recipients:
-          - sefinehtesfa34@gmail.com
-    scripts:
-        - name: Set up local.properties
-          script: | 
-            echo "flutter.sdk=$HOME/programs/flutter" > "rideshare/android/local.properties"
-        - name: Get Flutter packages
-          script: | 
-            flutter packages pub get
-        - name: Build apk with Flutter
-          script: | 
-            flutter build apk --release
+        FLUTTER_CHANNEL: "stable"
+        FLUTTER_VERSION: "2.5.3"
+        FLUTTER_SDK_PATH: "$HOME/flutter"
+        GRADLE_VERSION: "7.0.2"
 
-    artifacts:
-      - build/**/outputs/**/*.apk
-      - build/**/outputs/**/mapping.txt
-      - flutter_drive.log
+    before_script:
+      # Download and set up Flutter SDK
+      - name: Download Flutter SDK
+        script: |
+          echo "Downloading Flutter SDK..."
+          curl -sSLO "https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/flutter_${FLUTTER_VERSION}-stable.tar.xz"
+          tar xf "flutter_${FLUTTER_VERSION}-stable.tar.xz" -C "$HOME"
+          echo "export PATH=\"$FLUTTER_SDK_PATH/bin:\$PATH\"" >> "$HOME/.bashrc"
+          export PATH="$FLUTTER_SDK_PATH/bin:$PATH"
+
+    scripts:
+      - name: Set Flutter SDK Path
+        script: |
+          echo "flutter.sdk=$FLUTTER_SDK_PATH" > android/local.properties
+
+      - name: Build Android App
+        script: |
+          flutter pub get
+          flutter build apk --release
+
+      # Add additional steps like testing, code signing, deployment, etc.
+
+    post_build:
+      # Archive and publish artifacts
+      - name: Archive Build Artifacts
+        script: |
+          mkdir -p $CM_ARCHIVE_DIR
+          mv build/app/outputs/apk/release/app-release.apk $CM_ARCHIVE_DIR
