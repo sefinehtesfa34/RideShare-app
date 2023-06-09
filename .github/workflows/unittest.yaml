@@ -14,7 +14,7 @@ jobs:
         with:
           channel: "stable"
 
-      - run: cd rideshare
+      - run: cd RideShare-app/rideshare
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
