@@ -76,11 +76,14 @@ class Login extends StatelessWidget {
                         children: [
                           TextButton(
                             onPressed: () {},
-                            child: Text(
-                              "+251",
-                              style: myTextStyle.copyWith(
-                                fontSize: 15.sp,
-                                color: Color(0xFF8090BA),
+                            child: Padding(
+                              padding: EdgeInsets.all(13.sp),
+                              child: Text(
+                                "+251",
+                                style: myTextStyle.copyWith(
+                                  fontSize: 15.sp,
+                                  color: Color(0xFF8090BA),
+                                ),
                               ),
                             ),
                             style: ButtonStyle(
@@ -94,12 +97,15 @@ class Login extends StatelessWidget {
                           TextButton(
                             onPressed: () {},
                             child: Padding(
-                              padding: EdgeInsets.only(right: 30.w),
-                              child: Text(
-                                "993937576",
-                                style: myTextStyle.copyWith(
-                                  fontSize: 15.sp,
-                                  color: Color(0xFF8090BA),
+                              padding: EdgeInsets.only(right: 25.w),
+                              child: Padding(
+                                padding: EdgeInsets.all(13.sp),
+                                child: Text(
+                                  "993937576",
+                                  style: myTextStyle.copyWith(
+                                    fontSize: 15.sp,
+                                    color: Color(0xFF8090BA),
+                                  ),
                                 ),
                               ),
                             ),
