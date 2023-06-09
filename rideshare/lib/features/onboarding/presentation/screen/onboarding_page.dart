@@ -74,12 +74,14 @@ class OnboardingPage extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Icon(
-                            Icons.arrow_circle_right_outlined,
-                            size: 20.sp,
-                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 1.w),
+                            child: const Image(
+                                image: AssetImage(
+                                    "assets/images/right_arrow.png")),
+                          )
                         ],
                       ),
                     )
