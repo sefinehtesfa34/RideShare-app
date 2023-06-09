@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/features/auth/presentation/widgets/text_field.dart';
 
 import '../../../../core/utils/style.dart';
 import '../widgets/button.dart';
+import '../widgets/country_code.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -74,46 +76,11 @@ class Login extends StatelessWidget {
                       padding: EdgeInsets.only(left: 20.w, top: 2.h),
                       child: Row(
                         children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: Padding(
-                              padding: EdgeInsets.all(13.sp),
-                              child: Text(
-                                "+251",
-                                style: myTextStyle.copyWith(
-                                  fontSize: 15.sp,
-                                  color: Color(0xFF8090BA),
-                                ),
-                              ),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Color(0xFFEFEFFA)),
-                            ),
-                          ),
+                          CountryCode(),
                           SizedBox(
                             width: 2.w,
                           ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 25.w),
-                              child: Padding(
-                                padding: EdgeInsets.all(13.sp),
-                                child: Text(
-                                  "993937576",
-                                  style: myTextStyle.copyWith(
-                                    fontSize: 15.sp,
-                                    color: Color(0xFF8090BA),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Color(0xFFEFEFFA)),
-                            ),
-                          )
+                          Textfield(text: "993937576")
                         ],
                       ),
                     ),

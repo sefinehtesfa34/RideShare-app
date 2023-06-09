@@ -15,7 +15,7 @@ class Button extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
               color: Color(0xFF6E80B0),
-              width: 0.3.w,
+              width: 0.2.w,
             )),
         child: Padding(
             padding: EdgeInsets.all(15.sp),
