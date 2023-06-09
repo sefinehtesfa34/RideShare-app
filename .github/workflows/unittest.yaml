@@ -1,17 +1,32 @@
-name: 'Unit Testing'
+name: CI
 on:
-  push: 
-    branches:
-      - 'main'
   pull_request:
-    branches: 
-      - 'main'
-jobs: 
-  rideshare:
+    branches:
+      - main
+
+jobs:
+  flutter_test:
+    name: Run flutter test and analyze
     runs-on: ubuntu-latest
-    steps: 
-      - run: Deployment unit testing'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+        run: echo $PWD
       - run: cd rideshare
       - run: flutter pub get
+      - run: flutter analyze
       - run: flutter test
-    
+  build_appbundle:
+    name: Build Flutter (Android)
+    needs: [flutter_test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+      - run: flutter pub get
+      - run: flutter clean
+      - run: flutter build appbundle
