@@ -11,55 +11,58 @@ import 'package:rideshare/features/authentication/domain/repositories/authentica
 import 'package:rideshare/features/authentication/domain/usecases/signup.dart';
 
 import 'login_test.mocks.dart';
+import 'signup_test.mocks.dart';
 
-@GenerateMocks([AuthenticationRepository])
+@GenerateMocks(<Type>[File])
 void main() {
   late Signup signup;
   late MockAuthenticationRepository mockRepository;
 
-  const user = SignupPayload(
+  final MockFile mockFile = MockFile();
+  final SignupPayload user = SignupPayload(
     fullName: "testName",
     phoneNumber: "+251923423433",
     sex: "M",
     age: 22,
+    id: mockFile,
   );
   setUp(() {
     mockRepository = MockAuthenticationRepository();
     signup = Signup(mockRepository);
   });
   test("Should create a new user", () async {
-    when(mockRepository.signup(user))
-        .thenAnswer((_) async => const Right(user));
+    when(mockRepository.signup(user)).thenAnswer((_) async => Right(user));
 
-    final result = await signup(user);
-    expect(result, const Right(user));
+    final Either<Failure, SignupPayload> result = await signup(user);
+    expect(result, Right(user));
     verify(mockRepository.signup(user));
     verifyNoMoreInteractions(mockRepository);
   });
 
   test("Should return server failure when user cannot signup", () async {
     when(mockRepository.signup(user)).thenAnswer(
-        (_) async => Left(ServerFailure("Internal Server Failure")));
+        (_) async => const Left(ServerFailure("Internal Server Failure")));
 
-    final result = await signup(user);
-    expect(result, Left(ServerFailure("Internal Server Failure")));
+    final Either<Failure, SignupPayload> result = await signup(user);
+    expect(result, const Left(ServerFailure("Internal Server Failure")));
     verify(mockRepository.signup(user));
     verifyNoMoreInteractions(mockRepository);
   });
   test("Should return InputFailure when invalid credentials are provided",
       () async {
-    const user = SignupPayload(
+    SignupPayload user = SignupPayload(
       fullName: "invalid",
       phoneNumber: "invalid",
       sex: "F",
       age: 17,
+      id: mockFile,
     );
 
     when(mockRepository.signup(user))
-        .thenAnswer((_) async => Left(InputFailure("Invalid Data")));
+        .thenAnswer((_) async => const Left(InputFailure("Invalid Data")));
 
-    final result = await signup(user);
-    expect(result, Left(InputFailure("Invalid Data")));
+    final Either<Failure, SignupPayload> result = await signup(user);
+    expect(result, const Left(InputFailure("Invalid Data")));
     verify(mockRepository.signup(user));
     verifyNoMoreInteractions(mockRepository);
   });
