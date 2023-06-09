@@ -1,0 +1,17 @@
+name: 'Unit Testing'
+on:
+  push: 
+    branches:
+      - 'main'
+  pull_request:
+    branches: 
+      - 'main'
+jobs: 
+  rideshare:
+    runs-on: ubuntu-latest
+    steps: 
+      - run: Deployment unit testing'
+      - run: cd rideshare
+      - run: flutter pub get
+      - run: flutter test
+    
