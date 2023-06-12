@@ -19,14 +19,14 @@ void main() {
   });
 
   group('OtpVerificationUseCase', () {
-    const Params params = Params(email: 'test@example.com', otp: '1234');
+    const Params params = Params(phoneNumber: '+251924554098', otp: '1234');
     const bool successResult = true;
     const ServerFailure failureResult = ServerFailure('Verification failed');
 
     test('should return success result when OTP verification is successful',
         () async {
       // Arrange
-      when(mockRepository.verifyOTP(params.email, params.otp))
+      when(mockRepository.verifyOTP(params.phoneNumber, params.otp))
           // ignore: always_specify_types
           .thenAnswer((_) async => const Right(successResult));
 
@@ -36,13 +36,13 @@ void main() {
       // Assert
       // ignore: always_specify_types
       expect(result, const Right(successResult));
-      verify(mockRepository.verifyOTP(params.email, params.otp));
+      verify(mockRepository.verifyOTP(params.phoneNumber, params.otp));
       verifyNoMoreInteractions(mockRepository);
     });
 
     test('should return failure result when OTP verification fails', () async {
       // Arrange
-      when(mockRepository.verifyOTP(params.email, params.otp))
+      when(mockRepository.verifyOTP(params.phoneNumber, params.otp))
       // ignore: always_specify_types
           .thenAnswer((_) async => const Left(failureResult));
 
@@ -52,7 +52,7 @@ void main() {
       // Assert
       // ignore: always_specify_types
       expect(result, const Left(failureResult));
-      verify(mockRepository.verifyOTP(params.email, params.otp));
+      verify(mockRepository.verifyOTP(params.phoneNumber, params.otp));
       verifyNoMoreInteractions(mockRepository);
     });
   });

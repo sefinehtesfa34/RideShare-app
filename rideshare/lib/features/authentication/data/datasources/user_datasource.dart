@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:rideshare/core/errors/exceptions.dart';
 
 abstract class UserDataSource {
-  Future<bool> verifyOtp(String email, String otp);
+  Future<bool> verifyOtp(String phoneNumber, String otp);
 }
 
 class UserDataSourceImpl implements UserDataSource {

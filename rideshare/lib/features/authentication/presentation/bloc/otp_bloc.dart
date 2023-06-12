@@ -12,7 +12,7 @@ class OtpBloc extends Bloc<OtpVerificationEvent, OtpVerificationState> {
       (VerifyOtpEvent event, Emitter<OtpVerificationState> emit) async {
         emit(OtpVerificationLoading());
         final dynamic response =
-            useCase.call(Params(email: event.email, otp: event.otp));
+            useCase.call(Params(phoneNumber: event.phoneNumber, otp: event.otp));
         emit(_verify(response));
       },
     );

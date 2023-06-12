@@ -32,13 +32,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   email_otp: ^2.0.1
-  flutter_bloc:
   equatable: ^2.0.5
   flutter:
     sdk: flutter
+  flutter_bloc: null
   flutter_svg: ^2.0.6
   google_maps_flutter: ^2.3.0
-  http: 
+  http: null
   internet_connection_checker: ^1.0.0+1
   location: ^4.4.0
   mockito: ^5.4.1

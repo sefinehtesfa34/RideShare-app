@@ -8,12 +8,12 @@ abstract class OtpVerificationEvent extends Equatable {
 }
 
 class SendOtpEvent extends OtpVerificationEvent {
-  final String email;
-  const SendOtpEvent({required this.email});
+  final String phoneNumber;
+  const SendOtpEvent({required this.phoneNumber});
 }
 
 class VerifyOtpEvent extends OtpVerificationEvent {
-  final String email;
+  final String phoneNumber;
   final String otp;
-  const VerifyOtpEvent({required this.email, required this.otp});
+  const VerifyOtpEvent({required this.phoneNumber, required this.otp});
 }
