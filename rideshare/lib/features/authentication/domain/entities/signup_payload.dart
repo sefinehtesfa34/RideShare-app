@@ -7,15 +7,15 @@ class SignupPayload extends Equatable {
   final String phoneNumber;
   final int age;
   final String sex;
-  final File id;
+  final File idImage;
 
   const SignupPayload({
     required this.fullName,
     required this.phoneNumber,
     required this.sex,
     required this.age,
-    required this.id,
+    required this.idImage,
   });
   @override
-  List<Object> get props => <Object>[fullName, phoneNumber, sex, age, id];
+  List<Object> get props => <Object>[fullName, phoneNumber, sex, age, idImage];
 }

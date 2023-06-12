@@ -24,7 +24,7 @@ void main() {
     phoneNumber: "+251923423433",
     sex: "M",
     age: 22,
-    id: mockFile,
+    idImage: mockFile,
   );
   setUp(() {
     mockRepository = MockAuthenticationRepository();
@@ -55,7 +55,7 @@ void main() {
       phoneNumber: "invalid",
       sex: "F",
       age: 17,
-      id: mockFile,
+      idImage: mockFile,
     );
 
     when(mockRepository.signup(user))
