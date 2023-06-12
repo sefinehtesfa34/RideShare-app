@@ -28,19 +28,21 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  build_runner: ^2.4.5
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
+  email_otp: ^2.0.1
   equatable: ^2.0.5
   flutter:
     sdk: flutter
-  flutter_polyline_points: ^1.0.0
+  flutter_bloc: null
   flutter_svg: ^2.0.6
   google_maps_flutter: ^2.3.0
+  http: null
   internet_connection_checker: ^1.0.0+1
   location: ^4.4.0
-  responsive_sizer: ^3.1.1
   mockito: ^5.4.1
-  build_runner: ^2.4.5
+  responsive_sizer: ^3.1.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -81,7 +83,6 @@ flutter:
         - asset: assets/fonts/Poppins/Poppins-ExtraLight.ttf
           weight: 100
         - asset: assets/fonts/Poppins/Poppins-ExtraBold.ttf
-          weight : 900
-  #
+          weight: 900
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
