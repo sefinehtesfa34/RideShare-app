@@ -37,6 +37,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: null
   flutter_svg: ^2.0.6
+  get_it: ^7.6.0
   google_maps_flutter: ^2.3.0
   http: null
   internet_connection_checker: ^1.0.0+1
