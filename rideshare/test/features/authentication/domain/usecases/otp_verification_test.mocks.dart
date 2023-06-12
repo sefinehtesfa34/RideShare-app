@@ -45,14 +45,14 @@ class MockOTPVerificationRepository extends _i1.Mock
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, bool>> verifyOTP(
-    String? email,
+    String? phoneNumber,
     String? otp,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #verifyOTP,
           [
-            email,
+            phoneNumber,
             otp,
           ],
         ),
@@ -62,7 +62,7 @@ class MockOTPVerificationRepository extends _i1.Mock
           Invocation.method(
             #verifyOTP,
             [
-              email,
+              phoneNumber,
               otp,
             ],
           ),

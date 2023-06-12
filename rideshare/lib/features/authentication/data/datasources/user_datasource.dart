@@ -9,7 +9,7 @@ abstract class UserDataSource {
 class UserDataSourceImpl implements UserDataSource {
   static const String baseUrl = 'https://your-api.com';
   @override
-  Future<bool> verifyOtp(String email, String otp) async {
+  Future<bool> verifyOtp(String phoneNumber, String otp) async {
     try {
       final http.Response response =
           await http.get(Uri.parse('$baseUrl/verify/?otp=$otp'));

@@ -32,14 +32,14 @@ class MockUserDataSource extends _i1.Mock implements _i2.UserDataSource {
 
   @override
   _i3.Future<bool> verifyOtp(
-    String? email,
+    String? phoneNumber,
     String? otp,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #verifyOtp,
           [
-            email,
+            phoneNumber,
             otp,
           ],
         ),
