@@ -38,7 +38,7 @@ class OnboardingPage extends StatelessWidget {
                 ],
               ),
               Text(
-                "A platform to make your life easier lorem A platform to make your life easier",
+                "A platform to make your life easierlorem A platform to make your life easier",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontFamily: "Poppins", fontSize: 4.w),
               ),
