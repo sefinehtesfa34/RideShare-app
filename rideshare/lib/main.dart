@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/injection.dart';
-
-import 'features/authentication/presentation/screen/otp.dart';
+import 'features/feeds/location/presentation/screen/location_marker.dart';
+import 'features/feeds/location/presentation/screen/picking_location.dart';
 
 void main() {
   init();
@@ -19,12 +19,17 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Orientation orientation,
           ScreenType screenType) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: const Color.fromRGBO(109, 97, 242, 1),
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: const OtpVerificationScreen(),
+          // home: const OtpVerificationScreen(),
+          // home: const FollowFab(),
+          home: const LocationPickerPage(),
+          // home: const LatLngScreenPointTestPage(),
+          // home:const SelectableDistanceFilterExample()
         );
       },
     );

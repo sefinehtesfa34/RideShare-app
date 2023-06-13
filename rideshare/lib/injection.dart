@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
-
 import 'features/authentication/data/datasources/user_datasource.dart';
 import 'features/authentication/data/repository/user_repository.dart';
 import 'features/authentication/domain/repositories/authentication_repository.dart';
