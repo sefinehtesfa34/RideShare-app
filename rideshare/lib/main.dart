@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/injection.dart';
-import 'features/feeds/location/presentation/screen/location_marker.dart';
 import 'features/feeds/location/presentation/screen/picking_location.dart';
-import 'features/feeds/location/presentation/widgets/follow_path.dart';
 
 void main() {
   init();
