@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rideshare/features/feeds/location/presentation/widgets/text_field.dart';
 
 import '../widgets/back_button.dart';
 import '../widgets/horizontal_line.dart';
+import '../widgets/search_text_field.dart';
 import '../widgets/select_button.dart';
 import 'location_marker.dart';
 
@@ -46,7 +46,7 @@ class LocationPickerPage extends StatelessWidget {
                                 'images/current_mocation_marker.svg'),
                             SizedBox(width: 1.w),
                             const Expanded(
-                              child: LocationTextField(
+                              child: SearchTextField(
                                 hintText: 'Enter source location',
                               ),
                             ),
@@ -58,7 +58,7 @@ class LocationPickerPage extends StatelessWidget {
                             SvgPicture.asset('images/Subtract.svg'),
                             SizedBox(width: 1.w),
                             const Expanded(
-                              child: LocationTextField(
+                              child: SearchTextField(
                                 hintText: 'Enter destination location',
                               ),
                             ),

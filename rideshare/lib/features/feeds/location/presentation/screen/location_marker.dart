@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -28,13 +29,9 @@ class CustomizeMarker extends StatelessWidget {
         ),
         CurrentLocationLayer(
           style: LocationMarkerStyle(
-            marker: const DefaultLocationMarker(
-              color: Colors.blue,
-              child: Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-            ),
+            marker: DefaultLocationMarker(
+                // color: Colors.white,
+                child: SvgPicture.asset('images/destination_picker.svg')),
             markerSize: Size.square(20.sp),
             accuracyCircleColor: Colors.green.withOpacity(0.1.sp),
             headingSectorColor: Colors.green.withOpacity(0.8.sp),
