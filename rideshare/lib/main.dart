@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
           ),
           // home: const OtpVerificationScreen(),
           // home: const FollowFab(),
+          // home: const CustomizeMarker(),
           home: const LocationPickerPage(),
           // home: const LatLngScreenPointTestPage(),
           // home:const SelectableDistanceFilterExample()

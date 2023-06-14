@@ -1,91 +1,48 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
-class FollowFab extends StatefulWidget {
-  const FollowFab({super.key});
-
-  @override
-  State<FollowFab> createState() => _FollowFabeState();
-}
-
-class _FollowFabeState extends State<FollowFab> {
-  late FollowOnLocationUpdate _followOnLocationUpdate;
-  late StreamController<double?> _followCurrentLocationStreamController;
-
-  @override
-  void initState() {
-    super.initState();
-    _followOnLocationUpdate = FollowOnLocationUpdate.always;
-    _followCurrentLocationStreamController = StreamController<double?>();
-  }
-
-  @override
-  void dispose() {
-    _followCurrentLocationStreamController.close();
-    super.dispose();
-  }
+class CustomizeMarker extends StatelessWidget {
+  const CustomizeMarker({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Location'),
+    return FlutterMap(
+      options: MapOptions(
+        center: LatLng(0, 0),
+        zoom: 1.sp,
+        minZoom: 0.sp,
+        maxZoom: 19.sp,
       ),
-      body: FlutterMap(
-        options: MapOptions(
-          center: LatLng(0, 0),
-          zoom: 1,
-          minZoom: 0,
-          maxZoom: 19,
-          // Stop following the location marker on the map if user interacted with the map.
-          onPositionChanged: (MapPosition position, bool hasGesture) {
-            if (hasGesture && _followOnLocationUpdate != FollowOnLocationUpdate.never) {
-              setState(
-                () => _followOnLocationUpdate = FollowOnLocationUpdate.never,
-              );
-            }
-          },
+      // ignore: always_specify_types
+      children: [
+        TileLayer(
+          urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          // ignore: always_specify_types
+          subdomains: const ['a', 'b', 'c'],
+          userAgentPackageName:
+              'net.tlserver6y.flutter_map_location_marker.example',
+          // maxZoom: 19.sp,
         ),
-        // ignore: sort_child_properties_last
-        children: [
-          TileLayer(
-            urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            subdomains: const ['a', 'b', 'c'],
-            userAgentPackageName:
-                'net.tlserver6y.flutter_map_location_marker.example',
-            maxZoom: 19,
-          ),
-          CurrentLocationLayer(
-            followCurrentLocationStream:
-                _followCurrentLocationStreamController.stream,
-            followOnLocationUpdate: _followOnLocationUpdate,
-          ),
-        ],
-        nonRotatedChildren: [
-          Positioned(
-            right: 20,
-            bottom: 20,
-            child: FloatingActionButton(
-              onPressed: () {
-                // Follow the location marker on the map when location updated until user interact with the map.
-                setState(
-                  () => _followOnLocationUpdate = FollowOnLocationUpdate.always,
-                );
-                // Follow the location marker on the map and zoom the map to level 18.
-                _followCurrentLocationStreamController.add(18);
-              },
-              child: const Icon(
-                Icons.my_location,
-                color: Colors.blue,
+        CurrentLocationLayer(
+          style: LocationMarkerStyle(
+            marker: const DefaultLocationMarker(
+              color: Colors.blue,
+              child: Icon(
+                Icons.person,
+                color: Colors.white,
               ),
             ),
+            markerSize: Size.square(20.sp),
+            accuracyCircleColor: Colors.green.withOpacity(0.1.sp),
+            headingSectorColor: Colors.green.withOpacity(0.8.sp),
+            headingSectorRadius: 120.h,
           ),
-        ],
-      ),
+          moveAnimationDuration: Duration.zero, // disable animation
+        ),
+      ],
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class LocationTextField extends StatefulWidget {
   const LocationTextField({super.key, required this.hintText});
@@ -13,6 +14,11 @@ class _LocationTextFieldState extends State<LocationTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: TextStyle(
+          color: const Color(0XFF1E1E1E),
+          fontWeight: FontWeight.w500,
+          fontSize: 16.sp,
+          fontFamily: 'Poppins'),
       decoration: InputDecoration(
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide.none,
@@ -24,6 +30,11 @@ class _LocationTextFieldState extends State<LocationTextField> {
         filled: true,
         border: const OutlineInputBorder(),
         hintText: widget.hintText,
+        hintStyle: TextStyle(
+            color: const Color(0XFFA0A0A0),
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w500,
+            fontSize: 16.sp),
         suffixIcon: Transform.scale(
           scale: 0.5,
           child: SvgPicture.asset(
