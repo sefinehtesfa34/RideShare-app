@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../widget/back_button_custom_icon.dart';
+import '../widget/menu.dart';
 import '../widget/custom_bottom_sheet.dart';
-import '../widget/passenger_on_journey_map.dart';
+import '../widget/passenger_current_location_map.dart';
 
 class PassengerOnJourneyPage extends StatefulWidget {
   const PassengerOnJourneyPage({super.key});
@@ -21,7 +21,7 @@ class _PassengerOnJourneyPageState extends State<PassengerOnJourneyPage> {
     return Scaffold(
       body: Stack(children: [
         OnJourneyMap(),
-        Positioned(child:  BackButtonCustomIcon(), top: 6.h, left: 6.w),
+        Positioned(child: Menu(), top: 6.h, left: 6.w),
         Positioned(bottom: 0, child: CustomBottomSheet())
       ]),
     );
