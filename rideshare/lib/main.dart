@@ -3,6 +3,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/injection.dart';
 import 'features/feeds/location/presentation/screen/location_marker.dart';
 import 'features/feeds/location/presentation/screen/picking_location.dart';
+import 'features/feeds/location/presentation/widgets/follow_path.dart';
 
 void main() {
   init();
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
           // home: const FollowFab(),
           // home: const CustomizeMarker(),
           home: const LocationPickerPage(),
+          // home:  const LocationMap(currentLatitude: 20, currentLongitude: 20, destinationLatitude: 89, destinationLongitude: 90),
           // home: const LatLngScreenPointTestPage(),
           // home:const SelectableDistanceFilterExample()
         );

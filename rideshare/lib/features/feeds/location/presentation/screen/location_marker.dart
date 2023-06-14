@@ -6,8 +6,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomizeMarker extends StatelessWidget {
-  const CustomizeMarker({super.key});
-
+  const CustomizeMarker(
+      {super.key, required this.latitude, required this.longitude});
+  final double latitude;
+  final double longitude;
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
@@ -27,9 +29,34 @@ class CustomizeMarker extends StatelessWidget {
               'net.tlserver6y.flutter_map_location_marker.example',
           // maxZoom: 19.sp,
         ),
+        MarkerLayer(
+          markers: <Marker>[
+            Marker(
+              width: 30.0,
+              height: 30.0,
+              point: LatLng(0, 0),
+              builder: (BuildContext context) => const Icon(
+                Icons.location_on,
+                color: Colors.blue,
+                size: 30.0,
+              ),
+            ),
+            Marker(
+              width: 30.0,
+              height: 30.0,
+              point: LatLng(latitude, longitude),
+              builder: (BuildContext context) => const Icon(
+                Icons.location_on,
+                color: Colors.red,
+                size: 30.0,
+              ),
+            ),
+          ],
+        ),
         CurrentLocationLayer(
           style: LocationMarkerStyle(
             marker: DefaultLocationMarker(
+
                 // color: Colors.white,
                 child: SvgPicture.asset('images/destination_picker.svg')),
             markerSize: Size.square(20.sp),

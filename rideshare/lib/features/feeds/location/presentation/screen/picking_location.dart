@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../widgets/back_button.dart';
 import '../widgets/horizontal_line.dart';
 import '../widgets/search_text_field.dart';
@@ -18,7 +17,7 @@ class LocationPickerPage extends StatelessWidget {
         children: <Widget>[
           SizedBox(
             height: 100.h,
-            child: const CustomizeMarker(),
+            child: const CustomizeMarker(latitude: 70.0, longitude: 40),
           ),
           Positioned(
             bottom: 0.h,
