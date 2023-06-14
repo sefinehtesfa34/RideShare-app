@@ -3,8 +3,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/utils/colors.dart';
 
-class BackButtonCustomIcon extends StatelessWidget {
-  const BackButtonCustomIcon({this.onTap, super.key});
+class Menu extends StatelessWidget {
+  const Menu({this.onTap, super.key});
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class BackButtonCustomIcon extends StatelessWidget {
           width: 12.w,
           decoration: BoxDecoration(
               color: primaryColor, borderRadius: BorderRadius.circular(4)),
-          child: Icon(Icons.arrow_back, color: white)),
+          child: Icon(Icons.menu, color: white)),
     );
   }
 }
