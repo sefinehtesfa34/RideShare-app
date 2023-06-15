@@ -14,6 +14,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   File imageFile = File("");
   String pickImageText = "Insert Image";
+  bool maleSelected = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,42 +123,60 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     Row(
                       children: <Widget>[
-                        Container(
-                          width: 25.w,
-                          height: 6.h,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(4.w),
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                              width: 2,
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              maleSelected = true;
+                            });
+                          },
+                          child: Container(
+                            width: 25.w,
+                            height: 6.h,
+                            decoration: BoxDecoration(
+                              color: maleSelected
+                                  ? Theme.of(context).primaryColor
+                                  : const Color.fromRGBO(239, 239, 250, 1),
+                              borderRadius: BorderRadius.circular(4.w),
                             ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Male',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontFamily: "Poppins",
-                                color: Colors.white,
+                            child: Center(
+                              child: Text(
+                                'Male',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontFamily: "Poppins",
+                                  color: maleSelected
+                                      ? Colors.white
+                                      : const Color.fromRGBO(128, 144, 186, 1),
+                                ),
                               ),
                             ),
                           ),
                         ),
                         SizedBox(width: 3.h),
-                        Container(
-                          width: 25.w,
-                          height: 6.h,
-                          decoration: BoxDecoration(
-                            color: const Color.fromRGBO(239, 239, 250, 1),
-                            borderRadius: BorderRadius.circular(4.w),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Female',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                color: const Color.fromRGBO(128, 144, 186, 1),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              maleSelected = false;
+                            });
+                          },
+                          child: Container(
+                            width: 25.w,
+                            height: 6.h,
+                            decoration: BoxDecoration(
+                              color: !maleSelected
+                                  ? Theme.of(context).primaryColor
+                                  : const Color.fromRGBO(239, 239, 250, 1),
+                              borderRadius: BorderRadius.circular(4.w),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Female',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  color: !maleSelected
+                                      ? Colors.white
+                                      : const Color.fromRGBO(128, 144, 186, 1),
+                                ),
                               ),
                             ),
                           ),
