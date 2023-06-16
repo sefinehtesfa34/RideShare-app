@@ -6,7 +6,7 @@ class SignupPayloadModel extends SignupPayload {
     required super.phoneNumber,
     required super.sex,
     required super.age,
-    required super.id,
+    required super.idImage,
   });
   factory SignupPayloadModel.fromJson(Map<String, dynamic> json) {
     return SignupPayloadModel(
@@ -14,7 +14,7 @@ class SignupPayloadModel extends SignupPayload {
       phoneNumber: json['phoneNumber'],
       sex: json['sex'],
       age: json['age'],
-      id: json['id'],
+      idImage: json['id'],
     );
   }
   Map<String, dynamic> toJson() {
@@ -23,7 +23,7 @@ class SignupPayloadModel extends SignupPayload {
       'phoneNumber': phoneNumber,
       'sex': sex,
       'age': age,
-      'id': id
+      'id': idImage
     };
   }
 }
