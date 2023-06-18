@@ -21,8 +21,6 @@ void main() {
   final MockFile mockFile = MockFile();
   final SignupPayload user = SignupPayload(
     fullName: "testName",
-    phoneNumber: "+251923423433",
-    sex: "M",
     age: 22,
     idImage: mockFile,
   );
@@ -52,8 +50,6 @@ void main() {
       () async {
     SignupPayload user = SignupPayload(
       fullName: "invalid",
-      phoneNumber: "invalid",
-      sex: "F",
       age: 17,
       idImage: mockFile,
     );

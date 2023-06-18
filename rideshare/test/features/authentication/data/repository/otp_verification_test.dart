@@ -4,12 +4,12 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rideshare/core/errors/exception.dart';
 import 'package:rideshare/core/errors/failures.dart';
-import 'package:rideshare/features/authentication/data/datasources/user_datasource.dart';
-import 'package:rideshare/features/authentication/data/repository/user_repository.dart';
+import 'package:rideshare/features/authentication/data/datasources/auth_remote_datasource.dart';
+import 'package:rideshare/features/authentication/data/repositories/authentication_repository_impl.dart';
 
 import 'otp_verification_test.mocks.dart';
 
-@GenerateMocks([UserDataSource])
+@GenerateMocks([AuthRemoteDataSource])
 void main() {
   late OTPVerificationRepositoryImpl repository;
   late MockUserDataSource mockDataSource;
