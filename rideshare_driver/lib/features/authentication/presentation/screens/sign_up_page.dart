@@ -17,10 +17,14 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  File imageFile = File("");
+  File profileImageFile = File("");
   String pickImageText = "Insert Image";
   final formkey = GlobalKey<FormState>();
   final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController driverLicenceController = TextEditingController();
+  final TextEditingController drivingExperienceController =
+      TextEditingController();
+  final TextEditingController addressController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -68,15 +72,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                 source: ImageSource.gallery);
                             if (pickedImage != null) {
                               setState(() {
-                                imageFile = File(pickedImage.path);
+                                profileImageFile = File(pickedImage.path);
                                 pickImageText = "";
                               });
                             }
                           },
                           // ignore: unnecessary_null_comparison
-                          child: imageFile.path != ""
+                          child: profileImageFile.path != ""
                               ? Image.file(
-                                  imageFile,
+                                  profileImageFile,
                                   fit: BoxFit.cover,
                                   width: 20.w,
                                   height: 20.h,
@@ -119,14 +123,46 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: <Widget>[
                           SizedBox(height: 2.h),
                           AcceptText(
-                              controller: fullNameController,
-                              label: 'Full name',
-                              hintText: "Insert full name"),
+                            controller: fullNameController,
+                            label: 'Full name',
+                            hintText: "Insert full name",
+                            errorText: "Please enter a full name",
+                            type: String,
+                          ),
                           SizedBox(height: 2.h),
                           AcceptText(
-                              controller: ageController,
-                              label: 'Age',
-                              hintText: "Insert age"),
+                            controller: driverLicenceController,
+                            label: 'Driver Licence Number',
+                            hintText: "Insert Driver Licence Number",
+                            errorText: "Please enter a driver license number",
+                            type: int,
+                          ),
+                          SizedBox(height: 2.h),
+                          SizedBox(height: 2.h),
+                          AcceptText(
+                            controller: drivingExperienceController,
+                            label: 'Driving Experience(year)',
+                            hintText: "Yeas of driving experience",
+                            errorText:
+                                "Please enter years of driving experience",
+                            type: int,
+                          ),
+                          SizedBox(height: 2.h),
+                          AcceptText(
+                            controller: ageController,
+                            label: 'Age',
+                            hintText: "Insert age",
+                            errorText: "please enter your age",
+                            type: int,
+                          ),
+                          SizedBox(height: 2.h),
+                          AcceptText(
+                            controller: addressController,
+                            label: 'Address',
+                            hintText: "Your location",
+                            errorText: "Please enter your address",
+                            type: String,
+                          ),
                           SizedBox(height: 2.h),
                           SizedBox(height: 5.h),
                           Container(
@@ -147,7 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       SignUpEvent(
                                           age: int.parse(ageController.text),
                                           fullName: fullNameController.text,
-                                          idImage: imageFile));
+                                          idImage: profileImageFile));
                                 }
                               },
                               child: Center(
