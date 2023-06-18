@@ -21,10 +21,12 @@ class LocationPickerPage extends StatefulWidget {
 class _LocationPickerPageState extends State<LocationPickerPage> {
   TextEditingController sourceController = TextEditingController();
   TextEditingController destinationController = TextEditingController();
-
+  int seatCount = 0;
   final FocusNode _sourceFocusNode = FocusNode();
   final FocusNode _destinationFocusNode = FocusNode();
-
+  MapPosition _Sourcelocation = MapPosition();
+  MapPosition _destinationLocation = MapPosition();
+  late final LocationBloc _locationBloc = BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,25 +107,182 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
   }
 
   void handleMarkerPositionChanged(MapPosition position) async {
-    String location =
-        await getCity(position.center!.latitude, position.center!.longitude);
     if (_sourceFocusNode.hasFocus) {
-      sourceController.text = location;
+      setState(() {
+        _Sourcelocation = position;
+      });
     } else if (_destinationFocusNode.hasFocus) {
-      destinationController.text = location;
+      setState(() {
+        _destinationLocation = position;
+      });
     }
   }
 
-  void _handleSelectButtonPressed() {
-    final LocationBloc locationBloc = BlocProvider.of<LocationBloc>(context);
-
-    if (_sourceFocusNode.hasFocus) {
-      final String source = sourceController.text;
-      locationBloc.add(SourceLocationChangedEvent(source: source));
-    } else if (_destinationFocusNode.hasFocus) {
-      final String destination = destinationController.text;
-      locationBloc
-          .add(DestinationLocationChangedEvent(destination: destination));
+  void _handleSelectButtonPressed() async {
+    final String source = sourceController.text;
+    final String destination = destinationController.text;
+    updateLocation();
+    if (source.isNotEmpty && destination.isNotEmpty) {
+      _locationBloc
+          .add(SelectLocationEvent(source: source, destination: destination));
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (BuildContext context, setState) {
+              return Center(
+                child: AlertDialog(
+                  backgroundColor: const Color(0xFFFFFFFF),
+                  title: Text(
+                    'Select Number of Seat \n and Confirm Price',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
+                      fontSize: 16.sp,
+                      color: const Color(0xFF414141),
+                    ),
+                  ),
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                              'images/current_mocation_marker.svg'),
+                          SizedBox(width: 1.0.w),
+                          SizedBox(
+                            width: 30.w,
+                            child: Text(
+                              source,
+                              softWrap: true,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins',
+                                fontSize: 16.sp,
+                                color: const Color(0xFF414141),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8.0.h),
+                      Row(
+                        children: [
+                          SvgPicture.asset('/images/Subtract.svg'),
+                          SizedBox(width: 1.0.h),
+                          SizedBox(
+                            width: 30.w,
+                            child: Text(
+                              destination,
+                              softWrap: true,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins',
+                                fontSize: 16.sp,
+                                color: const Color(0xFF414141),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            "Total Price you will pay: ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Poppins',
+                              fontSize: 16.sp,
+                              color: const Color(0xFF414141),
+                            ),
+                          ),
+                          Text(
+                            "Br 60 ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Poppins',
+                              fontSize: 16.sp,
+                              color: const Color(0xFF414141),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text('Seats: $seatCount'),
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      ++seatCount;
+                                    });
+                                  },
+                                  icon: const Icon(Icons.add),
+                                  padding: EdgeInsets.zero,
+                                  constraints:
+                                      BoxConstraints.tight(const Size(32, 32)),
+                                ),
+                                Container(
+                                  width: 1,
+                                  height: 32,
+                                  color: Colors.grey,
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      --seatCount;
+                                    });
+                                  },
+                                  icon: const Icon(Icons.remove),
+                                  padding: EdgeInsets.zero,
+                                  constraints:
+                                      BoxConstraints.tight(const Size(32, 32)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // Handle the confirm button press
+                        // Do something with the selected source and destination locations
+                        _locationBloc.add(SubmitLocationEvent());
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Confirm'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      );
     }
+  }
+
+  void updateLocation() async {
+    sourceController.text = await getCity(
+        _Sourcelocation.center!.latitude, _Sourcelocation.center!.longitude);
+    _locationBloc
+        .add(SourceLocationChangedEvent(source: sourceController.text));
+    destinationController.text = await getCity(
+        _destinationLocation.center!.latitude,
+        _destinationLocation.center!.longitude);
+    _locationBloc.add(DestinationLocationChangedEvent(
+        destination: destinationController.text));
   }
 }

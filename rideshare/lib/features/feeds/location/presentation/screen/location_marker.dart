@@ -31,12 +31,10 @@ class _CustomizeMarkerState extends State<CustomizeMarker> {
         return FlutterMap(
           options: MapOptions(
             onPositionChanged: (MapPosition position, _) => {
-
               setState(() {
                 _markerLocation = position.center!;
               }),
               widget.handleMarkerPositionChanged(position),
-
               context.read<LocationBloc>().add(SourceLocationChangedEvent(
                   source: position.center.toString()))
             },
@@ -63,7 +61,6 @@ class _CustomizeMarkerState extends State<CustomizeMarker> {
                       child: SvgPicture.asset('images/destination_picker.svg'),
                       onTap: () => {
                             debugPrint(_markerLocation.toString()),
-                            debugPrint(state.source),
                           }),
                 ),
               ],

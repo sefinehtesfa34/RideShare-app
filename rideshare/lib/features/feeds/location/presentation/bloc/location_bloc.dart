@@ -22,6 +22,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       state.copyWith(source: event.source, destination: event.destination);
     });
     on<SubmitLocationEvent>(
-        (SubmitLocationEvent event, Emitter<LocationState> emit) {});
+        (SubmitLocationEvent event, Emitter<LocationState> emit) {
+          //Post data usecase
+          
+        });
   }
 }

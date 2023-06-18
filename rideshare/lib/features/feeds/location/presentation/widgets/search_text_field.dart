@@ -26,7 +26,6 @@ class _LocationTextFieldState extends State<LocationTextField> {
       controller: widget.controller,
       focusNode: widget.focusNode,
       onChanged: (String value) {
-        print(widget.focusNode.hasFocus);
         widget.controller.text = value;
       },
     );
