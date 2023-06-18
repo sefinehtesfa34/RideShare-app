@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/features/feeds/location/presentation/widgets/select_button.dart';
 
 class SeatSelectionDialog extends StatefulWidget {
   final String source;
@@ -10,6 +11,7 @@ class SeatSelectionDialog extends StatefulWidget {
   final VoidCallback onConfirmPressed;
 
   const SeatSelectionDialog({
+    super.key,
     required this.source,
     required this.destination,
     required this.seatCount,
@@ -18,7 +20,7 @@ class SeatSelectionDialog extends StatefulWidget {
   });
 
   @override
-  _SeatSelectionDialogState createState() => _SeatSelectionDialogState();
+  State<SeatSelectionDialog> createState() => _SeatSelectionDialogState();
 }
 
 class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
@@ -60,9 +62,9 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
-        children: [
+        children: <Widget>[
           Row(
-            children: [
+            children: <Widget>[
               SvgPicture.asset('images/current_mocation_marker.svg'),
               SizedBox(width: 1.0.w),
               SizedBox(
@@ -82,7 +84,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
           ),
           SizedBox(height: 8.0.h),
           Row(
-            children: [
+            children: <Widget>[
               SvgPicture.asset('/images/Subtract.svg'),
               SizedBox(width: 1.0.h),
               SizedBox(
@@ -158,11 +160,17 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
           ),
         ],
       ),
-      actions: [
-        ElevatedButton(
-          onPressed: widget.onConfirmPressed,
-          child: const Text('Confirm'),
-        ),
+      actions: <Widget>[
+        SelectButton(
+          buttonName:'Confirm',
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        )
+        // ElevatedButton(
+        //   onPressed: widget.onConfirmPressed,
+        //   child: const Text('Confirm'),
+        // ),
       ],
     );
   }

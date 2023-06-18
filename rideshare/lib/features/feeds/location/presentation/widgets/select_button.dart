@@ -5,8 +5,9 @@ class SelectButton extends StatelessWidget {
   const SelectButton({
     Key? key,
     required this.onPressed,
+    required this.buttonName,
   }) : super(key: key);
-
+  final String buttonName;
   final VoidCallback onPressed;
 
   @override
@@ -20,7 +21,8 @@ class SelectButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF6D61F2)),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(const Color(0xFF6D61F2)),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.sp),
@@ -29,7 +31,7 @@ class SelectButton extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              'Select',
+              buttonName,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.sp,

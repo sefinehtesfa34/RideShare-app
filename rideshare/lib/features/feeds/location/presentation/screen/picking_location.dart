@@ -30,80 +30,86 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
   late final LocationBloc _locationBloc = BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          SizedBox(
-            height: 100.h,
-            child: CustomizeMarker(
-              handleMarkerPositionChanged: handleMarkerPositionChanged,
-              latitude: 70.0,
-              longitude: 40,
-            ),
-          ),
-          Positioned(
-            bottom: 0.h,
-            left: 0,
-            right: 0,
-            height: 40.h,
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(22.sp),
-                      topRight: Radius.circular(22.sp),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 16.sp, right: 19.sp),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 6.h),
-                        Row(
-                          children: <Widget>[
-                            SvgPicture.asset(
-                                'images/current_mocation_marker.svg'),
-                            SizedBox(width: 1.w),
-                            Expanded(
-                              child: LocationTextField(
-                                hintText: 'Enter source location',
-                                controller: sourceController,
-                                focusNode: _sourceFocusNode,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 3.0.h),
-                        Row(
-                          children: <Widget>[
-                            SvgPicture.asset('images/Subtract.svg'),
-                            SizedBox(width: 1.w),
-                            Expanded(
-                              child: LocationTextField(
-                                hintText: 'Enter destination location',
-                                controller: destinationController,
-                                focusNode: _destinationFocusNode,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 3.0.h),
-                        SelectButton(
-                          onPressed: _handleSelectButtonPressed,
-                        ),
-                      ],
-                    ),
-                  ),
+    return BlocConsumer<LocationBloc, LocationState>(
+      listener: (BuildContext context, LocationState state) {},
+      builder: (BuildContext context, LocationState state) {
+        return Scaffold(
+          body: Stack(
+            children: <Widget>[
+              SizedBox(
+                height: 100.h,
+                child: CustomizeMarker(
+                  handleMarkerPositionChanged: handleMarkerPositionChanged,
+                  latitude: 70.0,
+                  longitude: 40,
                 ),
-                const HorizontalLine(),
-              ],
-            ),
+              ),
+              Positioned(
+                bottom: 0.h,
+                left: 0,
+                right: 0,
+                height: 40.h,
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(22.sp),
+                          topRight: Radius.circular(22.sp),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 16.sp, right: 19.sp),
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(height: 6.h),
+                            Row(
+                              children: <Widget>[
+                                SvgPicture.asset(
+                                    'images/current_mocation_marker.svg'),
+                                SizedBox(width: 1.w),
+                                Expanded(
+                                  child: LocationTextField(
+                                    hintText: 'Enter source location',
+                                    controller: sourceController,
+                                    focusNode: _sourceFocusNode,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 3.0.h),
+                            Row(
+                              children: <Widget>[
+                                SvgPicture.asset('images/Subtract.svg'),
+                                SizedBox(width: 1.w),
+                                Expanded(
+                                  child: LocationTextField(
+                                    hintText: 'Enter destination location',
+                                    controller: destinationController,
+                                    focusNode: _destinationFocusNode,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 3.0.h),
+                            SelectButton(
+                              buttonName: 'Select',
+                              onPressed: _handleSelectButtonPressed,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const HorizontalLine(),
+                  ],
+                ),
+              ),
+              const Back(),
+            ],
           ),
-          const Back(),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -137,7 +143,8 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
               });
             },
             onConfirmPressed: () {
-              _locationBloc.add(SubmitLocationEvent());
+              _locationBloc.add(SubmitLocationEvent(
+                  source: source, destination: destination));
               Navigator.of(context).pop();
             },
           );

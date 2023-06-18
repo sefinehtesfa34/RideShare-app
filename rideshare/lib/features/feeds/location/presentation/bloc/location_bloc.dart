@@ -23,8 +23,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     });
     on<SubmitLocationEvent>(
         (SubmitLocationEvent event, Emitter<LocationState> emit) {
-          //Post data usecase
-          
-        });
+      //Post data usecase
+      state.copyWith(
+          isLoading: true,
+          source: event.source,
+          destination: event.destination);
+      Future<dynamic>.delayed(const Duration(seconds: 2));
+      //Check something like post the data to backend
+      state.copyWith(isSuccess: true);
+    });
   }
 }

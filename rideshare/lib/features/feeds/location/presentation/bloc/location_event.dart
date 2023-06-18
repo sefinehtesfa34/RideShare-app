@@ -20,4 +20,8 @@ class SelectLocationEvent extends LocationEvent {
   SelectLocationEvent({required this.source, required this.destination});
 }
 
-class SubmitLocationEvent extends LocationEvent {}
+class SubmitLocationEvent extends LocationEvent {
+  final String source;
+  final String destination;
+  SubmitLocationEvent({required this.source, required this.destination});
+}
