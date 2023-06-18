@@ -22,10 +22,10 @@ class LocationPickerPage extends StatefulWidget {
 class _LocationPickerPageState extends State<LocationPickerPage> {
   TextEditingController sourceController = TextEditingController();
   TextEditingController destinationController = TextEditingController();
-  int seatCount = 0;
+  int seatCount = 1;
   final FocusNode _sourceFocusNode = FocusNode();
   final FocusNode _destinationFocusNode = FocusNode();
-  MapPosition _Sourcelocation = MapPosition();
+  MapPosition _sourcelocation = MapPosition();
   MapPosition _destinationLocation = MapPosition();
   late final LocationBloc _locationBloc = BlocProvider.of(context);
   @override
@@ -110,7 +110,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
   void handleMarkerPositionChanged(MapPosition position) async {
     if (_sourceFocusNode.hasFocus) {
       setState(() {
-        _Sourcelocation = position;
+        _sourcelocation = position;
       });
     } else if (_destinationFocusNode.hasFocus) {
       setState(() {
@@ -148,7 +148,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
 
   void updateLocation() async {
     sourceController.text = await getCity(
-        _Sourcelocation.center!.latitude, _Sourcelocation.center!.longitude);
+        _sourcelocation.center!.latitude, _sourcelocation.center!.longitude);
     _locationBloc
         .add(SourceLocationChangedEvent(source: sourceController.text));
     destinationController.text = await getCity(
