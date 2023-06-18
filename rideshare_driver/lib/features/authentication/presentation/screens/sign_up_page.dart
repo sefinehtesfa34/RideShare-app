@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
 
 import '../../../../core/utils/colors.dart';
 import '../bloc/signup/sign_up_bloc.dart';
@@ -18,7 +19,10 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   File profileImageFile = File("");
+  File driverLicenseImageFile = File("");
   String pickImageText = "Insert Image";
+  bool showPickImageError = false;
+
   final formkey = GlobalKey<FormState>();
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController driverLicenceController = TextEditingController();
@@ -35,6 +39,7 @@ class _SignUpPageState extends State<SignUpPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              SizedBox(height: 3.h),
               Padding(
                 padding: EdgeInsets.only(top: 3.h, bottom: 0.5.h),
                 child: Text(
@@ -138,6 +143,86 @@ class _SignUpPageState extends State<SignUpPage> {
                             type: int,
                           ),
                           SizedBox(height: 2.h),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "License Image",
+                                style: TextStyle(
+                                    fontSize: 17.5.sp,
+                                    fontFamily: "Poppins",
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Container(
+                                height: 7.5.h,
+                                decoration: BoxDecoration(
+                                  color: primaryAccentColor,
+                                  borderRadius: BorderRadius.circular(5.w),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 4.0.w),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      driverLicenseImageFile.path == ""
+                                          ? Text(
+                                              "Pick License Image",
+                                              style: TextStyle(
+                                                  fontFamily: "Poppins",
+                                                  fontSize: 15.5.sp,
+                                                  color: textFieldColor),
+                                            )
+                                          : Image.file(
+                                              driverLicenseImageFile,
+                                              fit: BoxFit.cover,
+                                            ),
+                                      InkWell(
+                                        onTap: () async {
+                                          final ImagePicker picker =
+                                              ImagePicker();
+                                          final XFile? pickedImage =
+                                              await picker.pickImage(
+                                                  source: ImageSource.gallery);
+                                          if (pickedImage != null) {
+                                            setState(() {
+                                              driverLicenseImageFile =
+                                                  File(pickedImage.path);
+                                              pickImageText = "";
+                                            });
+                                          }
+                                        },
+                                        child: Container(
+                                          width: 8.w,
+                                          height: 8.h,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Icon(
+                                            Icons.add,
+                                            color: white,
+                                            size: 6.w,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                showPickImageError
+                                    ? "Please pick a license Image"
+                                    : "",
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
                           SizedBox(height: 2.h),
                           AcceptText(
                             controller: drivingExperienceController,
@@ -163,7 +248,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             errorText: "Please enter your address",
                             type: String,
                           ),
-                          SizedBox(height: 2.h),
                           SizedBox(height: 5.h),
                           Container(
                             height: 8.h,
@@ -179,11 +263,25 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: InkWell(
                               onTap: () {
                                 if (formkey.currentState!.validate()) {
-                                  BlocProvider.of<SignUpBloc>(context).add(
-                                      SignUpEvent(
-                                          age: int.parse(ageController.text),
-                                          fullName: fullNameController.text,
-                                          idImage: profileImageFile));
+                                  if (driverLicenseImageFile.path == "") {
+                                    setState(() {
+                                      showPickImageError = true;
+                                    });
+                                  } else {
+                                    BlocProvider.of<SignUpBloc>(context).add(
+                                        SignUpEvent(
+                                            age: int.parse(ageController.text),
+                                            fullName: fullNameController.text,
+                                            idImage: profileImageFile,
+                                            address: addressController.text,
+                                            driverLicenseNumber: int.parse(
+                                                driverLicenceController.text),
+                                            licenseImage:
+                                                driverLicenseImageFile,
+                                            experienceYear: int.parse(
+                                                drivingExperienceController
+                                                    .text)));
+                                  }
                                 }
                               },
                               child: Center(
@@ -231,6 +329,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             ),
                           ),
+                          SizedBox(height: 7.h),
                         ],
                       ),
                     ),

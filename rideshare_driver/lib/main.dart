@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         builder: (context, orientation, screenType) {
           return MaterialApp(
             theme: ThemeData(
-              primaryColor: const Color.fromRGBO(109, 97, 242, 1),
+              primaryColor: const Color(0xFF433AA9),
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
