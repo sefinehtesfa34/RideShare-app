@@ -39,6 +39,7 @@ dependencies:
   flutter_map: ^4.0.0
   flutter_map_location_marker: ^6.0.0
   flutter_svg: ^2.0.6
+  geocoding: ^2.1.0
   get_it: ^7.6.0
   http: null
   internet_connection_checker: ^1.0.0+1

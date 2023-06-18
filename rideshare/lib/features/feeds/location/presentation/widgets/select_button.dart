@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class SelectButton extends StatefulWidget {
-  const SelectButton({super.key});
+class SelectButton extends StatelessWidget {
+  const SelectButton({
+    Key? key,
+    required this.onPressed,
+  }) : super(key: key);
 
-  @override
-  State<SelectButton> createState() => _SelectButtonState();
-}
+  final VoidCallback onPressed;
 
-class _SelectButtonState extends State<SelectButton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,10 +18,9 @@ class _SelectButtonState extends State<SelectButton> {
         height: 30.sp,
         margin: EdgeInsets.only(left: 2.sp, right: 2.sp, top: 3.sp),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: onPressed,
           style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all<Color>(const Color(0xFF6D61F2)),
+            backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF6D61F2)),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.sp),

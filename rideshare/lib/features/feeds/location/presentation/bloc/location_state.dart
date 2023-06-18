@@ -1,10 +1,14 @@
 part of 'location_bloc.dart';
+class LocationState {
+  final String source;
+  final String destination;
 
-abstract class LocationState extends Equatable {
-  const LocationState();
-  
-  @override
-  List<Object> get props => [];
+  LocationState({this.source = '', this.destination = ''});
+
+  LocationState copyWith({String? source, String? destination}) {
+    return LocationState(
+      source: source ?? this.source,
+      destination: destination ?? this.destination,
+    );
+  }
 }
-
-class LocationInitial extends LocationState {}

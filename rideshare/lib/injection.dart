@@ -1,5 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:rideshare/features/feeds/location/data/datasource/remote_location_data.dart';
+import 'package:rideshare/features/feeds/location/data/repository/location_repository.dart';
+import 'package:rideshare/features/feeds/location/domain/repository/location_repository.dart';
+import 'package:rideshare/features/feeds/location/domain/usecase/location_usecase.dart';
+import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'features/authentication/data/datasources/user_datasource.dart';
 import 'features/authentication/data/repository/user_repository.dart';
 import 'features/authentication/domain/repositories/authentication_repository.dart';
@@ -31,5 +36,25 @@ void init() {
   // Register the OtpVerificationBloc
   getIt.registerFactory<OtpVerificationBloc>(
     () => OtpVerificationBloc(useCase: getIt<OtpVerificationUseCase>()),
+  );
+
+  // Register the UserDataSource implementation
+  getIt.registerLazySingleton<RemoteLocationDataSource>(
+    () => RemoteLocationDataSourceImpl(client: getIt<http.Client>()),
+  );
+
+  // Register the OTPVerificationRepository implementation
+  getIt.registerLazySingleton<LocationRepository>(
+    () => LocationRepositoryImpl(
+        remoteLocationDataSource: getIt<RemoteLocationDataSource>()),
+  );
+
+  // Register the OtpVerificationUseCase
+  getIt.registerLazySingleton<LocationUsecase>(
+    () => LocationUsecase(locationRepository: getIt<LocationRepository>()),
+  );
+  // Register the OtpVerificationBloc
+  getIt.registerFactory<LocationBloc>(
+    () => LocationBloc(usecase: getIt<LocationUsecase>()),
   );
 }

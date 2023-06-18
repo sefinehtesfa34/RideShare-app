@@ -1,8 +1,23 @@
 part of 'location_bloc.dart';
 
-abstract class LocationEvent extends Equatable {
-  const LocationEvent();
+abstract class LocationEvent {}
 
-  @override
-  List<Object> get props => [];
+class SourceLocationChangedEvent extends LocationEvent {
+  final String source;
+
+  SourceLocationChangedEvent({required this.source});
 }
+
+class DestinationLocationChangedEvent extends LocationEvent {
+  final String destination;
+
+  DestinationLocationChangedEvent({required this.destination});
+}
+
+class SelectLocationEvent extends LocationEvent {
+  final String source;
+  final String destination;
+  SelectLocationEvent({required this.source, required this.destination});
+}
+
+class SubmitLocationEvent extends LocationEvent {}

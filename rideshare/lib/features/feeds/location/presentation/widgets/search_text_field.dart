@@ -1,66 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class SearchTextField extends StatefulWidget {
-  const SearchTextField({Key? key, required this.hintText})
-      : super(key: key);
+class LocationTextField extends StatefulWidget {
+  const LocationTextField({
+    Key? key,
+    required this.hintText,
+    required this.controller,
+    required this.focusNode,
+  }) : super(key: key);
+
   final String hintText;
+  final TextEditingController controller;
+  final FocusNode focusNode;
 
   @override
-  State<SearchTextField> createState() =>
-      _SearchTextFieldState();
+  State<LocationTextField> createState() => _LocationTextFieldState();
 }
 
-class _SearchTextFieldState
-    extends State<SearchTextField> {
-  final TextEditingController _controller = TextEditingController();
-  final GlobalKey<AutoCompleteTextFieldState<String>> _key = GlobalKey();
-  final List<String> _cities = <String>[
-    'New York',
-    'San Francisco',
-    'Seattle',
-    'Chicago',
-    'Los Angeles',
-    // Add more cities as needed
-  ];
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+class _LocationTextFieldState extends State<LocationTextField> {
   @override
   Widget build(BuildContext context) {
-    return AutoCompleteTextField<String>(
-      key: _key,
-      controller: _controller,
-      suggestions: _cities,
+    return TextField(
       decoration: decoration(widget.hintText),
-      itemSubmitted: (String item) {
-        setState(() {
-          _controller.text = item;
-        });
-      },
-      itemBuilder: (BuildContext context, String item) {
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              _controller.text = item;
-            });
-          },
-          child: ListTile(
-            title: Text(item),
-          ),
-        );
-      },
-      itemSorter: (String a, String b) {
-        return a.compareTo(b);
-      },
-      itemFilter: (String item, String query) {
-        return item.toLowerCase().startsWith(query.toLowerCase());
+      controller: widget.controller,
+      focusNode: widget.focusNode,
+      onChanged: (String value) {
+        print(widget.focusNode.hasFocus);
+        widget.controller.text = value;
       },
     );
   }
@@ -79,15 +46,14 @@ InputDecoration decoration(String hintText) {
     border: const OutlineInputBorder(),
     hintText: hintText,
     hintStyle: TextStyle(
-        color: const Color(0XFFA0A0A0),
-        fontFamily: 'Poppins',
-        fontWeight: FontWeight.w500,
-        fontSize: 16.sp),
+      color: const Color(0XFFA0A0A0),
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w500,
+      fontSize: 16.sp,
+    ),
     suffixIcon: Transform.scale(
       scale: 0.5,
-      child: SvgPicture.asset(
-        'images/star.svg',
-      ),
+      child: SvgPicture.asset('images/star.svg'),
     ),
   );
 }
