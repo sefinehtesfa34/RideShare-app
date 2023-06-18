@@ -6,6 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'package:rideshare/utils/get_city.dart';
 import '../widgets/back_button.dart';
+import '../widgets/confirm_dialog.dart';
 import '../widgets/horizontal_line.dart';
 import '../widgets/search_text_field.dart';
 import '../widgets/select_button.dart';
@@ -123,150 +124,21 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
     final String destination = destinationController.text;
     updateLocation();
     if (source.isNotEmpty && destination.isNotEmpty) {
-      _locationBloc
-          .add(SelectLocationEvent(source: source, destination: destination));
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return StatefulBuilder(
-            builder: (BuildContext context, setState) {
-              return Center(
-                child: AlertDialog(
-                  backgroundColor: const Color(0xFFFFFFFF),
-                  title: Text(
-                    'Select Number of Seat \n and Confirm Price',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Poppins',
-                      fontSize: 16.sp,
-                      color: const Color(0xFF414141),
-                    ),
-                  ),
-                  content: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                              'images/current_mocation_marker.svg'),
-                          SizedBox(width: 1.0.w),
-                          SizedBox(
-                            width: 30.w,
-                            child: Text(
-                              source,
-                              softWrap: true,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins',
-                                fontSize: 16.sp,
-                                color: const Color(0xFF414141),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8.0.h),
-                      Row(
-                        children: [
-                          SvgPicture.asset('/images/Subtract.svg'),
-                          SizedBox(width: 1.0.h),
-                          SizedBox(
-                            width: 30.w,
-                            child: Text(
-                              destination,
-                              softWrap: true,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins',
-                                fontSize: 16.sp,
-                                color: const Color(0xFF414141),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            "Total Price you will pay: ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
-                              fontSize: 16.sp,
-                              color: const Color(0xFF414141),
-                            ),
-                          ),
-                          Text(
-                            "Br 60 ",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
-                              fontSize: 16.sp,
-                              color: const Color(0xFF414141),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text('Seats: $seatCount'),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      ++seatCount;
-                                    });
-                                  },
-                                  icon: const Icon(Icons.add),
-                                  padding: EdgeInsets.zero,
-                                  constraints:
-                                      BoxConstraints.tight(const Size(32, 32)),
-                                ),
-                                Container(
-                                  width: 1,
-                                  height: 32,
-                                  color: Colors.grey,
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      --seatCount;
-                                    });
-                                  },
-                                  icon: const Icon(Icons.remove),
-                                  padding: EdgeInsets.zero,
-                                  constraints:
-                                      BoxConstraints.tight(const Size(32, 32)),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  actions: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Handle the confirm button press
-                        // Do something with the selected source and destination locations
-                        _locationBloc.add(SubmitLocationEvent());
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('Confirm'),
-                    ),
-                  ],
-                ),
-              );
+          return SeatSelectionDialog(
+            source: source,
+            destination: destination,
+            seatCount: seatCount,
+            onSeatCountChanged: (int count) {
+              setState(() {
+                seatCount = count;
+              });
+            },
+            onConfirmPressed: () {
+              _locationBloc.add(SubmitLocationEvent());
+              Navigator.of(context).pop();
             },
           );
         },

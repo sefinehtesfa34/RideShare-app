@@ -22,16 +22,24 @@ class SeatSelectionDialog extends StatefulWidget {
 }
 
 class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
+  int currentSeatCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    currentSeatCount = widget.seatCount;
+  }
+
   void incrementSeatCount() {
     setState(() {
-      widget.onSeatCountChanged(widget.seatCount + 1);
+      currentSeatCount++;
     });
   }
 
   void decrementSeatCount() {
     setState(() {
-      if (widget.seatCount > 0) {
-        widget.onSeatCountChanged(widget.seatCount - 1);
+      if (currentSeatCount > 0) {
+        currentSeatCount--;
       }
     });
   }
@@ -118,7 +126,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text('Seats: ${widget.seatCount}'),
+              Text('Seats: $currentSeatCount'),
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
