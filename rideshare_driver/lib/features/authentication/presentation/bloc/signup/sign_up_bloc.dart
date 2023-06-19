@@ -24,6 +24,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         fullName: event.fullName,
         age: event.age,
         idImage: event.idImage,
+        address: event.address,
+        driverLicenseNumber: event.driverLicenseNumber,
+        licenseImage: event.licenseImage,
+        experienceYear: event.experienceYear,
       ),
     );
     emit(_signupSuccessOrFailure(result));

@@ -84,8 +84,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                           // ignore: unnecessary_null_comparison
                           child: profileImageFile.path != ""
-                              ? Image.file(
-                                  profileImageFile,
+                              ? Image(
+                                  image: FileImage(profileImageFile),
                                   fit: BoxFit.cover,
                                   width: 20.w,
                                   height: 20.h,
@@ -174,8 +174,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                                   fontSize: 15.5.sp,
                                                   color: textFieldColor),
                                             )
-                                          : Image.file(
-                                              driverLicenseImageFile,
+                                          : Image(
+                                              image: FileImage(
+                                                  driverLicenseImageFile),
                                               fit: BoxFit.cover,
                                             ),
                                       InkWell(

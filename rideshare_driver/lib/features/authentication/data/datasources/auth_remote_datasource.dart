@@ -33,17 +33,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       fullName: model.fullName,
       age: model.age,
       idImage: model.idImage,
+      address: model.address,
+      driverLicenseNumber: model.driverLicenseNumber,
+      licenseImage: model.licenseImage,
+      experienceYear: model.experienceYear,
     );
-    final Map<String, dynamic> jsonBody = newModel.toJson();
+    final Map<String, dynamic> jsonBody = await newModel.toJson();
+    print("Strated");
     print("on");
     final http.Response response = await client.post(
-      Uri.parse(baseUrl),
+      Uri.parse("http://10.2.0.2:5000/signup"),
       body: json.encode(jsonBody),
       headers: {
         'Content-Type': 'application/json',
       },
     );
-    print("off");
+    print(response.body);
     print(response.statusCode);
 
     if (response.statusCode == 200) {
