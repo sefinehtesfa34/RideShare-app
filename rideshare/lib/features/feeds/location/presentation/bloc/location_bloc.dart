@@ -35,12 +35,11 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     on<SubmitLocationEvent>(
         (SubmitLocationEvent event, Emitter<LocationState> emit) async {
       //Post data usecase
-      final LocationState curState = state.copyWith(
-        isLoading: true,
-      );
+      emit(state.copyWith(isLoading: true));
       Future<dynamic>.delayed(const Duration(seconds: 2));
       //Post to backend
       try {
+        final LocationState curState = state.copyWith();
         await postLocationUsecase.call(Params(
           destinationLatitude: curState.destinationLatitude,
           destinationLongitude: curState.destinationLongitude,

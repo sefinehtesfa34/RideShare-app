@@ -53,7 +53,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: const Color(0xFFFFFFFF),
+      backgroundColor: Colors.white,
       title: Center(
         child: Text(
           'Select Number of Seats \n and Confirm Price',
