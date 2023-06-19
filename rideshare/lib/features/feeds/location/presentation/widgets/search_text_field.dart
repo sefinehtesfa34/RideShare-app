@@ -56,7 +56,7 @@ InputDecoration decoration(String hintText) {
     ),
     suffixIcon: Transform.scale(
       scale: 0.5,
-      child: SvgPicture.asset('images/star.svg'),
+      child: SvgPicture.asset('assets/images/star.svg'),
     ),
   );
 }

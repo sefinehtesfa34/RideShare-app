@@ -71,7 +71,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              SvgPicture.asset('images/current_mocation_marker.svg'),
+              SvgPicture.asset('assets/images/current_mocation_marker.svg'),
               SizedBox(width: 1.0.w),
               SizedBox(
                 width: 30.w,
@@ -91,7 +91,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
           SizedBox(height: 8.0.h),
           Row(
             children: <Widget>[
-              SvgPicture.asset('/images/Subtract.svg'),
+              SvgPicture.asset('assets/images/Subtract.svg'),
               SizedBox(width: 1.0.h),
               SizedBox(
                 width: 30.w,

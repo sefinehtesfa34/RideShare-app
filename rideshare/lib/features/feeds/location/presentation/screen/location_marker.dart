@@ -60,7 +60,8 @@ class _CustomizeMarkerState extends State<CustomizeMarker> {
                 Marker(
                   point: _markerLocation,
                   builder: (BuildContext context) => GestureDetector(
-                      child: SvgPicture.asset('images/destination_picker.svg'),
+                      child: SvgPicture.asset(
+                          'assets/images/destination_picker.svg'),
                       onTap: () => {
                             debugPrint(_markerLocation.toString()),
                           }),

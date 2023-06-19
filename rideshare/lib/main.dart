@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/signup/sign_up_bloc.dart';
 import 'package:rideshare/features/authentication/presentation/screens/sign_up_page.dart';
+import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
+import 'package:rideshare/features/feeds/location/presentation/screen/picking_location.dart';
 import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'injection_container.dart' as di;
@@ -29,6 +32,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<SignUpBloc>(
           create: (_) => di.sl<SignUpBloc>(),
         ),
+        BlocProvider<LocationBloc>(
+          create: (BuildContext context) => instance(),
+        )
       ],
       child: ResponsiveSizer(
         builder: (context, orientation, screenType) {
