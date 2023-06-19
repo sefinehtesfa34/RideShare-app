@@ -11,18 +11,6 @@ class OtpVerificationInitial extends OtpVerificationState {}
 
 class OtpVerificationLoading extends OtpVerificationState {}
 
-class OtpSentSuccess extends OtpVerificationState {}
-
-class OtpSentFailure extends OtpVerificationState {
-  final String errorMessage;
-
-  const OtpSentFailure(this.errorMessage);
-}
-
 class OtpVerificationSuccess extends OtpVerificationState {}
 
-class OtpVerificationFailure extends OtpVerificationState {
-  final String errorMessage;
-
-  const OtpVerificationFailure(this.errorMessage);
-}
+class OtpVerificationFailure extends OtpVerificationState {}

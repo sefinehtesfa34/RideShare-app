@@ -6,7 +6,9 @@ import '../../domain/repositories/authentication_repository.dart';
 
 class OTPVerificationRepositoryImpl implements OTPVerificationRepository {
   final UserDataSource userDataSource;
+
   OTPVerificationRepositoryImpl({required this.userDataSource});
+
   @override
   Future<Either<Failure, bool>> verifyOTP(String phoneNumber, String otp) async {
     try {
@@ -19,3 +21,4 @@ class OTPVerificationRepositoryImpl implements OTPVerificationRepository {
     }
   }
 }
+
