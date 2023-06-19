@@ -5,4 +5,10 @@ import 'package:rideshare/features/feeds/location/domain/entity/location.dart';
 
 abstract class LocationRepository extends Equatable {
   Future<Either<Failure, Location>> getLocation(String cityName);
+  Future<Either<Failure, void>> postLocation(
+    double sourceLatitude,
+    double sourceLongitude,
+    double destinationLatitude,
+    double destinationLongitude,
+  );
 }

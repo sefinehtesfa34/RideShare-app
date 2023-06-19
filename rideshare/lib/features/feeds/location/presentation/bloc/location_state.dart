@@ -1,29 +1,42 @@
 part of 'location_bloc.dart';
 
 class LocationState {
-  final String source;
-  final String destination;
+  final double sourceLatitude;
+  final double sourceLongitude;
+  final double destinationLatitude;
+  final double destinationLongitude;
+
   final bool isLoading;
   final bool isSuccess;
+  final bool failed;
 
   LocationState({
-    this.source = '',
-    this.destination = '',
+    this.destinationLatitude = 0,
+    this.destinationLongitude = 0,
+    this.sourceLatitude = 0,
+    this.sourceLongitude = 0,
     this.isLoading = false,
     this.isSuccess = false,
+    this.failed = false,
   });
 
   LocationState copyWith({
-    String? source,
-    String? destination,
+    double?sourceLatitude,
+    double?sourceLongitude,
+    double?destinationLatitude,
+    double?destinationLongitude,
     bool? isSuccess,
     bool? isLoading,
+    bool? failed,
   }) {
     return LocationState(
-      source: source ?? this.source,
-      destination: destination ?? this.destination,
+      sourceLatitude: sourceLatitude??this.sourceLatitude,
+      destinationLatitude: destinationLatitude??this.destinationLatitude,
+      sourceLongitude: sourceLongitude??this.sourceLongitude,
+      destinationLongitude: destinationLongitude??this.destinationLongitude,
       isLoading: isLoading ?? this.isLoading,
       isSuccess: isSuccess ?? this.isSuccess,
+      failed: failed ?? this.failed,
     );
   }
 }

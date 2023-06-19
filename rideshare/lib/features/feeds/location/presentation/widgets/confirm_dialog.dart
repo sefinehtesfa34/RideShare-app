@@ -162,15 +162,9 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
       ),
       actions: <Widget>[
         SelectButton(
-          buttonName:'Confirm',
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        )
-        // ElevatedButton(
-        //   onPressed: widget.onConfirmPressed,
-        //   child: const Text('Confirm'),
-        // ),
+          buttonName: 'Confirm',
+          onPressed: widget.onConfirmPressed,
+        ),
       ],
     );
   }

@@ -3,25 +3,36 @@ part of 'location_bloc.dart';
 abstract class LocationEvent {}
 
 class SourceLocationChangedEvent extends LocationEvent {
-  final String source;
+  final double sourceLatitude;
+  final double sourceLongitude;
 
-  SourceLocationChangedEvent({required this.source});
+  SourceLocationChangedEvent({
+    required this.sourceLatitude,
+    required this.sourceLongitude,
+  });
 }
 
 class DestinationLocationChangedEvent extends LocationEvent {
-  final String destination;
+  final double destinationLatitude;
+  final double destinationLongitude;
 
-  DestinationLocationChangedEvent({required this.destination});
+  DestinationLocationChangedEvent({
+    required this.destinationLatitude,
+    required this.destinationLongitude,
+  });
 }
 
 class SelectLocationEvent extends LocationEvent {
-  final String source;
-  final String destination;
-  SelectLocationEvent({required this.source, required this.destination});
+  final double sourceLatitude;
+  final double sourceLongitude;
+  final double destinationLatitude;
+  final double destinationLongitude;
+  SelectLocationEvent({
+    required this.sourceLatitude,
+    required this.destinationLatitude,
+    required this.destinationLongitude,
+    required this.sourceLongitude,
+  });
 }
 
-class SubmitLocationEvent extends LocationEvent {
-  final String source;
-  final String destination;
-  SubmitLocationEvent({required this.source, required this.destination});
-}
+class SubmitLocationEvent extends LocationEvent {}

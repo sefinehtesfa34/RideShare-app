@@ -9,15 +9,15 @@ import 'package:rideshare/features/feeds/location/data/model/location_model.dart
 import 'location_usecase_test.mocks.dart';
 
 void main() {
-  late LocationUsecase usecase;
+  late GetLocationUsecase usecase;
   late MockLocationRepository mockRepository;
 
   setUp(() {
     mockRepository = MockLocationRepository();
-    usecase = LocationUsecase(locationRepository: mockRepository);
+    usecase = GetLocationUsecase(locationRepository: mockRepository);
   });
 
-  group('LocationUsecase', () {
+  group('GetLocationUsecase', () {
     const String cityName = 'example_city';
     Location location = LocationModel.fromJson(
         // ignore: always_specify_types

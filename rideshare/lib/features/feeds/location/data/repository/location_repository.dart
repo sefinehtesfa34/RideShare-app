@@ -21,5 +21,25 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
+
+  @override
+  Future<Either<Failure, void>> postLocation(
+    double sourceLatitude,
+    double sourceLongitude,
+    double destinationLatitude,
+    double destinationLongitude,
+  ) async {
+    try {
+      await remoteLocationDataSource.postLocation(
+        sourceLatitude,
+        sourceLongitude,
+        destinationLatitude,
+        destinationLongitude,
+      );
+      return const Right<Failure, void>(null);
+    } on ServerException {
+      return const Left<Failure, void>(ServerFailure('Server Failure'));
+    }
+  }
 }

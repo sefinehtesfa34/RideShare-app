@@ -8,6 +8,12 @@ import 'package:http/http.dart' as http;
 
 abstract class RemoteLocationDataSource {
   Future<Location> getLocation(String cityName);
+  Future<void> postLocation(
+    double sourceLatitude,
+    double sourceLongitude,
+    double destinationLatitude,
+    double destinationLongitude,
+  );
 }
 
 class RemoteLocationDataSourceImpl extends RemoteLocationDataSource {
@@ -28,6 +34,21 @@ class RemoteLocationDataSourceImpl extends RemoteLocationDataSource {
       });
     } catch (e) {
       throw ServerException('Server Failure');
+    }
+  }
+
+  @override
+  Future<void> postLocation(
+    double sourceLatitude,
+    double sourceLongitude,
+    double destinationLatitude,
+    double destinationLongitude,
+  ) async {
+    const String url = 'http://localhost:3000/location';
+    try {
+      await http.get(Uri.parse(url));
+    } catch (e) {
+      throw ServerException('Server Falilure');
     }
   }
 }

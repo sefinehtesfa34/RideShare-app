@@ -50,11 +50,16 @@ void init() {
   );
 
   // Register the OtpVerificationUseCase
-  getIt.registerLazySingleton<LocationUsecase>(
-    () => LocationUsecase(locationRepository: getIt<LocationRepository>()),
+  getIt.registerLazySingleton<GetLocationUsecase>(
+    () => GetLocationUsecase(locationRepository: getIt<LocationRepository>()),
+  );
+  getIt.registerLazySingleton<PostLocationUsecase>(
+    () => PostLocationUsecase(locationRepository: getIt<LocationRepository>()),
   );
   // Register the OtpVerificationBloc
   getIt.registerFactory<LocationBloc>(
-    () => LocationBloc(usecase: getIt<LocationUsecase>()),
+    () => LocationBloc(
+        getUsecase: getIt<GetLocationUsecase>(),
+        postLocationUsecase: getIt<PostLocationUsecase>()),
   );
 }

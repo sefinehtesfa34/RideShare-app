@@ -67,7 +67,6 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
                             Row(
                               children: <Widget>[
                                 SvgPicture.asset(
-                                  
                                     'images/current_mocation_marker.svg'),
                                 SizedBox(width: 1.w),
                                 Expanded(
@@ -144,8 +143,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
               });
             },
             onConfirmPressed: () {
-              _locationBloc.add(SubmitLocationEvent(
-                  source: source, destination: destination));
+              _locationBloc.add(SubmitLocationEvent());
               Navigator.of(context).pop();
             },
           );
@@ -157,12 +155,16 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
   void updateLocation() async {
     sourceController.text = await getCity(
         _sourcelocation.center!.latitude, _sourcelocation.center!.longitude);
-    _locationBloc
-        .add(SourceLocationChangedEvent(source: sourceController.text));
+    _locationBloc.add(SourceLocationChangedEvent(
+      sourceLatitude: _sourcelocation.center!.latitude,
+      sourceLongitude: _sourcelocation.center!.longitude,
+    ));
     destinationController.text = await getCity(
         _destinationLocation.center!.latitude,
         _destinationLocation.center!.longitude);
     _locationBloc.add(DestinationLocationChangedEvent(
-        destination: destinationController.text));
+      destinationLatitude: _destinationLocation.center!.latitude,
+      destinationLongitude: _destinationLocation.center!.longitude,
+    ));
   }
 }

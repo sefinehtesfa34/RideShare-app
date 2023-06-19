@@ -36,7 +36,9 @@ class _CustomizeMarkerState extends State<CustomizeMarker> {
               }),
               widget.handleMarkerPositionChanged(position),
               context.read<LocationBloc>().add(SourceLocationChangedEvent(
-                  source: position.center.toString()))
+                    sourceLatitude: position.center!.latitude,
+                    sourceLongitude: position.center!.longitude,
+                  ))
             },
             center: LatLng(0, 0),
             zoom: 1.sp,
