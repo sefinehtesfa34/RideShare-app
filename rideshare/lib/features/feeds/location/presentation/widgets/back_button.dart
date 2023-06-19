@@ -11,7 +11,9 @@ class Back extends StatelessWidget {
       padding: EdgeInsets.only(top: 15.sp, left: 15.sp),
       child: GestureDetector(
         // ignore: always_specify_types
-        onTap: () => {},
+        onTap: () => {
+          Navigator.pop(context),
+        },
         child: SvgPicture.asset('images/back.svg'),
       ),
     );

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:rideshare/constants/api.dart';
 
@@ -20,6 +19,6 @@ Future<String> getCity(double latitude, double longitude) async {
     String countryName = data['countryName'];
     return '$continent, $countryName, $cityName, $principalSubdivision, $principalSubdivisionCode, $locality';
   } catch (e) {
-    return 'Server Failed';
+    return 'Server Failed Latlng($latitude $longitude)';
   }
 }

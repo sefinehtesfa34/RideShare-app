@@ -67,6 +67,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
                             Row(
                               children: <Widget>[
                                 SvgPicture.asset(
+                                  
                                     'images/current_mocation_marker.svg'),
                                 SizedBox(width: 1.w),
                                 Expanded(
