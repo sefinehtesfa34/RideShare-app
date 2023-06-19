@@ -35,7 +35,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       idImage: model.idImage,
     );
     final Map<String, dynamic> jsonBody = newModel.toJson();
-    print("on");
     final http.Response response = await client.post(
       Uri.parse(baseUrl),
       body: json.encode(jsonBody),
@@ -43,8 +42,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'Content-Type': 'application/json',
       },
     );
-    print("off");
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       return SignupPayloadModel.fromJson(

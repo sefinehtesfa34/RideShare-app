@@ -7,6 +7,12 @@ class SignUpInitial extends SignUpState {}
 
 class SignUpLoading extends SignUpState {}
 
-class SignUpFailed extends SignUpState {}
+class SignUpFailed extends SignUpState {
+  final String error;
+  SignUpFailed(this.error);
+}
 
-class SignUpSuccess extends SignUpState {}
+class SignUpSuccess extends SignUpState {
+  final UserProfile profile;
+  SignUpSuccess(this.profile);
+}

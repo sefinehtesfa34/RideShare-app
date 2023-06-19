@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
+import 'package:rideshare_driver/features/authentication/data/models/user_profile_model.dart';
+import 'package:rideshare_driver/features/authentication/domain/entities/user_profile.dart';
 
 import '../../../../../core/errors/failures.dart';
 import '../../../domain/entities/signup_payload.dart';
@@ -33,10 +35,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     emit(_signupSuccessOrFailure(result));
   }
 
-  SignUpState _signupSuccessOrFailure(Either<Failure, SignupPayload> data) {
+  SignUpState _signupSuccessOrFailure(Either<Failure, UserProfile> data) {
     return data.fold(
-      (Failure failure) => SignUpFailed(),
-      (SignupPayload success) => SignUpSuccess(),
+      (Failure failure) => SignUpFailed("Internal server failure"),
+      (UserProfile success) => SignUpSuccess(success),
     );
   }
 }

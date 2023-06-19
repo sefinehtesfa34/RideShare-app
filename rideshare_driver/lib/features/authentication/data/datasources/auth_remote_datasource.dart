@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:rideshare_driver/features/authentication/data/models/user_profile_model.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/signup_payload.dart';
@@ -7,7 +8,7 @@ import '../models/signup_model.dart';
 
 abstract class AuthRemoteDataSource {
   Future<bool> verifyOtp(String phoneNumber, String otp);
-  Future<SignupPayloadModel> signup(SignupPayload model);
+  Future<UserProfileModel> signup(SignupPayload model);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -28,7 +29,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<SignupPayloadModel> signup(SignupPayload model) async {
+  Future<UserProfileModel> signup(SignupPayload model) async {
     final SignupPayloadModel newModel = SignupPayloadModel(
       fullName: model.fullName,
       age: model.age,
@@ -39,8 +40,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       experienceYear: model.experienceYear,
     );
     final Map<String, dynamic> jsonBody = await newModel.toJson();
-    print("Strated");
-    print("on");
     final http.Response response = await client.post(
       Uri.parse("http://10.2.0.2:5000/signup"),
       body: json.encode(jsonBody),
@@ -48,11 +47,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'Content-Type': 'application/json',
       },
     );
-    print(response.body);
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
-      return SignupPayloadModel.fromJson(
+      return UserProfileModel.fromJson(
         json.decode(response.body),
       );
     } else {

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:rideshare_driver/features/authentication/domain/entities/user_profile.dart';
 import '../../../../core/errors/failures.dart';
 import '../entities/login_payload.dart';
 import '../entities/signup_payload.dart';
@@ -6,8 +7,7 @@ import '../entities/signup_payload.dart';
 abstract class AuthenticationRepository {
   Future<Either<Failure, LoginPayload>> login(LoginPayload userCredentials);
 
-  Future<Either<Failure, SignupPayload>> signup(
-      SignupPayload newUserCredentials);
+  Future<Either<Failure, UserProfile>> signup(SignupPayload newUserCredentials);
 }
 
 abstract class OTPVerificationRepository {

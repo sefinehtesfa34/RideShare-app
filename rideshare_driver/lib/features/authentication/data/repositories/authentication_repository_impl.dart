@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:rideshare_driver/features/authentication/domain/entities/user_profile.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/login_payload.dart';
@@ -13,10 +14,10 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   AuthenticationRepositoryImpl({required this.userDataSource});
 
   @override
-  Future<Either<Failure, SignupPayload>> signup(
+  Future<Either<Failure, UserProfile>> signup(
       SignupPayload newUserCredentials) async {
     try {
-      final SignupPayloadModel response =
+      final UserProfile response =
           await userDataSource.signup(newUserCredentials);
       return Right(response);
     } on ServerException {
