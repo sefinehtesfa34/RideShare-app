@@ -41,7 +41,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     );
     final Map<String, dynamic> jsonBody = await newModel.toJson();
     final http.Response response = await client.post(
-      Uri.parse("http://10.2.0.2:5000/signup"),
+      Uri.parse("http://10.17.0.17:5000/signup"),
       body: json.encode(jsonBody),
       headers: {
         'Content-Type': 'application/json',
