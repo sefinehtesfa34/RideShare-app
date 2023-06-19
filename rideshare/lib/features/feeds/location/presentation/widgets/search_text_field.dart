@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -22,12 +23,15 @@ class _LocationTextFieldState extends State<LocationTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      inputFormatters: <FilteringTextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[]')),
+      ],
       decoration: decoration(widget.hintText),
       controller: widget.controller,
       focusNode: widget.focusNode,
-      onChanged: (String value) {
-        widget.controller.text = value;
-      },
+      // onChanged: (String value) {
+      //   widget.controller.text = value;
+      // },
     );
   }
 }

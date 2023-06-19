@@ -25,6 +25,8 @@ class SeatSelectionDialog extends StatefulWidget {
 
 class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
   int currentSeatCount = 0;
+  int cost = 50;
+  int amount = 50;
 
   @override
   void initState() {
@@ -35,6 +37,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
   void incrementSeatCount() {
     setState(() {
       currentSeatCount++;
+      cost += amount;
     });
   }
 
@@ -42,6 +45,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
     setState(() {
       if (currentSeatCount > 0) {
         currentSeatCount--;
+        cost -= amount;
       }
     });
   }
@@ -50,13 +54,15 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: const Color(0xFFFFFFFF),
-      title: Text(
-        'Select Number of Seats \n and Confirm Price',
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontFamily: 'Poppins',
-          fontSize: 16.sp,
-          color: const Color(0xFF414141),
+      title: Center(
+        child: Text(
+          'Select Number of Seats \n and Confirm Price',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Poppins',
+            fontSize: 20.sp,
+            color: const Color(0xFF414141),
+          ),
         ),
       ),
       content: Column(
@@ -75,7 +81,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Poppins',
-                    fontSize: 16.sp,
+                    fontSize: 14.sp,
                     color: const Color(0xFF414141),
                   ),
                 ),
@@ -95,7 +101,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Poppins',
-                    fontSize: 16.sp,
+                    fontSize: 14.sp,
                     color: const Color(0xFF414141),
                   ),
                 ),
@@ -115,7 +121,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                 ),
               ),
               Text(
-                "Br 60 ",
+                "Br $cost ",
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Poppins',
