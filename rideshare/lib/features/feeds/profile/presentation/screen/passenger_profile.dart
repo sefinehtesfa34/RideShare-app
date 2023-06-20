@@ -42,6 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                                    
                   SizedBox(
                     height: 2.0.h,
                   ),
