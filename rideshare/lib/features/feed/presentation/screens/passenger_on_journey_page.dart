@@ -20,7 +20,7 @@ class _PassengerOnJourneyPageState extends State<PassengerOnJourneyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
-        OnJourneyMap(),
+        CurrentLocationMap(),
         Positioned(child: Menu(), top: 6.h, left: 6.w),
         Positioned(bottom: 0, child: CustomBottomSheet())
       ]),

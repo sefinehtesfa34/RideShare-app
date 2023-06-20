@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../bloc/passenger_home_bloc.dart';
+import '../widget/destination_list.dart';
 import '../widget/menu.dart';
 import '../widget/custom_bottom_sheet.dart';
 import '../widget/passenger_current_location_map.dart';
 
-class PassengerHomePage extends StatefulWidget {
+class PassengerHomePage extends StatelessWidget {
   const PassengerHomePage({super.key});
-
-  @override
-  State<PassengerHomePage> createState() => _PassengerHomePageState();
-}
-
-class _PassengerHomePageState extends State<PassengerHomePage> {
-  // static const LatLng sourceLocation = LatLng(37.33500926, -122.03272188);
-  // static const LatLng destination = LatLng(37.33500937, -122.03272139);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
-        OnJourneyMap(),
+        CurrentLocationMap(),
         Positioned(child: Menu(), top: 6.h, left: 6.w),
-        Positioned(bottom: 0, child: CustomBottomSheet())
+        Positioned(bottom: 0, child: CustomBottomSheet()),
+        
       ]),
     );
   }
