@@ -22,3 +22,8 @@ class CacheFailure extends Failure {
 
   const CacheFailure(this.message);
 }
+
+class NetworkFailure extends Failure {
+  final String message;
+  const NetworkFailure(this.message);
+}
