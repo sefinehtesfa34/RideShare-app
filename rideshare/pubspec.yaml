@@ -30,6 +30,7 @@ environment:
 dependencies:
   autocomplete_textfield: ^2.0.1
   build_runner: ^2.4.5
+  camera: ^0.10.5+2
   cross_file_image: ^1.0.0
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
@@ -43,11 +44,13 @@ dependencies:
   geocoding: ^2.1.0
   get_it: ^7.6.0
   http: null
+  image_picker: ^0.8.9
   internet_connection_checker: ^1.0.0+1
   latlong2: ^0.8.1
   mapbox_gl: ^0.16.0
   mockito: ^5.4.1
   responsive_sizer: ^3.1.1
+  video_player: ^2.6.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
