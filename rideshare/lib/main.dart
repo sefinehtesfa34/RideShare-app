@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/injection/auth_injection.dart' as injection;
+
+import 'features/authentication/presentation/bloc/auth_bloc.dart';
+import 'features/authentication/presentation/screen/login.dart';
 
 void main() {
-  runApp(const MyApp());
+   injection.authInit();
+
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider<AuthBloc>(
+      create: (_) => injection.sl<AuthBloc>(),
+    )
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +31,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: const OnboardingPage(),
+          home: LoginPage(),
         );
       },
     );

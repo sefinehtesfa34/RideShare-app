@@ -1,50 +1,44 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
+import '../../../../core/error/exception.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/network/network_info.dart';
+import '../../domain/entities/login_payload.dart';
+import '../../domain/repositories/authentication_repository.dart';
+import '../datasources/auth_remote_datasource.dart';
 
-import 'package:http/http.dart' as http;
+class AuthenticationRepositoryImpl implements AuthenticationRepository {
+  AuthenticationRemoteDataSource remoteDataSource;
+  NetworkInfo networkInfo;
 
-import '../../../../core/errors/exception.dart';
-import '../model/auth_login_model.dart';
-import '../model/auth_signup_model.dart';
-
-abstract class AuthenticationRemoteDataSource {
-  Future<AuthLoginModel> login(phoneNumber);
-  Future<AuthSignupModel> signup(age, phoneNumber, fullName, sex, id);
-}
-
-class AuthenticationRemoteDataSourceImpl
-    implements AuthenticationRemoteDataSource {
-  final baseUrl = 'https://mocki.io/v1/a1c63369-aaee-437c-a86a-ee544f50268a';
-  final http.Client client;
-
-  AuthenticationRemoteDataSourceImpl(this.client);
+  AuthenticationRepositoryImpl({
+    required this.remoteDataSource,
+    required this.networkInfo,
+  });
 
   @override
-  Future<AuthLoginModel> login(phoneNumber) async {
-    try {
-      var response = await client.post(Uri.parse(baseUrl));
-
-      var decodedResponse =
-          jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
-
-      return AuthLoginModel.fromJson(decodedResponse);
-    } on Exception catch (_, e) {
-      throw ServerException("something went wrong");
+  Future<Either<Failure, LoginPayload>> login(
+      {required String phoneNumber}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        return Right(
+          await remoteDataSource.login(phoneNumber));
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } 
+    else {
+      return Left(NetworkFailure());
     }
   }
-  
-  @override
-  Future<AuthSignupModel> signup(age, phoneNumber, fullName, sex, id) async {
-   try {
-      var response = await client.post(Uri.parse(baseUrl));
 
-      var decodedResponse =
-          jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
-
-      return AuthSignupModel.fromJson(decodedResponse);
-    } on Exception catch (_, e) {
-      throw ServerException("something went wrong");
-    }
-  }
+  // @override
+  // Future<Either<Failure, SignupPayload>> signup(SignupPayload newuser) async {
+  //   try {
+  //     final response = await remoteDataSource.signup(newuser.age,
+  //         newuser.fullName, newuser.id, newuser.sex, newuser.phoneNumber);
+  //     return Right(response);
+  //   } on ServerException {
+  //     return Left(ServerFailure("Internal Server Error."));
+  //   }
+  // }
 }

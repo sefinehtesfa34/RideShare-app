@@ -5,10 +5,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../core/utils/style.dart';
 import '../widgets/button.dart';
 import '../widgets/country_code.dart';
+import '../widgets/login_boc.dart';
 import '../widgets/text_field.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,25 +67,16 @@ class Login extends StatelessWidget {
                       padding: EdgeInsets.only(left: 20.w, top: 5.h),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Enter Phone Number",
-                          style: myTextStyle.copyWith(fontSize: 18.sp),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
+                          child: Text(
+                            "Enter Phone Number",
+                            style: myTextStyle.copyWith(fontSize: 18.sp),
+                          ),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w, top: 2.h),
-                      child: Row(
-                        children: [
-                          CountryCode(),
-                          SizedBox(
-                            width: 2.w,
-                          ),
-                          Textfield(text: "993937576")
-                        ],
-                      ),
-                    ),
-                    Button()
+                    const LoginCard()
                   ],
                 ),
               )

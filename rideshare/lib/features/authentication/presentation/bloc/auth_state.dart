@@ -12,8 +12,8 @@ class AuthBlocInitial extends AuthBlocState {}
 class AuthBlocLoading extends AuthBlocState {}
 
 class AuthBlocLoginSuccess extends AuthBlocState {
-  final LoginPayload authentication;
-  AuthBlocLoginSuccess({required this.authentication});
+  final String phoneNumber;
+  AuthBlocLoginSuccess({required this.phoneNumber});
 }
 
 class AuthBlocLoginFailure extends AuthBlocState {}

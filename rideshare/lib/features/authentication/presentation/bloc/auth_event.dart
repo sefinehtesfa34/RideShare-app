@@ -8,18 +8,12 @@ abstract class AuthBlocEvent extends Equatable {
 }
 
 class LoginEvent extends AuthBlocEvent {
-  final LoginPayload authCredentials;
-
-  const LoginEvent({required this.authCredentials});
-  @override
-  List<Object> get props => [authCredentials];
+  final String phoneNumber;
+  const LoginEvent({required this.phoneNumber});
 }
 
-class SignupEvent extends AuthBlocEvent {
-  final SignupPayload newAuthCredentials;
+// class SignupEvent extends AuthBlocEvent {
+//   final SignupPayload newAuthCredentials;
 
-  SignupEvent({required this.newAuthCredentials});
-
-  @override
-  List<Object> get props => [newAuthCredentials];
-}
+//   SignupEvent({required this.newAuthCredentials});
+// }
