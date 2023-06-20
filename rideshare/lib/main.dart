@@ -6,11 +6,15 @@ import 'package:rideshare/features/authentication/presentation/screens/sign_up_p
 import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/screen/picking_location.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'injection_container.dart' as di;
 
-void main() {
+import 'features/authentication/presentation/screen/otp.dart';
+import 'features/feed/presentation/screens/passenger_on_journey_page.dart';
+
+Position? curPos;
+void main() async {
   runApp(const MyApp());
 }
 
@@ -31,11 +35,18 @@ class _MyAppState extends State<MyApp> {
       builder: (context, orientation, screenType) {
         return MaterialApp(
           theme: ThemeData(
-            primaryColor: const Color.fromRGBO(109, 97, 242, 1),
+            primaryColor:  primaryColor,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: const OnboardingPage(),
+          home: PassengerOnJourneyPage(
+              userLocation: lat_lng.LatLng(9.0302667,38.7625006),
+              driverLocation: lat_lng.LatLng(9.0302667,38.7695),
+
+              destinationLocation: lat_lng.LatLng(9.03026,38.722)
+
+         ),
+    
         );
       },
     );
