@@ -18,3 +18,4 @@ class DestinationList extends StatelessWidget {
     );
   }
 }
+
