@@ -37,7 +37,7 @@ final List<DrawerMenuItem> menuItems = <DrawerMenuItem>[
   ),
   DrawerMenuItem(
     icon: SvgPicture.asset('assets/images/logout.svg'),
-    title: 'Log Out',
+    title: 'Log out',
     onTap: () {
       // Handle log out tap
     },
