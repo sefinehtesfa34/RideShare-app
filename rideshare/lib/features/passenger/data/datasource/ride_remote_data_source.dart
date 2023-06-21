@@ -16,6 +16,7 @@ class RideRemoteDataSourceImpl implements RideRemoteDataSource {
 
   @override
   Future<Stream<RideRequest>> getRideRequest(Passenger passegner) async {
+    print("all ready");
     return rideRequestApiProvider.getRideRequestsForPassenger(passegner);
   }
 }

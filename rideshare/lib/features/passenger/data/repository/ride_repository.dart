@@ -22,10 +22,9 @@ class RideRepositoryImpl extends RideRepository {
     if (!isConnected) {
       return Left(NetworkFailure(networkFailureMessage));
     }
-
     try {
-      final Stream<RideRequest> rideRequest = await 
-           remoteDataSource.getRideRequest(passenger);
+      final Stream<RideRequest> rideRequest =
+          await remoteDataSource.getRideRequest(passenger);
       return Right(rideRequest);
     } catch (_) {
       return Left(ServerFailure(serverFailureMessage));
