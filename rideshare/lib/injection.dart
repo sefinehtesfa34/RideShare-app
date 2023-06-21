@@ -5,6 +5,11 @@ import 'package:rideshare/features/feeds/location/data/repository/location_repos
 import 'package:rideshare/features/feeds/location/domain/repository/location_repository.dart';
 import 'package:rideshare/features/feeds/location/domain/usecase/location_usecase.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
+import 'package:rideshare/features/feeds/profile/data/datasource/remote_datasource.dart';
+import 'package:rideshare/features/feeds/profile/data/repository/passenger_repository.dart';
+import 'package:rideshare/features/feeds/profile/domain/repository/passenger_repository.dart';
+import 'package:rideshare/features/feeds/profile/domain/usecase/passenger_usecase.dart';
+import 'package:rideshare/features/feeds/profile/presentation/bloc/update_profile_bloc.dart';
 import 'features/authentication/data/datasources/user_datasource.dart';
 import 'features/authentication/data/repository/user_repository.dart';
 import 'features/authentication/domain/repositories/authentication_repository.dart';
@@ -21,11 +26,18 @@ void init() {
   getIt.registerLazySingleton<UserDataSource>(
     () => UserDataSourceImpl(client: getIt<http.Client>()),
   );
+  getIt.registerLazySingleton<PassengerRemoteDataSource>(
+    () => PassengerRemoteDataSourceImpl(client: getIt<http.Client>()),
+  );
 
   // Register the OTPVerificationRepository implementation
   getIt.registerLazySingleton<OTPVerificationRepository>(
     () =>
         OTPVerificationRepositoryImpl(userDataSource: getIt<UserDataSource>()),
+  );
+  getIt.registerLazySingleton<PassengerRepository>(
+    () => PassengerRepositoryImpl(
+        passengerRemoteDataSource: getIt<PassengerRemoteDataSource>()),
   );
 
   // Register the OtpVerificationUseCase
@@ -33,9 +45,17 @@ void init() {
     () => OtpVerificationUseCase(
         otpVerificationRepository: getIt<OTPVerificationRepository>()),
   );
+  getIt.registerLazySingleton<UpdatePassengerProfileUsecase>(
+    () => UpdatePassengerProfileUsecase(
+        passengerRepository: getIt<PassengerRepository>()),
+  );
+
   // Register the OtpVerificationBloc
   getIt.registerFactory<OtpVerificationBloc>(
     () => OtpVerificationBloc(useCase: getIt<OtpVerificationUseCase>()),
+  );
+  getIt.registerFactory<UpdateProfileBloc>(
+    () => UpdateProfileBloc(usecase: getIt<UpdatePassengerProfileUsecase>()),
   );
 
   // Register the UserDataSource implementation
