@@ -10,6 +10,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'core/location/location.dart';
+import 'core/routes/app_routes.dart';
 import 'core/utils/colors.dart';
 import 'features/passenger/domain/entities/location.dart';
 import 'features/passenger/domain/entities/passenger.dart';
@@ -42,11 +44,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
-
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: primaryColor,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

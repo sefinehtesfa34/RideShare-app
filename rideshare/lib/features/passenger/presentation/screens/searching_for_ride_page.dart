@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rideshare/features/passenger/presentation/screens/passenger_on_journey_page.dart';
 
 import '../../domain/entities/location.dart';
@@ -32,13 +35,7 @@ class SearchingforRidePage extends StatelessWidget {
         BlocConsumer<RideRequestBloc, RideRequestState>(
           listener: (context, state) {
             if (state is RideRequestSuccessState) {
-              debugPrint("one success state");
-              print(state.stream.first);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PassengerOnJourneyPage(
-                          passenger: Passenger(
+              final Passenger passenger = Passenger(
                             imageUrl: "",
                             name: "",
                             currentLocation:
@@ -46,9 +43,14 @@ class SearchingforRidePage extends StatelessWidget {
                             destination:
                                 Location(latitude: 9.03055, longitude: 38.7777),
                             seatsAllocated: 3,
-                          ),
-                        )),
-              );
+                          );
+
+              String encodedPassenger = jsonEncode(passenger.toJson());
+
+              context.go('/onJourney',
+                  extra: {'passenger': passenger});
+              
+              
             }
           },
           builder: (context, state) {

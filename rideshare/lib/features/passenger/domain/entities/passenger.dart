@@ -14,4 +14,16 @@ class Passenger {
     required this.destination,
     required this.seatsAllocated,
   });
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['imageUrl'] = this.imageUrl;
+    data['name'] = this.name;
+    data['currentLocation'] = this.currentLocation.toJson();
+    data['destination'] = this.destination.toJson();
+    data['seatsAllocated'] = this.seatsAllocated;
+    return data;
+  }
+
+  
 }
