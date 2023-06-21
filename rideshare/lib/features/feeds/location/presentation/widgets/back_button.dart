@@ -14,7 +14,7 @@ class Back extends StatelessWidget {
         onTap: () => {
           Navigator.pop(context),
         },
-        child: SvgPicture.asset('images/back.svg'),
+        child: SvgPicture.asset('assets/images/back.svg'),
       ),
     );
   }

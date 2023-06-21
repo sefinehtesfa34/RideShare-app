@@ -67,7 +67,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
                             Row(
                               children: <Widget>[
                                 SvgPicture.asset(
-                                    'images/current_mocation_marker.svg'),
+                                    'assets/images/current_mocation_marker.svg'),
                                 SizedBox(width: 1.w),
                                 Expanded(
                                   child: LocationTextField(
@@ -81,7 +81,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
                             SizedBox(height: 3.0.h),
                             Row(
                               children: <Widget>[
-                                SvgPicture.asset('images/Subtract.svg'),
+                                SvgPicture.asset('assets/images/Subtract.svg'),
                                 SizedBox(width: 1.w),
                                 Expanded(
                                   child: LocationTextField(
