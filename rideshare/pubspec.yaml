@@ -37,6 +37,7 @@ dependencies:
   flutter_map_location_marker: ^6.0.0
   flutter_svg: ^2.0.6
   geocoding: ^2.1.0
+  geolocator: ^9.0.2
   get_it: ^7.6.0
   http: null
   image_picker: ^0.8.8

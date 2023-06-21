@@ -6,6 +6,7 @@ import 'package:rideshare/features/feeds/location/data/datasource/remote_locatio
 import 'package:rideshare/features/feeds/location/data/repository/location_repository.dart';
 import 'package:rideshare/features/feeds/location/domain/repository/location_repository.dart';
 import 'package:rideshare/features/feeds/location/domain/usecase/location_usecase.dart';
+import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'features/authentication/domain/repositories/authentication_repository.dart';
 import 'features/authentication/domain/usecases/verify_otp.dart';
@@ -57,5 +58,8 @@ void locationInjectionInit() {
     () => LocationBloc(
         getUsecase: getIt<GetLocationUsecase>(),
         postLocationUsecase: getIt<PostLocationUsecase>()),
+  );
+  getIt.registerFactory<BackToLocationBloc>(
+    () => BackToLocationBloc(),
   );
 }
