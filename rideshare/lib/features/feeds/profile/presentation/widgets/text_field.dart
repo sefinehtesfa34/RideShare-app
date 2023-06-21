@@ -17,7 +17,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      readOnly: true,
       onChanged: (String value) {},
       controller: widget.controller,
       decoration: InputDecoration(
