@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:rideshare/core/errors/failures.dart';
-import 'package:rideshare/features/authentication/data/datasources/user_datasource.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/repositories/authentication_repository.dart';
+import '../datasources/auth_remote_datasource.dart';
 
 class OTPVerificationRepositoryImpl implements OTPVerificationRepository {
-  final UserDataSource userDataSource;
+  final AuthRemoteDataSource userDataSource;
   OTPVerificationRepositoryImpl({required this.userDataSource});
   @override
   Future<Either<Failure, bool>> verifyOTP(String phoneNumber, String otp) async {

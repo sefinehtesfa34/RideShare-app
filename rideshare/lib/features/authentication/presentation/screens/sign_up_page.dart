@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/colors.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/signup/sign_up_bloc.dart';
 
@@ -11,7 +11,7 @@ import '../widgets/accept_input.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
-
+  
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }

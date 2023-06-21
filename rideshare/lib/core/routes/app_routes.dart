@@ -12,7 +12,6 @@ import '../../features/passenger/presentation/screens/searching_for_ride_page.da
 import '../utils/colors.dart';
 
 class AppRouter extends StatelessWidget {
-  // final AuthenticationBloc authBloc;
   late final GoRouter _router;
 
   AppRouter({Key? key}) : super(key: key) {

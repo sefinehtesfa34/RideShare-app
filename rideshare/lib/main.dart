@@ -25,6 +25,14 @@ void main() async {
   await injection.init();
 
   runApp(MultiBlocProvider(providers: [
+     BlocProvider<SignUpBloc>(
+          create: (_) => injection.sl<SignUpBloc>(),
+        ),
+        BlocProvider<LocationBloc>(
+          create: (BuildContext context) => injection.sl<LocationBloc>(),
+        ),
+        BlocProvider<BackToLocationBloc>(
+            create: (_) => injection.sl<BackToLocationBloc>()),
     BlocProvider<RideRequestBloc>(
       create: (_) => injection.sl<RideRequestBloc>(),
     )
@@ -48,13 +56,9 @@ class _MyAppState extends State<MyApp> {
       builder: (context, orientation, screenType) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primaryColor: primaryColor,
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
+         
         
-          home: SearchingforRidePage()
+          home: AppRouter()
         );
       },
     );
