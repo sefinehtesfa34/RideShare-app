@@ -4,10 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feeds/profile/presentation/bloc/update_profile_bloc.dart';
 import 'package:rideshare/injection.dart';
-
-import 'features/feeds/profile/presentation/screen/drawer.dart';
 import 'features/feeds/profile/presentation/screen/passenger_profile.dart';
-import 'features/feeds/profile/presentation/screen/passengers_history_page.dart';
 
 void main() {
   init();
@@ -25,7 +22,6 @@ class MyApp extends StatelessWidget {
         return BlocProvider<UpdateProfileBloc>(
           create: (BuildContext context) => GetIt.instance(),
           child: const MaterialApp(
-            
             title: 'Image Picker Demo',
             // home: MyHomePage(),
             // home: HistoryPage(),

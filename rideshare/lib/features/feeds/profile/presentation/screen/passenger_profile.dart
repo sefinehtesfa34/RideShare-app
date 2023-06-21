@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/features/feeds/profile/presentation/widgets/custom_scaffold_messenger.dart';
 
 import '../../../location/presentation/widgets/select_button.dart';
 import '../bloc/update_profile_bloc.dart';
 import '../bloc/update_profile_state.dart';
-import '../widgets/text_field.dart';
+import '../widgets/form_field.dart';
+import '../widgets/phone_number_field.dart';
+import '../widgets/upload_image.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,28 +18,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final ImagePicker _picker = ImagePicker();
-  XFile? _pickedImage;
   final String phoneNumber = '923789078';
   final String code = '+251';
   String _fullNameChanged = 'Sergio Ramasis';
   int _ageChanged = 30;
-  _getFullNameChange(String value) {
-    _fullNameChanged = value;
-  }
 
-  _getAgeChanged(String value) {
-    _ageChanged = int.parse(value);
-  }
-
-  Future<void> _pickImageFromGallery() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _pickedImage = image;
-      });
-    }
-  }
+  _getFullNameChange(String value) => _fullNameChanged = value;
+  _getAgeChanged(String value) => _ageChanged = int.parse(value);
 
   @override
   Widget build(BuildContext context) {
@@ -49,19 +35,8 @@ class _ProfilePageState extends State<ProfilePage> {
           return const CircularProgressIndicator();
         }
         if (state.isFailed) {
-          return Scaffold(
-            body: Center(
-              child: ScaffoldMessenger(
-                  child: Text(
-                'Server Failure!',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30.sp,
-                ),
-              )),
-            ),
+          return const Scaffold(
+            body: CustomScaffoldMessenger(),
           );
         }
         return Scaffold(
@@ -73,35 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(
                   height: 2.0.h,
                 ),
-                GestureDetector(
-                  onTap: _pickImageFromGallery,
-                  child: Stack(
-                    children: <Widget>[
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage: (_pickedImage != null)
-                            ? NetworkImage(_pickedImage!.path)
-                            : Image.network('assets/images/passenger.jpg')
-                                .image,
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          child: IconButton(
-                            onPressed: _pickImageFromGallery,
-                            icon: SvgPicture.asset('images/camera.svg'),
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const UploadImage(),
                 SizedBox(height: 2.0.h),
                 Text(
                   _fullNameChanged,
@@ -113,55 +60,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 SizedBox(height: 2.0.h),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Full Name',
-                      style: TextStyle(
-                        fontSize: 18.0.sp,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                    SizedBox(height: 1.0.h),
-                    Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18.0.sp),
-                          color: const Color(0xFFEFEFFA),
-                        ),
-                        child: CustomTextField(
-                            onChanged: _getFullNameChange,
-                            label: 'Full Name',
-                            controller: TextEditingController(),
-                            hintText: 'Full name')),
-                  ],
+                PassengerFormField(
+                  onChanged: _getFullNameChange,
+                  hintText: 'Full name',
+                  label: 'Full name',
                 ),
                 SizedBox(height: 2.0.h),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Age',
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                    SizedBox(height: 1.0.h),
-                    Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18.0.sp),
-                          color: const Color(0xFFEFEFFA),
-                        ),
-                        child: CustomTextField(
-                          onChanged: _getAgeChanged,
-                          label: 'Age',
-                          controller: TextEditingController(),
-                          hintText: _ageChanged.toString(),
-                        )),
-                  ],
+                PassengerFormField(
+                  onChanged: _getAgeChanged,
+                  hintText: _ageChanged.toString(),
+                  label: 'Age',
                 ),
                 SizedBox(height: 2.0.h),
                 Column(
@@ -176,63 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     SizedBox(height: 1.0.h),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(18.0.sp),
-                              color: const Color(0xFFEFEFFA),
-                            ),
-                            child: TextField(
-                              keyboardType: TextInputType.phone,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 14.0.sp, vertical: 8.0.sp),
-                                hintText: code,
-                                hintStyle: TextStyle(
-                                  color: const Color(0xFF8090BA),
-                                  fontSize: 15.sp,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 3.w),
-                        Expanded(
-                          flex: 6,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(18.0),
-                              color: const Color(0xFFEFEFFA),
-                            ),
-                            child: TextField(
-                              onChanged: (String value) {
-                                // Handle the phone number input change
-                              },
-                              keyboardType: TextInputType.phone,
-                              readOnly: true,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.only(
-                                    left: 20.sp,
-                                  ),
-                                  hintText: phoneNumber,
-                                  hintStyle: TextStyle(
-                                    color: const Color(0xFF8090BA),
-                                    fontSize: 15.sp,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w500,
-                                  )),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    PhoneNumberField(code: code, phoneNumber: phoneNumber),
                   ],
                 ),
                 SizedBox(height: 10.0.h),
