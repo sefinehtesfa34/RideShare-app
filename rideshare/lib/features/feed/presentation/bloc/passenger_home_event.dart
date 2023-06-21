@@ -1,13 +1,13 @@
 part of 'passenger_home_bloc.dart';
 
-abstract class PassengerHomeEvent extends Equatable {
-  const PassengerHomeEvent();
+abstract class SlidingContainerEvent {}
 
-  @override
-  List<Object> get props => [];
-}
+class CancelEvent extends SlidingContainerEvent {}
 
-class FetchLoadingEvent extends PassengerHomeEvent {
-  final String query;
-  FetchLoadingEvent(this.query);
-}
+class ConfirmEvent extends SlidingContainerEvent {}
+
+
+abstract class NamesEvent {}
+
+class FetchNamesEvent extends NamesEvent {}
+

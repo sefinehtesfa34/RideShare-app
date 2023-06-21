@@ -1,41 +1,17 @@
-class DestinationModel {
+import '../../domain/entities/destination.dart';
+
+class DestinationModel extends Destination {
   final String name;
 
   DestinationModel({
     required this.name,
-  });
+  }) : super(name: name);
 
   factory DestinationModel.fromJson(Map<String, dynamic> json) {
-    return DestinationModel(
-        name: json['name'][0]['query']
-        );
+    return DestinationModel(name: json['name']);
   }
 
+  Map<String, dynamic> toJson() {
+    return {"name": name};
+  }
 }
-
-
-
-
-// class DestinationModel {
-//   final String name;
-
-//   DestinationModel({
-//     required this.name,
-//   });
-
-//   factory DestinationModel.fromJson(Map<String, dynamic> json) {
-//     List<dynamic> destinations = json['destination'];
-  
-
-//     List<DestinationModel> Destinations = destinations
-//         .map((destination) => DestinationModel.fromJson(destination))
-//         .toList();
-
-//     return DestinationModel(
-//         name: json['name'][0]['query']
-//         );
-//   }
-
-// }
-
-

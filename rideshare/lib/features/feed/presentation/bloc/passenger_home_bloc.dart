@@ -1,34 +1,63 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-// import 'package:meta/meta.dart';
 
-import '../../domain/entities/destination.dart';
 import '../../domain/usecases/destination_usecase.dart';
-
 part 'passenger_home_event.dart';
 part 'passenger_home_state.dart';
 
-class PassengerHomeBloc extends Bloc<PassengerHomeEvent, PassengerHomeState> {
-  FetchPassengerHistoryUseCase fetchPassengerHistoryUseCase;
-  FetchPopularDestinationsUseCase fetchPopularDestinationsUseCase;
-
-  PassengerHomeBloc(this.fetchPassengerHistoryUseCase, this.fetchPopularDestinationsUseCase) : super(PassengerHomeInitial()) {
-    on<FetchLoadingEvent>(_onFetch);
+class SlidingContainerBloc
+    extends Bloc<SlidingContainerEvent, SlidingContainerState> {
+  SlidingContainerBloc() : super(SearchDriverContainerVisibleState()) {
+    on<CancelEvent>(_onCancel);
+    on<ConfirmEvent>(_onConfirm);
   }
 
-    void _onFetch(FetchLoadingEvent event, Emitter emit) async {
-      emit(FetchLoadingState());
 
-      final failureOrDetail = await fetchPassengerHistoryUseCase;
+  void _onCancel(CancelEvent event, Emitter<SlidingContainerState> emit) {
+    emit(SearchDriverContainerHiddenState());
+  }
 
-     emit(_detailOrFailure(failureOrDetail));
+
+  void _onConfirm(ConfirmEvent event, Emitter<SlidingContainerState> emit) {
+    if (state is SearchDriverContainerVisibleState) {
+      emit(SearchDriverContainerHiddenState());
+    } else if (state is SearchDriverContainerHiddenState) {
+      emit(SearchDriverContainerVisibleState());
     }
+  }
+}
 
-     _detailOrFailure(both){
-    return both.fold(
-      (failure) => FetchLoadingFailureState(),
-      (detail) => FetchLoadingSuccessState(detail),
-    );
+class NamesBloc extends Bloc<NamesEvent, NamesState> {
+  final FetchPassengerHistoryUseCase fetchPassengerHistoryUseCase;
+
+  NamesBloc({required this.fetchPassengerHistoryUseCase}) : super(NamesInitial());
+
+  @override
+  Stream<NamesState> mapEventToState(NamesEvent event) async* {
+    if (event is FetchNamesEvent) {
+      yield* _mapFetchNamesEventToState();
+    }
   }
 
+  Stream<NamesState> _mapFetchNamesEventToState() async* {
+    emit(NamesInitial());
+
+    try {
+      final response = await http.get(Uri.parse(
+          'https://mocki.io/v1/a72e8fae-c302-47ff-bd4f-1d5c7e32df58'));
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final names = List<String>.from(data['names']);
+        emit(NamesLoaded(names));
+
+      } else {
+        emit(NamesError('Failed to fetch names'));
+      }
+      
+    } catch (error) {
+      emit(NamesError('An error occurred'));
+    }
+  }
 }

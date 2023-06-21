@@ -3,46 +3,27 @@ import '../../../../core/errors/exception.dart';
 import '../../domain/entities/destination.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/destination_model.dart';
+
 abstract class DestinationDataSource {
   Future<List<Destination>> fetchPassengerHistory();
-  Future<List<Destination>> fetchPopularDestinations();
 }
 
-class DestinationDataSourceImp extends DestinationDataSource {
+class DestinationDataSourceImp implements DestinationDataSource {
   final http.Client client;
+  String url = 'https://mocki.io/v1/a72e8fae-c302-47ff-bd4f-1d5c7e32df58';
+
   DestinationDataSourceImp({required this.client});
 
   @override
-  Future<List<Destination>> fetchPassengerHistory() async {
-    final url =
-        'apiKey';
-    final response = await client.get(Uri.parse(url));
-
-    if (response.statusCode == 200) {
+  Future<List<DestinationModel>> fetchPassengerHistory() async {
+    try {
+      final response = await client.get(Uri.parse(url));
       final jsonMap = json.decode(response.body);
 
-      return List<Destination>.from(jsonMap['data']);
-
-    } else {
-
-      throw ServerException("Unable to fetch History");
+      return List<DestinationModel>.from(jsonMap);
+    } on Exception catch (_, e) {
+      throw ServerException("server exception");
     }
-  }
-
-  @override
-  Future<List<Destination>> fetchPopularDestinations() async {
-  final url =
-          'apiKey';
-      final response = await client.get(Uri.parse(url));
-
-      if (response.statusCode == 200) {
-        final jsonMap = json.decode(response.body);
-
-        return List<Destination>.from(jsonMap['data']);
-
-      } else {
-
-        throw ServerException("Unable to fetch popular destinations");
-      }
   }
 }
