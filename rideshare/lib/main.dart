@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-// import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'features/feed/presentation/bloc/passenger_home_bloc.dart';
 import 'features/feed/presentation/screens/passenger_home_page.dart';
-import 'features/feed/presentation/screens/search_driver_page.dart';
+import 'injection.dart' as injection;
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  await injection.setupInjection();
+
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider<NamesBloc>(
+      create: (_) => injection.sl<NamesBloc>(),
+    )
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,9 +30,12 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: SlideUpContainerPage(),
+          home: PassengerHomePage(),
         );
       },
     );
   }
 }
+
+
+ 

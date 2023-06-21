@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../bloc/passenger_home_bloc.dart';
 import '../widget/back_button.dart';
 import '../widget/search_driver.dart';
 
@@ -12,6 +14,7 @@ class _SlideUpContainerPageState extends State<SlideUpContainerPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _slideAnimation;
+  final SlidingContainerBloc _slidingContainerBloc = SlidingContainerBloc();
 
   bool _isContainerVisible = false;
 
@@ -53,30 +56,36 @@ class _SlideUpContainerPageState extends State<SlideUpContainerPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black12.withOpacity(0.5),
-      body: Stack(
-        children: [
-          Positioned(child: back(), top: 6.h, left: 6.w),
-          Center(
-            child: TextButton(
-              onPressed: _toggleContainerVisibility,
-              child: Text('Submit'),
+    return BlocProvider<SlidingContainerBloc>(
+      create: (context) => _slidingContainerBloc,
+      child: Scaffold(
+        backgroundColor: Colors.black12.withOpacity(0.5),
+        body: Stack(
+          children: [
+            Positioned(child: back(), top: 6.h, left: 6.w),
+            Center(
+              child: TextButton(
+                onPressed: _toggleContainerVisibility,
+                child: Text('Submit'),
+              ),
             ),
-          ),
-          // Sliding container
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 500),
-              height: _slideAnimation.value,
-              // color: white,
-              child: Center(child: SearchCustomBottomSheet()),
+            // Sliding container
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                height: _slideAnimation.value,
+                // color: white,
+                child: BlocProvider<SlidingContainerBloc>(
+                  create: (context) => SlidingContainerBloc(),
+                  child: Center(child: SearchCustomBottomSheet()),
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

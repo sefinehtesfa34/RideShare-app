@@ -1,20 +1,26 @@
 part of 'passenger_home_bloc.dart';
 
-abstract class PassengerHomeState extends Equatable {
-  const PassengerHomeState();
+abstract class SlidingContainerState {}
 
-  @override
-  List<Object> get props => [];
+class SearchDriverContainerVisibleState extends SlidingContainerState {}
+
+class SearchDriverContainerHiddenState extends SlidingContainerState {}
+
+abstract class NamesState {}
+
+class NamesInitial extends NamesState {}
+
+class NamesLoading extends NamesState {}
+class NamesLoaded extends NamesState {
+  final List<String> names;
+
+  NamesLoaded(this.names);
 }
 
-class PassengerHomeInitial extends PassengerHomeState {}
+class NamesError extends NamesState {
+  final String errorMessage;
 
-class FetchLoadingState extends PassengerHomeState {}
-
-class FetchLoadingSuccessState extends PassengerHomeState {
-  final Destination destination;
-  FetchLoadingSuccessState(this.destination);
+  NamesError(this.errorMessage);
 }
 
-class FetchLoadingFailureState extends PassengerHomeState {}
 
