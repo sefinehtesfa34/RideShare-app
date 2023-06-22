@@ -21,7 +21,7 @@ class RideRequestBloc extends Bloc<RideRequestEvent, RideRequestState> {
 
   _onRideRequestOffer(
       RideOfferEvent event, Emitter<RideRequestState> emit) async {
-    emit(SearchingRideRequestState());
+    emit(RideRequestWaitingState());
     final Either<Failure, Stream<RideRequest>> requestStreamOrFailure =
         await getRideRequestUseCase(event.passenger);
 

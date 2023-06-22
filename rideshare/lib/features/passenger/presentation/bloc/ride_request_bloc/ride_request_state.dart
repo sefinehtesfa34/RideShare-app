@@ -5,8 +5,6 @@ abstract class RideRequestState {}
 
 class RideRequestInitial extends RideRequestState {}
 
-class SearchingRideRequestState extends RideRequestState {}
-
 class RideRequestSuccessState extends RideRequestState {
   final Stream<RideRequest> stream;
   RideRequestSuccessState(this.stream);
@@ -17,3 +15,5 @@ class RideRequestFailureState extends RideRequestState {
 
   RideRequestFailureState(this.message);
 }
+
+class RideRequestWaitingState extends RideRequestState {}

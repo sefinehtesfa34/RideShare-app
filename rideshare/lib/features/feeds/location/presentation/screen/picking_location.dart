@@ -146,7 +146,6 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
               });
             },
             onConfirmPressed: () {
-                  SlideUpContainerPage().showSearchBottomSheet(context);
 
               _locationBloc.add(SubmitLocationEvent());
               Navigator.of(context).pop();

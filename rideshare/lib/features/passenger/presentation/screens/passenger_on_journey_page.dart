@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -45,9 +46,11 @@ class PassengerOnJourneyPage extends StatelessWidget {
                       return bottomSheetHolder(snapshot);
 
                     case ConnectionState.done:
-                      return const Center(
-                        child: Text("Finished fetching"),
-                      );
+                      Future.delayed(Duration.zero, () {
+                        context.go("/home"); //! redirect to payed page.
+                      });
+
+                      return const SizedBox();
                   }
                 }
               });
@@ -59,7 +62,7 @@ class PassengerOnJourneyPage extends StatelessWidget {
           return Center(child: Text('Error occurred: $errorMessage'));
         } else {
           // handle initial and loading states here
-          return CircularProgressIndicator();
+          return const SizedBox();
         }
       },
     );

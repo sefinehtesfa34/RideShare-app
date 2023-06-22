@@ -7,6 +7,8 @@ import 'package:rideshare/core/routes/route_paths.dart';
 import 'package:rideshare/features/passenger/presentation/screens/passenger_on_journey_page.dart';
 
 import '../../features/feeds/location/presentation/screen/picking_location.dart';
+import '../../features/feeds/location/presentation/screen/searching_driver_page.dart';
+import '../../features/passenger/presentation/widget/searching_page_modal_function.dart';
 import '../../features/passenger/presentation/screens/searching_for_ride_page.dart';
 import '../utils/colors.dart';
 
@@ -15,8 +17,9 @@ class AppRouter extends StatelessWidget {
 
   AppRouter({Key? key}) : super(key: key) {
     _router = GoRouter(
-      initialLocation: RoutePaths.locationPicker,
+      initialLocation: RoutePaths.home,
       routes: <GoRoute>[
+   
         GoRoute(path: RoutePaths.locationPicker,builder :(BuildContext context,GoRouterState state) => LocationPickerPage()),
         GoRoute(
             path: RoutePaths.home,

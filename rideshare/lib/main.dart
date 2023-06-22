@@ -27,6 +27,7 @@ void main() async {
   await injection.init();
 
   runApp(MultiBlocProvider(providers: [
+
      BlocProvider<SignUpBloc>(
           create: (_) => injection.sl<SignUpBloc>(),
         ),

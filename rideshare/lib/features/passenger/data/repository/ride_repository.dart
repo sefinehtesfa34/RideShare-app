@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failure_messages.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/network_info.dart';
@@ -28,6 +29,18 @@ class RideRepositoryImpl extends RideRepository {
       return Right(rideRequest);
     } catch (_) {
       return Left(ServerFailure(serverFailureMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> cancelRideRequest(
+      String rideRequestId, String userPhone) async {
+    try {
+      // Call the data source to cancel the ride request
+      final bool canceled = await remoteDataSource.cancelRideRequest(rideRequestId, userPhone);
+      return Right(canceled);
+    } on ServerException {
+      return Left(ServerFailure("Failed to cancel the ride request."));
     }
   }
 }
