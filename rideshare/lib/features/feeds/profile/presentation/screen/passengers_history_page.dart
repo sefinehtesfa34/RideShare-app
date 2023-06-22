@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/features/feeds/profile/presentation/widgets/rides_history.dart';
 
+import '../../../../../constants/json.dart';
 import '../widgets/special_appbar.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -12,34 +14,6 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  final List<Map<String, String>> historyList = [
-    {
-      'SourceIcon': '4 Kilo Abrehot Library',
-      'DestinationIcon': 'Megenagna Metebaber BLDG',
-      'DateTime': '5th June 2023 12:28 AM',
-      'Price': 'Br 60',
-    },
-    {
-      'SourceIcon': '4 Kilo Abrehot Library',
-      'DestinationIcon': 'Megenagna Metebaber BLDG',
-      'DateTime': '5th June 2023 12:28 AM',
-      'Price': 'Br 60',
-    },
-    {
-      'SourceIcon': '4 Kilo Abrehot Library',
-      'DestinationIcon': 'Megenagna Metebaber BLDG',
-      'DateTime': '5th June 2023 12:28 AM',
-      'Price': 'Br 60',
-    },
-    {
-      'SourceIcon': '4 Kilo Abrehot Library',
-      'DestinationIcon': 'Megenagna Metebaber BLDG',
-      'DateTime': '5th June 2023 12:28 AM',
-      'Price': 'Br 60',
-    },
-    // Add more history items as needed
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,25 +63,11 @@ class _HistoryPageState extends State<HistoryPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      historyItem['SourceIcon'] ?? '',
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        color: const Color(0xFF000000),
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Poppins',
-                                      ),
-                                    ),
+                                    RidesHistory(
+                                        text: historyItem['SourceIcon'] ?? ''),
                                     SizedBox(height: 1.h),
-                                    Text(
-                                      historyItem['DestinationIcon'] ?? '',
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        color: const Color(0xFF000000),
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Poppins',
-                                      ),
-                                    ),
+                                    RidesHistory(
+                                        text: historyItem['DestinationIcon'] ??''),
                                   ],
                                 ),
                               ),
@@ -115,24 +75,10 @@ class _HistoryPageState extends State<HistoryPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
-                                  Text(
-                                    historyItem['DateTime'] ?? '',
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: const Color(0xFFA0A0A0),
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                  Text(
-                                    historyItem['Price'] ?? '',
-                                    style: TextStyle(
-                                      fontSize: 15.sp,
-                                      color: const Color(0xFF1E1E1E),
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
+                                  RidesHistory(
+                                      text: historyItem['DateTime'] ?? ''),
+                                  RidesHistory(
+                                      text: historyItem['Price'] ?? ''),
                                 ],
                               ),
                             ],
