@@ -94,6 +94,8 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
                             ),
                             SizedBox(height: 3.0.h),
                             SelectButton(
+                              leftPadding: 21.sp,
+                              radius: 10.sp,
                               buttonName: 'Select',
                               onPressed: _handleSelectButtonPressed,
                             ),
