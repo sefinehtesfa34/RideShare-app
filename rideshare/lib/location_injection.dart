@@ -16,7 +16,9 @@ final GetIt getIt = GetIt.instance;
 
 void locationInjectionInit() {
   // Register the HTTP client
-
+  getIt.registerLazySingleton<http.Client>(
+    () => http.Client(),
+  );
   // Register the UserDataSource implementationR
   getIt.registerLazySingleton<UserDataSource>(
     () => UserDataSourceImpl(client: getIt<http.Client>()),

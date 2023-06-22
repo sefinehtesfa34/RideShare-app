@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -6,7 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../../feeds/profile/presentation/screen/drawer.dart';
+import '../../../feeds/location/presentation/screen/picking_location.dart';
 import '../bloc/otp_bloc.dart';
 import '../widgets/redirecting.dart';
 import '../widgets/resend.dart';
@@ -63,7 +62,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         body: BlocConsumer<OtpVerificationBloc, OtpVerificationState>(
           listener: (BuildContext context, OtpVerificationState state) async {
             if (state is OtpVerificationSuccess && !_isRedirecting) {
-              _startRedirectTimer(const MyHomePage());
+              _startRedirectTimer(const LocationPickerPage());
             }
             if (state is OtpVerificationFailure && !_isRedirecting) {
               _startRedirectTimer(const OtpVerificationScreen());
