@@ -6,7 +6,7 @@ import 'package:rideshare/features/authentication/data/models/signup_model.dart'
 import '../../domain/entities/signup_payload.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<bool> verifyOtp(String phoneNumber, String otp);
+  Future<String> verifyOtp(String phoneNumber, String otp);
   Future<SignupPayloadModel> signup(SignupPayload model);
 }
 
@@ -17,10 +17,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   AuthRemoteDataSourceImpl({required this.client});
   @override
-  Future<bool> verifyOtp(String phoneNumber, String otp) async {
+  Future<String> verifyOtp(String phoneNumber, String otp) async {
     try {
-      final http.Response response =
-          await http.get(Uri.parse('$baseUrl/verify/?otp=$otp'));
+      final http.Response response = await http.get(Uri.parse(baseUrl));
       return jsonDecode(response.body);
     } catch (e) {
       throw ServerException('Server failure');
