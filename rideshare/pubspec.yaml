@@ -29,6 +29,8 @@ dependencies:
   build_runner: ^2.4.5
   camera: ^0.10.5+2
   cross_file_image: ^1.0.0
+  camera: ^0.10.5+2
+  cross_file_image: ^1.0.0
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   equatable: ^2.0.5
