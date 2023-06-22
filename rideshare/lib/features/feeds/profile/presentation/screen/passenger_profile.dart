@@ -82,13 +82,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(height: 2.0.h),
                 PassengerFormField(
                   onChanged: _getFullNameChange,
-                  hintText: 'Full name',
+                  hintText: 'Enter your full name',
                   label: 'Full name',
                 ),
                 SizedBox(height: 2.0.h),
                 PassengerFormField(
                   onChanged: _getAgeChanged,
-                  hintText: _ageChanged.toString(),
+                  hintText: "Enter your age",
                   label: 'Age',
                 ),
                 SizedBox(height: 2.0.h),
