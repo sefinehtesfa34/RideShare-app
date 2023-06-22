@@ -12,7 +12,7 @@ class NamesInitial extends NamesState {}
 
 class NamesLoading extends NamesState {}
 class NamesLoaded extends NamesState {
-  final List<String> names;
+  final List<Destination> names;
 
   NamesLoaded(this.names);
 }
@@ -20,7 +20,7 @@ class NamesLoaded extends NamesState {
 class NamesError extends NamesState {
   final String errorMessage;
 
-  NamesError(this.errorMessage);
+  NamesError(this.errorMessage,);
 }
 
 
