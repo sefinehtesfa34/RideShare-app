@@ -24,15 +24,17 @@ class UpdateProfileBloc extends Bloc<ProfileUpdateEvent, UpdateProfileState> {
 
     on<SaveChangesEvent>(
         (SaveChangesEvent event, Emitter<UpdateProfileState> emit) async {
-      // final UpdateProfileState updateProfileState = state.copyWith();
-      //Some calls here
+
       emit(state.copyWith(
         isLoading: true,
         age: event.age,
         fullName: event.fullName,
       ));
       await Future<dynamic>.delayed(const Duration(seconds: 3));
-      emit(state.copyWith(isFailed: true, isLoading: false));
+      emit(state.copyWith(isSuccess: true, isLoading: false));
+      emit(state.copyWith(isSuccess: false));
+      //Send to backend
+      
     });
   }
 }

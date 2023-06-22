@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rideshare/features/feeds/profile/presentation/widgets/custom_scaffold_messenger.dart';
 
 import '../../../location/presentation/widgets/select_button.dart';
 import '../bloc/update_profile_bloc.dart';
 import '../bloc/update_profile_state.dart';
 import '../widgets/form_field.dart';
 import '../widgets/phone_number_field.dart';
+import '../widgets/redirect.dart';
 import '../widgets/upload_image.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -26,19 +26,39 @@ class _ProfilePageState extends State<ProfilePage> {
   _getFullNameChange(String value) => _fullNameChanged = value;
   _getAgeChanged(String value) => _ageChanged = int.parse(value);
 
+  void _showSavedAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Saved!'),
+          content: const Text('Your changes have been saved successfully.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UpdateProfileBloc, UpdateProfileState>(
-      listener: (BuildContext context, UpdateProfileState state) {},
+      listener: (BuildContext context, UpdateProfileState state) {
+        if (state.isSuccess) {
+          _showSavedAlert();
+        }
+      },
       builder: (BuildContext context, UpdateProfileState state) {
         if (state.isLoading) {
-          return const CircularProgressIndicator();
+          return const Scaffold(body: Redirecting());
         }
-        if (state.isFailed) {
-          return const Scaffold(
-            body: CustomScaffoldMessenger(),
-          );
-        }
+
         return Scaffold(
           body: SingleChildScrollView(
             padding: EdgeInsets.all(16.0.sp),
@@ -99,14 +119,20 @@ class _ProfilePageState extends State<ProfilePage> {
                     buttonName: 'Save',
                     leftPadding: 0.sp,
                     radius: 18.sp,
-                    child: const Stack(
+                    child: Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
                         Align(
                           alignment: Alignment.center,
-                          child: Text('Save'),
+                          child: Text(
+                            'Save',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Poppins',
+                                fontSize: 18.sp),
+                          ),
                         ),
-                        Positioned(
+                        const Positioned(
                           right: 0,
                           child: Image(
                               image: AssetImage('assets/images/arrow.png')),

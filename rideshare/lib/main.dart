@@ -6,11 +6,16 @@ import 'package:rideshare/features/authentication/presentation/bloc/signup/sign_
 import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/features/feeds/profile/presentation/bloc/update_profile_bloc.dart';
+import 'package:rideshare/passenger_profile_injection.dart';
 import 'features/authentication/presentation/screens/otp.dart';
+import 'features/feeds/profile/presentation/screen/passenger_profile.dart';
 import 'injection_container.dart' as di;
+import 'passenger_profile_injection.dart' as pp;
 
 void main() async {
   await di.init();
+  await pp.passengerProfileInjection();
   runApp(const MyApp());
 }
 
@@ -29,6 +34,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<UpdateProfileBloc>(
+          create: (_) => di.sl<UpdateProfileBloc>(),
+        ),
         BlocProvider<OtpVerificationBloc>(
           create: (_) => di.sl<OtpVerificationBloc>(),
         ),
@@ -53,7 +61,7 @@ class _MyAppState extends State<MyApp> {
             // home: const OtpVerificationScreen(),
             // home: const FollowFab(),
             // home: const CustomizeMarker(),
-            home: const OtpVerificationScreen(),
+            home: const ProfilePage(),
             // home:  const LocationMap(currentLatitude: 20, currentLongitude: 20, destinationLatitude: 89, destinationLongitude: 90),
             // home: const LatLngScreenPointTestPage(),
             // home:const SelectableDistanceFilterExample()
