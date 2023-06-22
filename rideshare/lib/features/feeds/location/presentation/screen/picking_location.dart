@@ -98,6 +98,15 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
                               radius: 10.sp,
                               buttonName: 'Select',
                               onPressed: _handleSelectButtonPressed,
+                              child: Center(
+                                child: Text(
+                                  'Select',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
