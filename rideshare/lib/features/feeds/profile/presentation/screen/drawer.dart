@@ -49,15 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   LogoutDialog.show(context);
                 });
               case 'Rides':
-                return getWidget(menuItem, navigateToNewPage);
+                return getWidget(menuItem, () {});
               case 'Settings':
-                return getWidget(menuItem, () {
-                  LogoutDialog.show(context);
-                });
+                return getWidget(menuItem, () {});
               case 'Edit Profile':
-                return getWidget(menuItem, () {
-                  LogoutDialog.show(context);
-                });
+                return getWidget(menuItem, () {});
               default:
                 return getWidget(menuItem, () {}); // Placeholder onTap function
             }

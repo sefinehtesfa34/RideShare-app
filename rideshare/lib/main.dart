@@ -27,39 +27,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<OtpVerificationBloc>(
-          create: (_) => di.sl<OtpVerificationBloc>(),
-        ),
-        BlocProvider<SignUpBloc>(
-          create: (_) => di.sl<SignUpBloc>(),
-        ),
-        BlocProvider<LocationBloc>(
-          create: (BuildContext context) => instance(),
-        ),
-        BlocProvider<BackToLocationBloc>(
-            create: (_) => di.sl<BackToLocationBloc>())
-      ],
-      child: ResponsiveSizer(
-        builder: (BuildContext context, Orientation orientation,
-            ScreenType screenType) {
-          return MaterialApp(
-            theme: ThemeData(
-              primaryColor: const Color.fromRGBO(109, 97, 242, 1),
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            // home: const OtpVerificationScreen(),
-            // home: const FollowFab(),
-            // home: const CustomizeMarker(),
-            home: const OtpVerificationScreen(),
-            // home:  const LocationMap(currentLatitude: 20, currentLongitude: 20, destinationLatitude: 89, destinationLongitude: 90),
-            // home: const LatLngScreenPointTestPage(),
-            // home:const SelectableDistanceFilterExample()
-          );
-        },
-      ),
+    return ResponsiveSizer(
+      builder: ((BuildContext context, Orientation orientation,
+          ScreenType screenType) {
+        return BlocProvider<UpdateProfileBloc>(
+          create: (BuildContext context) => GetIt.instance(),
+          child: const MaterialApp(
+            title: 'Image Picker Demo',
+            // home: MyHomePage(),
+            // home: HistoryPage(),
+            home: ProfilePage(),
+          ),
+        );
+      }),
     );
   }
 }
