@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rideshare/features/feeds/profile/presentation/widgets/rides_history.dart';
 
 import '../../../../../constants/json.dart';
 import '../widgets/histsory_list_tile.dart';
