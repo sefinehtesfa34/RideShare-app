@@ -32,7 +32,6 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<OtpVerificationBloc>(
           create: (_) => di.sl<OtpVerificationBloc>(),
         ),
-        
         BlocProvider<SignUpBloc>(
           create: (_) => di.sl<SignUpBloc>(),
         ),
