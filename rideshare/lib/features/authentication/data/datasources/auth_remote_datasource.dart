@@ -33,7 +33,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final SignupPayloadModel newModel = SignupPayloadModel(
       fullName: model.fullName,
       age: model.age,
-      idImage: model.idImage,
+      imageUrl: model.imageUrl,
     );
     final Map<String, dynamic> jsonBody = newModel.toJson();
     final http.Response response = await client.post(

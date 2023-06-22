@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:rideshare/features/authentication/presentation/bloc/signup/sign_up_bloc.dart';
-import 'package:rideshare/features/authentication/presentation/screens/otp.dart';
+import 'package:rideshare/features/authentication/presentation/screens/sign_up_page.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'core/routes/app_routes.dart';
 import 'features/passenger/presentation/bloc/ride_request_bloc/ride_request_bloc.dart';
 import 'injection_container.dart' as injection;
+import 'features/authentication/presentation/bloc/signup/bloc/signup_bloc.dart';
 
 Position? curPos;
 void main() async {
@@ -49,7 +48,7 @@ class _MyAppState extends State<MyApp> {
           ScreenType screenType) {
         return const MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: OtpVerificationScreen(),
+          home: SignUpPage(),
         );
       },
     );

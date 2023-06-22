@@ -7,7 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:rideshare/features/authentication/presentation/screens/sign_up_page.dart';
 
 import '../../../feeds/location/presentation/screen/picking_location.dart';
-import '../bloc/otp_bloc.dart';
+import '../bloc/otp/otp_bloc.dart';
 import '../widgets/redirecting.dart';
 import '../widgets/resend.dart';
 import '../widgets/verify_button.dart';

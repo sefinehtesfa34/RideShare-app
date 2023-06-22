@@ -1,9 +1,10 @@
 import 'package:get_it/get_it.dart';
-import 'package:rideshare/features/authentication/data/datasources/auth_remote_datasource.dart';
-import 'package:rideshare/features/authentication/data/repositories/authentication_repository_impl.dart';
-import 'package:rideshare/features/authentication/domain/repositories/authentication_repository.dart';
-import 'package:rideshare/features/authentication/domain/usecases/signup.dart';
-import 'package:rideshare/features/authentication/presentation/bloc/signup/sign_up_bloc.dart';
+
+import 'features/authentication copy/data/datasources/auth_remote_datasource.dart';
+import 'features/authentication copy/data/repositories/authentication_repository_impl.dart';
+import 'features/authentication copy/domain/repositories/authentication_repository.dart';
+import 'features/authentication/domain/usecases/signup.dart';
+import 'features/authentication/presentation/bloc/signup/bloc/signup_bloc.dart';
 
 final sl = GetIt.instance;
 

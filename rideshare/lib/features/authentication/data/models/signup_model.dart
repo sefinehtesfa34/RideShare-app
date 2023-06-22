@@ -4,13 +4,13 @@ class SignupPayloadModel extends SignupPayload {
   const SignupPayloadModel({
     required super.fullName,
     required super.age,
-    required super.idImage,
+    required super.imageUrl,
   });
   factory SignupPayloadModel.fromJson(Map<String, dynamic> json) {
     return SignupPayloadModel(
       fullName: json['fullName'],
       age: json['age'],
-      idImage: json['idImage'],
+      imageUrl: json['imageUrl'],
     );
   }
 
@@ -18,7 +18,7 @@ class SignupPayloadModel extends SignupPayload {
     return <String, dynamic>{
       'fullName': fullName,
       'age': age,
-      'id': idImage,
+      'id': imageUrl,
     };
   }
 }
