@@ -26,6 +26,5 @@ class _RedirectingState extends State<Redirecting> {
         ],
       ),
     );
-    ;
   }
 }
