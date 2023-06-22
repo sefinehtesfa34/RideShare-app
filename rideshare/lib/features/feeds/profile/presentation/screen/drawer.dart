@@ -40,7 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
             if (index == 0) {
               return const DrawerHeadWidget();
             }
-
             final DrawerMenuItem menuItem = menuItems[index - 1];
 
             switch (menuItem.title) {
