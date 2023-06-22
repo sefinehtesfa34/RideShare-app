@@ -1,5 +1,5 @@
 import 'dart:convert';
-import '../../../../core/errors/exception.dart';
+import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/destination.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,17 +11,24 @@ abstract class DestinationDataSource {
 
 class DestinationDataSourceImp implements DestinationDataSource {
   final http.Client client;
-  String url = 'https://mocki.io/v1/a72e8fae-c302-47ff-bd4f-1d5c7e32df58';
+  String url = 'https://mocki.io/v1/f3dd3cd0-09d3-46ad-85f7-b9862e3ac787';
 
   DestinationDataSourceImp({required this.client});
 
   @override
-  Future<List<DestinationModel>> fetchPassengerHistory() async {
+  Future<List<Destination>> fetchPassengerHistory() async {
     try {
       final response = await client.get(Uri.parse(url));
+
       final jsonMap = json.decode(response.body);
 
-      return List<DestinationModel>.from(jsonMap);
+      final citiesList = jsonMap["names"];
+      // print(citiesList);
+      List<Destination> list = [];
+      for (final city in citiesList) {
+        list.add(DestinationModel.fromJson(city));
+      }
+      return list;
     } on Exception catch (_, e) {
       throw ServerException("server exception");
     }
