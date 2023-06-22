@@ -9,6 +9,8 @@ import 'package:rideshare/features/feeds/location/presentation/screen/picking_lo
 import 'package:geolocator/geolocator.dart';
 import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'injection.dart' as injection;
+
 
 import 'core/location/location.dart';
 import 'core/routes/app_routes.dart';
@@ -63,4 +65,4 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
-}
+};
