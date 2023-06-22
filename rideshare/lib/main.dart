@@ -6,16 +6,39 @@ import 'package:rideshare/features/authentication/presentation/screens/sign_up_p
 import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/screen/picking_location.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'features/feed/presentation/bloc/passenger_home_bloc.dart';
-import 'features/feed/presentation/screens/passenger_home_page.dart';
 import 'injection.dart' as injection;
 
 
+import 'core/location/location.dart';
+import 'core/routes/app_routes.dart';
+import 'core/utils/colors.dart';
+import 'features/passenger/domain/entities/location.dart';
+import 'features/passenger/domain/entities/passenger.dart';
+import 'features/passenger/presentation/bloc/ride_request_bloc/ride_request_bloc.dart';
+import 'features/passenger/presentation/screens/passenger_on_journey_page.dart';
+import 'features/passenger/presentation/screens/searching_for_ride_page.dart';
+import 'injection_container.dart' as injection;
+
+Position? curPos;
 void main() async {
-  await di.init();
-  runApp(const MyApp());
+  await injection.init();
+
+  runApp(MultiBlocProvider(providers: [
+     BlocProvider<SignUpBloc>(
+          create: (_) => injection.sl<SignUpBloc>(),
+        ),
+        BlocProvider<LocationBloc>(
+          create: (BuildContext context) => injection.sl<LocationBloc>(),
+        ),
+        BlocProvider<BackToLocationBloc>(
+            create: (_) => injection.sl<BackToLocationBloc>()),
+    BlocProvider<RideRequestBloc>(
+      create: (_) => injection.sl<RideRequestBloc>(),
+    )
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -31,35 +54,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<SignUpBloc>(
-          create: (_) => di.sl<SignUpBloc>(),
-        ),
-        BlocProvider<LocationBloc>(
-          create: (BuildContext context) => instance(),
-        ),
-        BlocProvider<BackToLocationBloc>(
-            create: (_) => di.sl<BackToLocationBloc>())
-      ],
-      child: ResponsiveSizer(
-        builder: (context, orientation, screenType) {
-          return MaterialApp(
-            theme: ThemeData(
-              primaryColor: const Color.fromRGBO(109, 97, 242, 1),
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            // home: const OtpVerificationScreen(),
-            // home: const FollowFab(),
-            // home: const CustomizeMarker(),
-            home: const LocationPickerPage(),
-            // home:  const LocationMap(currentLatitude: 20, currentLongitude: 20, destinationLatitude: 89, destinationLongitude: 90),
-            // home: const LatLngScreenPointTestPage(),
-            // home:const SelectableDistanceFilterExample()
-          );
-        },
-      ),
+    return ResponsiveSizer(
+      builder: (context, orientation, screenType) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+         
+        
+          home: AppRouter()
+        );
+      },
     );
   }
 };

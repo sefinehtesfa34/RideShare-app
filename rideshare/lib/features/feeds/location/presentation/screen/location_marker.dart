@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,10 +6,9 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rideshare/core/location/location.dart';
-import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 
+import '../../../../../core/map/map_box.dart';
 import '../../../../../core/utils/colors.dart';
 
 class CustomizeMarker extends StatefulWidget {
@@ -40,6 +38,7 @@ class _CustomizeMarkerState extends State<CustomizeMarker> {
       builder: (BuildContext context, LocationState state) {
         return Scaffold(
           body: FlutterMap(
+            
             mapController: _mapController,
             nonRotatedChildren: [
               Positioned(
@@ -73,7 +72,9 @@ class _CustomizeMarkerState extends State<CustomizeMarker> {
                 ),
               ),
             ],
+            
             options: MapOptions(
+              
               onPositionChanged: (MapPosition position, _) => {
                 setState(() {
                   turn = false;
@@ -95,9 +96,11 @@ class _CustomizeMarkerState extends State<CustomizeMarker> {
             children: [
               TileLayer(
                 urlTemplate:
-                    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                // ignore: always_specify_types
-                subdomains: const ['a', 'b', 'c'],
+                    mapUrl,
+                additionalOptions: {
+                  'accessToken': accessToken,
+                  'id': mapTypeId
+                },
                 userAgentPackageName:
                     'net.tlserver6y.flutter_map_location_marker.example',
               ),

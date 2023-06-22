@@ -4,7 +4,10 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
+import 'package:rideshare/features/feeds/location/presentation/screen/searching_driver_page.dart';
 import 'package:rideshare/utils/get_city.dart';
+import '../../../../../constants/api.dart';
+import '../../../../../core/map/map_box.dart';
 import '../widgets/back_button.dart';
 import '../widgets/confirm_dialog.dart';
 import '../widgets/horizontal_line.dart';
@@ -143,6 +146,8 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
               });
             },
             onConfirmPressed: () {
+                  SlideUpContainerPage().showSearchBottomSheet(context);
+
               _locationBloc.add(SubmitLocationEvent());
               Navigator.of(context).pop();
             },
@@ -153,8 +158,11 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
   }
 
   void updateLocation() async {
-    sourceController.text = await getCity(
-        _sourcelocation.center!.latitude, _sourcelocation.center!.longitude);
+    var stringRepresentation = await getAddressFromCoordinates(
+        _sourcelocation.center!.latitude,
+        _sourcelocation.center!.longitude,
+        accessToken);
+    sourceController.text = stringRepresentation;
     _locationBloc.add(SourceLocationChangedEvent(
       sourceLatitude: _sourcelocation.center!.latitude,
       sourceLongitude: _sourcelocation.center!.longitude,
