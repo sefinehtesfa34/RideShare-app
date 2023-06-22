@@ -12,8 +12,6 @@ import 'features/feed/presentation/bloc/passenger_home_bloc.dart';
 import 'features/feed/presentation/screens/passenger_home_page.dart';
 import 'injection.dart' as injection;
 
-void main() async {
-  await injection.setupInjection();
 
 void main() async {
   await di.init();
