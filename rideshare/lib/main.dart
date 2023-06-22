@@ -8,7 +8,12 @@ import 'package:rideshare/features/feeds/location/presentation/bloc/location_blo
 import 'package:rideshare/features/feeds/location/presentation/screen/picking_location.dart';
 import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'injection_container.dart' as di;
+import 'features/feed/presentation/bloc/passenger_home_bloc.dart';
+import 'features/feed/presentation/screens/passenger_home_page.dart';
+import 'injection.dart' as injection;
+
+void main() async {
+  await injection.setupInjection();
 
 void main() async {
   await di.init();
@@ -59,7 +64,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-}
-
-
- 
+};

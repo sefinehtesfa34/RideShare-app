@@ -39,6 +39,11 @@ ios/
 linux/
 macos/
 web/
+windows/
+ios/
+linux/
+macos/
+web/
 
 # Symbolication related
 app.*.symbols
@@ -50,5 +55,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-.fake
