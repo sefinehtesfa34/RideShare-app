@@ -71,17 +71,19 @@ class _LoginCardState extends State<LoginCard> {
     );
   }
 
-  // void onLoginButtonPressed() {
-  //   context
-  //       .read<AuthBloc>()
-  //       .add(LoginEvent(phoneNumber: phoneNumberController.text));
-  // }
+  void onLoginButtonPressed() {
+    context
+        .read<AuthBloc>()
+        .add(LoginEvent(phoneNumber: phoneNumberController.text));
+  }
 
   Widget loginButton(context, text) {
     return Padding(
       padding: EdgeInsets.only(left: 20.w, right: 11.w, top: 20.sp),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          onLoginButtonPressed;
+        },
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
