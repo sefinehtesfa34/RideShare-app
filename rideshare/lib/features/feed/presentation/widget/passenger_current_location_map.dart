@@ -11,6 +11,7 @@ class CurrentLocationMap extends StatelessWidget {
   final String accessToken = 'pk.eyJ1IjoibmF0bmFlbC10YWRlbGUiLCJhIjoiY2xpdTFxajY5MGVhdjNubXk2ZGpwZzkxNyJ9.kItia4BZW9XJVtTw2N-m9A';
   final String mapTypeId = 'mapbox.mapbox-streets-v8';
 
+
   @override
   Widget build(BuildContext context) {
     return FlutterMap(

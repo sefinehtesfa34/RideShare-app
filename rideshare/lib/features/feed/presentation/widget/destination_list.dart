@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/core/utils/images.dart';
 import '../bloc/passenger_home_bloc.dart';
 
 class DestinationList extends StatelessWidget {
@@ -12,15 +14,34 @@ class DestinationList extends StatelessWidget {
           return Center();
         } else if (state is NamesLoaded) {
           // Names loaded, display the list
-          return SizedBox(
-            child: ListView.builder(
-              itemCount: state.names.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(state.names[index].name),
-                );
-              },
-            ),
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: state.names.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset(location),
+                    SizedBox(
+                      width: 2.w,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(state.names[index].name,
+                        style: TextStyle(
+                          fontSize: 5.w,
+                          fontWeight: FontWeight.bold
+                        ),),
+                        SizedBox(height: 1.h,),
+                        Text("Addis Ababa, Ethiopia")
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
           );
         } else if (state is NamesError) {
           // Error occurred, display error message
@@ -28,7 +49,7 @@ class DestinationList extends StatelessWidget {
             child: Text(state.errorMessage),
           );
         } else if (state is NamesLoading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
