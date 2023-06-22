@@ -22,3 +22,18 @@ class SignupPayloadModel extends SignupPayload {
     };
   }
 }
+
+class VerifyOtpModel {
+  final String otp;
+  final bool signedUp;
+  const VerifyOtpModel({required this.otp, required this.signedUp});
+  factory VerifyOtpModel.fromJson(Map<String, dynamic> json) {
+    return VerifyOtpModel(otp: json['otp'], signedUp: json['signedUp']);
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'otp': otp,
+      'signedUp': signedUp,
+    };
+  }
+}

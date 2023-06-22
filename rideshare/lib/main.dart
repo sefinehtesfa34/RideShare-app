@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/signup/sign_up_bloc.dart';
+import 'package:rideshare/features/authentication/presentation/screens/otp.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -44,9 +45,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveSizer(
-      builder: (context, orientation, screenType) {
-        return MaterialApp(
-            debugShowCheckedModeBanner: false, home: AppRouter());
+      builder: (BuildContext context, Orientation orientation,
+          ScreenType screenType) {
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: OtpVerificationScreen(),
+        );
       },
     );
   }

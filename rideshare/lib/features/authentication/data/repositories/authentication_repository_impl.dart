@@ -18,9 +18,9 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     try {
       final SignupPayloadModel response =
           await userDataSource.signup(newUserCredentials);
-      return Right(response);
+      return Right<Failure, SignupPayload>(response);
     } on ServerException {
-      return const Left(ServerFailure("Server Failure"));
+      return const Left<Failure, SignupPayload>(ServerFailure("Server Failure"));
     }
   }
 
@@ -35,10 +35,10 @@ class OTPVerificationRepositoryImpl implements OTPVerificationRepository {
   final AuthRemoteDataSource userDataSource;
   OTPVerificationRepositoryImpl({required this.userDataSource});
   @override
-  Future<Either<Failure, bool>> verifyOTP(
-      String phoneNumber, String otp) async {
+  Future<Either<Failure, VerifyOtpModel>> verifyOTP(String phoneNumber) async {
     try {
-      final bool response = await userDataSource.verifyOtp(phoneNumber, otp);
+      final VerifyOtpModel response =
+          await userDataSource.verifyOtp(phoneNumber);
       // ignore: always_specify_types
       return Right(response);
     } on ServerException {

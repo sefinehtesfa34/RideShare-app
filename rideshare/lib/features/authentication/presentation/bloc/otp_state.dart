@@ -1,16 +1,29 @@
 part of 'otp_bloc.dart';
 
-abstract class OtpVerificationState extends Equatable {
-  const OtpVerificationState();
-
-  @override
-  List<Object> get props => [];
+class OtpVerificationState {
+  final bool isSignedUp;
+  final bool isInitial;
+  final bool isLoading;
+  final bool isSuccess;
+  final bool isFailure;
+  const OtpVerificationState(
+      {this.isFailure = false,
+      this.isInitial = true,
+      this.isLoading = false,
+      this.isSignedUp = false,
+      this.isSuccess = false});
+  OtpVerificationState copyWith(
+      {bool? isInitial,
+      bool? isLoading,
+      bool? isSuccess,
+      bool? isFailure,
+      bool? isSignedUp}) {
+    return OtpVerificationState(
+      isFailure: isFailure ?? this.isFailure,
+      isInitial: isInitial ?? this.isInitial,
+      isLoading: isLoading ?? this.isLoading,
+      isSignedUp: isSignedUp ?? this.isSignedUp,
+      isSuccess: isSuccess ?? this.isSuccess,
+    );
+  }
 }
-
-class OtpVerificationInitial extends OtpVerificationState {}
-
-class OtpVerificationLoading extends OtpVerificationState {}
-
-class OtpVerificationSuccess extends OtpVerificationState {}
-
-class OtpVerificationFailure extends OtpVerificationState {}

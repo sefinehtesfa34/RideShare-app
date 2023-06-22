@@ -6,22 +6,23 @@ import 'package:rideshare/features/authentication/data/models/signup_model.dart'
 import '../../domain/entities/signup_payload.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<bool> verifyOtp(String phoneNumber, String otp);
+  Future<VerifyOtpModel> verifyOtp(String phoneNumber);
   Future<SignupPayloadModel> signup(SignupPayload model);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final http.Client client;
   static const String baseUrl =
-      'https://648cc3d58620b8bae7ed5be2.mockapi.io/api/v1/auth';
+      'https://mocki.io/v1/bf3b82cf-101b-4d86-9082-9fd3e722ab99';
+  static const String secondBaseUrl =
+      'https://mocki.io/v1/b7b78c0a-6bcf-458c-8d0e-da8a4856ce34';
 
   AuthRemoteDataSourceImpl({required this.client});
   @override
-  Future<bool> verifyOtp(String phoneNumber, String otp) async {
+  Future<VerifyOtpModel> verifyOtp(String phoneNumber) async {
     try {
-      final http.Response response =
-          await http.get(Uri.parse('$baseUrl/verify/?otp=$otp'));
-      return jsonDecode(response.body);
+      final http.Response response = await http.get(Uri.parse(secondBaseUrl));
+      return VerifyOtpModel.fromJson(jsonDecode(response.body));
     } catch (e) {
       throw ServerException('Server failure');
     }

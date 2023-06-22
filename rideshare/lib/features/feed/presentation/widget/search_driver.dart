@@ -24,7 +24,7 @@ class _SearchCustomBottomSheetState extends State<SearchCustomBottomSheet> {
     super.initState();
 
     // Start the timer
-    _timer = Timer(Duration(seconds: 20), () {
+    _timer = Timer(const Duration(seconds: 20), () {
       setState(() {
         _showAlmostThereText = true;
       });
