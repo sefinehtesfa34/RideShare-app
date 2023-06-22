@@ -12,12 +12,11 @@ class WhereButton extends StatelessWidget {
       height: 6.h,
       width: 90.w,
       decoration: BoxDecoration(
-        color: primaryColor,
-        borderRadius: BorderRadius.circular(10)),
+          color: primaryColor, borderRadius: BorderRadius.circular(10)),
       // child:
       child: InkWell(
         onTap: () {},
-        child:   Center(
+        child: Center(
             child: Text(
           "Where do you want to go?",
           style: TextStyle(
@@ -29,6 +28,3 @@ class WhereButton extends StatelessWidget {
     );
   }
 }
-
-
-

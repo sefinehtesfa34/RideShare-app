@@ -1,7 +1,14 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:rideshare/core/network/network_info.dart';
 import 'package:rideshare/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:rideshare/features/authentication/data/repositories/authentication_repository_impl.dart';
+import 'package:rideshare/features/feed/data/datasources/destination_datasource.dart';
+import 'package:rideshare/features/feed/data/repositories/destination_repository.dart';
+import 'package:rideshare/features/feed/domain/repositories/destination_repository.dart';
+import 'package:rideshare/features/feed/domain/usecases/destination_usecase.dart';
+import 'package:rideshare/features/feed/presentation/bloc/passenger_home_bloc.dart';
 import 'package:rideshare/features/feeds/location/data/datasource/remote_location_data.dart';
 import 'package:rideshare/features/feeds/location/data/repository/location_repository.dart';
 import 'package:rideshare/features/feeds/location/domain/repository/location_repository.dart';
@@ -47,12 +54,22 @@ void locationInjectionInit() {
         remoteLocationDataSource: sl<RemoteLocationDataSource>()),
   );
 
+  getIt.registerLazySingleton<DestinationRepository>(() =>
+      DestinationRepositoryImpl(
+          destinationDataSource: getIt<DestinationDataSource>(),
+          networkInfo: getIt<NetworkInfo>()));
+
+  getIt.registerLazySingleton<DestinationDataSource>(
+      () => DestinationDataSourceImp(client: getIt<http.Client>()));
   // Register the OtpVerificationUseCase
   sl.registerLazySingleton<GetLocationUsecase>(
     () => GetLocationUsecase(locationRepository: sl<LocationRepository>()),
   );
   sl.registerLazySingleton<PostLocationUsecase>(
     () => PostLocationUsecase(locationRepository: sl<LocationRepository>()),
+  );
+  getIt.registerLazySingleton<FetchPassengerHistoryUseCase>(
+    () => FetchPassengerHistoryUseCase(getIt<DestinationRepository>()),
   );
   // Register the OtpVerificationBloc
   sl.registerFactory<LocationBloc>(
@@ -63,4 +80,12 @@ void locationInjectionInit() {
   sl.registerFactory<BackToLocationBloc>(
     () => BackToLocationBloc(),
   );
+  getIt.registerFactory<NamesBloc>(() => NamesBloc(
+      fetchPassengerHistoryUseCase: getIt<FetchPassengerHistoryUseCase>()));
+
+  getIt.registerLazySingleton<NetworkInfo>(
+    () => NetworkInfoImpl(getIt()),
+  );
+  // External
+  getIt.registerLazySingleton(() => InternetConnectionChecker());
 }

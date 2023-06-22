@@ -19,4 +19,3 @@ class PassengerHomePage extends StatelessWidget {
     );
   }
 }
-

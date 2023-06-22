@@ -14,6 +14,3 @@ class FetchPassengerHistoryUseCase {
     return await destinationRepository.fetchPassengerHistory();
   }
 }
-
-
-

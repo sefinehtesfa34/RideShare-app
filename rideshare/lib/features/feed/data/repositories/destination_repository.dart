@@ -22,16 +22,11 @@ class DestinationRepositoryImpl implements DestinationRepository {
         final destination = await destinationDataSource.fetchPassengerHistory();
 
         return Right(destination);
-
       } on ServerException {
-
         return Left(ServerFailure("server failure"));
       }
     } else {
-
       return Left(NetworkFailure("network failure"));
     }
   }
 }
-
-

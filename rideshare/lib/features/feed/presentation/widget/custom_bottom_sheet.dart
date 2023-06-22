@@ -28,7 +28,7 @@ class CustomBottomSheet extends StatelessWidget {
                     child: WhereButton(),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(left: 4.h),
+                    padding: EdgeInsets.only(left: 4.h),
                     child: DestinationList(),
                   )
                 ],

@@ -29,12 +29,14 @@ class DestinationList extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(state.names[index].name,
-                        style: TextStyle(
-                          fontSize: 5.w,
-                          fontWeight: FontWeight.bold
-                        ),),
-                        SizedBox(height: 1.h,),
+                        Text(
+                          state.names[index].name,
+                          style: TextStyle(
+                              fontSize: 5.w, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
                         Text("Addis Ababa, Ethiopia")
                       ],
                     ),

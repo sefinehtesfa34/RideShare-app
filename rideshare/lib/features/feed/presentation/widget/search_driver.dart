@@ -11,7 +11,7 @@ class SearchCustomBottomSheet extends StatefulWidget {
   const SearchCustomBottomSheet({Key? key}) : super(key: key);
 
   @override
-  State<SearchCustomBottomSheet> createState() =>
+  _SearchCustomBottomSheetState createState() =>
       _SearchCustomBottomSheetState();
 }
 
@@ -24,7 +24,7 @@ class _SearchCustomBottomSheetState extends State<SearchCustomBottomSheet> {
     super.initState();
 
     // Start the timer
-    _timer = Timer(const Duration(seconds: 20), () {
+    _timer = Timer(Duration(seconds: 20), () {
       setState(() {
         _showAlmostThereText = true;
       });
@@ -39,7 +39,7 @@ class _SearchCustomBottomSheetState extends State<SearchCustomBottomSheet> {
 
   Widget build(BuildContext context) {
     return BlocBuilder<SlidingContainerBloc, SlidingContainerState>(
-      builder: (BuildContext context, SlidingContainerState state) {
+      builder: (context, state) {
         return AnimatedContainer(
           duration: Duration(milliseconds: 500),
           height: state is SearchDriverContainerVisibleState ? 200 : 0,
