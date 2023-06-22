@@ -10,9 +10,9 @@ class OTPVerificationRepositoryImpl implements OTPVerificationRepository {
   OTPVerificationRepositoryImpl({required this.userDataSource});
 
   @override
-  Future<Either<Failure, bool>> verifyOTP(String phoneNumber, String otp) async {
+  Future<Either<Failure, String>> verifyOTP(String phoneNumber, String otp) async {
     try {
-      final bool response = await userDataSource.verifyOtp(phoneNumber, otp);
+      final String response = await userDataSource.verifyOtp(phoneNumber, otp);
       // ignore: always_specify_types
       return Right(response);
     } on ServerException {

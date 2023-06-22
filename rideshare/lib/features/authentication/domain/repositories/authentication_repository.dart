@@ -10,5 +10,5 @@ abstract class AuthenticationRepository {
       SignupPayload newUserCredentials);
 }
 abstract class OTPVerificationRepository {
-  Future<Either<Failure, bool>> verifyOTP(String phoneNumber, String otp);
+  Future<Either<Failure, String>> verifyOTP(String phoneNumber, String otp);
 }

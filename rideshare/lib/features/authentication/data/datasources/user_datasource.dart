@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:rideshare/core/errors/exceptions.dart';
 
 abstract class UserDataSource {
-  Future<bool> verifyOtp(String phoneNumber, String otp);
+  Future<String> verifyOtp(String phoneNumber, String otp);
 }
 
 class UserDataSourceImpl implements UserDataSource {
@@ -11,13 +11,14 @@ class UserDataSourceImpl implements UserDataSource {
 
   UserDataSourceImpl({required this.client});
 
-  static const String baseUrl = 'https://your-api.com';
+  static const String baseUrl =
+      'https://mocki.io/v1/84d8583b-2f46-48ce-8c5d-235fbfa51605';
 
   @override
-  Future<bool> verifyOtp(String phoneNumber, String otp) async {
+  Future<String> verifyOtp(String phoneNumber, String otp) async {
     try {
-      final http.Response response = await client.get(Uri.parse('$baseUrl/verify/?otp=$otp'));
-      return jsonDecode(response.body);
+      final http.Response response = await client.get(Uri.parse(baseUrl));
+      return jsonDecode(response.body)['otp'];
     } catch (e) {
       throw ServerException('Server failure');
     }

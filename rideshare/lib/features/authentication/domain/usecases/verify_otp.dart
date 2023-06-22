@@ -5,13 +5,13 @@ import 'package:rideshare/core/usecases/usecase.dart';
 
 import '../repositories/authentication_repository.dart';
 
-class OtpVerificationUseCase extends UseCase<bool, Params> {
+class OtpVerificationUseCase extends UseCase<String, Params> {
   final OTPVerificationRepository otpVerificationRepository;
 
   OtpVerificationUseCase({required this.otpVerificationRepository});
 
   @override
-  Future<Either<Failure, bool>> call(Params params) async {
+  Future<Either<Failure, String>> call(Params params) async {
     return await otpVerificationRepository.verifyOTP(params.phoneNumber, params.otp);
   }
 }

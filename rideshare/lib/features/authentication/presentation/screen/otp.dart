@@ -1,9 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../feeds/profile/presentation/screen/drawer.dart';
 import '../bloc/otp_bloc.dart';
+import '../widgets/redirecting.dart';
 import '../widgets/resend.dart';
 import '../widgets/verify_button.dart';
 
@@ -20,6 +25,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   List<FocusNode> _focusNodes = [];
   // ignore: always_specify_types, non_constant_identifier_names
   List<String> OTP = ['', '', '', ''];
+  bool _isRedirecting = false;
 
   @override
   void initState() {
@@ -35,13 +41,33 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     super.dispose();
   }
 
+  void _startRedirectTimer(Widget widget) {
+    setState(() {
+      _isRedirecting = true;
+    });
+
+    Timer(const Duration(seconds: 3), () {
+      Navigator.push(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => widget,
+          ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<OtpVerificationBloc>(
       create: (BuildContext context) => GetIt.instance<OtpVerificationBloc>(),
       child: Scaffold(
         body: BlocConsumer<OtpVerificationBloc, OtpVerificationState>(
-          listener: (BuildContext context, OtpVerificationState state) {
+          listener: (BuildContext context, OtpVerificationState state) async {
+            if (state is OtpVerificationSuccess && !_isRedirecting) {
+              _startRedirectTimer(const MyHomePage());
+            }
+            if (state is OtpVerificationFailure && !_isRedirecting) {
+              _startRedirectTimer(const OtpVerificationScreen());
+            }
             // Handle state changes, if needed
           },
           builder: (BuildContext context, OtpVerificationState state) {
@@ -50,15 +76,22 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is OtpVerificationSuccess) {
-              // Handle success state
-              return const Center(
-                child: Text(
-                  'Verification Successful',
-                  style: TextStyle(
-                      color: Colors.green, fontWeight: FontWeight.bold),
-                ),
-              );
+            } else if (state is OtpVerificationSuccess ||
+                state is OtpVerificationFailure) {
+              if (_isRedirecting) {
+                return const Redirecting();
+              } else {
+                // Handle success state
+                return const Center(
+                  child: Text(
+                    'Verification Successful',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }
             } else if (state is OtpVerificationFailure) {
               // Handle failure state
               return const Center(
