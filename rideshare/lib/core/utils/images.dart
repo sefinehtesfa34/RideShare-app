@@ -1,0 +1,1 @@
+const String location = "assets/images/location.png";

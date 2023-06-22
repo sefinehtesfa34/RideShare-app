@@ -17,10 +17,12 @@ class WhereButton extends StatelessWidget {
       // child:
       child: InkWell(
         onTap: () {},
-        child:  const Center(
+        child:   Center(
             child: Text(
           "Where do you want to go?",
-          style: TextStyle(color: white,
+          style: TextStyle(
+            fontSize: 6.w,
+            color: white,
           ),
         )),
       ),
