@@ -28,7 +28,7 @@ class _LoginCardState extends State<LoginCard> {
         if (state is AuthBlocLoading) {
           return CircularProgressIndicator();
         }  else {
-          return loginButton(context, "Submit");
+          return loginField(context, "Submit");
         }
       },
     );
@@ -40,7 +40,7 @@ class _LoginCardState extends State<LoginCard> {
   //       .add(LoginEvent(phoneNumber: phoneNumberController.text));
   // }
 
-  Widget loginButton(context, text) {
+  Widget loginField(context, text) {
     return Column(children: [
       Padding(
         padding: EdgeInsets.only(left: 20.w, top: 2.h),
