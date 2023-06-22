@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import "package:latlong2/latlong.dart" as lat_lng;
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 
+import '../../../../core/map/map_box.dart';
 import '../../../../core/utils/colors.dart';
 
 import 'package:mapbox_api/mapbox_api.dart';
@@ -33,18 +34,7 @@ class _OnJourneyMapState extends State<OnJourneyMap> {
     getDirectionsResponse(widget.userLocation, widget.destinationLocation);
   }
 
-  final String mapUrl =
-      'https://api.mapbox.com/styles/v1/natnael-tadele/cliu6ltsm00tf01qv7ml277v8/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibmF0bmFlbC10YWRlbGUiLCJhIjoiY2xpdTFxajY5MGVhdjNubXk2ZGpwZzkxNyJ9.kItia4BZW9XJVtTw2N-m9A';
 
-  final String accessToken =
-      'pk.eyJ1IjoibmF0bmFlbC10YWRlbGUiLCJhIjoiY2xpdTFxajY5MGVhdjNubXk2ZGpwZzkxNyJ9.kItia4BZW9XJVtTw2N-m9A';
-
-  final String mapTypeId = 'mapbox.mapbox-streets-v8';
-
-  MapboxApi mapbox = MapboxApi(
-    accessToken:
-        'sk.eyJ1IjoibmF0bmFlbC10YWRlbGUiLCJhIjoiY2xpdzdtN2JhMGM1NTNsbXB4cWV1dm1qciJ9.cMk-UdoNRZYNAbzrXuVtvQ',
-  );
   
   Future<void> getDirectionsResponse(
       lat_lng.LatLng startPosition, lat_lng.LatLng endPosition) async {
