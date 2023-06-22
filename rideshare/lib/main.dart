@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feeds/profile/presentation/bloc/update_profile_bloc.dart';
-
+import 'package:rideshare/injection.dart';
 import 'features/feeds/profile/presentation/screen/passenger_profile.dart';
 import 'injection_container.dart';
 
