@@ -20,7 +20,7 @@ void main() {
     mockRemoteDataSource = MockAuthenticationRemoteDataSource();
     mockNetworkInfo = MockNetworkInfo();
     repository = AuthenticationRepositoryImpl(
-        remoteDataSource: mockRemoteDataSource, networkInfo: mockNetworkInfo);
+        remoteDataSource: mockRemoteDataSource);
   });
   group('login', () {
     const tPhoneNumber = '993937576';

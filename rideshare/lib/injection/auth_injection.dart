@@ -31,7 +31,7 @@ void authInit()  {
     () => AuthenticationRepositoryImpl(
       
       remoteDataSource: sl(),
-      networkInfo: sl(),
+      
     ),
   );
 
@@ -42,12 +42,10 @@ void authInit()  {
 
 
   //core
-  sl.registerLazySingleton<NetworkInfo>(
-    () => NetworkInfoImpl(connectionChecker:sl()),
-  );
+  
 
   //external
   
   sl.registerLazySingleton(() => http.Client());
-  sl.registerLazySingleton(() => InternetConnectionChecker());
+  
 }

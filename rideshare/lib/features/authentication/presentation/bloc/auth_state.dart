@@ -16,4 +16,5 @@ class AuthBlocLoginSuccess extends AuthBlocState {
   AuthBlocLoginSuccess({required this.phoneNumber});
 }
 
-class AuthBlocLoginFailure extends AuthBlocState {}
+// class AuthBlocLoginFailure extends AuthBlocState {}
+// 

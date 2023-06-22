@@ -8,27 +8,23 @@ import '../datasources/auth_remote_datasource.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
   AuthenticationRemoteDataSource remoteDataSource;
-  NetworkInfo networkInfo;
 
   AuthenticationRepositoryImpl({
     required this.remoteDataSource,
-    required this.networkInfo,
   });
 
   @override
   Future<Either<Failure, LoginPayload>> login(
       {required String phoneNumber}) async {
-    if (await networkInfo.isConnected) {
+    
       try {
         return Right(
           await remoteDataSource.login(phoneNumber));
       } on ServerException {
         return Left(ServerFailure());
       }
-    } 
-    else {
-      return Left(NetworkFailure());
-    }
+
+ 
   }
 
   // @override
