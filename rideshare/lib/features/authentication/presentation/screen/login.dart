@@ -3,8 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/utils/style.dart';
-import '../widgets/button.dart';
-import '../widgets/country_code.dart';
 import '../widgets/textfield.dart';
 
 class LoginPage extends StatelessWidget {

@@ -34,12 +34,6 @@ class _LoginCardState extends State<LoginCard> {
     );
   }
 
-  // void onLoginButtonPressed() {
-  //   context
-  //       .read<AuthBloc>()
-  //       .add(LoginEvent(phoneNumber: phoneNumberController.text));
-  // }
-
   Widget loginField(context, text) {
     return Column(children: [
       Padding(
