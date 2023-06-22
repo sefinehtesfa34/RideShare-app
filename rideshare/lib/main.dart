@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:rideshare/features/authentication/presentation/bloc/otp_bloc.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/signup/sign_up_bloc.dart';
-import 'package:rideshare/features/authentication/presentation/screens/sign_up_page.dart';
+import 'package:rideshare/features/authentication/presentation/screen/otp.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
-import 'package:rideshare/features/feeds/location/presentation/screen/picking_location.dart';
-import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'injection_container.dart' as di;
 
@@ -30,6 +29,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<OtpVerificationBloc>(
+          create: (_) => di.sl<OtpVerificationBloc>(),
+        ),
         BlocProvider<SignUpBloc>(
           create: (_) => di.sl<SignUpBloc>(),
         ),
@@ -40,7 +42,8 @@ class _MyAppState extends State<MyApp> {
             create: (_) => di.sl<BackToLocationBloc>())
       ],
       child: ResponsiveSizer(
-        builder: (context, orientation, screenType) {
+        builder: (BuildContext context, Orientation orientation,
+            ScreenType screenType) {
           return MaterialApp(
             theme: ThemeData(
               primaryColor: const Color.fromRGBO(109, 97, 242, 1),
@@ -50,7 +53,7 @@ class _MyAppState extends State<MyApp> {
             // home: const OtpVerificationScreen(),
             // home: const FollowFab(),
             // home: const CustomizeMarker(),
-            home: const LocationPickerPage(),
+            home: const OtpVerificationScreen(),
             // home:  const LocationMap(currentLatitude: 20, currentLongitude: 20, destinationLatitude: 89, destinationLongitude: 90),
             // home: const LatLngScreenPointTestPage(),
             // home:const SelectableDistanceFilterExample()

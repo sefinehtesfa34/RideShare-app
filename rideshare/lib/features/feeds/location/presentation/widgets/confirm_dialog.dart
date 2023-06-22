@@ -168,8 +168,19 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
       ),
       actions: <Widget>[
         SelectButton(
+          leftPadding: 21.sp,
+          radius: 10.sp,
           buttonName: 'Confirm',
           onPressed: widget.onConfirmPressed,
+          child: Center(
+            child: Text(
+              'Select',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.sp,
+              ),
+            ),
+          ),
         ),
       ],
     );

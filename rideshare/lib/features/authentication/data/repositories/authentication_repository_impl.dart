@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:rideshare/core/errors/exception.dart';
 import 'package:rideshare/core/errors/failures.dart';
 import 'package:rideshare/features/authentication/data/datasources/auth_remote_datasource.dart';
+import 'package:rideshare/features/authentication/data/datasources/user_datasource.dart';
 import 'package:rideshare/features/authentication/data/models/signup_model.dart';
 import 'package:rideshare/features/authentication/domain/entities/login_payload.dart';
 import 'package:rideshare/features/authentication/domain/entities/signup_payload.dart';
@@ -32,13 +33,13 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 }
 
 class OTPVerificationRepositoryImpl implements OTPVerificationRepository {
-  final AuthRemoteDataSource userDataSource;
+  final UserDataSource userDataSource;
   OTPVerificationRepositoryImpl({required this.userDataSource});
   @override
-  Future<Either<Failure, bool>> verifyOTP(
+  Future<Either<Failure, String>> verifyOTP(
       String phoneNumber, String otp) async {
     try {
-      final bool response = await userDataSource.verifyOtp(phoneNumber, otp);
+      final String response = await userDataSource.verifyOtp(phoneNumber, otp);
       // ignore: always_specify_types
       return Right(response);
     } on ServerException {

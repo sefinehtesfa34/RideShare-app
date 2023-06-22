@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
-import 'package:rideshare/features/authentication/data/datasources/auth_remote_datasource.dart';
+import 'package:rideshare/features/authentication/data/datasources/user_datasource.dart';
 import 'package:rideshare/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:rideshare/features/feeds/location/data/datasource/remote_location_data.dart';
 import 'package:rideshare/features/feeds/location/data/repository/location_repository.dart';
@@ -18,11 +18,13 @@ void locationInjectionInit() {
   // Register the HTTP client
 
   // Register the UserDataSource implementationR
-
+  getIt.registerLazySingleton<UserDataSource>(
+    () => UserDataSourceImpl(client: getIt<http.Client>()),
+  );
   // Register the OTPVerificationRepository implementation
   getIt.registerLazySingleton<OTPVerificationRepository>(
-    () => OTPVerificationRepositoryImpl(
-        userDataSource: getIt<AuthRemoteDataSource>()),
+    () =>
+        OTPVerificationRepositoryImpl(userDataSource: getIt<UserDataSource>()),
   );
 
   // Register the OtpVerificationUseCase
