@@ -1,4 +1,5 @@
 
+import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feed/presentation/widget/where_to_go_button.dart';

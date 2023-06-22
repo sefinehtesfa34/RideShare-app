@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feed/presentation/widget/border_only_button.dart';
 import '../../../../core/utils/colors.dart';
@@ -9,7 +11,7 @@ class SearchCustomBottomSheet extends StatefulWidget {
   const SearchCustomBottomSheet({Key? key}) : super(key: key);
 
   @override
-  _SearchCustomBottomSheetState createState() =>
+  State<SearchCustomBottomSheet> createState() =>
       _SearchCustomBottomSheetState();
 }
 
@@ -37,8 +39,7 @@ class _SearchCustomBottomSheetState extends State<SearchCustomBottomSheet> {
 
   Widget build(BuildContext context) {
     return BlocBuilder<SlidingContainerBloc, SlidingContainerState>(
-      builder: (context, state) {
-        
+      builder: (BuildContext context, SlidingContainerState state) {
         return AnimatedContainer(
           duration: Duration(milliseconds: 500),
           height: state is SearchDriverContainerVisibleState ? 200 : 0,
