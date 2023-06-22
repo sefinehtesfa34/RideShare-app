@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:rideshare/core/errors/exception.dart';
 import 'package:rideshare/core/errors/failures.dart';
 import 'package:rideshare/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:rideshare/features/authentication/data/models/signup_model.dart';
 import 'package:rideshare/features/authentication/domain/entities/login_payload.dart';
 import 'package:rideshare/features/authentication/domain/entities/signup_payload.dart';
+import '../../../../core/errors/exceptions.dart';
 import '../../domain/repositories/authentication_repository.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
