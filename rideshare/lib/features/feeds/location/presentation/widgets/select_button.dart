@@ -8,7 +8,9 @@ class SelectButton extends StatefulWidget {
     required this.onPressed,
     required this.buttonName,
     required this.radius,
+    required this.child,
   }) : super(key: key);
+  final Widget? child;
   final double radius;
   final String buttonName;
   final VoidCallback onPressed;
@@ -38,15 +40,7 @@ class _SelectButtonState extends State<SelectButton> {
               ),
             ),
           ),
-          child: Center(
-            child: Text(
-              widget.buttonName,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16.sp,
-              ),
-            ),
-          ),
+          child: widget.child
         ),
       ),
     );
