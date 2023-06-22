@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
         return BlocProvider<UpdateProfileBloc>(
           create: (BuildContext context) => GetIt.instance(),
           child: const MaterialApp(
-            title: 'Image Picker Demo',
             // home: MyHomePage(),
             home: OtpVerificationScreen(),
             // home: HistoryPage(),

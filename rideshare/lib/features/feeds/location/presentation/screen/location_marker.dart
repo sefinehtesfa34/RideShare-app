@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -7,8 +5,6 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rideshare/core/location/location.dart';
-import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 
 import '../../../../../core/utils/colors.dart';

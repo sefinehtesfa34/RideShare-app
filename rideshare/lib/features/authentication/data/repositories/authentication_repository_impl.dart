@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:rideshare/core/errors/exception.dart';
 import 'package:rideshare/core/errors/failures.dart';
 import 'package:rideshare/features/authentication/data/datasources/auth_remote_datasource.dart';
+import 'package:rideshare/features/authentication/data/datasources/user_datasource.dart';
 import 'package:rideshare/features/authentication/data/models/signup_model.dart';
 import 'package:rideshare/features/authentication/domain/entities/login_payload.dart';
 import 'package:rideshare/features/authentication/domain/entities/signup_payload.dart';
@@ -32,7 +33,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 }
 
 class OTPVerificationRepositoryImpl implements OTPVerificationRepository {
-  final AuthRemoteDataSource userDataSource;
+  final UserDataSource userDataSource;
   OTPVerificationRepositoryImpl({required this.userDataSource});
   @override
   Future<Either<Failure, String>> verifyOTP(
