@@ -56,11 +56,12 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
       backgroundColor: Colors.white,
       title: Center(
         child: Text(
-          'Select Number of Seats \n and Confirm Price',
+          'Select Number of Seats  \n and Confirm Price',
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontFamily: 'Poppins',
-            fontSize: 20.sp,
+            fontSize: 19.sp,
             color: const Color(0xFF414141),
           ),
         ),
@@ -69,44 +70,50 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          SizedBox(
+            height: 4.h,
+          ),
           Row(
             children: <Widget>[
               SvgPicture.asset('assets/images/current_mocation_marker.svg'),
               SizedBox(width: 1.0.w),
               SizedBox(
-                width: 30.w,
+                width: 60.w,
                 child: Text(
                   widget.source,
                   softWrap: true,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Poppins',
-                    fontSize: 14.sp,
+                    fontSize: 16.sp,
                     color: const Color(0xFF414141),
                   ),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 8.0.h),
+          SizedBox(height: 2.0.h),
           Row(
             children: <Widget>[
               SvgPicture.asset('assets/images/Subtract.svg'),
               SizedBox(width: 1.0.h),
               SizedBox(
-                width: 30.w,
+                width: 60.w,
                 child: Text(
                   widget.destination,
                   softWrap: true,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Poppins',
-                    fontSize: 14.sp,
+                    fontSize: 16.sp,
                     color: const Color(0xFF414141),
                   ),
                 ),
               ),
             ],
+          ),
+          SizedBox(
+            height: 4.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
