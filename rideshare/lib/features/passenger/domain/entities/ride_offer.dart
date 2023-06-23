@@ -1,29 +1,29 @@
+import 'package:rideshare/features/passenger/domain/entities/user.dart';
+
 import 'location.dart';
 
-class Passenger {
-  final String imageUrl;
-  final String name;
+class RideOffer {
+  final User user;
   final Location currentLocation;
   final Location destination;
   final int seatsAllocated;
+  final double price;
 
-  Passenger({
-    required this.imageUrl,
-    required this.name,
+  RideOffer({
+    required this.user,
     required this.currentLocation,
     required this.destination,
     required this.seatsAllocated,
+    required this.price
   });
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['imageUrl'] = this.imageUrl;
-    data['name'] = this.name;
+    data['user'] = this.user.toJson();
     data['currentLocation'] = this.currentLocation.toJson();
     data['destination'] = this.destination.toJson();
     data['seatsAllocated'] = this.seatsAllocated;
+    data['price'] = this.price;
     return data;
   }
-
-  
 }

@@ -16,7 +16,7 @@ import 'core/location/location.dart';
 import 'core/routes/app_routes.dart';
 import 'core/utils/colors.dart';
 import 'features/passenger/domain/entities/location.dart';
-import 'features/passenger/domain/entities/passenger.dart';
+import 'features/passenger/domain/entities/ride_offer.dart';
 import 'features/passenger/presentation/bloc/ride_request_bloc/ride_request_bloc.dart';
 import 'features/passenger/presentation/screens/passenger_on_journey_page.dart';
 import 'features/passenger/presentation/screens/searching_for_ride_page.dart';
@@ -27,6 +27,7 @@ void main() async {
   await injection.init();
 
   runApp(MultiBlocProvider(providers: [
+
      BlocProvider<SignUpBloc>(
           create: (_) => injection.sl<SignUpBloc>(),
         ),

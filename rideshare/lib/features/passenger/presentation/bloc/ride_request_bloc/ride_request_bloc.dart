@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:rideshare/features/passenger/domain/usecases/ride_request_usecase.dart';
 
 import '../../../../../core/errors/failures.dart';
-import '../../../domain/entities/passenger.dart';
+import '../../../domain/entities/ride_offer.dart';
 import '../../../domain/entities/ride_request.dart';
 
 part 'ride_request_event.dart';
@@ -21,7 +21,7 @@ class RideRequestBloc extends Bloc<RideRequestEvent, RideRequestState> {
 
   _onRideRequestOffer(
       RideOfferEvent event, Emitter<RideRequestState> emit) async {
-    emit(SearchingRideRequestState());
+    emit(RideRequestWaitingState());
     final Either<Failure, Stream<RideRequest>> requestStreamOrFailure =
         await getRideRequestUseCase(event.passenger);
 
