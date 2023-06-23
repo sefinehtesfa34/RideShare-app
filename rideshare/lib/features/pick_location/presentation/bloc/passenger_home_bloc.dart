@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:rideshare/features/pick_location/domain/entities/destination.dart';
 
 import '../../../../core/errors/failures.dart';
-import '../../domain/entities/destination.dart';
 import '../../domain/usecases/destination_usecase.dart';
 part 'passenger_home_event.dart';
 part 'passenger_home_state.dart';
@@ -16,11 +18,9 @@ class SlidingContainerBloc
     on<ConfirmEvent>(_onConfirm);
   }
 
-
   void _onCancel(CancelEvent event, Emitter<SlidingContainerState> emit) {
     emit(SearchDriverContainerHiddenState());
   }
-
 
   void _onConfirm(ConfirmEvent event, Emitter<SlidingContainerState> emit) {
     if (state is SearchDriverContainerVisibleState) {
@@ -34,13 +34,12 @@ class SlidingContainerBloc
 class NamesBloc extends Bloc<NamesEvent, NamesState> {
   final FetchPassengerHistoryUseCase fetchPassengerHistoryUseCase;
 
-
-  NamesBloc({required this.fetchPassengerHistoryUseCase}) : super(NamesInitial()) {
+  NamesBloc({required this.fetchPassengerHistoryUseCase})
+      : super(NamesInitial()) {
     on<NamesEvent>(_onNameFetch);
   }
 
-  void _onNameFetch(
-      NamesEvent event, Emitter<NamesState> emit) async {
+  void _onNameFetch(NamesEvent event, Emitter<NamesState> emit) async {
     emit(NamesLoading());
 
     final failureOrList = await fetchPassengerHistoryUseCase();
@@ -50,9 +49,29 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
   NamesState _errorOrNamesList(
       Either<Failure, List<Destination>> failureOrNamesList) {
     return failureOrNamesList.fold(
-      (failure) =>  NamesError("$failure"),
+      (failure) => NamesError("$failure"),
       (names) => NamesLoaded(names),
     );
+  }
+}
+
+class ChooseLocationsBloc
+    extends Bloc<ChooseLocationsEvent, ChooseLocationsState> {
+  ChooseLocationsBloc() : super(ChooseLocationsInitial()) {
+    on<SelectecLocationsEvent>(_onNameFetch);
+  }
+
+  void _onNameFetch(
+      SelectecLocationsEvent event, Emitter<ChooseLocationsState> emit) async {
+    emit(ChooseLocationsLoading());
+
+    List<Location> sources = await locationFromAddress(event.sourceLocation);
+    List<Location> destinations =
+        await locationFromAddress(event.destinationLocation);
+
+    emit(ChooseLocationsSucess(
+        LatLng(sources[0].latitude, sources[0].longitude),
+        LatLng(destinations[0].latitude, destinations[0].longitude)));
   }
 }
 

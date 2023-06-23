@@ -5,12 +5,11 @@ import 'package:rideshare/features/authentication/presentation/bloc/login/bloc/l
 import 'package:get_it/get_it.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/signup/sign_up_bloc.dart';
 import 'package:rideshare/features/authentication/presentation/screens/sign_up_page.dart';
-import 'package:rideshare/features/feed/presentation/bloc/passenger_home_bloc.dart';
-import 'package:rideshare/features/feed/presentation/screens/passenger_home_page.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/pick_location/presentation/screen/location_picker.dart';
+import 'features/pick_location/presentation/bloc/passenger_home_bloc.dart';
 import 'injection_container.dart' as di;
 
 import 'core/location/location.dart';
@@ -61,6 +60,8 @@ class MyApp extends StatelessWidget {
           create: (_) => di.sl<BackToLocationBloc>(),
         ),
         BlocProvider<NamesBloc>(create: (_) => di.sl<NamesBloc>()),
+        BlocProvider<ChooseLocationsBloc>(
+            create: (_) => di.sl<ChooseLocationsBloc>()),
       ],
       child: ResponsiveSizer(
         builder: (context, orientation, screenType) {

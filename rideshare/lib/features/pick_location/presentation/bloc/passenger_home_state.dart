@@ -6,12 +6,12 @@ class SearchDriverContainerVisibleState extends SlidingContainerState {}
 
 class SearchDriverContainerHiddenState extends SlidingContainerState {}
 
-
 abstract class NamesState {}
 
 class NamesInitial extends NamesState {}
 
 class NamesLoading extends NamesState {}
+
 class NamesLoaded extends NamesState {
   final List<Destination> names;
 
@@ -21,7 +21,22 @@ class NamesLoaded extends NamesState {
 class NamesError extends NamesState {
   final String errorMessage;
 
-  NamesError(this.errorMessage,);
+  NamesError(
+    this.errorMessage,
+  );
 }
 
+abstract class ChooseLocationsState {}
 
+class ChooseLocationsInitial extends ChooseLocationsState {}
+
+class ChooseLocationsLoading extends ChooseLocationsState {}
+
+class ChooseLocationsSucess extends ChooseLocationsState {
+  final LatLng soureLocation;
+  final LatLng destinationLocation;
+
+  ChooseLocationsSucess(this.soureLocation, this.destinationLocation);
+}
+
+class ChooseLocationsError extends ChooseLocationsState {}

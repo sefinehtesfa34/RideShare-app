@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
+import 'package:rideshare/features/pick_location/domain/repositories/destination_repository.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/network_info.dart';
 import '../../domain/entities/destination.dart';
-import '../../domain/repositories/destination_repository.dart';
 import '../datasources/destination_datasource.dart';
 
 class DestinationRepositoryImpl implements DestinationRepository {

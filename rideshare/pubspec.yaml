@@ -53,6 +53,7 @@ dependencies:
   latlong2: ^0.8.1
   mapbox_api: ^1.0.0
   mockito: ^5.4.1
+  permission_handler: ^10.3.0
   responsive_sizer: ^3.1.1
   signalr_core: ^1.1.1
 
