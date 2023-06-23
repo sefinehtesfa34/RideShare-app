@@ -65,22 +65,7 @@ class MyApp extends StatelessWidget {
       ],
       child: ResponsiveSizer(
         builder: (context, orientation, screenType) {
-          return MaterialApp(
-            theme: ThemeData(
-              primaryColor: const Color.fromRGBO(109, 97, 242, 1),
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            // home: const OtpVerificationScreen(),
-            // home: const FollowFab(),
-            // home: const CustomizeMarker(),
-            // home: const LocationPickerPage(),
-            // home: const PassengerHomePage(),
-            home: const LocationPicker(),
-            // home:  const LocationMap(currentLatitude: 20, currentLongitude: 20, destinationLatitude: 89, destinationLongitude: 90),
-            // home: const LatLngScreenPointTestPage(),
-            // home:const SelectableDistanceFilterExample()
-          );
+          return AppRouter();
         },
       ),
     );

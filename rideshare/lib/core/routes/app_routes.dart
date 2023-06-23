@@ -9,6 +9,8 @@ import 'package:rideshare/features/onboarding/presentation/screen/onboarding_pag
 import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_three.dart';
 import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_two.dart';
 import 'package:rideshare/features/passenger/presentation/screens/passenger_on_journey_page.dart';
+import 'package:rideshare/features/pick_location/presentation/widgets/choose_location.dart';
+import 'package:rideshare/features/pick_location/presentation/widgets/map_picker.dart';
 
 import '../../features/feeds/location/presentation/screen/picking_location.dart';
 import '../../features/onboarding/presentation/screen/onboarding_holder.dart';
@@ -77,9 +79,48 @@ class AppRouter extends StatelessWidget {
             path: RoutePaths.rideCompletePassenger,
             builder: (BuildContext context, GoRouterState state) {
               var extra = state.extra as Map<String, dynamic>;
-              return RideCompletePassenger(totalCost: extra['totalCost'],tip: extra['tip'] );
+              return RideCompletePassenger(
+                  totalCost: extra['totalCost'], tip: extra['tip']);
             }),
-      
+
+        GoRoute(
+            path: RoutePaths.pickLocation,
+            builder: (BuildContext context, GoRouterState state) {
+              var extra = state.extra as Map<String, dynamic>;
+
+              return ChooseLocation(
+                places: extra['places'],
+              );
+            }),
+        GoRoute(
+            path: RoutePaths.pickPassengerOnMap,
+            builder: (BuildContext context, GoRouterState state) {
+              var extra = state.extra as Map<String, dynamic>;
+              return MapPicker(
+                controller: extra["controller"],
+              );
+            }),
+        GoRoute(
+            path: RoutePaths.passengerHome,
+            builder: (BuildContext context, GoRouterState state) =>
+                LocationPickerPage()),
+        GoRoute(
+            path: RoutePaths.locationPicker,
+            builder: (BuildContext context, GoRouterState state) =>
+                LocationPickerPage()),
+        GoRoute(
+            path: RoutePaths.home,
+            builder: (BuildContext context, GoRouterState state) =>
+                SearchingforRidePage()),
+        GoRoute(
+            path: RoutePaths.onJourney,
+            builder: (BuildContext context, GoRouterState state) {
+              var extra = state.extra as Map<String, dynamic>;
+
+              return PassengerOnJourneyPage(
+                passenger: extra["passenger"],
+              );
+            })
       ],
     );
   }

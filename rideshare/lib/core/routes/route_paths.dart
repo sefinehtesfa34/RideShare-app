@@ -11,4 +11,7 @@ class RoutePaths {
   static const String verify = '/verify';
   static const String searchingPage = "/searchingPage";
   static const String rideCompletePassenger = "/rideCompletePassenger";
+  static const String passengerHome = "/passengerHome";
+  static const String pickLocation = "/pickLocation";
+  static const String pickPassengerOnMap = "/pickLocationOnMap";
 }
