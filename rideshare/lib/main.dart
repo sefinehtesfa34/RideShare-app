@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rideshare/features/authentication/presentation/bloc/login/bloc/login_bloc.dart';
+import 'features/authentication/presentation/screens/login_page.dart';
 import 'package:get_it/get_it.dart';
-import 'package:rideshare/features/authentication/presentation/screens/sign_up_page.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -18,6 +19,9 @@ void main() async {
   runApp(MultiBlocProvider(providers: [
     BlocProvider<SignUpBloc>(
       create: (_) => injection.sl<SignUpBloc>(),
+    ),
+    BlocProvider<LoginBloc>(
+      create: (_) => injection.sl<LoginBloc>(),
     ),
     BlocProvider<LocationBloc>(
       create: (BuildContext context) => injection.sl<LocationBloc>(),
@@ -48,7 +52,7 @@ class _MyAppState extends State<MyApp> {
           ScreenType screenType) {
         return const MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: SignUpPage(),
+          home: LoginPage(),
         );
       },
     );
