@@ -1,42 +1,42 @@
 import '../../domain/entities/location.dart';
-import '../../domain/entities/passenger.dart';
+import '../../domain/entities/ride_offer.dart';
+import '../../domain/entities/user.dart';
 
-class PassengerModel extends Passenger {
+class PassengerModel extends RideOffer {
   PassengerModel({
-    required String imageUrl,
-    required String name,
+    required User user,
     required Location currentLocation,
     required Location destination,
     required int seatsAllocated,
+    required double price
   }) : super(
-          imageUrl: imageUrl,
-          name: name,
+          user: user,
           currentLocation: currentLocation,
           destination: destination,
           seatsAllocated: seatsAllocated,
+          price: price
         );
 
   factory PassengerModel.fromJson(Map<String, dynamic> json) => PassengerModel(
-        imageUrl: json['imageUrl'],
-        name: json['name'],
-        currentLocation: json['currentLocation'],
-        destination: json['destination'],
+        price: json['price'],
+        user: User.fromJson(json["user"]),
+        currentLocation: Location.fromJson(json['currentLocation']),
+        destination: Location.fromJson(json['destination']),
         seatsAllocated: json['seatsAllocated'],
       );
 
   Map<String, dynamic> toJson() => {
-        'imageUrl': imageUrl,
-        'name': name,
-        'currentLocation': Location.fromJson(currentLocation),
-        'destination': Location.fromJson(destination),
+        'user': user.toJson(),
+        'currentLocation': currentLocation.toJson(),
+        'destination': destination.toJson(),
         'seatsAllocated': seatsAllocated,
+        'price' : price,
       };
-  static Map<String, dynamic> toJsonGivenPassenger(Passenger passenger) {
+  static Map<String, dynamic> toJsonGivenPassenger(RideOffer passenger) {
     return {
-      'imageUrl': passenger.imageUrl,
-      'name': passenger.name,
-      'currentLocation': passenger.currentLocation,
-      'destination': passenger.destination,
+      'user': passenger.user.toJson(),
+      'currentLocation': passenger.currentLocation.toJson(),
+      'destination': passenger.destination.toJson(),
       'seatsAllocated': passenger.seatsAllocated,
     };
   }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/core/utils/colors.dart';
 
 class SelectButton extends StatelessWidget {
   const SelectButton({
     Key? key,
     required this.onPressed,
     required this.buttonName,
+    
   }) : super(key: key);
   final String buttonName;
   final VoidCallback onPressed;
@@ -22,7 +24,7 @@ class SelectButton extends StatelessWidget {
           onPressed: onPressed,
           style: ButtonStyle(
             backgroundColor:
-                MaterialStateProperty.all<Color>(const Color(0xFF6D61F2)),
+                MaterialStateProperty.all<Color>(primaryColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.sp),

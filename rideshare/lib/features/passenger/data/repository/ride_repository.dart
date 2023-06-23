@@ -4,7 +4,7 @@ import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failure_messages.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/network_info.dart';
-import '../../domain/entities/passenger.dart';
+import '../../domain/entities/ride_offer.dart';
 import '../../domain/entities/ride_request.dart';
 import '../../domain/repository/ride_repository.dart';
 import '../datasource/ride_remote_data_source.dart';
@@ -18,11 +18,8 @@ class RideRepositoryImpl extends RideRepository {
 
   @override
   Future<Either<Failure, Stream<RideRequest>>> getRideRequest(
-      Passenger passenger) async {
-    final bool isConnected = await networkInfo.isConnected;
-    if (!isConnected) {
-      return Left(NetworkFailure(networkFailureMessage));
-    }
+      RideOffer passenger) async {
+  
     try {
       final Stream<RideRequest> rideRequest =
           await remoteDataSource.getRideRequest(passenger);
@@ -37,7 +34,8 @@ class RideRepositoryImpl extends RideRepository {
       String rideRequestId, String userPhone) async {
     try {
       // Call the data source to cancel the ride request
-      final bool canceled = await remoteDataSource.cancelRideRequest(rideRequestId, userPhone);
+      final bool canceled =
+          await remoteDataSource.cancelRideRequest(rideRequestId, userPhone);
       return Right(canceled);
     } on ServerException {
       return Left(ServerFailure("Failed to cancel the ride request."));

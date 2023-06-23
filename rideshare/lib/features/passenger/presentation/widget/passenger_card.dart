@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/passenger/presentation/widget/custom_cached_image.dart';
 import '../../../../core/utils/colors.dart';
-import '../../domain/entities/passenger.dart';
+import '../../domain/entities/ride_offer.dart';
 
 class PassengerCard extends StatelessWidget {
-  final Passenger passenger;
+  final RideOffer passenger;
 
   PassengerCard({required this.passenger});
 
@@ -19,7 +19,7 @@ class PassengerCard extends StatelessWidget {
           CustomizedCachedImage(
               key: GlobalKey(),
               borderRadius: 70,
-              imageURL: passenger.imageUrl,
+              imageURL: passenger.user.imageUrl,
               height: 6.h,
               width: 13.w),
           SizedBox(width: 2.w),
@@ -28,7 +28,7 @@ class PassengerCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  passenger.name,
+                  passenger.user.fullname,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16.sp,

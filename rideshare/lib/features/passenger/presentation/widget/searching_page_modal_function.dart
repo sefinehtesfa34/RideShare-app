@@ -24,6 +24,7 @@ showSearchDriverModal(BuildContext context) {
       return Align(
         alignment: Alignment.bottomCenter,
         child: Container(
+
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(50),

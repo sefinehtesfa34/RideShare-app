@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,6 +6,7 @@ import 'package:rideshare/features/passenger/presentation/screens/passenger_on_j
 
 import '../../features/feeds/location/presentation/screen/picking_location.dart';
 import '../../features/feeds/location/presentation/screen/searching_driver_page.dart';
+import '../../features/passenger/presentation/screens/ride_completed.dart';
 import '../../features/passenger/presentation/widget/searching_page_modal_function.dart';
 import '../../features/passenger/presentation/screens/searching_for_ride_page.dart';
 import '../utils/colors.dart';
@@ -19,8 +18,16 @@ class AppRouter extends StatelessWidget {
     _router = GoRouter(
       initialLocation: RoutePaths.home,
       routes: <GoRoute>[
-   
-        GoRoute(path: RoutePaths.locationPicker,builder :(BuildContext context,GoRouterState state) => LocationPickerPage()),
+        GoRoute(
+            path: RoutePaths.rideCompletePassenger,
+            builder: (BuildContext context, GoRouterState state) {
+              var extra = state.extra as Map<String, dynamic>;
+              return RideCompletePassenger(totalCost: extra['totalCost'],tip: extra['tip'] );
+            }),
+        GoRoute(
+            path: RoutePaths.locationPicker,
+            builder: (BuildContext context, GoRouterState state) =>
+                LocationPickerPage()),
         GoRoute(
             path: RoutePaths.home,
             builder: (BuildContext context, GoRouterState state) =>
@@ -29,7 +36,7 @@ class AppRouter extends StatelessWidget {
             path: RoutePaths.onJourney,
             builder: (BuildContext context, GoRouterState state) {
               var extra = state.extra as Map<String, dynamic>;
-              
+
               return PassengerOnJourneyPage(
                 passenger: extra["passenger"],
               );

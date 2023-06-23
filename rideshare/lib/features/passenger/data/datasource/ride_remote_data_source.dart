@@ -4,10 +4,10 @@ import 'package:rideshare/features/passenger/data/datasource/ride_request_api_pr
 import 'package:rideshare/features/passenger/domain/entities/ride_request.dart';
 
 import '../../../../core/errors/exceptions.dart';
-import '../../domain/entities/passenger.dart';
+import '../../domain/entities/ride_offer.dart';
 
 abstract class RideRemoteDataSource {
-  Future<Stream<RideRequest>> getRideRequest(Passenger passenger);
+  Future<Stream<RideRequest>> getRideRequest(RideOffer passenger);
   Future<bool> cancelRideRequest(String rideRequestId, String userPhone);
 }
 
@@ -17,8 +17,8 @@ class RideRemoteDataSourceImpl implements RideRemoteDataSource {
   RideRemoteDataSourceImpl(this.rideRequestApiProvider);
 
   @override
-  Future<Stream<RideRequest>> getRideRequest(Passenger passegner) async {
-    print("all ready");
+  Future<Stream<RideRequest>> getRideRequest(RideOffer passegner) async {
+    await Future.delayed(Duration(seconds: 4));
     return rideRequestApiProvider.getRideRequestsForPassenger(passegner);
   }
 

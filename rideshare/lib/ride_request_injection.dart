@@ -33,7 +33,7 @@ Future<void> RideRequestInjectionInit() async {
       () => RideRemoteDataSourceImpl(sl()));
 
   sl.registerLazySingleton(
-      () => RideRequestApiProvider(baseUrl: "http://the base url goes here"));
+      () => RideRequestApiProvider(baseUrl: "https://rideshare-app.onrender.com/api"));
 
   //! External
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));

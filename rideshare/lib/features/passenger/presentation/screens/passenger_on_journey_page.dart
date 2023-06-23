@@ -6,7 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/location/location.dart';
 import '../../../../core/utils/colors.dart';
-import '../../domain/entities/passenger.dart';
+import '../../domain/entities/ride_offer.dart';
 import '../../domain/entities/ride_request.dart';
 import '../bloc/ride_request_bloc/ride_request_bloc.dart';
 import '../widget/back_button_custom_icon.dart';
@@ -16,7 +16,7 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import "package:latlong2/latlong.dart" as lat_lng;
 
 class PassengerOnJourneyPage extends StatelessWidget {
-  final Passenger passenger;
+  final RideOffer passenger;
 
   const PassengerOnJourneyPage({super.key, required this.passenger});
 
