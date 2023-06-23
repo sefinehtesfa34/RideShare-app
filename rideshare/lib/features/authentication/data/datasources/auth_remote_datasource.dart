@@ -22,7 +22,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<VerifyOtpModel> verifyOtp(String phoneNumber) async {
     try {
-      final http.Response response = await http.get(Uri.parse(secondBaseUrl));
+      final http.Response response = await http.get(Uri.parse(baseUrl));
       return VerifyOtpModel.fromJson(jsonDecode(response.body));
     } catch (e) {
       throw ServerException('Server failure');

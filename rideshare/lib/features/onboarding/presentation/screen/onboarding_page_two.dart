@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/authentication/presentation/screens/login_page.dart';
+import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_three.dart';
 import 'package:rideshare/features/onboarding/presentation/widgets/slider.dart';
 
-class OnboardingPage extends StatelessWidget {
-  const OnboardingPage({Key? key}) : super(key: key);
+class OnboardingPageTwo extends StatelessWidget {
+  const OnboardingPageTwo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +53,16 @@ class OnboardingPage extends StatelessWidget {
                       fit: FlexFit.loose,
                       child: Padding(
                         padding: EdgeInsets.only(right: 20.sp),
-                        child:InkWell(
+                        child: InkWell(
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           hoverColor: Colors.transparent,
                           onTap: () => {
-                            Navigator.push(context, MaterialPageRoute<LoginPage>(builder: (BuildContext context)=>const LoginPage()))
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute<LoginPage>(
+                                    builder: (BuildContext context) =>
+                                        const OnboardingPageThree()))
                           },
                           child: Image.asset(
                             'images/safe_next.png',

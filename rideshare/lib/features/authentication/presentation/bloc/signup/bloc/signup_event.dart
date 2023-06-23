@@ -9,11 +9,9 @@ abstract class SignupEvent extends Equatable {
 
 class SubmitSignupEvent extends SignupEvent {
   final String fullName;
-  final String phoneNumber;
   final int age;
   const SubmitSignupEvent({
     required this.age,
     required this.fullName,
-    required this.phoneNumber,
   });
 }

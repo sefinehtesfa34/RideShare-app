@@ -3,11 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/signup/bloc/signup_event.dart';
 import 'package:rideshare/features/authentication/presentation/widgets/redirecting.dart';
-import '../../../feed/presentation/screens/passenger_home_page.dart';
 import '../bloc/signup/bloc/signup_bloc.dart';
 import '../bloc/signup/bloc/signup_state.dart';
 import '../widgets/form_field.dart';
-import '../widgets/phone_number_field.dart';
 import '../widgets/select_button.dart';
 import '../widgets/upload_image.dart';
 
@@ -20,135 +18,105 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   String _fullNameChanged = 'Sergio Ramasis';
-  String _phoneNumberChanged = '920876756';
   int _ageChanged = 30;
-  String _code = '+251';
-  _getPhoneNumberChanged(String value) => _phoneNumberChanged = value;
   _getFullNameChange(String value) => _fullNameChanged = value;
   _getAgeChanged(String value) => _ageChanged = int.parse(value);
-  _getCodeChanged(String value) => _code = value;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpBloc, SignupState>(
-        builder: (BuildContext context, SignupState state) {
-      print(state.isSuccess);
-      if (state.isLoading) {
-        return const Redirecting();
-      } else if (state.isSuccess) {
-        Navigator.push(
-          context,
-          MaterialPageRoute<PassengerHomePage>(
-            builder: (BuildContext context) => const PassengerHomePage(),
-          ),
-        );
-      }
-      return Scaffold(
-        body: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "Sign UP",
-                style: TextStyle(
-                    color: const Color(0xFF6D61F2),
-                    fontFamily: 'Poppins',
-                    fontSize: 30.sp,
-                    fontWeight: FontWeight.w600),
-              ),
-              Text(
-                "Create account",
-                style: TextStyle(
-                    color: const Color(0xFF6E80B0),
-                    fontFamily: 'Poppins',
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w400),
-              ),
-              SizedBox(
-                height: 2.0.h,
-              ),
-              const UploadImage(),
-              SizedBox(height: 2.0.h),
-              Text(
-                'Insert Image',
-                style: TextStyle(
-                  fontSize: 18.0.sp,
-                  fontWeight: FontWeight.w500,
-                  color: const Color(0xFF18172B),
-                  fontFamily: 'Poppins',
-                ),
-              ),
-              SizedBox(height: 2.0.h),
-              PassengerFormField(
-                onChanged: _getFullNameChange,
-                hintText: 'Enter your full name',
-                label: 'Full name',
-              ),
-              SizedBox(height: 2.0.h),
-              PassengerFormField(
-                onChanged: _getAgeChanged,
-                hintText: "Enter your age",
-                label: 'Age',
-              ),
-              SizedBox(height: 2.0.h),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Phone Number',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
+    return BlocConsumer<SignUpBloc, SignupState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        if (state is LoadingState) {
+          return const Redirecting();
+        }
+        return Scaffold(
+          body: SingleChildScrollView(
+            padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Sign UP",
+                  style: TextStyle(
+                      color: const Color(0xFF6D61F2),
                       fontFamily: 'Poppins',
+                      fontSize: 30.sp,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "Create account",
+                  style: TextStyle(
+                      color: const Color(0xFF6E80B0),
+                      fontFamily: 'Poppins',
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w400),
+                ),
+                SizedBox(
+                  height: 2.0.h,
+                ),
+                const UploadImage(),
+                SizedBox(height: 2.0.h),
+                Text(
+                  'Insert Image',
+                  style: TextStyle(
+                    fontSize: 18.0.sp,
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF18172B),
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+                SizedBox(height: 2.0.h),
+                PassengerFormField(
+                  onChanged: _getFullNameChange,
+                  hintText: 'Enter your full name',
+                  label: 'Full name',
+                ),
+                SizedBox(height: 2.0.h),
+                PassengerFormField(
+                  onChanged: _getAgeChanged,
+                  hintText: "Enter your age",
+                  label: 'Age',
+                ),
+                SizedBox(height: 10.0.h),
+                Center(
+                  child: SelectButton(
+                    onPressed: () {
+                      context.read<SignUpBloc>().add(SubmitSignupEvent(
+                            age: _ageChanged,
+                            fullName: _fullNameChanged,
+                          ));
+                    },
+                    buttonName: 'Submit',
+                    leftPadding: 0.sp,
+                    radius: 18.sp,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Submit',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Poppins',
+                                fontSize: 18.sp),
+                          ),
+                        ),
+                        const Positioned(
+                          right: 0,
+                          child: Image(
+                              image: AssetImage('assets/images/arrow.png')),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 1.0.h),
-                  PhoneNumberField(
-                    onCodeChanged: _getCodeChanged,
-                    onPhoneNumberChanged: _getPhoneNumberChanged,
-                  ),
-                ],
-              ),
-              SizedBox(height: 10.0.h),
-              Center(
-                child: SelectButton(
-                  onPressed: () {
-                    context.read<SignUpBloc>().add(SubmitSignupEvent(
-                          age: _ageChanged,
-                          fullName: _fullNameChanged,
-                          phoneNumber: '($_code) $_phoneNumberChanged',
-                        ));
-                  },
-                  buttonName: 'Submit',
-                  leftPadding: 0.sp,
-                  radius: 18.sp,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Submit',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Poppins',
-                              fontSize: 18.sp),
-                        ),
-                      ),
-                      const Positioned(
-                        right: 0,
-                        child:
-                            Image(image: AssetImage('assets/images/arrow.png')),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

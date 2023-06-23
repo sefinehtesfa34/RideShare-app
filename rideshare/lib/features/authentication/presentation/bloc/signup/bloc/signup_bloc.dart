@@ -5,16 +5,20 @@ import '../../../../domain/usecases/signup.dart';
 
 class SignUpBloc extends Bloc<SignupEvent, SignupState> {
   final Signup signup;
-  SignUpBloc({required this.signup}) : super(const SignupState()) {
+  SignUpBloc({required this.signup}) : super(InitialState()) {
     on<SubmitSignupEvent>(
-        (SubmitSignupEvent event, Emitter<SignupState> emit) async {
-      emit(state.copyWith(isLoading: true));
-      await Future<dynamic>.delayed(const Duration(seconds: 2));
+      (SubmitSignupEvent event, Emitter<SignupState> emit) async {
+        emit(LoadingState());
+        await Future<dynamic>.delayed(const Duration(seconds: 2));
+        emit(SuccessState());
+      },
+    );
+  }
+}
 
-      // final SignupState signupState = state.copyWith(
+ // final SignupState signupState = state.copyWith(
       //   fullName: event.fullName,
       //   age: event.age,
-      //   phoneNumber: event.phoneNumber,
       // );
 
       // try {
@@ -35,7 +39,3 @@ class SignUpBloc extends Bloc<SignupEvent, SignupState> {
       //   emit(state.copyWith(isFailure: true, isLoading: false));
       //   print('Server Failure');
       // }
-      emit(state.copyWith(isLoading:false, isSuccess: true));
-    });
-  }
-}
