@@ -10,7 +10,7 @@ import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_loca
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'features/authentication/domain/repositories/authentication_repository.dart';
 import 'features/authentication/domain/usecases/verify_otp.dart';
-import 'features/authentication/presentation/bloc/otp_bloc.dart';
+import 'features/authentication/presentation/bloc/otp/otp_bloc.dart';
 
 final GetIt getIt = GetIt.instance;
 

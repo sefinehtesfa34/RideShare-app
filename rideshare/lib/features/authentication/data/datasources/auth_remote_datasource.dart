@@ -6,22 +6,24 @@ import 'package:rideshare/features/authentication/data/models/signup_model.dart'
 import '../../domain/entities/signup_payload.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<bool> verifyOtp(String phoneNumber, String otp);
+  Future<VerifyOtpModel> verifyOtp(String phoneNumber);
   Future<SignupPayloadModel> signup(SignupPayload model);
+  Future<String> login(String phoneNumber);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final http.Client client;
   static const String baseUrl =
-      'https://648cc3d58620b8bae7ed5be2.mockapi.io/api/v1/auth';
+      'https://mocki.io/v1/bf3b82cf-101b-4d86-9082-9fd3e722ab99';
+  static const String secondBaseUrl =
+      'https://mocki.io/v1/b7b78c0a-6bcf-458c-8d0e-da8a4856ce34';
 
   AuthRemoteDataSourceImpl({required this.client});
   @override
-  Future<bool> verifyOtp(String phoneNumber, String otp) async {
+  Future<VerifyOtpModel> verifyOtp(String phoneNumber) async {
     try {
-      final http.Response response =
-          await http.get(Uri.parse('$baseUrl/verify/?otp=$otp'));
-      return jsonDecode(response.body);
+      final http.Response response = await http.get(Uri.parse(baseUrl));
+      return VerifyOtpModel.fromJson(jsonDecode(response.body));
     } catch (e) {
       throw ServerException('Server failure');
     }
@@ -32,7 +34,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final SignupPayloadModel newModel = SignupPayloadModel(
       fullName: model.fullName,
       age: model.age,
-      idImage: model.idImage,
+      imageUrl: model.imageUrl,
     );
     final Map<String, dynamic> jsonBody = newModel.toJson();
     final http.Response response = await client.post(
@@ -49,6 +51,18 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       );
     } else {
       throw ServerException('Server failure');
+    }
+  }
+
+  @override
+  Future<String> login(String phoneNumber) async {
+    const String api =
+        'https://mocki.io/v1/0ceb4034-dca4-4c71-8d09-44aac1fee13c';
+    try {
+      final http.Response response = await client.get(Uri.parse(api));
+      return jsonDecode(response.body)['code'];
+    } catch (e) {
+      throw ServerException;
     }
   }
 }
