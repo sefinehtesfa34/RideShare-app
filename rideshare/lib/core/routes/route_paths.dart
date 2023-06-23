@@ -9,4 +9,6 @@ class RoutePaths {
   static const String signUp = '/signUp';
   static const String login = '/login';
   static const String verify = '/verify';
+  static const String searchingPage = "/searchingPage";
+  static const String rideCompletePassenger = "/rideCompletePassenger";
 }

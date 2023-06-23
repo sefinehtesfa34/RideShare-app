@@ -6,7 +6,8 @@ import 'package:rideshare/features/passenger/presentation/widget/border_only_but
 import 'package:rideshare/features/passenger/presentation/widget/passenger_card.dart';
 import '../../../../core/utils/colors.dart';
 import '../../domain/entities/location.dart';
-import '../../domain/entities/passenger.dart';
+import '../../domain/entities/ride_offer.dart';
+import '../../domain/entities/user.dart';
 import 'custom_cached_image.dart';
 import "package:latlong2/latlong.dart" as lat_lng;
 
@@ -21,7 +22,7 @@ class CustomBottomSheet extends StatefulWidget {
   final String carPlateNumber;
   final lat_lng.LatLng destinationLocation;
   final lat_lng.LatLng driverLocation;
- lat_lng.LatLng userLocation = lat_lng.LatLng(4, 38);
+  lat_lng.LatLng userLocation = lat_lng.LatLng(4, 38);
 
   CustomBottomSheet({
     required this.carModel,
@@ -42,34 +43,30 @@ class CustomBottomSheet extends StatefulWidget {
 }
 
 class _CustomBottomSheetState extends State<CustomBottomSheet> {
-
- 
   @override
   void initState() {
     super.initState();
     setUserLocation();
-    
   }
 
   final TextStyle grayPoppinsStyle =
       const TextStyle(color: greyTextColor, fontFamily: "Poppins");
   String minutesLeft = "estimatting";
 
-  List<Passenger> passengers = [
-    Passenger(
-        imageUrl:
-            'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ufGVufDB8fDB8fHww&w=1000&q=80',
-        name: 'Jane Doe',
-        currentLocation: Location(latitude: 9,longitude:38),
+  List<RideOffer> passengers = [
+    RideOffer(
+       
+        user: User(fullname: "Abebe Fekede", age: 20, imageUrl: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ufGVufDB8fDB8fHww&w=1000&q=80",phoneNumber: "0961088592"),
+        currentLocation: Location(latitude: 9, longitude: 38),
         destination: Location(latitude: 9.2, longitude: 38),
-        seatsAllocated: 2),
-    Passenger(
-        imageUrl:
-            'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ufGVufDB8fDB8fHww&w=1000&q=80',
-        name: 'Jane Doe',
+        seatsAllocated: 2,
+        price: 60),
+    RideOffer(
+        user : User(fullname: "Abebe Fekede", age: 20, imageUrl: "https://",phoneNumber: "0961088592"),
         currentLocation: Location(latitude: 9, longitude: 38.3),
         destination: Location(latitude: 9.7, longitude: 38),
-        seatsAllocated: 2)
+        seatsAllocated: 2,
+        price: 50)
   ];
 
   @override
@@ -208,7 +205,8 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       setState(() {
-        widget.userLocation = lat_lng.LatLng(position.latitude, position.longitude);
+        widget.userLocation =
+            lat_lng.LatLng(position.latitude, position.longitude);
       });
       getEstimatedTime(widget.userLocation, widget.destinationLocation);
     } catch (e) {}

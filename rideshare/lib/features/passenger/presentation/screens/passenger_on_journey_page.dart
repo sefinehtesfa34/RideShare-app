@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/location/location.dart';
 import '../../../../core/utils/colors.dart';
-import '../../domain/entities/passenger.dart';
+import '../../domain/entities/ride_offer.dart';
 import '../../domain/entities/ride_request.dart';
 import '../bloc/ride_request_bloc/ride_request_bloc.dart';
 import '../widget/back_button_custom_icon.dart';
@@ -15,7 +16,7 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import "package:latlong2/latlong.dart" as lat_lng;
 
 class PassengerOnJourneyPage extends StatelessWidget {
-  final Passenger passenger;
+  final RideOffer passenger;
 
   const PassengerOnJourneyPage({super.key, required this.passenger});
 
@@ -45,9 +46,11 @@ class PassengerOnJourneyPage extends StatelessWidget {
                       return bottomSheetHolder(snapshot);
 
                     case ConnectionState.done:
-                      return const Center(
-                        child: Text("Finished fetching"),
-                      );
+                      Future.delayed(Duration.zero, () {
+                        context.go("/home"); //! redirect to payed page.
+                      });
+
+                      return const SizedBox();
                   }
                 }
               });
@@ -59,7 +62,7 @@ class PassengerOnJourneyPage extends StatelessWidget {
           return Center(child: Text('Error occurred: $errorMessage'));
         } else {
           // handle initial and loading states here
-          return CircularProgressIndicator();
+          return const SizedBox();
         }
       },
     );

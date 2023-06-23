@@ -8,6 +8,11 @@ import 'package:rideshare/features/feeds/location/presentation/bloc/location_blo
 import 'package:geolocator/geolocator.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'core/location/location.dart';
+import 'core/routes/app_routes.dart';
+import 'core/utils/colors.dart';
+import 'features/passenger/domain/entities/location.dart';
+import 'features/passenger/domain/entities/ride_offer.dart';
 import 'features/passenger/presentation/bloc/ride_request_bloc/ride_request_bloc.dart';
 import 'injection_container.dart' as injection;
 import 'features/authentication/presentation/bloc/signup/bloc/signup_bloc.dart';
@@ -17,17 +22,16 @@ void main() async {
   await injection.init();
 
   runApp(MultiBlocProvider(providers: [
-    BlocProvider<SignUpBloc>(
-      create: (_) => injection.sl<SignUpBloc>(),
-    ),
-    BlocProvider<LoginBloc>(
-      create: (_) => injection.sl<LoginBloc>(),
-    ),
-    BlocProvider<LocationBloc>(
-      create: (BuildContext context) => injection.sl<LocationBloc>(),
-    ),
-    BlocProvider<BackToLocationBloc>(
-        create: (_) => injection.sl<BackToLocationBloc>()),
+
+
+     BlocProvider<SignUpBloc>(
+          create: (_) => injection.sl<SignUpBloc>(),
+        ),
+        BlocProvider<LocationBloc>(
+          create: (BuildContext context) => injection.sl<LocationBloc>(),
+        ),
+        BlocProvider<BackToLocationBloc>(
+            create: (_) => injection.sl<BackToLocationBloc>()),
     BlocProvider<RideRequestBloc>(
       create: (_) => injection.sl<RideRequestBloc>(),
     )
