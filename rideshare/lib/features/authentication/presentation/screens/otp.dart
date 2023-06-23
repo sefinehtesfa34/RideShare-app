@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'dart:async';
 
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -47,11 +48,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     });
 
     Timer(const Duration(seconds: 3), () {
-      Navigator.push(
-          context,
-          MaterialPageRoute<dynamic>(
-            builder: (BuildContext context) => widget,
-          ));
+      if (widget is OtpVerificationScreen) {
+        context.go('/verify');
+      } else {
+        context.go('/locationPicker');
+      }
     });
   }
 
@@ -63,11 +64,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         body: BlocConsumer<OtpVerificationBloc, OtpVerificationState>(
           listener: (BuildContext context, OtpVerificationState state) async {
             if (state.isSuccess && !state.isSignedUp) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute<SignUpPage>(
-                    builder: (BuildContext context) => const SignUpPage(),
-                  ));
+              context.go('/signUp');
             } else if (state.isSuccess && !_isRedirecting) {
               _startRedirectTimer(const LocationPickerPage());
             } else if (state.isFailure && !_isRedirecting) {
@@ -77,7 +74,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           },
           builder: (BuildContext context, OtpVerificationState state) {
             if (state.isLoading) {
-              // Show loading indicator
               return const Center(
                 child: CircularProgressIndicator(),
               );

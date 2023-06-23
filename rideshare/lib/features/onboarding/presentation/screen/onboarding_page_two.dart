@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rideshare/features/authentication/presentation/screens/login_page.dart';
-import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_three.dart';
 import 'package:rideshare/features/onboarding/presentation/widgets/slider.dart';
 
 class OnboardingPageTwo extends StatelessWidget {
@@ -57,13 +56,7 @@ class OnboardingPageTwo extends StatelessWidget {
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           hoverColor: Colors.transparent,
-                          onTap: () => {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute<LoginPage>(
-                                    builder: (BuildContext context) =>
-                                        const OnboardingPageThree()))
-                          },
+                          onTap: () => context.go('/onboardingPageThree'),
                           child: Image.asset(
                             'images/safe_next.png',
                             fit: BoxFit.contain,

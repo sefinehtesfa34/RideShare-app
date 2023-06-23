@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rideshare/features/authentication/presentation/screens/login_page.dart';
 import 'package:rideshare/features/authentication/presentation/widgets/select_button.dart';
 
 class OnboardingPageThree extends StatefulWidget {
@@ -88,13 +88,7 @@ class _OnboardingPageThreeState extends State<OnboardingPageThree> {
                   padding: EdgeInsets.only(top: 50.sp, bottom: 20.sp),
                   child: SelectButton(
                     leftPadding: 30.sp,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<LoginPage>(
-                              builder: (BuildContext context) =>
-                                  const LoginPage()));
-                    },
+                    onPressed: () => context.go('/login'),
                     buttonName: 'Get Started',
                     radius: 16.sp,
                     rightPadding: 30.sp,
@@ -102,6 +96,7 @@ class _OnboardingPageThreeState extends State<OnboardingPageThree> {
                       'Get Started',
                       style: TextStyle(
                           fontFamily: 'Poppins',
+                          color: Colors.white,
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w400),
                     ),

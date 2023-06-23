@@ -3,4 +3,10 @@ class RoutePaths {
   static const String searchingRide = "/searchingRide";
   static const String onJourney = "/onJourney";
   static const String locationPicker = "/locationPicker";
+  static const String onboardingPageOne = '/onboardingPageOne';
+  static const String onboardingPageTwo = '/onboardingPageTwo';
+  static const String onboardingPageThree = '/onboardingPageThree';
+  static const String signUp = '/signUp';
+  static const String login = '/login';
+  static const String verify = '/verify';
 }
