@@ -35,8 +35,15 @@ class ChooseLocationsLoading extends ChooseLocationsState {}
 class ChooseLocationsSucess extends ChooseLocationsState {
   final LatLng soureLocation;
   final LatLng destinationLocation;
+  final String sourceName;
+  final String destinationName;
 
-  ChooseLocationsSucess(this.soureLocation, this.destinationLocation);
+  ChooseLocationsSucess(
+    this.soureLocation,
+    this.destinationLocation,
+    this.sourceName,
+    this.destinationName,
+  );
 }
 
 class ChooseLocationsError extends ChooseLocationsState {}

@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:rideshare/core/location/location.dart';
 import 'package:rideshare/features/pick_location/domain/entities/destination.dart';
 
 import '../../../../core/errors/failures.dart';
@@ -59,6 +61,7 @@ class ChooseLocationsBloc
     extends Bloc<ChooseLocationsEvent, ChooseLocationsState> {
   ChooseLocationsBloc() : super(ChooseLocationsInitial()) {
     on<SelectecLocationsEvent>(_onNameFetch);
+    on<SelectecLocationFromList>(_onLocationSelectedFromList);
   }
 
   void _onNameFetch(
@@ -69,11 +72,37 @@ class ChooseLocationsBloc
     List<Location> destinations =
         await locationFromAddress(event.destinationLocation);
 
-    emit(ChooseLocationsSucess(
-        LatLng(sources[0].latitude, sources[0].longitude),
-        LatLng(destinations[0].latitude, destinations[0].longitude)));
+    emit(
+      ChooseLocationsSucess(
+          LatLng(sources[0].latitude, sources[0].longitude),
+          LatLng(destinations[0].latitude, destinations[0].longitude),
+          event.sourceLocation,
+          event.destinationLocation),
+    );
+  }
+
+  void _onLocationSelectedFromList(SelectecLocationFromList event,
+      Emitter<ChooseLocationsState> emit) async {
+    emit(ChooseLocationsLoading());
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+
+    List<Placemark> curPosName = await placemarkFromCoordinates(
+      position.latitude,
+      position.longitude,
+    );
+    emit(
+      ChooseLocationsSucess(
+        LatLng(position.latitude, position.longitude),
+        LatLng(event.destinationLatitude, event.destinationLongitude),
+        event.sourceName,
+        curPosName[0].street!,
+      ),
+    );
   }
 }
+
 
   // @override
   // on<NamesState>((event,emit) {};)

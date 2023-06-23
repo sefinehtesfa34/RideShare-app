@@ -11,6 +11,8 @@ import 'package:rideshare/features/pick_location/presentation/screen/passenger_o
 import 'package:rideshare/features/pick_location/presentation/widgets/map_picker.dart';
 import 'package:rideshare/features/pick_location/presentation/widgets/where_button.dart';
 
+import 'confirm_dialog.dart';
+
 class ChooseLocation extends StatefulWidget {
   final GoogleMapsPlaces places;
 
@@ -28,7 +30,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
   FocusNode _sourceFocusNode = FocusNode();
   FocusNode _destinationFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
-
+  int seatCount = 1;
   Future<List<Prediction>> _getPlacePredictions(String searchTerm) async {
     PlacesAutocompleteResponse response = await widget.places.autocomplete(
       searchTerm,
@@ -65,16 +67,24 @@ class _ChooseLocationState extends State<ChooseLocation> {
     return BlocListener<ChooseLocationsBloc, ChooseLocationsState>(
       listener: (context, state) {
         if (state is ChooseLocationsSucess) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => PassengerOnJourney(
-                        sourceLatitude: state.soureLocation.latitude,
-                        sourceLongitude: state.soureLocation.longitude,
-                        destinationLatitude: state.destinationLocation.latitude,
-                        destinationLongitude:
-                            state.destinationLocation.longitude,
-                      )));
+          if (state is ChooseLocationsSucess) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return SeatSelectionDialog(
+                  source: state.sourceName,
+                  destination: state.destinationName,
+                  seatCount: seatCount,
+                  onSeatCountChanged: (int count) {
+                    setState(() {
+                      seatCount = count;
+                    });
+                  },
+                  onConfirmPressed: () {},
+                );
+              },
+            );
+          }
         }
       },
       child: Scaffold(
