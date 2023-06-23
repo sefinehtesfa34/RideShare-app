@@ -13,6 +13,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   void _onAuthLoginEvent(SubmitEvent event, Emitter<LoginState> emit) async {
     emit(LoginLoadingState());
+
     await Future<dynamic>.delayed(const Duration(seconds: 2));
     try {
       final response = await loginUsecase.call(event.phoneNumber);
@@ -21,5 +22,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } catch (e) {
       emit(LoginFailureState());
     }
+    emit(LoginFailureState());
   }
 }

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/login/bloc/login_bloc.dart';
-import 'features/authentication/presentation/screens/login_page.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'features/onboarding/presentation/screen/onboarding_page.dart';
+import 'features/onboarding/presentation/widgets/slider.dart';
 import 'features/passenger/presentation/bloc/ride_request_bloc/ride_request_bloc.dart';
 import 'injection_container.dart' as injection;
 import 'features/authentication/presentation/bloc/signup/bloc/signup_bloc.dart';
@@ -52,7 +53,8 @@ class _MyAppState extends State<MyApp> {
           ScreenType screenType) {
         return const MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: LoginPage(),
+          home: OnboardingPage(),
+          // home: SliderPage(currentPageIndex: 0),
         );
       },
     );

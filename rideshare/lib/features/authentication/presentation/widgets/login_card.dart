@@ -17,15 +17,17 @@ class LoginCard extends StatefulWidget {
 
 class _LoginCardState extends State<LoginCard> {
   final TextEditingController phoneNumberController = TextEditingController();
+  bool isFieldEmpty = false;
+
   @override
   Widget build(BuildContext context) {
     return loginButton(context, "Submit");
   }
 
-  Widget loginButton(context, text) {
+  Widget loginButton(BuildContext context, String text) {
     return BlocConsumer<LoginBloc, LoginState>(
-      listener: (context, state) {},
-      builder: (context, state) {
+      listener: (BuildContext context, LoginState state) {},
+      builder: (BuildContext context, LoginState state) {
         return Column(children: [
           Padding(
             padding: EdgeInsets.only(left: 20.w, top: 2.h),
@@ -52,6 +54,7 @@ class _LoginCardState extends State<LoginCard> {
                             fontSize: 15.5.sp,
                             color: const Color(0xFF8090BA),
                           ),
+                          cursorColor: const Color(0xFF8090BA),
                           controller: phoneNumberController,
                         ),
                       ),
@@ -61,13 +64,33 @@ class _LoginCardState extends State<LoginCard> {
               ],
             ),
           ),
+          if (isFieldEmpty)
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, top: 4.sp),
+              child: Text(
+                '*This field is required',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 15.sp,
+                ),
+              ),
+            ),
           Padding(
             padding: EdgeInsets.only(left: 20.w, right: 11.w, top: 20.sp),
             child: GestureDetector(
               onTap: () {
-                context.read<LoginBloc>().add(
-                      SubmitEvent(phoneNumber: phoneNumberController.text),
-                    );
+                if (phoneNumberController.text.length != 9) {
+                  setState(() {
+                    isFieldEmpty = true;
+                  });
+                } else {
+                  setState(() {
+                    isFieldEmpty = false;
+                  });
+                  context.read<LoginBloc>().add(
+                        SubmitEvent(phoneNumber: phoneNumberController.text),
+                      );
+                }
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -90,7 +113,5 @@ class _LoginCardState extends State<LoginCard> {
         ]);
       },
     );
-
-    //
   }
 }

@@ -60,7 +60,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'https://mocki.io/v1/0ceb4034-dca4-4c71-8d09-44aac1fee13c';
     try {
       final http.Response response = await client.get(Uri.parse(api));
-      return jsonDecode(response.body)['otp'];
+      return jsonDecode(response.body)['code'];
     } catch (e) {
       throw ServerException;
     }
