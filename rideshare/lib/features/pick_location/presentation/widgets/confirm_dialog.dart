@@ -1,7 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feeds/location/presentation/widgets/select_button.dart';
+
+import '../../../passenger/domain/entities/location.dart';
+import '../../../passenger/domain/entities/ride_offer.dart';
+import '../../../passenger/domain/entities/user.dart';
+import '../../../passenger/presentation/bloc/ride_request_bloc/ride_request_bloc.dart';
+import '../../../passenger/presentation/widget/searching_page_modal_function.dart';
 
 class SeatSelectionDialog extends StatefulWidget {
   final String source;
@@ -27,6 +37,11 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
   int currentSeatCount = 0;
   int cost = 50;
   int amount = 50;
+  User user = User(
+      fullname: "Abebe Fekede",
+      age: 20,
+      imageUrl: "https://",
+      phoneNumber: "0961088592");
 
   @override
   void initState() {
@@ -176,8 +191,63 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
       actions: <Widget>[
         SelectButton(
           buttonName: 'Confirm',
-          onPressed: widget.onConfirmPressed,
+          onPressed: () {
+            context.read<RideRequestBloc>().add(
+                  RideOfferEvent(
+                    RideOffer(
+                        user: user,
+                        currentLocation:
+                            Location(latitude: 9.0302, longitude: 38.7625),
+                        destination:
+                            Location(latitude: 9.03055, longitude: 38.7777),
+                        seatsAllocated: 3,
+                        price: 200),
+                  ),
+                );
+            // context.go("/home");
+          },
         ),
+        BlocConsumer<RideRequestBloc, RideRequestState>(
+          listener: (context, state) {
+            if (state is RideRequestSuccessState) {
+              final RideOffer passenger = RideOffer(
+                  user: user,
+                  currentLocation:
+                      Location(latitude: 9.0302, longitude: 38.7625),
+                  destination: Location(latitude: 9.03055, longitude: 38.7777),
+                  seatsAllocated: 3,
+                  price: 60);
+
+              String encodedPassenger = jsonEncode(passenger.toJson());
+              context.go('/onJourney', extra: {'passenger': passenger});
+            } else if (state is RideRequestWaitingState) {
+              showSearchDriverModal(context);
+            } else if (state is RideRequestFailureState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  dismissDirection: DismissDirection.horizontal,
+                  content: Row(
+                    children: [
+                      Icon(Icons.warning),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          'No internet connection',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                  backgroundColor: Colors.red,
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return const SizedBox();
+          },
+        )
       ],
     );
   }

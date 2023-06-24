@@ -2,12 +2,13 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mockito/mockito.dart';
+import 'package:rideshare/features/pick_location/data/datasources/destination_datasource.dart';
+import 'package:rideshare/features/pick_location/data/repositories/destination_repository.dart';
+import 'package:rideshare/features/pick_location/domain/repositories/destination_repository.dart';
+import 'package:rideshare/features/pick_location/domain/usecases/destination_usecase.dart';
 
 import 'core/network/network_info.dart';
-import 'features/feed/data/datasources/destination_datasource.dart';
-import 'features/feed/data/repositories/destination_repository.dart';
-import 'features/feed/domain/repositories/destination_repository.dart';
-import 'features/feed/domain/usecases/destination_usecase.dart';
+
 import 'features/pick_location/presentation/bloc/passenger_home_bloc.dart';
 
 final sl = GetIt.instance;
@@ -29,10 +30,8 @@ Future<void> setupInjection() async {
       () => DestinationDataSourceImp(client: sl()));
 
   // Core
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  // sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   // External
   sl.registerLazySingleton(() => http.Client());
-
-  sl.registerLazySingleton(() => InternetConnectionChecker());
 }

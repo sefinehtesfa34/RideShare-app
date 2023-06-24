@@ -9,6 +9,7 @@ import 'package:rideshare/features/onboarding/presentation/screen/onboarding_pag
 import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_three.dart';
 import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_two.dart';
 import 'package:rideshare/features/passenger/presentation/screens/passenger_on_journey_page.dart';
+import 'package:rideshare/features/pick_location/presentation/screen/location_picker.dart';
 import 'package:rideshare/features/pick_location/presentation/widgets/choose_location.dart';
 import 'package:rideshare/features/pick_location/presentation/widgets/map_picker.dart';
 
@@ -23,7 +24,7 @@ class AppRouter extends StatelessWidget {
 
   AppRouter({Key? key}) : super(key: key) {
     _router = GoRouter(
-      initialLocation: RoutePaths.onboardingPageOne,
+      initialLocation: RoutePaths.passengerHome,
       routes: <GoRoute>[
         GoRoute(
           path: RoutePaths.locationPicker,
@@ -103,11 +104,11 @@ class AppRouter extends StatelessWidget {
         GoRoute(
             path: RoutePaths.passengerHome,
             builder: (BuildContext context, GoRouterState state) =>
-                LocationPickerPage()),
+                const LocationPicker()),
         GoRoute(
             path: RoutePaths.locationPicker,
             builder: (BuildContext context, GoRouterState state) =>
-                LocationPickerPage()),
+                const LocationPicker()),
         GoRoute(
             path: RoutePaths.home,
             builder: (BuildContext context, GoRouterState state) =>

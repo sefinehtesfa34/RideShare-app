@@ -86,10 +86,4 @@ void locationInjectionInit() {
   getIt.registerFactory<NamesBloc>(() => NamesBloc(
       fetchPassengerHistoryUseCase: getIt<FetchPassengerHistoryUseCase>()));
   getIt.registerFactory<ChooseLocationsBloc>(() => ChooseLocationsBloc());
-
-  getIt.registerLazySingleton<NetworkInfo>(
-    () => NetworkInfoImpl(getIt()),
-  );
-  // External
-  getIt.registerLazySingleton(() => InternetConnectionChecker());
 }
