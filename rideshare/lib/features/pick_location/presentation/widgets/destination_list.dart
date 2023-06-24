@@ -25,7 +25,6 @@ class _DestinationListState extends State<DestinationList> {
           return BlocListener<ChooseLocationsBloc, ChooseLocationsState>(
             listener: (context, state) {
               if (state is ChooseLocationsSucess) {
-                print("Sucessfully loaded");
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {

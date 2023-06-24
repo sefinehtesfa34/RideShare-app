@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feeds/location/presentation/widgets/select_button.dart';
+import 'package:rideshare/features/pick_location/presentation/bloc/passenger_home_bloc.dart';
 
 import '../../../passenger/domain/entities/location.dart';
 import '../../../passenger/domain/entities/ride_offer.dart';
@@ -35,7 +36,7 @@ class SeatSelectionDialog extends StatefulWidget {
 
 class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
   int currentSeatCount = 0;
-  int cost = 50;
+  double cost = 50;
   int amount = 50;
   User user = User(
       fullname: "Abebe Fekede",
@@ -192,19 +193,25 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
         SelectButton(
           buttonName: 'Confirm',
           onPressed: () {
-            context.read<RideRequestBloc>().add(
-                  RideOfferEvent(
-                    RideOffer(
-                        user: user,
-                        currentLocation:
-                            Location(latitude: 9.0302, longitude: 38.7625),
-                        destination:
-                            Location(latitude: 9.03055, longitude: 38.7777),
-                        seatsAllocated: 3,
-                        price: 200),
-                  ),
-                );
-            // context.go("/home");
+            final ChooseLocationsBloc bloc =
+                BlocProvider.of<ChooseLocationsBloc>(context, listen: false);
+            final ChooseLocationsState state = bloc.state;
+            if (state is ChooseLocationsSucess) {
+              context.read<RideRequestBloc>().add(
+                    RideOfferEvent(
+                      RideOffer(
+                          user: user,
+                          currentLocation: Location(
+                              latitude: state.soureLocation.latitude,
+                              longitude: state.soureLocation.longitude),
+                          destination: Location(
+                              latitude: state.destinationLocation.latitude,
+                              longitude: state.destinationLocation.longitude),
+                          seatsAllocated: currentSeatCount,
+                          price: cost),
+                    ),
+                  );
+            }
           },
         ),
         BlocConsumer<RideRequestBloc, RideRequestState>(

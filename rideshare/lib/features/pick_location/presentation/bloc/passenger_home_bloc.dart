@@ -96,8 +96,8 @@ class ChooseLocationsBloc
       ChooseLocationsSucess(
         LatLng(position.latitude, position.longitude),
         LatLng(event.destinationLatitude, event.destinationLongitude),
-        event.sourceName,
         curPosName[0].street!,
+        event.sourceName,
       ),
     );
   }
