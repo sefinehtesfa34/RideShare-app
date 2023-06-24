@@ -32,7 +32,7 @@ class AppRouter extends StatelessWidget {
         GoRoute(
           path: RoutePaths.home,
           builder: (BuildContext context, GoRouterState state) =>
-              const SearchingforRidePage(),
+              SearchingforRidePage(),
         ),
         GoRoute(
           path: RoutePaths.onJourney,
@@ -78,9 +78,9 @@ class AppRouter extends StatelessWidget {
             path: RoutePaths.rideCompletePassenger,
             builder: (BuildContext context, GoRouterState state) {
               var extra = state.extra as Map<String, dynamic>;
-              return RideCompletePassenger(totalCost: extra['totalCost'],tip: extra['tip'] );
+              return RideCompletePassenger(
+                  totalCost: extra['totalCost'], tip: extra['tip']);
             }),
-      
       ],
     );
   }
