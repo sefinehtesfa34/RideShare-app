@@ -11,9 +11,7 @@ import 'package:rideshare/features/onboarding/presentation/screen/onboarding_pag
 import 'package:rideshare/features/passenger/presentation/screens/passenger_on_journey_page.dart';
 
 import '../../features/feeds/location/presentation/screen/picking_location.dart';
-import '../../features/feeds/location/presentation/screen/searching_driver_page.dart';
 import '../../features/passenger/presentation/screens/ride_completed.dart';
-import '../../features/passenger/presentation/widget/searching_page_modal_function.dart';
 import '../../features/passenger/presentation/screens/searching_for_ride_page.dart';
 import '../utils/colors.dart';
 
