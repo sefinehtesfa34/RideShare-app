@@ -6,11 +6,15 @@ import '../../../../core/usecases/usecase.dart';
 
 class Login implements UseCase<String, String> {
   final AuthenticationRepository repository;
+  final UserRepository userRepository;
 
   @override
   Future<Either<Failure, String>> call(String params) async {
     return await repository.login(params);
   }
 
-  Login({required this.repository});
+  Login({
+    required this.repository,
+    required this.userRepository,
+  });
 }
