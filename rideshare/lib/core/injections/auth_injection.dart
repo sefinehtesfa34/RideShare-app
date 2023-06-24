@@ -6,9 +6,8 @@ import 'package:rideshare/features/authentication/domain/usecases/login.dart';
 import 'package:rideshare/features/authentication/domain/usecases/signup.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/login/bloc/login_bloc.dart';
 
-import 'features/authentication/presentation/bloc/signup/bloc/signup_bloc.dart';
-
-final sl = GetIt.instance;
+import '../../features/authentication/presentation/bloc/signup/bloc/signup_bloc.dart';
+import 'injection_container.dart';
 
 Future<void> authInjectionInit() async {
   //! Bloc

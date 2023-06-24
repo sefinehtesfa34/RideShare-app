@@ -104,8 +104,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             } else {
               // Default state
               return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -135,8 +134,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         children: List<SizedBox>.generate(
                           _controllers.length,
                           (int index) => SizedBox(
-                            width: 10.w,
-                            height: 10.h,
+                            width: 14.w,
+                            height: 7.h,
                             child: TextField(
                               onChanged: (String value) {
                                 OTP[index] = value;
@@ -181,13 +180,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       ),
                       const Resend(),
                       SizedBox(height: 3.h),
-                      Flexible(
-                        fit: FlexFit.loose,
-                        child: SizedBox(
-                          width: 80.w,
-                          height: 10.h,
-                          child: Verify(controllers: _controllers, OTP: OTP),
-                        ),
+                      SizedBox(
+                        width: 70.w,
+                        height: 8.h,
+                        child: Verify(controllers: _controllers, OTP: OTP),
                       ),
                     ],
                   ),

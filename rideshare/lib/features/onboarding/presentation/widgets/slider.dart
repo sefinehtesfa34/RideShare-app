@@ -13,14 +13,14 @@ class SliderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 20.sp, left: 10.sp),
+      padding: EdgeInsets.only(left: 2.w),
       child: Align(
         alignment: Alignment.bottomLeft,
         child: Row(children: [
           Container(
             decoration: BoxDecoration(
               color: color,
-              borderRadius: BorderRadius.circular(10.sp),
+              borderRadius: BorderRadius.circular(50),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),

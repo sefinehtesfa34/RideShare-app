@@ -4,10 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feeds/location/presentation/widgets/select_button.dart';
 import 'package:rideshare/features/passenger/presentation/widget/border_only_button.dart';
-
+import '../../../../core/injections/injection_container.dart';
 import '../../../../core/utils/colors.dart';
-import '../../../../ride_request_injection.dart' as injection;
-import '../../../../ride_request_injection.dart';
+
 import '../bloc/cancel_ride_bloc/cancel_ride_bloc.dart';
 
 class CancelRidePassengerModal extends StatelessWidget {
