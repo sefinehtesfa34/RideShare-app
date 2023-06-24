@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:rideshare_driver/features/authentication/domain/entities/user_profile.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../entities/signup_payload.dart';
 import '../repositories/authentication_repository.dart';
+import '../entities/user_profile.dart';
 
 class Signup implements UseCase<UserProfile, SignupPayload> {
   final AuthenticationRepository authRepo;

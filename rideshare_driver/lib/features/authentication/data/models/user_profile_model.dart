@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:rideshare_driver/features/authentication/domain/entities/user_profile.dart';
-
+import '../../domain/entities/user_profile.dart';
 class UserProfileModel extends UserProfile {
   final String fullName;
   final int age;
