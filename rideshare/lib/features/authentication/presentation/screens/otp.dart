@@ -65,7 +65,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               context.go('/signUp');
             } else if (state.isSuccess && !_isRedirecting) {
               _startRedirectTimer(const LocationPickerPage());
-            } else if (state.isFailure && !_isRedirecting) {
+            } else if (state.isFailure) {
               _startRedirectTimer(const OtpVerificationScreen());
             }
             // Handle state changes, if needed
@@ -117,7 +117,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           height: 1.5,
                         ),
                       ),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: 3.h),
                       const Text(
                         'Enter the number we just sent you\non your phone.',
                         style: TextStyle(
@@ -127,7 +127,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 10.h),
+                      Image(
+                        height: 35.h,
+                        width: 60.w,
+                        image: const AssetImage('assets/images/otp_image.jpg'),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: List<SizedBox>.generate(
@@ -168,7 +172,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 2.h),
                       const Text(
                         "Didn't receive a code?",
                         style: TextStyle(
@@ -178,7 +182,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         ),
                       ),
                       const Resend(),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 2.h),
                       Flexible(
                         fit: FlexFit.loose,
                         child: SizedBox(

@@ -20,7 +20,7 @@ class AppRouter extends StatelessWidget {
 
   AppRouter({Key? key}) : super(key: key) {
     _router = GoRouter(
-      initialLocation: RoutePaths.onboardingPageOne,
+      initialLocation: RoutePaths.verify,
       routes: <GoRoute>[
         GoRoute(
           path: RoutePaths.locationPicker,
