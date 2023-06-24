@@ -1,140 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/features/pick_passengers/presentation/screens/pick_passengers_page.dart';
+import './features/authentication/presentation/screens/sign_up_page.dart';
+import './features/authentication/presentation/bloc/signup/sign_up_bloc.dart';
+import 'features/journey_started/presentation/screens/journey_started_page.dart';
+import 'injection_container.dart' as di;
 
-class JourneyPage extends StatelessWidget {
+void main() async {
+  // await di.init();
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Journey Page'),
+    return ResponsiveSizer(
+      builder: (BuildContext context, Orientation orientation,
+          ScreenType screenType) {
+        return MaterialApp(
+      theme: ThemeData(
+        primaryColor: const Color(0xFF433AA9),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Text('Your Journey starts in:'),
-                SizedBox(width: 8.0),
-                CountdownTimer(),
-                SizedBox(width: 8.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // Implement cancel button functionality
-                  },
-                  child: Text('Cancel'),
-                ),
-              ],
-            ),
-          ),
-          Text('Added Passengers'),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: 3, // Replace with actual passenger count
-            itemBuilder: (context, index) {
-              return PassengerCard();
-            },
-          ),
-          Text('All passengers'),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: 3, // Replace with actual car count
-            itemBuilder: (context, index) {
-              return CarCard();
-            },
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Implement start journey button functionality
-        },
-        backgroundColor: Colors.green,
-        icon: Icon(Icons.play_arrow),
-        label: Text('Start Journey'),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      home: JourneyStartedPage(),
+    );;
+      },
     );
-  }
-}
 
-class CountdownTimer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // Implement countdown timer widget
-    return Text('5:00'); // Replace with actual countdown implementation
+    // MultiBlocProvider(
+    //   providers: [
+    //     BlocProvider<SignUpBloc>(
+    //       create: (_) => di.sl<SignUpBloc>(),
+    //     ),
+    //   ],
+    //   child: ResponsiveSizer(
+    //     builder: (context, orientation, screenType) {
+    //       return MaterialApp(
+    //         theme: ThemeData(
+    //           primaryColor: const Color(0xFF433AA9),
+    //           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    //           useMaterial3: true,
+    //         ),
+    //         home: SignUpPage(),
+    //       );
+    //     },
+    //   ),
+    // );
   }
-}
-
-class PassengerCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: CircleAvatar(
-          // Replace with passenger image
-          child: Text('P'), // Example placeholder
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Passenger Name'),
-            Text('Destination'),
-            Text('Seat Number'),
-          ],
-        ),
-        trailing: Column(
-          children: [
-            Text('100birr'),
-            ElevatedButton(
-              onPressed: () {
-                // Implement call button functionality
-              },
-              child: Icon(Icons.call),
-            ),
-          ],
-        ),
-        // trailing: Icon(Icons.remove), // Minus icon
-      ),
-    );
-  }
-}
-
-class CarCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.grey,
-      child: ListTile(
-        leading: CircleAvatar(
-          // Replace with car image
-          child: Text('C'), // Example placeholder
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Car Name'),
-            Text('Where'),
-            Text('When'),
-          ],
-        ),
-        trailing: Column(
-          children: [
-            Text('100birr'),
-            Text('1 seat'),
-            ElevatedButton(
-              onPressed: () {
-                // Implement add button functionality
-              },
-              child: Text('Add'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(MaterialApp(home: JourneyPage()));
 }
