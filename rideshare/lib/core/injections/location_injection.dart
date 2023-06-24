@@ -86,4 +86,5 @@ void locationInjectionInit() {
   getIt.registerFactory<NamesBloc>(() => NamesBloc(
       fetchPassengerHistoryUseCase: getIt<FetchPassengerHistoryUseCase>()));
   getIt.registerFactory<ChooseLocationsBloc>(() => ChooseLocationsBloc());
+  getIt.registerFactory<CurrentLocationBloc>(() => CurrentLocationBloc());
 }

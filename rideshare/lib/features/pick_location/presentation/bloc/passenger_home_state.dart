@@ -47,3 +47,17 @@ class ChooseLocationsSucess extends ChooseLocationsState {
 }
 
 class ChooseLocationsError extends ChooseLocationsState {}
+
+abstract class CurrentLocationState {}
+
+class CurrentLocationInitial extends CurrentLocationState {}
+
+class CurrentLocationLoading extends CurrentLocationState {}
+
+class CurrentLocationSuccess extends CurrentLocationState {
+  final LatLng location;
+
+  CurrentLocationSuccess(this.location);
+}
+
+class CurrentLocationError extends CurrentLocationState {}

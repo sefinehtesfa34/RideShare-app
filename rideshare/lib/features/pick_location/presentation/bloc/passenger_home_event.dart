@@ -33,3 +33,7 @@ class SelectecLocationFromList extends ChooseLocationsEvent {
     this.sourceName,
   );
 }
+
+abstract class CurrentLocationEvent {}
+
+class FetchCurrentLocationEvent extends CurrentLocationEvent {}

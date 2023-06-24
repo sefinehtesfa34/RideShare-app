@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:rideshare/core/location/location.dart';
 import 'package:rideshare/features/pick_location/domain/entities/destination.dart';
 
@@ -103,7 +104,26 @@ class ChooseLocationsBloc
   }
 }
 
+class CurrentLocationBloc
+    extends Bloc<CurrentLocationEvent, CurrentLocationState> {
+  CurrentLocationBloc() : super(CurrentLocationInitial()) {
+    on<CurrentLocationEvent>(_getCurrentLocation);
+  }
 
+  void _getCurrentLocation(
+      CurrentLocationEvent event, Emitter<CurrentLocationState> emit) async {
+    emit(CurrentLocationLoading());
+    if (await Permission.location.request().isGranted) {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      emit(CurrentLocationSuccess(
+          LatLng(position.latitude, position.longitude)));
+    } else {
+      emit(CurrentLocationError());
+    }
+  }
+}
 
   // @override
   // on<NamesState>((event,emit) {};)

@@ -62,6 +62,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<NamesBloc>(create: (_) => di.sl<NamesBloc>()),
         BlocProvider<ChooseLocationsBloc>(
             create: (_) => di.sl<ChooseLocationsBloc>()),
+        BlocProvider<CurrentLocationBloc>(
+            create: (_) => di.sl<CurrentLocationBloc>()),
       ],
       child: ResponsiveSizer(
         builder: (context, orientation, screenType) {
