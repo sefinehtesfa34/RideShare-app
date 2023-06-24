@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/core/utils/colors.dart';
 import 'package:rideshare/core/utils/images.dart';
+import 'package:rideshare/features/journey_started/presentation/widgets/border_only.dart';
 
-import '../../../../core/utils/colors.dart';
-
-class AddedPassengersCard extends StatelessWidget {
+class OnJourneyPassengersCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,7 +42,7 @@ class AddedPassengersCard extends StatelessWidget {
                   ),
                 ),
                 Row(
-                  children: [Image.asset(currentLocation), Text("5mins away")],
+                  children: [Image.asset(map), Text("5mins away")],
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 1.w),
@@ -55,48 +55,18 @@ class AddedPassengersCard extends StatelessWidget {
             SizedBox(
               width: 15.w,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Br 100',
-                  style: TextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
-                  ),
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Container(
-                  height: 4.h,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Implement call button functionality
-                    },
-                    style: ElevatedButton.styleFrom(
-                      side: const BorderSide(
-                          color: primaryColor,
-                          width: 1), // Set the border color and width
-                    ),
-                    child: const Text(
-                      "Call",
-                      style: TextStyle(color: primaryColor),
-                    ),
-                  ),
-                ),
-              ],
+            Text(
+              'Br 100',
+              style: TextStyle(
+                fontSize: 15.sp,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins',
+              ),
             ),
             SizedBox(
-              width: 15.w,
+              width: 10.w,
             ),
-            InkWell(
-              onTap: () {
-                // Handle the image pressed event here
-              },
-              child: Image.asset(delete),
-            ),
+            BorderOnlyButton(buttonText: "Drop", color: primaryColor, onPressed: (){}, height: 5.h, width: 18.w,)
           ],
           // trailing: Icon(Icons.remove), // Minus icon
         ),

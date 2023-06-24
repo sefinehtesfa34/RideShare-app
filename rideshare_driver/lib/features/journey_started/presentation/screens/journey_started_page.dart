@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import '../widgets/bottom_button.dart';
-// import '../widgets/google_map_viewer.dart';
-import '../widgets/pick_passengers_bottom_sheet.dart';
+import '../widgets/journey_started_custom_sheet.dart';
 
-class PickPassengersPage extends StatelessWidget {
-  const PickPassengersPage({Key? key}) : super(key: key);
+class JourneyStartedPage extends StatelessWidget {
+  const JourneyStartedPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
