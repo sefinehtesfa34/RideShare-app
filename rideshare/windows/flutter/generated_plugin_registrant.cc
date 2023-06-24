@@ -6,9 +6,6 @@
 
 #include "generated_plugin_registrant.h"
 
-#include <geolocator_windows/geolocator_windows.h>
-
-void RegisterPlugins(flutter::PluginRegistry* registry) {
 #include <file_selector_windows/file_selector_windows.h>
 #include <geolocator_windows/geolocator_windows.h>
 

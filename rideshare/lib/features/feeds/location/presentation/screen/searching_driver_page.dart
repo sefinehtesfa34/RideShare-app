@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../bloc/sliding_container/sliding_container_bloc.dart';
-import '../widgets/search_custom_bottom_sheet.dart';
-
 class SlideUpContainerPage extends StatefulWidget {
   @override
   _SlideUpContainerPageState createState() => _SlideUpContainerPageState();
@@ -61,10 +59,8 @@ class _SlideUpContainerPageState extends State<SlideUpContainerPage>
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (BuildContext context) {
-        return BlocProvider<SlidingContainerBloc>(
-          create: (context) => _slidingContainerBloc,
-          child: SearchCustomBottomSheet(),
-        );
+        // return SearchCustomBottomSheet();
+        return Center();
       },
     );
 
@@ -74,15 +70,13 @@ class _SlideUpContainerPageState extends State<SlideUpContainerPage>
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: AnimatedContainer(
-        duration: Duration(milliseconds: 500),
-        height: _slideAnimation.value,
-        child: BlocBuilder<SlidingContainerBloc, SlidingContainerState>(
-          builder: (context, state) {
-            return GestureDetector(
+        bottom: 0,
+        left: 0,
+        right: 0,
+        child: AnimatedContainer(
+            duration: Duration(milliseconds: 500),
+            height: _slideAnimation.value,
+            child: GestureDetector(
               onTap: () {
                 _toggleContainerVisibility();
               },
@@ -108,9 +102,7 @@ class _SlideUpContainerPageState extends State<SlideUpContainerPage>
                     children: [
                       IconButton(
                         icon: Icon(
-                          state is SearchDriverContainerVisibleState
-                              ? Icons.keyboard_arrow_down
-                              : Icons.keyboard_arrow_up,
+                          Icons.keyboard_arrow_down,
                           size: 25,
                         ),
                         onPressed: () {
@@ -133,10 +125,6 @@ class _SlideUpContainerPageState extends State<SlideUpContainerPage>
                   ),
                 ),
               ),
-            );
-          },
-        ),
-      ),
-    );
+            )));
   }
 }

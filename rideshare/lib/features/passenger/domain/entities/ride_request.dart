@@ -1,3 +1,5 @@
+import 'package:rideshare/features/passenger/domain/entities/ride_offer.dart';
+
 import 'location.dart';
 
 class RideRequest {
@@ -11,9 +13,9 @@ class RideRequest {
   final String carPlateNumber;
   final String driverPhoneNumber;
   final Location carLocation;
+  List<RideOffer> passengersList;
 
-  RideRequest(
-     {
+  RideRequest({
     required this.driverName,
     required this.driverImageURL,
     required this.driverRatingAverageOutOf5,
@@ -24,5 +26,6 @@ class RideRequest {
     required this.carPlateNumber,
     required this.driverPhoneNumber,
     required this.carLocation,
+    required this.passengersList,
   });
 }

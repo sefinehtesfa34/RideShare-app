@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../bloc/otp_bloc.dart';
+import '../bloc/otp/otp_bloc.dart';
 
 // ignore: must_be_immutable
 class Verify extends StatefulWidget {

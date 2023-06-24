@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:signalr_core/signalr_core.dart';
 
-import '../../domain/entities/passenger.dart';
+import '../../domain/entities/ride_offer.dart';
 import '../../domain/entities/ride_request.dart';
 import '../model/passenger_model.dart';
 import '../model/ride_request_model.dart';
@@ -14,25 +14,27 @@ class RideRequestApiProvider {
 
   RideRequestApiProvider({required this.baseUrl}) {
     hubConnection =
-        HubConnectionBuilder().withUrl('$baseUrl/your/signalR/hub').build();
+        HubConnectionBuilder().withUrl('$baseUrl/rideshare').build();
     _rideRequestStreamController = StreamController<RideRequest>.broadcast();
     setupHubConnection();
   }
 
   Future<void> setupHubConnection() async {
     await hubConnection.start();
-    hubConnection.on('new_message', (dynamic data) {
+    hubConnection.on('MatchFound', (dynamic data) {
       var rideRequest = RideRequestModel.fromJson(data);
       _rideRequestStreamController.add(rideRequest);
     });
   }
 
-  Future<Stream<RideRequest>> getRideRequestsForPassenger(Passenger passenger) async {
+  Future<Stream<RideRequest>> getRideRequestsForPassenger(
+      RideOffer passenger) async {
     if (hubConnection.state == HubConnectionState.disconnected) {
       return Future.value(Stream.empty());
     }
-    hubConnection.invoke('GetRideRequestsForPassenger',
-        args: [PassengerModel.fromJson(PassengerModel.toJsonGivenPassenger(passenger))]);
+    hubConnection.invoke('GetRideRequestsForPassenger', args: [
+      PassengerModel.fromJson(PassengerModel.toJsonGivenPassenger(passenger))
+    ]);
     return _rideRequestStreamController.stream;
   }
 

@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:mockito/mockito.dart';
 import 'package:rideshare/features/feed/presentation/bloc/passenger_home_bloc.dart';
 
 import 'core/network/network_info.dart';
