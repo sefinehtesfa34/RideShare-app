@@ -54,13 +54,11 @@ class _VerifyState extends State<Verify> {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20.sp,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
-          SizedBox(
-            width: 3.w,
-          ), // Adjust the spacing between the text and image
+          // Adjust the spacing between the text and image
           Image.asset(
             'assets/images/arrow.png',
             width: 24.sp, // Adjust the width of the image as needed

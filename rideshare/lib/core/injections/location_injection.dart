@@ -8,11 +8,12 @@ import 'package:rideshare/features/feeds/location/domain/repository/location_rep
 import 'package:rideshare/features/feeds/location/domain/usecase/location_usecase.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
-import 'features/authentication/domain/repositories/authentication_repository.dart';
-import 'features/authentication/domain/usecases/verify_otp.dart';
-import 'features/authentication/presentation/bloc/otp/otp_bloc.dart';
 
-final GetIt getIt = GetIt.instance;
+import '../../features/authentication/domain/repositories/authentication_repository.dart';
+import '../../features/authentication/domain/usecases/verify_otp.dart';
+import '../../features/authentication/presentation/bloc/otp/otp_bloc.dart';
+import 'injection_container.dart';
+
 
 void locationInjectionInit() {
   // Register the HTTP client
@@ -20,46 +21,46 @@ void locationInjectionInit() {
   // Register the UserDataSource implementationR
 
   // Register the OTPVerificationRepository implementation
-  getIt.registerLazySingleton<OTPVerificationRepository>(
+  sl.registerLazySingleton<OTPVerificationRepository>(
     () => OTPVerificationRepositoryImpl(
-        userDataSource: getIt<AuthRemoteDataSource>()),
+        userDataSource: sl<AuthRemoteDataSource>()),
   );
 
   // Register the OtpVerificationUseCase
-  getIt.registerLazySingleton<OtpVerificationUseCase>(
+  sl.registerLazySingleton<OtpVerificationUseCase>(
     () => OtpVerificationUseCase(
-        otpVerificationRepository: getIt<OTPVerificationRepository>()),
+        otpVerificationRepository: sl<OTPVerificationRepository>()),
   );
   // Register the OtpVerificationBloc
-  getIt.registerFactory<OtpVerificationBloc>(
-    () => OtpVerificationBloc(useCase: getIt<OtpVerificationUseCase>()),
+  sl.registerFactory<OtpVerificationBloc>(
+    () => OtpVerificationBloc(useCase: sl<OtpVerificationUseCase>()),
   );
 
   // Register the UserDataSource implementation
-  getIt.registerLazySingleton<RemoteLocationDataSource>(
-    () => RemoteLocationDataSourceImpl(client: getIt<http.Client>()),
+  sl.registerLazySingleton<RemoteLocationDataSource>(
+    () => RemoteLocationDataSourceImpl(client: sl<http.Client>()),
   );
 
   // Register the OTPVerificationRepository implementation
-  getIt.registerLazySingleton<LocationRepository>(
+  sl.registerLazySingleton<LocationRepository>(
     () => LocationRepositoryImpl(
-        remoteLocationDataSource: getIt<RemoteLocationDataSource>()),
+        remoteLocationDataSource: sl<RemoteLocationDataSource>()),
   );
 
   // Register the OtpVerificationUseCase
-  getIt.registerLazySingleton<GetLocationUsecase>(
-    () => GetLocationUsecase(locationRepository: getIt<LocationRepository>()),
+  sl.registerLazySingleton<GetLocationUsecase>(
+    () => GetLocationUsecase(locationRepository: sl<LocationRepository>()),
   );
-  getIt.registerLazySingleton<PostLocationUsecase>(
-    () => PostLocationUsecase(locationRepository: getIt<LocationRepository>()),
+  sl.registerLazySingleton<PostLocationUsecase>(
+    () => PostLocationUsecase(locationRepository: sl<LocationRepository>()),
   );
   // Register the OtpVerificationBloc
-  getIt.registerFactory<LocationBloc>(
+  sl.registerFactory<LocationBloc>(
     () => LocationBloc(
-        getUsecase: getIt<GetLocationUsecase>(),
-        postLocationUsecase: getIt<PostLocationUsecase>()),
+        getUsecase: sl<GetLocationUsecase>(),
+        postLocationUsecase: sl<PostLocationUsecase>()),
   );
-  getIt.registerFactory<BackToLocationBloc>(
+  sl.registerFactory<BackToLocationBloc>(
     () => BackToLocationBloc(),
   );
 }

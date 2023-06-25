@@ -11,9 +11,8 @@ import 'package:rideshare/features/onboarding/presentation/screen/onboarding_pag
 import 'package:rideshare/features/passenger/presentation/screens/passenger_on_journey_page.dart';
 
 import '../../features/feeds/location/presentation/screen/picking_location.dart';
-import '../../features/feeds/location/presentation/screen/searching_driver_page.dart';
+import '../../features/onboarding/presentation/screen/onboarding_holder.dart';
 import '../../features/passenger/presentation/screens/ride_completed.dart';
-import '../../features/passenger/presentation/widget/searching_page_modal_function.dart';
 import '../../features/passenger/presentation/screens/searching_for_ride_page.dart';
 import '../utils/colors.dart';
 
@@ -32,7 +31,7 @@ class AppRouter extends StatelessWidget {
         GoRoute(
           path: RoutePaths.home,
           builder: (BuildContext context, GoRouterState state) =>
-              const SearchingforRidePage(),
+              SearchingforRidePage(),
         ),
         GoRoute(
           path: RoutePaths.onJourney,
@@ -47,18 +46,18 @@ class AppRouter extends StatelessWidget {
         GoRoute(
           path: RoutePaths.onboardingPageOne,
           builder: (BuildContext context, GoRouterState state) =>
-              const OnboardingPage(),
+              const OnBoardingHolder(),
         ),
-        GoRoute(
-          path: RoutePaths.onboardingPageTwo,
-          builder: (BuildContext context, GoRouterState state) =>
-              const OnboardingPageTwo(),
-        ),
-        GoRoute(
-          path: RoutePaths.onboardingPageThree,
-          builder: (BuildContext context, GoRouterState state) =>
-              const OnboardingPageThree(),
-        ),
+        // GoRoute(
+        //   path: RoutePaths.onboardingPageTwo,
+        //   builder: (BuildContext context, GoRouterState state) =>
+        //       const OnboardingPageTwo(),
+        // ),
+        // GoRoute(
+        //   path: RoutePaths.onboardingPageThree,
+        //   builder: (BuildContext context, GoRouterState state) =>
+        //       const OnboardingPageThree(),
+        // ),
         GoRoute(
           path: RoutePaths.signUp,
           builder: (BuildContext context, GoRouterState state) =>
@@ -93,7 +92,7 @@ class AppRouter extends StatelessWidget {
         routerDelegate: _router.routerDelegate,
         theme: ThemeData(
           primaryColor: primaryColor,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
           useMaterial3: true,
         ),
       );

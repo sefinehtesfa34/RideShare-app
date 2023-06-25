@@ -11,10 +11,11 @@ class CountryCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // height: 6.h,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15), color: Color(0xFFEFEFFA)),
         child: Padding(
-            padding: EdgeInsets.fromLTRB(2.w, 2.h, 2.w, 2.h),
+            padding: EdgeInsets.fromLTRB(3.w, 1.5.h, 3.w, 1.5.h),
             child: Text(
               "+251",
               style: myTextStyle.copyWith(

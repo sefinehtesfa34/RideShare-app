@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/authentication/presentation/screens/otp.dart';
 import 'package:rideshare/features/authentication/presentation/widgets/redirecting.dart';
 
+import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/style.dart';
 import '../bloc/login/bloc/login_bloc.dart';
 import '../bloc/login/bloc/login_state.dart';
@@ -18,12 +20,7 @@ class LoginPage extends StatelessWidget {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (BuildContext context, LoginState state) {
         if (state is LoginLoginSuccessState) {
-          Navigator.push(
-              context,
-              MaterialPageRoute<OtpVerificationScreen>(
-                builder: (BuildContext context) =>
-                    const OtpVerificationScreen(),
-              ));
+          context.go('/verify');
         }
       },
       builder: (BuildContext context, LoginState state) {
@@ -32,11 +29,13 @@ class LoginPage extends StatelessWidget {
         }
 
         return Scaffold(
-          body: Padding(
-            padding: EdgeInsets.only(top: 15.h),
-            child: ListView(
+          body: SingleChildScrollView(
+            child: Column(
               children: <Widget>[
-                Center(child: SvgPicture.asset("images/Carpool-rafiki.svg")),
+                SizedBox(height: 10.h),
+                Center(
+                    child:
+                        SvgPicture.asset("assets/images/Carpool-rafiki.svg")),
                 Padding(
                   padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
                   child: Center(
@@ -52,7 +51,7 @@ class LoginPage extends StatelessWidget {
                       TextSpan(
                           text: "Share",
                           style: myTextStyle.copyWith(
-                              color: const Color(0xFF6D61F2),
+                              color: primaryColor,
                               fontWeight: FontWeight.w600,
                               fontSize: 25.sp))
                     ])),
@@ -60,36 +59,23 @@ class LoginPage extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    "A platform to make your life easier",
+                    textAlign: TextAlign.center,
+                    "Share the ride, share the cost",
                     style: myTextStyle.copyWith(
                       fontWeight: FontWeight.w300,
-                      fontSize: 16.sp,
+                      fontSize: 18.sp,
                     ),
                   ),
                 ),
-                Center(
-                  child: Text(
-                    "lorem platform to make your life easier",
-                    style: myTextStyle.copyWith(
-                      fontWeight: FontWeight.w300,
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                ),
+                SizedBox(height: 5.h,),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(left: 20.w, top: 5.h),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
-                          child: Text(
-                            "Enter Phone Number",
-                            style: myTextStyle.copyWith(fontSize: 18.sp),
-                          ),
-                        ),
+                      padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
+                      child: Text(
+                        "Enter Phone Number",
+                        style: myTextStyle.copyWith(fontSize: 18.sp,fontWeight: FontWeight.w600),
                       ),
                     ),
                     const LoginCard()
