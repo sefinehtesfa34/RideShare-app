@@ -15,6 +15,6 @@ abstract class OTPVerificationRepository {
 }
 
 abstract class UserRepository {
-  Future<Either<Failure, bool>> isLoggedIn(String phoneNumber);
+  Future<Either<Failure, bool>> isLoggedIn();
   Future<Either<Failure, void>> setLoggedIn(String phoneNumber);
 }

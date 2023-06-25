@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rideshare/features/authentication/presentation/screens/otp.dart';
 import 'package:rideshare/features/authentication/presentation/widgets/redirecting.dart';
 
 import '../../../../core/utils/style.dart';
@@ -18,12 +18,7 @@ class LoginPage extends StatelessWidget {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (BuildContext context, LoginState state) {
         if (state is LoginLoginSuccessState) {
-          Navigator.push(
-              context,
-              MaterialPageRoute<OtpVerificationScreen>(
-                builder: (BuildContext context) =>
-                    const OtpVerificationScreen(),
-              ));
+          context.go('/login');
         }
       },
       builder: (BuildContext context, LoginState state) {
