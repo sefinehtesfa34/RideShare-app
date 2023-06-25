@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/screen/searching_driver_page.dart';
-import 'package:rideshare/utils/get_city.dart';
 import '../../../../../constants/api.dart';
 import '../../../../../core/map/map_box.dart';
 import '../widgets/back_button.dart';
@@ -166,12 +165,12 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
       sourceLatitude: _sourcelocation.center!.latitude,
       sourceLongitude: _sourcelocation.center!.longitude,
     ));
-    destinationController.text = await getCity(
-        _destinationLocation.center!.latitude,
-        _destinationLocation.center!.longitude);
-    _locationBloc.add(DestinationLocationChangedEvent(
-      destinationLatitude: _destinationLocation.center!.latitude,
-      destinationLongitude: _destinationLocation.center!.longitude,
-    ));
+    // destinationController.text = await getCity(
+    //     _destinationLocation.center!.latitude,
+    //     _destinationLocation.center!.longitude);
+    // _locationBloc.add(DestinationLocationChangedEvent(
+    //   destinationLatitude: _destinationLocation.center!.latitude,
+    //   destinationLongitude: _destinationLocation.center!.longitude,
+    // ));
   }
 }
