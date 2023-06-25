@@ -50,7 +50,6 @@ dependencies:
   image_picker: ^0.8.9
   internet_connection_checker: ^1.0.0+1
   latlong2: ^0.8.1
-  location: ^4.4.0
   mapbox_api: ^1.0.0
   mockito: ^5.4.1
   permission_handler: ^10.3.0
