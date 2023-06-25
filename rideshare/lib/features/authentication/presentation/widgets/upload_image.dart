@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class UploadImage extends StatefulWidget {
   const UploadImage({super.key});
@@ -27,24 +30,30 @@ class _UploadImageState extends State<UploadImage> {
       onTap: _pickImageFromGallery,
       child: Stack(
         children: <Widget>[
-          Image(
-            width: 100,
-            height: 100,
-            image: (_pickedImage != null)
-                ? NetworkImage(_pickedImage!.path)
-                : Image.network('assets/images/pick_image.jpg').image,
-          ),
+          CircleAvatar(
+            radius: 11.h,
+            child: (_pickedImage != null) ? Image(
+            width: 56.w,
+            height: 22.h,
+            fit: BoxFit.cover,
+            image: 
+              FileImage(File(_pickedImage!.path))
+            
+          ): Icon(Icons.person_outlined,size: 50.sp),),
+          
           Positioned(
             bottom: 0,
             right: 0,
             child: Container(
+              height: 8.h,
+              width: 8.h,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
               ),
               child: IconButton(
                 onPressed: _pickImageFromGallery,
-                icon: SvgPicture.asset('images/fluent_edit.svg'),
+                icon: SvgPicture.asset('assets/images/fluent_edit.svg'),
                 color: Colors.grey,
               ),
             ),
