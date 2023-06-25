@@ -14,7 +14,11 @@ import '../bloc/ride_request_bloc/ride_request_bloc.dart';
 
 class SearchingforRidePage extends StatelessWidget {
   SearchingforRidePage({super.key});
-  User user = User(fullname: "Abebe Fekede", age: 20, imageUrl: "https://",phoneNumber: "0961088592");
+  User user = User(
+      fullname: "Abebe Fekede",
+      age: 20,
+      imageUrl: "https://",
+      phoneNumber: "0961088592");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +27,10 @@ class SearchingforRidePage extends StatelessWidget {
       children: [
         Center(
           child: ElevatedButton(
-            child: Text("click"),
+            child: const Text("click"),
             onPressed: () {
-              context.go('/rideCompletePassenger', extra: {
-                "totalCost": 64.23,
-                "tip": 4.23
-              });
+              context.go('/rideCompletePassenger',
+                  extra: {"totalCost": 64.23, "tip": 4.23});
 
               // showDialog(
               //     context: context,
@@ -49,12 +51,12 @@ class SearchingforRidePage extends StatelessWidget {
           listener: (context, state) {
             if (state is RideRequestSuccessState) {
               final RideOffer passenger = RideOffer(
-                user: user,
-                currentLocation: Location(latitude: 9.0302, longitude: 38.7625),
-                destination: Location(latitude: 9.03055, longitude: 38.7777),
-                seatsAllocated: 3,
-                price: 60
-              );
+                  user: user,
+                  currentLocation:
+                      Location(latitude: 9.0302, longitude: 38.7625),
+                  destination: Location(latitude: 9.03055, longitude: 38.7777),
+                  seatsAllocated: 3,
+                  price: 60);
 
               String encodedPassenger = jsonEncode(passenger.toJson());
 
@@ -63,7 +65,7 @@ class SearchingforRidePage extends StatelessWidget {
               showSearchDriverModal(context);
             } else if (state is RideRequestFailureState) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   dismissDirection: DismissDirection.horizontal,
                   content: Row(
                     children: [
@@ -84,7 +86,7 @@ class SearchingforRidePage extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return SizedBox();
+            return const SizedBox();
           },
         )
       ],
