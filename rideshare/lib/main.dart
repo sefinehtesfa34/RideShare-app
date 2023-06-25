@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<SignUpBloc>(
           create: (_) => injection.sl<SignUpBloc>(),
-        ),
+        ), 
         BlocProvider<LocationBloc>(
           create: (BuildContext context) => instance(),
         ),

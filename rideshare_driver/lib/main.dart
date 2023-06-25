@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'core/injections/injection_container.dart' as injection;
 import 'core/routes/app_routes.dart';
+import 'features/pick_location/presentation/bloc/passenger_home_bloc.dart';
+import 'features/pick_location/presentation/bloc/ride_request_bloc/ride_request_bloc.dart';
 
 void main() async {
   await injection.init();
@@ -19,11 +21,23 @@ class MyDriverApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSizer(
-      builder: (BuildContext context, Orientation orientation,
-          ScreenType screenType) {
-        return AppRouter();
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CurrentLocationBloc>(
+            create: (_) => injection.sl<CurrentLocationBloc>()),
+        BlocProvider<NamesBloc>(create: (_) => injection.sl<NamesBloc>()),
+        BlocProvider<ChooseLocationsBloc>(
+            create: (_) => injection.sl<ChooseLocationsBloc>()),
+        BlocProvider<RideRequestBloc>(
+          create: (_) => injection.sl<RideRequestBloc>(),
+        )
+      ],
+      child: ResponsiveSizer(
+        builder: (BuildContext context, Orientation orientation,
+            ScreenType screenType) {
+          return AppRouter();
+        },
+      ),
     );
   }
 }

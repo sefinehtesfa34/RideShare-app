@@ -6,7 +6,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../domain/entities/location.dart';
+import '../../domain/entities/ride_offer.dart';
 import '../../domain/entities/user.dart';
+import '../bloc/passenger_home_bloc.dart';
+import '../bloc/ride_request_bloc/ride_request_bloc.dart';
+import 'searching_page_modal_function.dart';
+import 'select_button.dart';
 
 class SeatSelectionDialog extends StatefulWidget {
   final String source;

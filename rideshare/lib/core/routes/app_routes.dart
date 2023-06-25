@@ -85,7 +85,7 @@ class AppRouter extends StatelessWidget {
                 places: extra['places'],
               );
             }),
-        GoRoute(
+        GoRoute( 
             path: RoutePaths.pickPassengerOnMap,
             builder: (BuildContext context, GoRouterState state) {
               var extra = state.extra as Map<String, dynamic>;

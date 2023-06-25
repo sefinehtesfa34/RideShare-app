@@ -7,5 +7,6 @@ const String colordSeat = "assets/images/colored_seat.png";
 const String map = "assets/images/map.png";
 const String money = "assets/images/fa_money.png";
 const String location = "assets/images/_map-marker-1 (1).png";
-
-
+const String destinationPinMarker = "assets/images/destination_pin_marker.png";
+const String carImageIcon = 'assets/images/car_icon.png';
+const String rideCompleteImage = "assets/images/ride_complete_image.png";
