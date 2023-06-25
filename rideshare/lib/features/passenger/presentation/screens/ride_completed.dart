@@ -4,7 +4,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/images.dart';
-import '../../../feeds/location/presentation/widgets/select_button.dart';
 
 class RideCompletePassenger extends StatelessWidget {
   final double totalCost;

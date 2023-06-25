@@ -5,8 +5,6 @@ import 'dart:async';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:rideshare/features/authentication/presentation/screens/sign_up_page.dart';
-
 import '../../../feeds/location/presentation/screen/picking_location.dart';
 import '../bloc/otp/otp_bloc.dart';
 import '../widgets/redirecting.dart';
