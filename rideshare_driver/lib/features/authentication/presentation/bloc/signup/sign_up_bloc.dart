@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
-import 'package:rideshare_driver/features/authentication/data/models/user_profile_model.dart';
-import 'package:rideshare_driver/features/authentication/domain/entities/user_profile.dart';
+
 
 import '../../../../../core/errors/failures.dart';
 import '../../../domain/entities/signup_payload.dart';
 import '../../../domain/usecases/signup.dart';
+import '../../../domain/entities/user_profile.dart';
 
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
@@ -21,7 +21,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   void _signUp(SignUpEvent event, Emitter<SignUpState> emit) async {
     emit(SignUpLoading());
-    final result = await signup(
+    final  result = await signup(
       SignupPayload(
         fullName: event.fullName,
         age: event.age,

@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:rideshare_driver/features/authentication/data/models/user_profile_model.dart';
-
+import '../../domain/entities/user_profile.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/signup_payload.dart';
 import '../models/signup_model.dart';
+import '../models/user_profile_model.dart';
 
 abstract class AuthRemoteDataSource {
   Future<bool> verifyOtp(String phoneNumber, String otp);

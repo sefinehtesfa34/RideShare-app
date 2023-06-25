@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:rideshare_driver/features/authentication/domain/entities/user_profile.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/login_payload.dart';
@@ -7,6 +6,7 @@ import '../../domain/entities/signup_payload.dart';
 import '../../domain/repositories/authentication_repository.dart';
 import '../datasources/auth_remote_datasource.dart';
 import '../models/signup_model.dart';
+import '../../domain/entities/user_profile.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
   final AuthRemoteDataSource userDataSource;
