@@ -1,91 +1,119 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/pick_passengers/presentation/widgets/add_button.dart';
+import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/images.dart';
+import '../../domain/entity/ride_offer.dart';
+import 'custom_cache_image.dart';
 
 class AllPassengersCard extends StatelessWidget {
+  final RideOffer rideOffer;
+
+  const AllPassengersCard({super.key, required this.rideOffer});
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.blueGrey[50],
+      color: primaryAccentColor.withOpacity(0.8),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 2.h),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CircleAvatar(
-              radius: 7.w,
-              child: ClipOval(
-                child: Container(
-                  width: 14.w,
-                  height: 14.h,
-                  child: Image.asset(
-                    person,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ), // Example placeholder
-            ),
-            SizedBox(width: 3.w),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 1.w),
-                  child: Text(
-                    'Abebe B.',
-                    style: TextStyle(
-                      fontSize: 17.sp,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Poppins',
+                CircleAvatar(
+                  radius: 7.w,
+                  child: ClipOval(
+                    child: Container(
+                      width: 14.w,
+                      height: 14.h,
+                      child: CustomizedCachedImage(
+                          imageURL: rideOffer.user.imageUrl,
+                          width: 20.w,
+                          height: 8.h,
+                          key: GlobalKey()),
                     ),
-                  ),
+                  ), // Example placeholder
                 ),
-                Row(
+                SizedBox(width: 1.w),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(currentLocation),
-                    Text(
-                      "5mins away",
-                      style: TextStyle(
-                        fontSize: 17.sp,
-                        fontFamily: 'Poppins',
+                    Padding(
+                      padding: EdgeInsets.only(left: 1.w),
+                      child: Text(
+                        rideOffer.user.fullname,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Poppins',
+                        ),
                       ),
-                    )
+                    ),
+                    Row(
+                      children: [
+                        Image.asset(currentLocation),
+                        Text(
+                          "5mins away",
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontFamily: 'Poppins',
+                          ),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 1.w),
+                      child: Row(
+                        children: [
+                          Icon(Icons.airline_seat_recline_normal_rounded),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          Text(
+                            "Bole(5km away)",
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontFamily: 'Poppins',
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 1.w),
-                  child: Row(
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 3.h, bottom: 3.h),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
-                      Image.asset(seats2),
+                      Icon(Icons.airline_seat_recline_normal_rounded,color: primaryColor),
+
+                      Text(
+                        "${rideOffer.seatsAllocated} seats",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.sp,
+                          fontFamily: 'Poppins',
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 1.h),
+                  Row(
+                    children: [
+                      Icon(Icons.money,color: primaryColor),
+
                       SizedBox(
                         width: 2.w,
                       ),
                       Text(
-                        "Bole(5km away)",
-                        style: TextStyle(
-                          fontSize: 17.sp,
-                          fontFamily: 'Poppins',
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 15.w,
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 3.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(colordSeat),
-                      const Text(
-                        "1 seat",
+                        "${rideOffer.price} Birr",
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontFamily: 'Poppins',
@@ -93,31 +121,8 @@ class AllPassengersCard extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Row(
-                    children: [
-                      Image.asset(money),
-                      SizedBox(
-                        width: 2.w,
-                      ),
-                      const Text(
-                        "Br 100",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins',
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  AddButton(),
-                  SizedBox(
-                    height: 2.h,
-                  ),
+                  SizedBox(height: 1.h),
+                  AddButton(onPressed: () {}),
                 ],
               ),
             ),
