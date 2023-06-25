@@ -5,9 +5,6 @@ import 'package:rideshare/core/routes/route_paths.dart';
 import 'package:rideshare/features/authentication/presentation/screens/login_page.dart';
 import 'package:rideshare/features/authentication/presentation/screens/otp.dart';
 import 'package:rideshare/features/authentication/presentation/screens/sign_up_page.dart';
-import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_one.dart';
-import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_three.dart';
-import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_two.dart';
 import 'package:rideshare/features/passenger/presentation/screens/passenger_on_journey_page.dart';
 
 import '../../features/feeds/location/presentation/screen/picking_location.dart';
@@ -22,7 +19,6 @@ class AppRouter extends StatelessWidget {
   AppRouter({Key? key}) : super(key: key) {
     _router = GoRouter(
       initialLocation: RoutePaths.verify,
-      initialLocation: RoutePaths.verify,
       routes: <GoRoute>[
         GoRoute(
           path: RoutePaths.locationPicker,
@@ -32,7 +28,6 @@ class AppRouter extends StatelessWidget {
         GoRoute(
           path: RoutePaths.home,
           builder: (BuildContext context, GoRouterState state) =>
-              SearchingforRidePage(),
               SearchingforRidePage(),
         ),
         GoRoute(
