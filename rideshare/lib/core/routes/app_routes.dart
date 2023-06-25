@@ -22,6 +22,7 @@ class AppRouter extends StatelessWidget {
   AppRouter({Key? key}) : super(key: key) {
     _router = GoRouter(
       initialLocation: RoutePaths.verify,
+      initialLocation: RoutePaths.verify,
       routes: <GoRoute>[
         GoRoute(
           path: RoutePaths.locationPicker,
@@ -31,6 +32,7 @@ class AppRouter extends StatelessWidget {
         GoRoute(
           path: RoutePaths.home,
           builder: (BuildContext context, GoRouterState state) =>
+              SearchingforRidePage(),
               SearchingforRidePage(),
         ),
         GoRoute(
