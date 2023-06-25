@@ -1,6 +1,3 @@
-import 'package:get_it/get_it.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-
 import '../../features/passenger/data/datasource/ride_remote_data_source.dart';
 import '../../features/passenger/data/datasource/ride_request_api_provider.dart';
 import '../../features/passenger/data/repository/ride_repository.dart';

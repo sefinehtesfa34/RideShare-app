@@ -1,6 +1,4 @@
-import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:rideshare/core/network/network_info.dart';
 import 'package:rideshare/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:rideshare/features/authentication/data/repositories/authentication_repository_impl.dart';
@@ -16,8 +14,6 @@ import 'package:rideshare/features/pick_location/presentation/bloc/passenger_hom
 import 'package:rideshare/features/pick_location/domain/repositories/destination_repository.dart';
 
 import '../../features/authentication/domain/repositories/authentication_repository.dart';
-import '../../features/authentication/domain/usecases/verify_otp.dart';
-import '../../features/authentication/presentation/bloc/otp/otp_bloc.dart';
 import '../../features/pick_location/data/datasources/destination_datasource.dart';
 import '../../features/pick_location/data/repositories/destination_repository.dart';
 import 'injection_container.dart';
@@ -31,16 +27,6 @@ void locationInjectionInit() {
   sl.registerLazySingleton<OTPVerificationRepository>(
     () => OTPVerificationRepositoryImpl(
         userDataSource: sl<AuthRemoteDataSource>()),
-  );
-
-  // Register the OtpVerificationUseCase
-  sl.registerLazySingleton<OtpVerificationUseCase>(
-    () => OtpVerificationUseCase(
-        otpVerificationRepository: sl<OTPVerificationRepository>()),
-  );
-  // Register the OtpVerificationBloc
-  sl.registerFactory<OtpVerificationBloc>(
-    () => OtpVerificationBloc(useCase: sl<OtpVerificationUseCase>()),
   );
 
   // Register the UserDataSource implementation
