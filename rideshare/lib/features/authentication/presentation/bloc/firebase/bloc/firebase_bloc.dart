@@ -7,6 +7,7 @@ import '../../../../../../core/cache/firebase_cache.dart';
 import '../../../../domain/usecases/firebase_usecase.dart';
 import 'firebase_event.dart';
 import 'firebase_state.dart';
+
 final CacheManager cacheManager = CacheManager(
   sharedPreferencesFuture: SharedPreferences.getInstance(),
 );
@@ -38,8 +39,6 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
                 ?.setString('verificationId', verificationId)
           },
         );
-        print(cacheManager.sharedPreferencesInstance
-            ?.getString('verificationId'));
       } catch (e) {
         emit(state.copyWith(status: FirebaseOtpStatus.failure));
       }
@@ -62,7 +61,6 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
                 verificationId: firebaseState.verificationId)));
       } catch (e) {
         emit(state.copyWith(status: FirebaseOtpStatus.failure));
-        print(state.verificationId);
       }
     });
   }
