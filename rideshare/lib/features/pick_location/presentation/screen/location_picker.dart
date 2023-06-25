@@ -69,7 +69,7 @@ class _LocationPickerState extends State<LocationPicker>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Ride ',
+                        'Ride',
                         style: TextStyle(
                           fontSize: 32 * _animation.value,
                           fontWeight: FontWeight.bold,
