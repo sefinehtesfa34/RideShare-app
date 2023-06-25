@@ -21,3 +21,10 @@ class InputException implements Exception {
 
   InputException(this.message);
 }
+
+class DataSourceException implements Exception {
+  final String message;
+
+  DataSourceException(this.message);
+  
+}
