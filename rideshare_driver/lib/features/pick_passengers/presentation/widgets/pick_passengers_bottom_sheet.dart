@@ -6,13 +6,67 @@ import 'package:rideshare/features/pick_passengers/presentation/widgets/all_pass
 import 'package:rideshare/features/pick_passengers/presentation/widgets/border_only_button.dart';
 import 'package:rideshare/features/pick_passengers/presentation/widgets/count_down.dart';
 
+import '../../../../core/utils/colors.dart';
+import '../../domain/entity/location.dart';
+import '../../domain/entity/ride_offer.dart';
+import '../../domain/entity/user.dart';
+import 'sorting_filter.dart';
+
 class CustomBottomSheet extends StatelessWidget {
-  const CustomBottomSheet({super.key});
+  CustomBottomSheet({super.key});
+
+  List<RideOffer> addedPassengers = [
+    RideOffer(
+        user: User(
+            fullname: "Abebe Fekede",
+            age: 20,
+            imageUrl:
+                "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ufGVufDB8fDB8fHww&w=1000&q=80",
+            phoneNumber: "0961088592"),
+        currentLocation: Location(latitude: 9, longitude: 38),
+        destination: Location(latitude: 9.2, longitude: 38),
+        seatsAllocated: 2,
+        price: 60),
+    RideOffer(
+        user: User(
+            fullname: "Abebe Fekede",
+            age: 20,
+            imageUrl:
+                "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ufGVufDB8fDB8fHww&w=1000&q=80",
+            phoneNumber: "0961088592"),
+        currentLocation: Location(latitude: 9, longitude: 38),
+        destination: Location(latitude: 9.2, longitude: 38),
+        seatsAllocated: 2,
+        price: 60),
+  ];
+  List<RideOffer> allPassengers = [
+    RideOffer(
+        user: User(
+            fullname: "Abebe F.",
+            age: 20,
+            imageUrl:
+                "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ufGVufDB8fDB8fHww&w=1000&q=80",
+            phoneNumber: "0961088592"),
+        currentLocation: Location(latitude: 9, longitude: 38),
+        destination: Location(latitude: 9.2, longitude: 38),
+        seatsAllocated: 6,
+        price: 60),
+    RideOffer(
+        user: User(
+            fullname: "Kebede B.",
+            age: 20,
+            imageUrl:
+                "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ufGVufDB8fDB8fHww&w=1000&q=80",
+            phoneNumber: "0961088592"),
+        currentLocation: Location(latitude: 9, longitude: 38),
+        destination: Location(latitude: 9.2, longitude: 38),
+        seatsAllocated: 2,
+        price: 70),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return FlexibleBottomSheet(
-        // bottomSheetColor: Colors.amber,
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(50), topRight: Radius.circular(50))),
@@ -23,13 +77,14 @@ class CustomBottomSheet extends StatelessWidget {
           return SliverChildBuilderDelegate(
             (context, index) {
               return Padding(
-                padding: EdgeInsets.all(3.w),
+                padding: EdgeInsets.only(left: 3.w, right: 3.w, top: 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:  EdgeInsets.symmetric(vertical: 2.h),
+                      padding: EdgeInsets.symmetric(vertical: 2.h),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Your Journey starts in:',
@@ -41,7 +96,13 @@ class CustomBottomSheet extends StatelessWidget {
                           ),
                           SizedBox(width: 2.w),
                           CountdownTimer(),
-                          SizedBox(width: 37.w),
+                          IconButton(
+                              icon: Icon(Icons.help),
+                              color: primaryColor,
+                              onPressed: () {}),
+                          SizedBox(width: 6.w),
+
+                          // SizedBox(width: 37.w),
                           BorderOnlyButton(
                               buttonText: "Cancel",
                               color: Colors.red,
@@ -49,57 +110,83 @@ class CustomBottomSheet extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Text(
-                      'Added Passengers',
-                      style: TextStyle(
-                        fontSize: 21.sp,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.fromLTRB(0, 0, 5.w, 2.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text("Total"),
-                          SizedBox(
-                            width: 7.w,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Added Passengers',
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Poppins',
                           ),
-                          Text(
-                            "Br. 100",
-                            style: TextStyle(
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Poppins',
+                        ),
+                        SizedBox(width: 4.w),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Total",
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins',
+                              ),
                             ),
-                          )
-                        ],
-                      ),
+                            SizedBox(
+                              width: 7.w,
+                            ),
+                            addedPassengers != []
+                                ? Text(
+                                    '${addedPassengers.map((offer) => offer.price).fold<double>(0, (previousValue, element) => previousValue + element)} Birr',
+                                    style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  )
+                                : SizedBox()
+                          ],
+                        ),
+                      ],
                     ),
+                   
                     ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 3, // Replace with actual passenger count
+                      itemCount: addedPassengers
+                          .length, // Replace with actual passenger count
                       itemBuilder: (context, index) {
-                        return AddedPassengersCard();
+                        return AddedPassengersCard(
+                          rideOffer: addedPassengers[index],
+                        );
                       },
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 3.h),
-                      child: Text(
-                        'All Passengers',
-                        style: TextStyle(
-                          fontSize: 21.sp,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins',
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 1.h),
+                          child: Text(
+                            'All Passengers',
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Poppins',
+                            ),
+                          ),
                         ),
-                      ),
+                        SortingSelector()
+                      ],
                     ),
                     ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 3, // Replace with actual car count
+                      itemCount:
+                          allPassengers.length, // Replace with actual car count
                       itemBuilder: (context, index) {
-                        return AllPassengersCard();
+                        return AllPassengersCard(
+                            rideOffer: allPassengers[index]);
                       },
                     ),
                   ],

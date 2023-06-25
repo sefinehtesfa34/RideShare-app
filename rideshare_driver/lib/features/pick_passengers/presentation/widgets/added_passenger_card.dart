@@ -1,65 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/images.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/utils/colors.dart';
+import '../../domain/entity/ride_offer.dart';
+import 'custom_cache_image.dart';
 
 class AddedPassengersCard extends StatelessWidget {
+  final RideOffer rideOffer;
+
+  const AddedPassengersCard({super.key, required this.rideOffer});
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: EdgeInsets.all(1.w),
+        padding: EdgeInsets.only(left: 1.w, right: 1.w, bottom: 2.h),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CircleAvatar(
-              radius: 7.w,
-              child: ClipOval(
-                child: Container(
-                  width: 14.w,
-                  height: 14.h,
-                  child: Image.asset(
-                    person,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ), // Example placeholder
-            ),
-            SizedBox(width: 3.w),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 1.w),
-                  child: Text(
-                    'Abebe B.',
-                    style: TextStyle(
-                      fontSize: 17.sp,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Poppins',
+                CircleAvatar(
+                  radius: 7.w,
+                  child: ClipOval(
+                    child: Container(
+                      width: 14.w,
+                      height: 14.h,
+                      child: CustomizedCachedImage(
+                          imageURL: rideOffer.user.imageUrl,
+                          width: 20.w,
+                          height: 8.h,
+                          key: GlobalKey()),
                     ),
-                  ),
+                  ), // Example placeholder
                 ),
-                Row(
-                  children: [Image.asset(currentLocation), Text("5mins away")],
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 1.w),
-                  child: Row(
-                    children: [Image.asset(seats2), Text("1 seat")],
-                  ),
+                SizedBox(width: 1.w),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 1.w),
+                      child: Text(
+                        rideOffer.user.fullname,
+                        style: TextStyle(
+                          fontSize: 17.sp,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Poppins',
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Image.asset(currentLocation),
+                        Text("5 mins away")
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 1.w),
+                      child: Row(
+                        children: [
+                          Icon(Icons.airline_seat_recline_normal),
+                          Text('${rideOffer.seatsAllocated} seats')
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-            SizedBox(
-              width: 15.w,
-            ),
+
+            // SizedBox(
+            //   width: 15.w,
+            // ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Br 100',
+                  '${rideOffer.price} Birr',
                   style: TextStyle(
                     fontSize: 15.sp,
                     fontWeight: FontWeight.bold,
@@ -72,8 +91,13 @@ class AddedPassengersCard extends StatelessWidget {
                 Container(
                   height: 4.h,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Implement call button functionality
+                    onPressed: () async {
+                      final phoneUrl = Uri.parse('tel:${rideOffer.user.phoneNumber}');
+                      if (await canLaunchUrl(phoneUrl)) {
+                        await launchUrl(phoneUrl);
+                      } else {
+                        throw 'Could not launch $phoneUrl';
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       side: const BorderSide(
@@ -88,9 +112,9 @@ class AddedPassengersCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              width: 15.w,
-            ),
+            // SizedBox(
+            //   width: 15.w,
+            // ),
             InkWell(
               onTap: () {
                 // Handle the image pressed event here

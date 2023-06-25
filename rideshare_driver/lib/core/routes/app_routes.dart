@@ -7,6 +7,7 @@ import '../../features/journey_started/presentation/screens/journey_started_page
 import '../../features/pick_location/presentation/screen/location_picker.dart';
 import '../../features/pick_location/presentation/widgets/choose_location.dart';
 import '../../features/pick_location/presentation/widgets/map_picker.dart';
+import '../../features/pick_passengers/presentation/screens/pick_passengers_page.dart';
 import '../utils/colors.dart';
 
 class AppRouter extends StatelessWidget {
@@ -43,6 +44,9 @@ class AppRouter extends StatelessWidget {
             path: RoutePaths.passengerHome,
             builder: (BuildContext context, GoRouterState state) =>
                 const LocationPicker()),
+        GoRoute(path: RoutePaths.driverPickup,builder: (BuildContext context, GoRouterState state){
+          return PickPassengersPage();
+        })
       ],
     );
   }
