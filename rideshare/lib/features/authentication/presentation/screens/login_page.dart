@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rideshare/features/authentication/presentation/screens/otp.dart';
 import 'package:rideshare/features/authentication/presentation/widgets/redirecting.dart';
 
 import '../../../../core/utils/colors.dart';

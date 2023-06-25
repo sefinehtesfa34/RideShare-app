@@ -11,9 +11,10 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   final AuthRemoteDataSource userDataSource;
   final SharedPreferencesDataSource sharedPreferencesDataSource;
 
-  AuthenticationRepositoryImpl(
-      {required this.userDataSource,
-      required this.sharedPreferencesDataSource});
+  AuthenticationRepositoryImpl({
+    required this.userDataSource,
+    required this.sharedPreferencesDataSource,
+  });
 
   @override
   Future<Either<Failure, SignupPayload>> signup(
@@ -30,14 +31,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   Future<Either<Failure, String>> login(String phoneNumber) async {
-    if (await sharedPreferencesDataSource.isLoggedIn(phoneNumber)) {
-      return const Right<Failure, String>('Phone number');
-    }
     try {
       final String response = await userDataSource.login(phoneNumber);
-      if (response is! Failure) {
-        sharedPreferencesDataSource.setLoggedIn(phoneNumber, true);
-      }
       return Right<Failure, String>(response);
     } on ServerException {
       return const Left<Failure, String>(ServerFailure('Server Failure'));
@@ -65,15 +60,14 @@ class OTPVerificationRepositoryImpl implements OTPVerificationRepository {
 class UserRepositoryImpl implements UserRepository {
   final SharedPreferencesDataSource sharedPreferencesDataSource;
 
-  UserRepositoryImpl(this.sharedPreferencesDataSource);
+  UserRepositoryImpl({required this.sharedPreferencesDataSource});
 
   @override
-  Future<Either<Failure, bool>> isLoggedIn(String phoneNumber) async {
+  Future<Either<Failure, bool>> isLoggedIn() async {
     try {
-      final bool isLoggedIn =
-          await sharedPreferencesDataSource.isLoggedIn(phoneNumber);
+      final bool isLoggedIn = await sharedPreferencesDataSource.isLoggedIn();
       return Right<Failure, bool>(isLoggedIn);
-    } catch (e) {
+    } on CacheException {
       return const Left<Failure, bool>(CacheFailure());
     }
   }
@@ -81,7 +75,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Either<Failure, void>> setLoggedIn(String phoneNumber) async {
     try {
-      await sharedPreferencesDataSource.setLoggedIn(phoneNumber, true);
+      await sharedPreferencesDataSource.setLoggedIn(true);
       return const Right<Failure, void>(null);
     } catch (e) {
       return const Left<Failure, void>(CacheFailure());

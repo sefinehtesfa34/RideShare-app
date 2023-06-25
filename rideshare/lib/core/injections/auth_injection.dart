@@ -22,7 +22,8 @@ Future<void> authInjectionInit() async {
   sl.registerLazySingleton<AuthenticationRepository>(() =>
       AuthenticationRepositoryImpl(
           userDataSource: sl(), sharedPreferencesDataSource: sl()));
-
+  sl.registerLazySingleton<UserRepository>(
+      () => UserRepositoryImpl(sharedPreferencesDataSource: sl()));
   //! Datasource
   sl.registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(client: sl()));
