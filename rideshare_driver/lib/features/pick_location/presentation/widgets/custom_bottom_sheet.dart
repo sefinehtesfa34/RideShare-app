@@ -41,6 +41,21 @@ class CustomBottomSheet extends StatelessWidget {
                       },
                     ),
                   ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 6.w, top: 2.h),
+                      child: Text(
+                        "Popular Destinations",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
                   DestinationList()
                 ],
               );

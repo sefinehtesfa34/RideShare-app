@@ -72,7 +72,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
       backgroundColor: Colors.white,
       title: Center(
         child: Text(
-          'Select Number of Seats  \n and Confirm Price',
+          'Available Seats',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w600,
@@ -91,18 +91,24 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
           ),
           Row(
             children: <Widget>[
-              SvgPicture.asset('assets/images/current_mocation_marker.svg'),
+              Image.asset(
+                "assets/images/star_icon.jpg",
+                width: 4.w,
+              ),
               SizedBox(width: 1.0.w),
               SizedBox(
                 width: 60.w,
-                child: Text(
-                  widget.source,
-                  softWrap: true,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins',
-                    fontSize: 16.sp,
-                    color: const Color(0xFF414141),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 2.w),
+                  child: Text(
+                    widget.source,
+                    softWrap: true,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
+                      fontSize: 16.sp,
+                      color: const Color(0xFF414141),
+                    ),
                   ),
                 ),
               ),
@@ -111,7 +117,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
           SizedBox(height: 2.0.h),
           Row(
             children: <Widget>[
-              SvgPicture.asset('assets/images/Subtract.svg'),
+              Image.asset("assets/images/location.png"),
               SizedBox(width: 1.0.h),
               SizedBox(
                 width: 60.w,
@@ -130,29 +136,6 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
           ),
           SizedBox(
             height: 4.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                "Total Price you will pay: ",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
-                  fontSize: 16.sp,
-                  color: const Color(0xFF414141),
-                ),
-              ),
-              Text(
-                "Br $cost ",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
-                  fontSize: 16.sp,
-                  color: const Color(0xFF414141),
-                ),
-              ),
-            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

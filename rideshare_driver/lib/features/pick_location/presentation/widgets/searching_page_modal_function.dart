@@ -6,13 +6,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../core/utils/colors.dart';
 import 'border_only_button.dart';
 
-
-
 showSearchDriverModal(BuildContext context) {
   showModalBottomSheet(
     isDismissible: false,
     enableDrag: false,
-    shape: RoundedRectangleBorder(
+    shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(30),
         topRight: Radius.circular(30),
@@ -24,8 +22,7 @@ showSearchDriverModal(BuildContext context) {
       return Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(50),
               topRight: Radius.circular(50),
@@ -37,7 +34,7 @@ showSearchDriverModal(BuildContext context) {
             children: [
               SizedBox(height: 5.h),
               Text(
-                'Searching for Driver',
+                'Making a Ride',
                 style: TextStyle(fontSize: 20.sp),
               ),
               SizedBox(height: 5.h),
