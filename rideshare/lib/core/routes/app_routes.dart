@@ -13,7 +13,7 @@ import '../../features/feeds/location/presentation/screen/picking_location.dart'
 import '../../features/onboarding/presentation/screen/onboarding_holder.dart';
 import '../../features/passenger/presentation/screens/ride_completed.dart';
 import '../../features/passenger/presentation/screens/searching_for_ride_page.dart';
-import '../../features/authentication/firebase/presentation/screen/otp_verification_page.dart';
+import '../../features/authentication/presentation/screens/otp_verification_page.dart';
 import '../utils/colors.dart';
 
 class AppRouter extends StatelessWidget {

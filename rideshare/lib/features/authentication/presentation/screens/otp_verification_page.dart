@@ -4,11 +4,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../../presentation/bloc/firebase/bloc/firebase_bloc.dart';
-import '../../../presentation/bloc/firebase/bloc/firebase_state.dart';
-import '../../../presentation/widgets/redirecting.dart';
-import '../../../presentation/widgets/resend.dart';
-import '../../../presentation/widgets/verify_button.dart';
+import '../bloc/firebase/bloc/firebase_bloc.dart';
+import '../bloc/firebase/bloc/firebase_state.dart';
+import '../widgets/redirecting.dart';
+import '../widgets/resend.dart';
+import '../widgets/verify_button.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({Key? key}) : super(key: key);
