@@ -22,6 +22,7 @@ class OtpVerificationBloc
         try {
           final Either<Failure, VerifyOtpModel> successOrFailure =
               await useCase.call(event.phoneNumber);
+          
           if (successOrFailure.isRight()) {
             VerifyOtpModel verifyOtpModel = successOrFailure
                 .getOrElse(() => throw ServerException('Server Failure'));
