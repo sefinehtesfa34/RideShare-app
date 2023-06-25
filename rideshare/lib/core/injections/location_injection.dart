@@ -14,15 +14,12 @@ import 'package:rideshare/features/feeds/location/presentation/bloc/location_blo
 import 'package:rideshare/features/pick_location/domain/usecases/destination_usecase.dart';
 import 'package:rideshare/features/pick_location/presentation/bloc/passenger_home_bloc.dart';
 import 'package:rideshare/features/pick_location/domain/repositories/destination_repository.dart';
-import 'features/authentication/domain/repositories/authentication_repository.dart';
-import 'features/authentication/domain/usecases/verify_otp.dart';
-import 'features/authentication/presentation/bloc/otp_bloc.dart';
-import 'features/pick_location/data/datasources/destination_datasource.dart';
-import 'features/pick_location/data/repositories/destination_repository.dart';
 
 import '../../features/authentication/domain/repositories/authentication_repository.dart';
 import '../../features/authentication/domain/usecases/verify_otp.dart';
 import '../../features/authentication/presentation/bloc/otp/otp_bloc.dart';
+import '../../features/pick_location/data/datasources/destination_datasource.dart';
+import '../../features/pick_location/data/repositories/destination_repository.dart';
 import 'injection_container.dart';
 
 void locationInjectionInit() {
@@ -57,13 +54,13 @@ void locationInjectionInit() {
         remoteLocationDataSource: sl<RemoteLocationDataSource>()),
   );
 
-  getIt.registerLazySingleton<DestinationRepository>(() =>
+  sl.registerLazySingleton<DestinationRepository>(() =>
       DestinationRepositoryImpl(
-          destinationDataSource: getIt<DestinationDataSource>(),
-          networkInfo: getIt<NetworkInfo>()));
+          destinationDataSource: sl<DestinationDataSource>(),
+          networkInfo: sl<NetworkInfo>()));
 
-  getIt.registerLazySingleton<DestinationDataSource>(
-      () => DestinationDataSourceImp(client: getIt<http.Client>()));
+  sl.registerLazySingleton<DestinationDataSource>(
+      () => DestinationDataSourceImp(client: sl<http.Client>()));
   // Register the OtpVerificationUseCase
   sl.registerLazySingleton<GetLocationUsecase>(
     () => GetLocationUsecase(locationRepository: sl<LocationRepository>()),
@@ -71,8 +68,8 @@ void locationInjectionInit() {
   sl.registerLazySingleton<PostLocationUsecase>(
     () => PostLocationUsecase(locationRepository: sl<LocationRepository>()),
   );
-  getIt.registerLazySingleton<FetchPassengerHistoryUseCase>(
-    () => FetchPassengerHistoryUseCase(getIt<DestinationRepository>()),
+  sl.registerLazySingleton<FetchPassengerHistoryUseCase>(
+    () => FetchPassengerHistoryUseCase(sl<DestinationRepository>()),
   );
   // Register the OtpVerificationBloc
   sl.registerFactory<LocationBloc>(
@@ -83,8 +80,8 @@ void locationInjectionInit() {
   sl.registerFactory<BackToLocationBloc>(
     () => BackToLocationBloc(),
   );
-  getIt.registerFactory<NamesBloc>(() => NamesBloc(
-      fetchPassengerHistoryUseCase: getIt<FetchPassengerHistoryUseCase>()));
-  getIt.registerFactory<ChooseLocationsBloc>(() => ChooseLocationsBloc());
-  getIt.registerFactory<CurrentLocationBloc>(() => CurrentLocationBloc());
+  sl.registerFactory<NamesBloc>(() => NamesBloc(
+      fetchPassengerHistoryUseCase: sl<FetchPassengerHistoryUseCase>()));
+  sl.registerFactory<ChooseLocationsBloc>(() => ChooseLocationsBloc());
+  sl.registerFactory<CurrentLocationBloc>(() => CurrentLocationBloc());
 }

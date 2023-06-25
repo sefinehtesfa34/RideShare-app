@@ -5,8 +5,12 @@ import 'package:rideshare/core/utils/colors.dart';
 
 class MapPicker extends StatefulWidget {
   final TextEditingController controller;
-
-  const MapPicker({Key? key, required this.controller}) : super(key: key);
+  final LatLng intialLocation;
+  const MapPicker({
+    Key? key,
+    required this.controller,
+    required this.intialLocation,
+  }) : super(key: key);
 
   @override
   _MapPickerState createState() => _MapPickerState();
@@ -14,7 +18,6 @@ class MapPicker extends StatefulWidget {
 
 class _MapPickerState extends State<MapPicker> {
   late GoogleMapController _mapController;
-  LatLng initialPos = const LatLng(37.7749, -122.4194);
   Marker _positionMarker = const Marker(
     markerId: MarkerId("selected-location"),
     position: LatLng(37.7749, -122.4194),
@@ -32,7 +35,7 @@ class _MapPickerState extends State<MapPicker> {
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
-          target: initialPos,
+          target: widget.intialLocation,
           zoom: 12.0,
         ),
         markers: {_positionMarker},

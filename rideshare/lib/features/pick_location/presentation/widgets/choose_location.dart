@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:google_maps_webservice/places.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/colors.dart';
 import 'package:rideshare/features/pick_location/presentation/bloc/passenger_home_bloc.dart';
-import 'package:rideshare/features/pick_location/presentation/screen/location_picker.dart';
-import 'package:rideshare/features/pick_location/presentation/screen/passenger_on_journey.dart';
 import 'package:rideshare/features/pick_location/presentation/widgets/map_picker.dart';
 import 'package:rideshare/features/pick_location/presentation/widgets/where_button.dart';
 
@@ -166,16 +162,23 @@ class _ChooseLocationState extends State<ChooseLocation> {
               child: CustomButton(
                   text: "Choose Location on Map",
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MapPicker(
-                          controller: _destinationFocusNode.hasFocus
-                              ? _destinationController
-                              : _sourceController,
+                    final CurrentLocationBloc bloc =
+                        BlocProvider.of<CurrentLocationBloc>(context,
+                            listen: false);
+                    final CurrentLocationState state = bloc.state;
+                    if (state is CurrentLocationSuccess) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MapPicker(
+                            controller: _destinationFocusNode.hasFocus
+                                ? _destinationController
+                                : _sourceController,
+                            intialLocation: state.location,
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
                   }),
             ),
             SizedBox(

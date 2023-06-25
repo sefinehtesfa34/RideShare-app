@@ -50,13 +50,22 @@ class _DestinationListState extends State<DestinationList> {
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
-                    BlocProvider.of<ChooseLocationsBloc>(context).add(
-                      SelectecLocationFromList(
-                        state.names[index].latitude,
-                        state.names[index].longitude,
-                        state.names[index].name,
-                      ),
-                    );
+                    final CurrentLocationBloc bloc =
+                        BlocProvider.of<CurrentLocationBloc>(context,
+                            listen: false);
+                    final CurrentLocationState currentLocationState =
+                        bloc.state;
+                    if (currentLocationState is CurrentLocationSuccess) {
+                      BlocProvider.of<ChooseLocationsBloc>(context).add(
+                        SelectecLocationFromList(
+                          state.names[index].latitude,
+                          state.names[index].longitude,
+                          state.names[index].name,
+                          currentLocationState.location.latitude,
+                          currentLocationState.location.longitude,
+                        ),
+                      );
+                    }
                   },
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

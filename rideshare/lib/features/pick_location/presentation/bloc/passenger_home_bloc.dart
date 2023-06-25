@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:rideshare/core/location/location.dart';
 import 'package:rideshare/features/pick_location/domain/entities/destination.dart';
 
 import '../../../../core/errors/failures.dart';
@@ -85,20 +83,16 @@ class ChooseLocationsBloc
   void _onLocationSelectedFromList(SelectecLocationFromList event,
       Emitter<ChooseLocationsState> emit) async {
     emit(ChooseLocationsLoading());
-    Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
-
     List<Placemark> curPosName = await placemarkFromCoordinates(
-      position.latitude,
-      position.longitude,
+      event.sourceLatitude,
+      event.sourcelongitude,
     );
     emit(
       ChooseLocationsSucess(
-        LatLng(position.latitude, position.longitude),
+        LatLng(event.sourceLatitude, event.sourcelongitude),
         LatLng(event.destinationLatitude, event.destinationLongitude),
         curPosName[0].street!,
-        event.sourceName,
+        event.destinationName,
       ),
     );
   }

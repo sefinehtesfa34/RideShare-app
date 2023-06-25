@@ -25,12 +25,15 @@ class SelectecLocationsEvent extends ChooseLocationsEvent {
 class SelectecLocationFromList extends ChooseLocationsEvent {
   final double destinationLatitude;
   final double destinationLongitude;
-  final String sourceName;
-
+  final String destinationName;
+  final double sourceLatitude;
+  final double sourcelongitude;
   SelectecLocationFromList(
     this.destinationLatitude,
     this.destinationLongitude,
-    this.sourceName,
+    this.destinationName,
+    this.sourceLatitude,
+    this.sourcelongitude,
   );
 }
 

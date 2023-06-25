@@ -99,6 +99,7 @@ class AppRouter extends StatelessWidget {
               var extra = state.extra as Map<String, dynamic>;
               return MapPicker(
                 controller: extra["controller"],
+                intialLocation: extra["intialLocation"],
               );
             }),
         GoRoute(
