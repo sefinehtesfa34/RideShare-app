@@ -14,8 +14,8 @@ class BorderOnlyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 19.w,
-      height: 6.h,
+      width: 20.5.w,
+      height: 4.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -28,7 +28,7 @@ class BorderOnlyButton extends StatelessWidget {
         child: Text(
           buttonText,
           style: TextStyle(
-            fontSize: 15.sp,
+            fontSize: 12.sp,
             fontFamily: 'Poppins',
           ),
         ),

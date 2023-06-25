@@ -8,10 +8,9 @@ class JourneyStartedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
         body: Stack(
           children: [
-            // GoogleMapViewer(latitude: 9.005401, longitude: 38.763611),
             CustomBottomSheet(),
           ],
         ),

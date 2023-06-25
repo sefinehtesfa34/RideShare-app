@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:rideshare/core/routes/route_paths.dart';
-import 'package:rideshare/features/authentication/presentation/screens/otp.dart';
-import 'package:rideshare/features/authentication/presentation/screens/sign_up_page.dart';
 
 import '../../features/journey_started/presentation/screens/journey_started_page.dart';
 import '../utils/colors.dart';
