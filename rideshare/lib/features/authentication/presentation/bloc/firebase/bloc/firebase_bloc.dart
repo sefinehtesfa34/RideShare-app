@@ -67,6 +67,7 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
           verificationId: verificationId,
         ));
       }
+
       try {
         final String verificationId =
             sharedPreferences.getString('verificationId') ?? '';

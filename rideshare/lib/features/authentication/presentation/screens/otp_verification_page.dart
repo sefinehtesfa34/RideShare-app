@@ -49,13 +49,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             context.go('/signUp');
           }
           if (state.status == FirebaseOtpStatus.success) {
-            if (!state.isSignedUp) {
+            if (state.isSignedUp) {
               context.go('/home');
             } else {
               context.go('/signUp');
             }
           }
-          // Handle state changes, if needed
         }, builder: (BuildContext context, FirebaseState state) {
           if (state.status == FirebaseOtpStatus.loading) {
             return const Center(
