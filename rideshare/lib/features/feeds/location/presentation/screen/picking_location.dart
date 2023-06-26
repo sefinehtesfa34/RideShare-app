@@ -4,7 +4,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
-import 'package:rideshare/features/feeds/location/presentation/screen/searching_driver_page.dart';
 import '../../../../../constants/api.dart';
 import '../../../../../core/map/map_box.dart';
 import '../widgets/back_button.dart';
