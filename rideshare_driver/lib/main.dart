@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/features/pick_passengers/presentation/screens/pick_passengers_page.dart';
+import 'package:rideshare/features/pick_passengers/presentation/widgets/start_journey.dart';
+import './features/authentication/presentation/screens/sign_up_page.dart';
+import './features/authentication/presentation/bloc/signup/sign_up_bloc.dart';
+import 'features/journey_started/presentation/screens/journey_started_page.dart';
+// import 'injection_container.dart' as di;
 import 'core/injections/injection_container.dart' as injection;
 import 'core/routes/app_routes.dart';
 import 'features/pick_location/presentation/bloc/passenger_home_bloc.dart';

@@ -4,7 +4,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'onjourney_passengers.dart';
 // import 'package:rideshare/features/journey_started/presentation/widgets/onjourney_passengers.dart';
-
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({super.key});
 
