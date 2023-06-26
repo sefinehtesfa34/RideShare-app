@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/images.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../../core/utils/colors.dart';
 import '../../domain/entity/ride_offer.dart';
 import 'custom_cache_image.dart';
@@ -22,20 +21,11 @@ class AddedPassengersCard extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  radius: 7.w,
-                  child: ClipOval(
-                    child: Container(
-                      width: 14.w,
-                      height: 14.h,
-                      child: CustomizedCachedImage(
-                          imageURL: rideOffer.user.imageUrl,
-                          width: 20.w,
-                          height: 8.h,
-                          key: GlobalKey()),
-                    ),
-                  ), // Example placeholder
+                  radius: 5.w, // Adjust the size of the circular image
+                  backgroundImage:
+                      AssetImage(person), // Replace with your image path
                 ),
-                SizedBox(width: 1.w),
+                // SizedBox(width: 1.w),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +82,8 @@ class AddedPassengersCard extends StatelessWidget {
                   height: 4.h,
                   child: ElevatedButton(
                     onPressed: () async {
-                      final phoneUrl = Uri.parse('tel:${rideOffer.user.phoneNumber}');
+                      final phoneUrl =
+                          Uri.parse('tel:${rideOffer.user.phoneNumber}');
                       if (await canLaunchUrl(phoneUrl)) {
                         await launchUrl(phoneUrl);
                       } else {

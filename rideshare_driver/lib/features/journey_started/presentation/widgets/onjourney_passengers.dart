@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/features/journey_started/presentation/widgets/modal_with_two_button.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/images.dart';
 import '../../../pick_passengers/presentation/widgets/border_only_button.dart';
 // import 'package:rideshare/features/journey_started/presentation/widgets/border_only.dart';
 
 class OnJourneyPassengersCard extends StatelessWidget {
+  TwoButtonModal showMyModal(BuildContext context) {
+    return TwoButtonModal(title: "Drop Passenger", description: "Have you reached to the Passengers  destination?");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,8 +20,9 @@ class OnJourneyPassengersCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
           children: [
-            Row(children: [
-              CircleAvatar(
+            Row(
+              children: [
+                CircleAvatar(
                   radius: 7.w,
                   child: ClipOval(
                     child: Container(
@@ -56,9 +62,9 @@ class OnJourneyPassengersCard extends StatelessWidget {
                     ),
                   ],
                 ),
-            ],),
-            
-  
+              ],
+            ),
+
             Text(
               'Br 100',
               style: TextStyle(
@@ -70,7 +76,20 @@ class OnJourneyPassengersCard extends StatelessWidget {
             // SizedBox(
             //   width: 10.w,
             // ),
-            BorderOnlyButton(buttonText: "Drop", color: primaryColor, onPressed: (){})
+            BorderOnlyButton(
+              buttonText: "Drop",
+              color: primaryColor,
+              onPressed: () {
+                var modalWidget = showMyModal(context);
+                showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext context) {
+                    return modalWidget;
+                  },
+                );
+              },
+            )
           ],
           // trailing: Icon(Icons.remove), // Minus icon
         ),

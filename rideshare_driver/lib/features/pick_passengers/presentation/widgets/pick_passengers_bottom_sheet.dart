@@ -18,7 +18,10 @@ import 'modal_with_one_button.dart';
 class CustomBottomSheet extends StatelessWidget {
   // Function to show the modal
   OneButtonModal showMyModal(BuildContext context) {
-    return OneButtonModal();
+    return const OneButtonModal(
+        title: "About wait time",
+        description:
+            'You have to start your journey of Picking people before the  time  goes to zero. If not, the ride is going to be canceled.');
   }
 
   CustomBottomSheet({super.key});
@@ -94,33 +97,39 @@ class CustomBottomSheet extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Your Journey starts in:',
-                            style: TextStyle(
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Poppins',
-                            ),
-                          ),
-                          SizedBox(width: 2.w),
-                          CountdownTimer(),
-                          SizedBox(
-                            width: 2.w,
-                          ),
-                          InkWell(
-                            child: Image.asset(question),
-                            onTap: () {
-                              var modalWidget = showMyModal(context);
-                              showDialog(
-                                context: context,
-                                barrierDismissible: true,
-                                builder: (BuildContext context) {
-                                  return modalWidget;
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Your Journey starts in:',
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Poppins',
+                                ),
+                              ),
+                              SizedBox(
+                                width: 1.w,
+                              ),
+                              CountdownTimer(),
+                              SizedBox(
+                                width: 1.w,
+                              ),
+                              InkWell(
+                                child: Image.asset(question),
+                                onTap: () {
+                                  var modalWidget = showMyModal(context);
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (BuildContext context) {
+                                      return modalWidget;
+                                    },
+                                  );
                                 },
-                              );
-                            },
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 30.w),
                           BorderOnlyButton(
                               buttonText: "Cancel",
                               color: Colors.red,
@@ -139,7 +148,6 @@ class CustomBottomSheet extends StatelessWidget {
                             fontFamily: 'Poppins',
                           ),
                         ),
-                        SizedBox(width: 4.w),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -168,7 +176,6 @@ class CustomBottomSheet extends StatelessWidget {
                         ),
                       ],
                     ),
-                   
                     ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,

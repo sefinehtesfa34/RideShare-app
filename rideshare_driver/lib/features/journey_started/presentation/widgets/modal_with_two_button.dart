@@ -5,6 +5,10 @@ import 'package:rideshare/features/pick_passengers/presentation/widgets/border_o
 
 class TwoButtonModal extends StatelessWidget {
   // Function to show the modal
+  const TwoButtonModal(
+      {required this.title, required this.description, super.key});
+  final String title;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +21,9 @@ class TwoButtonModal extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'Cancel Ride',
-              style: TextStyle(
+            Text(
+              title,
+              style: const TextStyle(
                 fontFamily: "Poppins",
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -29,7 +33,7 @@ class TwoButtonModal extends StatelessWidget {
               height: 2.h,
             ),
             Text(
-              'All Your added passengers are going to be removed. Do you want to cancel your ride.',
+              description,
               style: TextStyle(
                 fontSize: 14.sp,
                 fontFamily: 'Poppins',

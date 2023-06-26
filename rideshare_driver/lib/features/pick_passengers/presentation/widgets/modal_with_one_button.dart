@@ -5,6 +5,10 @@ import 'package:rideshare/features/pick_passengers/presentation/widgets/filled_b
 
 class OneButtonModal extends StatelessWidget {
   // Function to show the modal
+  const OneButtonModal(
+      {required this.title, required this.description, super.key});
+  final String title;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class OneButtonModal extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
+             Text(
               'About wait time',
               style: TextStyle(
                 fontFamily: "Poppins",
@@ -30,7 +34,7 @@ class OneButtonModal extends StatelessWidget {
               height: 2.h,
             ),
             Text(
-              'You have to start your journey of Picking people before the  time  goes to zero. If not, the ride is going to be canceled.',
+              description,
               style: TextStyle(
                 fontSize: 14.sp,
                 fontFamily: 'Poppins',

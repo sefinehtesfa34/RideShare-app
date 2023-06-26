@@ -22,18 +22,9 @@ class AllPassengersCard extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  radius: 7.w,
-                  child: ClipOval(
-                    child: Container(
-                      width: 14.w,
-                      height: 14.h,
-                      child: CustomizedCachedImage(
-                          imageURL: rideOffer.user.imageUrl,
-                          width: 20.w,
-                          height: 8.h,
-                          key: GlobalKey()),
-                    ),
-                  ), // Example placeholder
+                  radius: 6.w, // Adjust the size of the circular image
+                  backgroundImage:
+                      AssetImage(person), // Replace with your image path
                 ),
                 SizedBox(width: 1.w),
                 Column(
@@ -92,8 +83,8 @@ class AllPassengersCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.airline_seat_recline_normal_rounded,color: primaryColor),
-
+                      Icon(Icons.airline_seat_recline_normal_rounded,
+                          color: primaryColor),
                       Text(
                         "${rideOffer.seatsAllocated} seats",
                         style: TextStyle(
@@ -107,8 +98,7 @@ class AllPassengersCard extends StatelessWidget {
                   SizedBox(height: 1.h),
                   Row(
                     children: [
-                      Icon(Icons.money,color: primaryColor),
-
+                      Icon(Icons.money, color: primaryColor),
                       SizedBox(
                         width: 2.w,
                       ),

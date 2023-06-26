@@ -33,7 +33,7 @@ class BorderOnlyButton extends StatelessWidget {
         child: Text(
           buttonText,
           style: TextStyle(
-            fontSize: 15.sp,
+            fontSize: 14.sp,
             fontFamily: 'Poppins',
           ),
         ),

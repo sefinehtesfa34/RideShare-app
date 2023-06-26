@@ -6,7 +6,7 @@ import 'package:rideshare/features/journey_started/presentation/widgets/modal_wi
 
 class BottomButton extends StatelessWidget {
   TwoButtonModal showMyModal(BuildContext context) {
-    return TwoButtonModal();
+    return TwoButtonModal(title: "Cancel Ride", description: "All Your added passengers are going to be removed. Do you want to cancel your ride.");
   }
 
   const BottomButton({super.key});
@@ -37,7 +37,7 @@ class BottomButton extends StatelessWidget {
               );
             },
             height: 5.h,
-            width: 26.w,
+            width: 30.w,
           )),
     );
   }

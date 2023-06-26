@@ -5,7 +5,7 @@ import 'modal_with_two_button.dart';
 
 class BottomButton extends StatelessWidget {
   TwoButtonModal showMyModal(BuildContext context) {
-    return TwoButtonModal();
+    return TwoButtonModal(title: "Start Journey", description: "By starting your journey you should start collecting each riders. Are you sure you want to start your journey.");
   }
 
   const BottomButton({super.key});
