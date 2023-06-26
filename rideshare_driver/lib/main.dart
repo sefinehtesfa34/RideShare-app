@@ -27,37 +27,23 @@ class MyDriverApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSizer(
-      builder: (BuildContext context, Orientation orientation,
-          ScreenType screenType) {
-        return MaterialApp(
-      theme: ThemeData(
-        primaryColor: const Color(0xFF433AA9),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CurrentLocationBloc>(
+            create: (_) => injection.sl<CurrentLocationBloc>()),
+        BlocProvider<NamesBloc>(create: (_) => injection.sl<NamesBloc>()),
+        BlocProvider<ChooseLocationsBloc>(
+            create: (_) => injection.sl<ChooseLocationsBloc>()),
+        BlocProvider<RideRequestBloc>(
+          create: (_) => injection.sl<RideRequestBloc>(),
+        )
+      ],
+      child: ResponsiveSizer(
+        builder: (BuildContext context, Orientation orientation,
+            ScreenType screenType) {
+          return AppRouter();
+        },
       ),
-      home: JourneyStartedPage(),
     );
-      },
-    );
-
-    // MultiBlocProvider(
-    //   providers: [
-    //     BlocProvider<CurrentLocationBloc>(
-    //         create: (_) => injection.sl<CurrentLocationBloc>()),
-    //     BlocProvider<NamesBloc>(create: (_) => injection.sl<NamesBloc>()),
-    //     BlocProvider<ChooseLocationsBloc>(
-    //         create: (_) => injection.sl<ChooseLocationsBloc>()),
-    //     BlocProvider<RideRequestBloc>(
-    //       create: (_) => injection.sl<RideRequestBloc>(),
-    //     )
-    //   ],
-    //   child: ResponsiveSizer(
-    //     builder: (BuildContext context, Orientation orientation,
-    //         ScreenType screenType) {
-    //       return AppRouter();
-    //     },
-    //   ),
-    // );
   }
 }

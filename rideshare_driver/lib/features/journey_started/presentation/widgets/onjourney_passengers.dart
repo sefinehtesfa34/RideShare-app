@@ -91,7 +91,6 @@ class OnJourneyPassengersCard extends StatelessWidget {
               },
             )
           ],
-          // trailing: Icon(Icons.remove), // Minus icon
         ),
       ),
     );
