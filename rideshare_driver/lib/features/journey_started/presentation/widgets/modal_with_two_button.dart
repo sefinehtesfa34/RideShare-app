@@ -44,7 +44,7 @@ class TwoButtonModal extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 BorderOnlyButton(
-                    buttonText: "Cancel", color: red, onPressed: () {}),
+                    buttonText: "Yes Drop", color: primaryColor, onPressed: () {}),
                 SizedBox(
                   width: 3.w,
                 ),

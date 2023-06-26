@@ -6,6 +6,7 @@ import 'package:rideshare/features/pick_passengers/presentation/widgets/start_jo
 import './features/authentication/presentation/screens/sign_up_page.dart';
 import './features/authentication/presentation/bloc/signup/sign_up_bloc.dart';
 import 'features/journey_started/presentation/screens/journey_started_page.dart';
+// import 'injection_container.dart' as di;
 import 'core/injections/injection_container.dart' as injection;
 import 'core/routes/app_routes.dart';
 import 'features/pick_location/presentation/bloc/passenger_home_bloc.dart';
@@ -26,23 +27,37 @@ class MyDriverApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<CurrentLocationBloc>(
-            create: (_) => injection.sl<CurrentLocationBloc>()),
-        BlocProvider<NamesBloc>(create: (_) => injection.sl<NamesBloc>()),
-        BlocProvider<ChooseLocationsBloc>(
-            create: (_) => injection.sl<ChooseLocationsBloc>()),
-        BlocProvider<RideRequestBloc>(
-          create: (_) => injection.sl<RideRequestBloc>(),
-        )
-      ],
-      child: ResponsiveSizer(
-        builder: (BuildContext context, Orientation orientation,
-            ScreenType screenType) {
-          return AppRouter();
-        },
+    return ResponsiveSizer(
+      builder: (BuildContext context, Orientation orientation,
+          ScreenType screenType) {
+        return MaterialApp(
+      theme: ThemeData(
+        primaryColor: const Color(0xFF433AA9),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
+      home: JourneyStartedPage(),
     );
+      },
+    );
+
+    // MultiBlocProvider(
+    //   providers: [
+    //     BlocProvider<CurrentLocationBloc>(
+    //         create: (_) => injection.sl<CurrentLocationBloc>()),
+    //     BlocProvider<NamesBloc>(create: (_) => injection.sl<NamesBloc>()),
+    //     BlocProvider<ChooseLocationsBloc>(
+    //         create: (_) => injection.sl<ChooseLocationsBloc>()),
+    //     BlocProvider<RideRequestBloc>(
+    //       create: (_) => injection.sl<RideRequestBloc>(),
+    //     )
+    //   ],
+    //   child: ResponsiveSizer(
+    //     builder: (BuildContext context, Orientation orientation,
+    //         ScreenType screenType) {
+    //       return AppRouter();
+    //     },
+    //   ),
+    // );
   }
 }
