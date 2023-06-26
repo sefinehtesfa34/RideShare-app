@@ -157,29 +157,61 @@ class _ChooseLocationState extends State<ChooseLocation> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 2.h,
+            ),
             Padding(
               padding: EdgeInsets.only(left: 9.0.w, right: 4.0.w, top: 3.h),
-              child: CustomButton(
-                  text: "Choose Location on Map",
-                  onTap: () {
-                    final CurrentLocationBloc bloc =
-                        BlocProvider.of<CurrentLocationBloc>(context,
-                            listen: false);
-                    final CurrentLocationState state = bloc.state;
-                    if (state is CurrentLocationSuccess) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MapPicker(
-                            controller: _destinationFocusNode.hasFocus
-                                ? _destinationController
-                                : _sourceController,
-                            intialLocation: state.location,
-                          ),
-                        ),
-                      );
-                    }
-                  }),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(10)),
+                padding: EdgeInsets.symmetric(
+                  vertical: 3.w,
+                  horizontal: 4.w,
+                ),
+                width: 87.w,
+                child: BlocBuilder<ChooseLocationsBloc, ChooseLocationsState>(
+                  builder: (context, state) {
+                    return state is ChooseLocationsLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: white,
+                            ),
+                          )
+                        : InkWell(
+                            onTap: () async {
+                              if (_formKey.currentState!.validate()) {
+                                BlocProvider.of<ChooseLocationsBloc>(context)
+                                    .add(SelectecLocationsEvent(
+                                        _sourceController.text,
+                                        _destinationController.text));
+                              }
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Confirm",
+                                  style: TextStyle(
+                                    fontSize: 16.5.sp,
+                                    fontFamily: "Poppins",
+                                    color: white,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                const Icon(
+                                  Icons.directions,
+                                  color: white,
+                                  size: 25,
+                                ),
+                              ],
+                            ));
+                  },
+                ),
+              ),
             ),
             SizedBox(
               height: 3.h,
@@ -235,20 +267,29 @@ class _ChooseLocationState extends State<ChooseLocation> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            if (_formKey.currentState!.validate()) {
-              BlocProvider.of<ChooseLocationsBloc>(context).add(
-                  SelectecLocationsEvent(
-                      _sourceController.text, _destinationController.text));
-            }
-          },
-          backgroundColor: primaryColor,
-          child: const Icon(
-            Icons.directions,
-            color: white,
-            size: 35,
-          ),
+        floatingActionButton: Padding(
+          padding: EdgeInsets.only(left: 12.0.w, right: 4.0.w, top: 3.h),
+          child: CustomButton(
+              text: "Choose Location on Map",
+              onTap: () {
+                final CurrentLocationBloc bloc =
+                    BlocProvider.of<CurrentLocationBloc>(context,
+                        listen: false);
+                final CurrentLocationState state = bloc.state;
+                if (state is CurrentLocationSuccess) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MapPicker(
+                        controller: _destinationFocusNode.hasFocus
+                            ? _destinationController
+                            : _sourceController,
+                        intialLocation: state.location,
+                      ),
+                    ),
+                  );
+                }
+              }),
         ),
       ),
     );
