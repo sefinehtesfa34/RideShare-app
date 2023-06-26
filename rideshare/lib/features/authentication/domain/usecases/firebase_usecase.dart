@@ -1,17 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:rideshare/core/errors/failures.dart';
 import 'package:rideshare/core/usecases/usecase.dart';
+import 'package:rideshare/features/authentication/data/datasources/firebase_datasource.dart';
 
 import '../repositories/firebase_repository.dart';
 
-class SendOtpUsecase extends UseCase<String, String> {
+class SendOtpUsecase extends UseCase<SendParams, String> {
   final FirebaseOtpRepository firebaseOtpRepository;
   SendOtpUsecase({
     required this.firebaseOtpRepository,
   });
 
   @override
-  Future<Either<Failure, String>> call(String params) async {
+  Future<Either<Failure, SendParams>> call(String params) async {
     return await firebaseOtpRepository.sendOTP(params);
   }
 }

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class FirebaseDataSource {
-  Future<String> sendOTP(String phoneNumber);
+  Future<SendParams> sendOTP(String phoneNumber);
   Future<void> verifyOTP(String verificationId, String otp);
 }
 
@@ -13,16 +13,25 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
   FirebaseDataSourceImpl({required this.firebaseAuth});
 
   @override
-  Future<String> sendOTP(String phoneNumber) async {
-    final Completer<String> completer = Completer<String>();
+  Future<SendParams> sendOTP(String phoneNumber) async {
+    final Completer<SendParams> completer = Completer<SendParams>();
 
     verificationCompleted(PhoneAuthCredential credential) => {};
 
     verificationFailed(FirebaseAuthException exception) =>
         completer.completeError(exception);
 
-    codeSent(String verificationId, int? resendToken) =>
-        completer.complete(verificationId);
+    codeSent(String verificationId, int? resendToken) async {
+      try {
+        final List<String> results =
+            await firebaseAuth.fetchSignInMethodsForEmail(phoneNumber);
+        final bool isSignedUp = results.isNotEmpty;
+        completer.complete(
+            SendParams(isSignedUp: isSignedUp, verificationId: verificationId));
+      } catch (error) {
+        completer.completeError(error);
+      }
+    }
 
     codeAutoRetrievalTimeout(String verificationId) => {};
 
@@ -54,4 +63,10 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
       throw Exception('Failed to verify OTP');
     }
   }
+}
+
+class SendParams {
+  final bool isSignedUp;
+  final String verificationId;
+  SendParams({required this.isSignedUp, required this.verificationId});
 }

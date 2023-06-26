@@ -45,15 +45,15 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       child: Scaffold(
         body: BlocConsumer<FirebaseBloc, FirebaseState>(
             listener: (BuildContext context, FirebaseState state) async {
-          if (state.status == FirebaseOtpStatus.failure) {
-            context.go('/signUp');
-          }
           if (state.status == FirebaseOtpStatus.success) {
             if (state.isSignedUp) {
               context.go('/home');
             } else {
               context.go('/signUp');
             }
+          }
+          if (state.status == FirebaseOtpStatus.failure) {
+            context.go('/verify');
           }
         }, builder: (BuildContext context, FirebaseState state) {
           if (state.status == FirebaseOtpStatus.loading) {

@@ -13,11 +13,12 @@ class FirebaseOtpRepositoryImpl implements FirebaseOtpRepository {
   FirebaseOtpRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<Failure, String>> sendOTP(String phoneNumber) async {
+  Future<Either<Failure, SendParams>> sendOTP(String phoneNumber) async {
     try {
-      return Right<Failure, String>(await dataSource.sendOTP(phoneNumber));
+      return Right<Failure, SendParams>(await dataSource.sendOTP(phoneNumber));
     } on InputException {
-      return const Left<Failure, String>(InputFailure('Failed to send OTP'));
+      return const Left<Failure, SendParams>(
+          InputFailure('Failed to send OTP'));
     }
   }
 

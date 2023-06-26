@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rideshare/core/errors/failures.dart' show Failure;
+import 'package:rideshare/features/authentication/data/datasources/firebase_datasource.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../../core/cache/firebase_cache.dart';
@@ -25,21 +26,30 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
 
       await Future<dynamic>.delayed(const Duration(seconds: 2));
       try {
-        final Either<Failure, String> result =
+        final Either<Failure, SendParams> result =
             await sendOtpUsecase(event.phoneNumber);
         result.fold(
           (Failure failure) => emit(state.copyWith(
               status: FirebaseOtpStatus.failure,
               errorMessage: failure.toString())),
-          (String verificationId) async {
+          (SendParams sendParams) async {
             emit(state.copyWith(
-                status: FirebaseOtpStatus.success,
-                verificationId: verificationId));
+              status: FirebaseOtpStatus.success,
+              verificationId: sendParams.verificationId,
+              isSignedUp: sendParams.isSignedUp,
+            ));
 
             final SharedPreferences sharedPreferences =
                 await cacheManager.sharedPreferences;
 
-            await sharedPreferences.setString('verificationId', verificationId);
+            await sharedPreferences.setString(
+              'verificationId',
+              sendParams.verificationId,
+            );
+            await sharedPreferences.setBool(
+              'isSignedUp',
+              sendParams.isSignedUp,
+            );
           },
         );
       } catch (e) {
@@ -62,9 +72,13 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
       emitSuccess() async {
         final String verificationId =
             sharedPreferences.getString('verificationId') ?? '';
+        final bool isSignedUp =
+            sharedPreferences.getBool('isSignedUp') ?? false;
+
         emit(state.copyWith(
           status: FirebaseOtpStatus.success,
           verificationId: verificationId,
+          isSignedUp: isSignedUp,
         ));
       }
 

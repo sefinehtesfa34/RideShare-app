@@ -1,4 +1,6 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rideshare/core/errors/failures.dart';
 
 import '../../../../domain/usecases/login.dart';
 import 'login_event.dart';
@@ -16,8 +18,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     await Future<dynamic>.delayed(const Duration(seconds: 2));
     try {
-      final response = await loginUsecase.call(event.phoneNumber);
-      print(response);
+      await loginUsecase.call(event.phoneNumber);
+
       emit(LoginLoginSuccessState());
     } catch (e) {
       emit(LoginFailureState());
