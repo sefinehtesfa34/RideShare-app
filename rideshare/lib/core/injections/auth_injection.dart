@@ -4,6 +4,7 @@ import 'package:rideshare/features/authentication/domain/repositories/authentica
 import 'package:rideshare/features/authentication/domain/usecases/login.dart';
 import 'package:rideshare/features/authentication/domain/usecases/signup.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/login/bloc/login_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/authentication/presentation/bloc/signup/bloc/signup_bloc.dart';
 import 'injection_container.dart';
@@ -14,12 +15,20 @@ Future<void> authInjectionInit() async {
   sl.registerFactory(() => LoginBloc(loginUsecase: sl()));
   //! usecases
   sl.registerLazySingleton(() => Signup(sl()));
-  sl.registerLazySingleton(() => Login(repository: sl()));
+  sl.registerLazySingleton(() => Login(repository: sl(), userRepository: sl()));
   //! Repositories
-  sl.registerLazySingleton<AuthenticationRepository>(
-      () => AuthenticationRepositoryImpl(userDataSource: sl()));
+  sl.registerLazySingleton<AuthenticationRepository>(() =>
+      AuthenticationRepositoryImpl(
+          userDataSource: sl(), sharedPreferencesDataSource: sl()));
 
   //! Datasource
   sl.registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(client: sl()));
+
+  sl.registerLazySingleton<SharedPreferencesDataSource>(
+      () => SharedPreferencesDataSourceImpl(sharedPreferences: sl()));
+
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPreferences);
 }
