@@ -10,7 +10,6 @@ abstract class AuthenticationRepository {
       SignupPayload newUserCredentials);
 }
 
-
 abstract class OTPVerificationRepository {
   Future<Either<Failure, VerifyOtpModel>> verifyOTP(String phoneNumber);
 }
