@@ -10,11 +10,12 @@ abstract class AuthenticationRepository {
       SignupPayload newUserCredentials);
 }
 
+
 abstract class OTPVerificationRepository {
   Future<Either<Failure, VerifyOtpModel>> verifyOTP(String phoneNumber);
 }
 
 abstract class UserRepository {
-  Future<Either<Failure, bool>> isLoggedIn();
+  Future<Either<Failure, bool>> isLoggedIn(String phoneNumber);
   Future<Either<Failure, void>> setLoggedIn(String phoneNumber);
 }

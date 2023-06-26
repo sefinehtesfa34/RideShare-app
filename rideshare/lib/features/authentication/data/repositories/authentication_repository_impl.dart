@@ -31,6 +31,9 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   Future<Either<Failure, String>> login(String phoneNumber) async {
+    if (await sharedPreferencesDataSource.isLoggedIn(phoneNumber)) {
+      return const Right<Failure, String>('Phone number');
+    }
     try {
       final String response = await userDataSource.login(phoneNumber);
       return Right<Failure, String>(response);
