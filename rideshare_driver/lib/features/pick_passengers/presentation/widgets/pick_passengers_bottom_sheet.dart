@@ -1,6 +1,7 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/core/utils/images.dart';
 import 'package:rideshare/features/pick_passengers/presentation/widgets/added_passenger_card.dart';
 import 'package:rideshare/features/pick_passengers/presentation/widgets/all_passengers.dart';
 import 'package:rideshare/features/pick_passengers/presentation/widgets/border_only_button.dart';
@@ -12,7 +13,14 @@ import '../../domain/entity/ride_offer.dart';
 import '../../domain/entity/user.dart';
 import 'sorting_filter.dart';
 
+import 'modal_with_one_button.dart';
+
 class CustomBottomSheet extends StatelessWidget {
+  // Function to show the modal
+  OneButtonModal showMyModal(BuildContext context) {
+    return OneButtonModal();
+  }
+
   CustomBottomSheet({super.key});
 
   List<RideOffer> addedPassengers = [
@@ -96,13 +104,23 @@ class CustomBottomSheet extends StatelessWidget {
                           ),
                           SizedBox(width: 2.w),
                           CountdownTimer(),
-                          IconButton(
-                              icon: Icon(Icons.help),
-                              color: primaryColor,
-                              onPressed: () {}),
-                          SizedBox(width: 6.w),
-
-                          // SizedBox(width: 37.w),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          InkWell(
+                            child: Image.asset(question),
+                            onTap: () {
+                              var modalWidget = showMyModal(context);
+                              showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (BuildContext context) {
+                                  return modalWidget;
+                                },
+                              );
+                            },
+                          ),
+                          SizedBox(width: 30.w),
                           BorderOnlyButton(
                               buttonText: "Cancel",
                               color: Colors.red,

@@ -14,8 +14,8 @@ class BorderOnlyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 20.5.w,
-      height: 4.h,
+      width: 19.w,
+      height: 5.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(

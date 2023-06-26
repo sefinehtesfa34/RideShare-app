@@ -8,5 +8,5 @@ const String map = "assets/images/map.png";
 const String money = "assets/images/fa_money.png";
 const String location = "assets/images/location.png";
 const String destinationPinMarker = "assets/images/destination_pin_marker.png";
-const String carImageIcon = 'assets/images/car_icon.png';
+const String question = "../../../assets/images/question.png";const String carImageIcon = 'assets/images/car_icon.png';
 const String rideCompleteImage = "assets/images/ride_complete_image.png";
