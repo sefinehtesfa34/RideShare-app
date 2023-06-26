@@ -42,7 +42,6 @@ dependencies:
   flutter_dotenv: ^5.1.0
   flutter_map: ^4.0.0
   flutter_map_location_marker: ^6.0.0
-  flutter_sms: ^2.3.3
   flutter_spinkit: ^5.2.0
   flutter_svg: ^2.0.6
   geocoding: ^2.1.0
