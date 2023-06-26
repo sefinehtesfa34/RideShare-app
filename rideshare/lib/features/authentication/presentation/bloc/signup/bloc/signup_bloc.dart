@@ -15,27 +15,3 @@ class SignUpBloc extends Bloc<SignupEvent, SignupState> {
     );
   }
 }
-
- // final SignupState signupState = state.copyWith(
-      //   fullName: event.fullName,
-      //   age: event.age,
-      // );
-
-      // try {
-      //   final Either<Failure, SignupPayload> response =
-      //       await signup.call(SignupPayload(
-      //     age: signupState.age,
-      //     fullName: signupState.fullName,
-      //     imageUrl: signupState.imageUrl,
-      //   ));
-
-      //   if (response.isRight()) {
-      //     emit(state.copyWith(isSuccess: true, isLoading: false));
-      //   } else {
-      //     emit(state.copyWith(isFailure: true, isLoading: false));
-      //     print('Failure statement');
-      //   }
-      // } catch (e) {
-      //   emit(state.copyWith(isFailure: true, isLoading: false));
-      //   print('Server Failure');
-      // }
