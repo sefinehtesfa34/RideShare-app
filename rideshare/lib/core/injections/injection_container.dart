@@ -4,15 +4,16 @@ import 'package:http/http.dart' as http;
 import 'package:rideshare/core/injections/ride_request_injection.dart';
 import '../network/network_info.dart';
 import 'auth_injection.dart';
+import 'firebase_injection.dart';
 import 'hitory_injection.dart';
 import 'location_injection.dart';
 
-var sl = GetIt.instance;
+GetIt sl = GetIt.instance;
 
 Future<void> init() async {
   //! Features - User
   await authInjectionInit();
-
+  await firebaseInjectionInit();
   await setupInjection();
   // //! Features - Location
   locationInjectionInit();
@@ -24,5 +25,4 @@ Future<void> init() async {
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   sl.registerLazySingleton(() => InternetConnectionChecker());
-
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../bloc/otp/otp_bloc.dart';
+import '../bloc/firebase/bloc/firebase_bloc.dart';
+import '../bloc/firebase/bloc/firebase_event.dart';
 
 // ignore: must_be_immutable
 class Verify extends StatefulWidget {
@@ -35,8 +36,9 @@ class _VerifyState extends State<Verify> {
                 )),
           );
         } else {
-          context.read<OtpVerificationBloc>().add(VerifyOtpEvent(
-              otp: widget.OTP.join(), phoneNumber: '0978664897'));
+          context
+              .read<FirebaseBloc>()
+              .add(VerifyOTPEvent(otp: widget.OTP.join()));
         }
       },
       style: ElevatedButton.styleFrom(

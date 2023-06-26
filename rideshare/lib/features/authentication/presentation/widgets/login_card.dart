@@ -5,6 +5,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/login/bloc/login_bloc.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/login/bloc/login_event.dart';
 import '../../../../core/utils/style.dart';
+import '../bloc/firebase/bloc/firebase_bloc.dart';
+import '../bloc/firebase/bloc/firebase_event.dart';
 import '../bloc/login/bloc/login_state.dart';
 import 'country_code.dart';
 
@@ -26,15 +28,11 @@ class _LoginCardState extends State<LoginCard> {
 
   Widget loginButton(BuildContext context, String text) {
     return BlocConsumer<LoginBloc, LoginState>(
-      listener: (BuildContext context, LoginState state) {
-
-        
-      },
+      listener: (BuildContext context, LoginState state) {},
       builder: (BuildContext context, LoginState state) {
-        return Column(
-          children: [
+        return Column(children: [
           Padding(
-            padding:  EdgeInsets.only(left: 10.w),
+            padding: EdgeInsets.only(left: 10.w),
             child: Row(
               children: [
                 const CountryCode(),
@@ -69,7 +67,6 @@ class _LoginCardState extends State<LoginCard> {
               ],
             ),
           ),
-
           if (isFieldEmpty)
             Padding(
               padding: EdgeInsets.only(left: 10.w, top: 4.sp),
@@ -83,7 +80,7 @@ class _LoginCardState extends State<LoginCard> {
             ),
           SizedBox(height: 3.h),
           Padding(
-            padding: EdgeInsets.only(left: 15.w,right:15.w, top: 20.sp),
+            padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.sp),
             child: GestureDetector(
               onTap: () {
                 if (phoneNumberController.text.length != 9) {
@@ -94,6 +91,9 @@ class _LoginCardState extends State<LoginCard> {
                   setState(() {
                     isFieldEmpty = false;
                   });
+                  context
+                      .read<FirebaseBloc>()
+                      .add(SendOTPEvent(phoneNumber: '+251${phoneNumberController.text}'));
                   context.read<LoginBloc>().add(
                         SubmitEvent(phoneNumber: phoneNumberController.text),
                       );

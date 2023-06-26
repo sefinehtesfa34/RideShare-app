@@ -1,4 +1,3 @@
-import 'package:get_it/get_it.dart';
 import 'package:rideshare/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:rideshare/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:rideshare/features/authentication/domain/repositories/authentication_repository.dart';

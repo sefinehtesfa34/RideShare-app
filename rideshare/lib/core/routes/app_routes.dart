@@ -3,11 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:rideshare/core/routes/route_paths.dart';
 import 'package:rideshare/features/authentication/presentation/screens/login_page.dart';
-import 'package:rideshare/features/authentication/presentation/screens/otp.dart';
 import 'package:rideshare/features/authentication/presentation/screens/sign_up_page.dart';
-import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_one.dart';
-import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_three.dart';
-import 'package:rideshare/features/onboarding/presentation/screen/onboarding_page_two.dart';
 import 'package:rideshare/features/passenger/presentation/screens/passenger_on_journey_page.dart';
 import 'package:rideshare/features/pick_location/presentation/screen/location_picker.dart';
 import 'package:rideshare/features/pick_location/presentation/widgets/choose_location.dart';
@@ -17,6 +13,7 @@ import '../../features/feeds/location/presentation/screen/picking_location.dart'
 import '../../features/onboarding/presentation/screen/onboarding_holder.dart';
 import '../../features/passenger/presentation/screens/ride_completed.dart';
 import '../../features/passenger/presentation/screens/searching_for_ride_page.dart';
+import '../../features/authentication/presentation/screens/otp_verification_page.dart';
 import '../utils/colors.dart';
 
 class AppRouter extends StatelessWidget {
@@ -24,8 +21,7 @@ class AppRouter extends StatelessWidget {
 
   AppRouter({Key? key}) : super(key: key) {
     _router = GoRouter(
-      initialLocation: RoutePaths.passengerHome,
-
+      initialLocation: RoutePaths.login,
       routes: <GoRoute>[
         GoRoute(
           path: RoutePaths.locationPicker,
@@ -52,7 +48,6 @@ class AppRouter extends StatelessWidget {
           builder: (BuildContext context, GoRouterState state) =>
               const OnBoardingHolder(),
         ),
-      
         GoRoute(
           path: RoutePaths.signUp,
           builder: (BuildContext context, GoRouterState state) =>
@@ -75,7 +70,6 @@ class AppRouter extends StatelessWidget {
               return RideCompletePassenger(
                   totalCost: extra['totalCost'], tip: extra['tip']);
             }),
-
         GoRoute(
             path: RoutePaths.pickLocation,
             builder: (BuildContext context, GoRouterState state) {
@@ -85,7 +79,7 @@ class AppRouter extends StatelessWidget {
                 places: extra['places'],
               );
             }),
-        GoRoute( 
+        GoRoute(
             path: RoutePaths.pickPassengerOnMap,
             builder: (BuildContext context, GoRouterState state) {
               var extra = state.extra as Map<String, dynamic>;
