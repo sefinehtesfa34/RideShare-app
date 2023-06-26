@@ -1,3 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:get_it/get_it.dart';
+import 'package:rideshare/features/authentication/data/datasources/auth_local_datasource.dart';
 import 'package:rideshare/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:rideshare/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:rideshare/features/authentication/domain/repositories/authentication_repository.dart';
@@ -9,8 +12,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../features/authentication/data/datasources/auth_local_datasource.dart';
 import '../../features/authentication/presentation/bloc/signup/bloc/signup_bloc.dart';
 import 'injection_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> authInjectionInit() async {
+  //Firebase
+  sl.registerLazySingleton(() => FirebaseAuth.instance);
   //! Bloc
   sl.registerFactory(() => SignUpBloc(signup: sl()));
   sl.registerFactory(() => LoginBloc(loginUsecase: sl()));
