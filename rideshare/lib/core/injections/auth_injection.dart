@@ -6,6 +6,7 @@ import 'package:rideshare/features/authentication/domain/usecases/signup.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/login/bloc/login_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/authentication/data/datasources/auth_local_datasource.dart';
 import '../../features/authentication/presentation/bloc/signup/bloc/signup_bloc.dart';
 import 'injection_container.dart';
 
