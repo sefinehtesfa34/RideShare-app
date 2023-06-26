@@ -26,6 +26,7 @@ void main() async {
     ),
   );
   await injection.init();
+ 
 
   runApp(MultiBlocProvider(providers: [
     BlocProvider<LoginBloc>(create: (_) => injection.sl<LoginBloc>()),

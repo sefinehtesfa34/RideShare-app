@@ -31,12 +31,15 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
           (Failure failure) => emit(state.copyWith(
               status: FirebaseOtpStatus.failure,
               errorMessage: failure.toString())),
-          (String verificationId) => {
+          (String verificationId) async {
             emit(state.copyWith(
                 status: FirebaseOtpStatus.success,
-                verificationId: verificationId)),
-            cacheManager.sharedPreferencesInstance
-                ?.setString('verificationId', verificationId)
+                verificationId: verificationId));
+
+            final SharedPreferences sharedPreferences =
+                await cacheManager.sharedPreferences;
+
+            await sharedPreferences.setString('verificationId', verificationId);
           },
         );
       } catch (e) {
@@ -46,19 +49,36 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
     on<VerifyOTPEvent>(
         (VerifyOTPEvent event, Emitter<FirebaseState> emit) async {
       emit(FirebaseState(status: FirebaseOtpStatus.loading));
-      await Future<dynamic>.delayed(const Duration(seconds: 2));
-      FirebaseState firebaseState = state.copyWith();
 
+      final SharedPreferences sharedPreferences =
+          await cacheManager.sharedPreferences;
+      emitFailure() {
+        emit(state.copyWith(
+          status: FirebaseOtpStatus.failure,
+          errorMessage: 'Invalid OTP',
+        ));
+      }
+
+      emitSuccess() async {
+        final String verificationId =
+            sharedPreferences.getString('verificationId') ?? '';
+        emit(state.copyWith(
+          status: FirebaseOtpStatus.success,
+          verificationId: verificationId,
+        ));
+      }
       try {
+        final String verificationId =
+            sharedPreferences.getString('verificationId') ?? '';
+
         final Either<Failure, void> response = await verifyOtpUsecase.call(
-            Params(otp: event.otp, verificationId: state.verificationId ?? ''));
+          Params(otp: event.otp, verificationId: verificationId),
+        );
+
         response.fold(
-            (Failure failure) => emit(state.copyWith(
-                status: FirebaseOtpStatus.failure,
-                errorMessage: 'Invalid OTP')),
-            (void success) => emit(state.copyWith(
-                status: FirebaseOtpStatus.success,
-                verificationId: firebaseState.verificationId)));
+          (Failure failure) => emitFailure(),
+          (void success) async => await emitSuccess(),
+        );
       } catch (e) {
         emit(state.copyWith(status: FirebaseOtpStatus.failure));
       }
