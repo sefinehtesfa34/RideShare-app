@@ -18,14 +18,14 @@ class RideRemoteDataSourceImpl implements RideRemoteDataSource {
 
   @override
   Future<Stream<RideRequest>> getRideRequest(RideOffer passegner) async {
-    await Future.delayed(Duration(seconds: 4));
+    await Future<dynamic>.delayed(const Duration(seconds: 4));
     return rideRequestApiProvider.getRideRequestsForPassenger(passegner);
   }
 
   @override
   Future<bool> cancelRideRequest(String rideRequestId, String userPhone) async {
     try {
-      await Future.delayed(Duration(seconds: 2));
+      await Future<dynamic>.delayed(const Duration(seconds: 2));
       return false;
     } catch (ex) {
       throw ServerException("Couldn't cancel order");

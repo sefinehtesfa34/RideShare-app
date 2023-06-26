@@ -3,10 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rideshare/features/passenger/presentation/screens/passenger_on_journey_page.dart';
-
 import '../../domain/entities/user.dart';
-import '../widget/cancel_button_modal.dart';
 import '../widget/searching_page_modal_function.dart';
 import '../../domain/entities/location.dart';
 import '../../domain/entities/ride_offer.dart';
@@ -48,7 +45,7 @@ class SearchingforRidePage extends StatelessWidget {
           ),
         ),
         BlocConsumer<RideRequestBloc, RideRequestState>(
-          listener: (context, state) {
+          listener: (BuildContext context, RideRequestState state) {
             if (state is RideRequestSuccessState) {
               final RideOffer passenger = RideOffer(
                   user: user,
