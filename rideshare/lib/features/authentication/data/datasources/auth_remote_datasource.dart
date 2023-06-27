@@ -2,8 +2,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:rideshare/core/errors/exceptions.dart';
 import 'package:rideshare/features/authentication/data/models/signup_model.dart';
+import 'package:rideshare/features/profile/data/model/passenger_model.dart';
+import 'package:rideshare/features/profile/domain/entity/passenger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/entities/signup_payload.dart';
+import '../../presentation/bloc/firebase/bloc/firebase_bloc.dart';
 
 abstract class AuthRemoteDataSource {
   Future<VerifyOtpModel> verifyOtp(String phoneNumber);
@@ -60,8 +64,17 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'https://mocki.io/v1/0ceb4034-dca4-4c71-8d09-44aac1fee13c';
     try {
       final http.Response response = await client.get(Uri.parse(api));
-      if(response.statusCode == 200){
-        
+      if (response.statusCode == 200) {
+        const String fetchUrl =
+            'https://mocki.io/v1/a015cd7a-c144-46b6-acd2-a6c1539e4ec2';
+        final http.Response response = await http.get(Uri.parse(fetchUrl));
+        if (response.statusCode == 200) {
+          Passenger passenger =
+              PassengerModel.fromJson(jsonDecode(response.body));
+          SharedPreferences sharedPreferences =
+              await cacheManager.sharedPreferences;
+          sharedPreferences.setString(phoneNumber, passenger.toString());
+        }
       }
       return jsonDecode(response.body)['code'];
     } catch (e) {

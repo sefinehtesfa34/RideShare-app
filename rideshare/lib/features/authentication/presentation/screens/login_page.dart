@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
       },
       builder: (BuildContext context, LoginState state) {
         if (state is LoginLoadingState) {
-          return const Redirecting();
+          return const Scaffold(body: Redirecting());
         }
 
         return Scaffold(
@@ -67,7 +67,9 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 5.h,),
+                SizedBox(
+                  height: 5.h,
+                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -75,7 +77,8 @@ class LoginPage extends StatelessWidget {
                       padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
                       child: Text(
                         "Enter Phone Number",
-                        style: myTextStyle.copyWith(fontSize: 18.sp,fontWeight: FontWeight.w600),
+                        style: myTextStyle.copyWith(
+                            fontSize: 18.sp, fontWeight: FontWeight.w600),
                       ),
                     ),
                     const LoginCard()

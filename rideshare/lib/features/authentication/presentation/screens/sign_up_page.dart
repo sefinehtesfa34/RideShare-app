@@ -22,7 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
   int _ageChanged = 30;
   _getFullNameChange(String value) => _fullNameChanged = value;
   _getAgeChanged(String value) => _ageChanged = int.parse(value);
-  
+
   TextEditingController fullNameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
@@ -33,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
       listener: (BuildContext context, SignupState state) {},
       builder: (BuildContext context, SignupState state) {
         if (state is LoadingState) {
-          return const Redirecting();
+          return const Scaffold(body: Redirecting());
         }
 
         if (state is SuccessState) {
