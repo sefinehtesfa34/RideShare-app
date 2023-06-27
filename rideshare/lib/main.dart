@@ -7,6 +7,8 @@ import 'package:get_it/get_it.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
 import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/features/profile/presentation/bloc/fetch_passenger/bloc/fetch_passenger_bloc.dart';
+import 'package:rideshare/features/profile/presentation/bloc/update_passenger/update_profile_bloc.dart';
 import 'features/authentication/presentation/bloc/firebase/bloc/firebase_bloc.dart';
 import 'features/pick_location/presentation/bloc/passenger_home_bloc.dart';
 
@@ -29,6 +31,10 @@ void main() async {
  
 
   runApp(MultiBlocProvider(providers: [
+    BlocProvider<UpdateProfileBloc>(create: (_) => injection.sl<UpdateProfileBloc>()),
+    BlocProvider<FetchPassengerBloc>(create: (_) => injection.sl<FetchPassengerBloc>()),
+    
+    
     BlocProvider<LoginBloc>(create: (_) => injection.sl<LoginBloc>()),
     BlocProvider<SignUpBloc>(
       create: (_) => injection.sl<SignUpBloc>(),

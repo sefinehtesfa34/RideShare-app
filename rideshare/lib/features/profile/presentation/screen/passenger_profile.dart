@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../authentication/presentation/widgets/form_field.dart';
@@ -74,7 +75,10 @@ class _ProfilePageState extends State<ProfilePage> {
         }
         return BlocConsumer<UpdateProfileBloc, UpdateProfileState>(
           listener: (BuildContext context, UpdateProfileState state) async {
-            if (state.isSuccess && !_isSavedAlertShown){
+            if (state.isFailed) {
+              context.go('/singUp');
+            }
+            if (state.isSuccess && !_isSavedAlertShown) {
               await Future<dynamic>.delayed(const Duration(seconds: 2));
               _showSavedAlert();
             }
