@@ -29,10 +29,14 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController phoneNumberController = TextEditingController();
   bool _isSavedAlertShown = false; // Flag variable
 
-  _getFullNameChange(String value) =>
-      {_fullNameChanged = value, _isSavedAlertShown = false};
-  _getAgeChanged(String value) =>
-      {_ageChanged = int.parse(value), _isSavedAlertShown = false};
+  _getFullNameChange(String value) => {
+        _fullNameChanged = value,
+        _isSavedAlertShown = false,
+      };
+  _getAgeChanged(String value) => {
+        _ageChanged = int.parse(value),
+        _isSavedAlertShown = false,
+      };
 
   void _showSavedAlert() {
     _isSavedAlertShown = true;
