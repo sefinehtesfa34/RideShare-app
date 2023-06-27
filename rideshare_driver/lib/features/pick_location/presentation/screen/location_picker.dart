@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:rideshare/core/utils/colors.dart';
-import 'package:rideshare/features/pick_location/presentation/bloc/passenger_home_bloc.dart';
-import 'package:rideshare/features/pick_location/presentation/widgets/custom_bottom_sheet.dart';
 import 'dart:async';
 
-import 'package:rideshare/features/pick_location/presentation/widgets/google_map_viewer.dart';
-
+import '../bloc/passenger_home_bloc.dart';
 import '../widgets/choose_location.dart';
+import '../widgets/custom_bottom_sheet.dart';
+import '../widgets/google_map_viewer.dart';
 
 class LocationPicker extends StatefulWidget {
   const LocationPicker({super.key});

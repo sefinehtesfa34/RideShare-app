@@ -180,64 +180,87 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                 BlocProvider.of<ChooseLocationsBloc>(context, listen: false);
             final ChooseLocationsState state = bloc.state;
             if (state is ChooseLocationsSucess) {
-              context.read<RideRequestBloc>().add(
-                    RideOfferEvent(
-                      RideOffer(
-                          user: user,
-                          currentLocation: Location(
-                              latitude: state.soureLocation.latitude,
-                              longitude: state.soureLocation.longitude),
-                          destination: Location(
-                              latitude: state.destinationLocation.latitude,
-                              longitude: state.destinationLocation.longitude),
-                          seatsAllocated: currentSeatCount,
-                          price: cost),
-                    ),
-                  );
+              final ChooseLocationsBloc bloc =
+                  BlocProvider.of<ChooseLocationsBloc>(context, listen: false);
+              final ChooseLocationsState currentLocationState = bloc.state;
+              if (currentLocationState is ChooseLocationsSucess) {
+                final RideOffer passenger = RideOffer(
+                    user: user,
+                    currentLocation:
+                        Location(latitude: 9.0302, longitude: 38.7625),
+                    destination:
+                        Location(latitude: 9.03055, longitude: 38.7777),
+                    seatsAllocated: 3,
+                    price: 60);
+                RideOffer passenger2 = RideOffer(
+                    user: user,
+                    currentLocation:
+                        Location(latitude: 9.04, longitude: 38.7725),
+                    destination:
+                        Location(latitude: 9.03055, longitude: 38.7777),
+                    seatsAllocated: 3,
+                    price: 60);
+
+                context.go('/onJourney', extra: {
+                  "currentLocation": currentLocationState.soureLocation,
+                  "destination": currentLocationState.destinationLocation,
+                  'passengers': [passenger, passenger2],
+                });
+              }
             }
           },
         ),
-        BlocConsumer<RideRequestBloc, RideRequestState>(
-          listener: (context, state) {
-            if (state is RideRequestSuccessState) {
-              final RideOffer passenger = RideOffer(
-                  user: user,
-                  currentLocation:
-                      Location(latitude: 9.0302, longitude: 38.7625),
-                  destination: Location(latitude: 9.03055, longitude: 38.7777),
-                  seatsAllocated: 3,
-                  price: 60);
+        // BlocConsumer<RideRequestBloc, RideRequestState>(
+        //   listener: (context, state) {
+        //     if (state is RideRequestSuccessState) {
+        //       final ChooseLocationsBloc bloc =
+        //           BlocProvider.of<ChooseLocationsBloc>(context, listen: false);
+        //       final ChooseLocationsState currentLocationState = bloc.state;
+        //       if (currentLocationState is ChooseLocationsSucess) {
+        //         final RideOffer passenger = RideOffer(
+        //             user: user,
+        //             currentLocation:
+        //                 Location(latitude: 9.0302, longitude: 38.7625),
+        //             destination:
+        //                 Location(latitude: 9.03055, longitude: 38.7777),
+        //             seatsAllocated: 3,
+        //             price: 60);
 
-              String encodedPassenger = jsonEncode(passenger.toJson());
-              context.go('/onJourney', extra: {'passenger': passenger});
-            } else if (state is RideRequestWaitingState) {
-              showSearchDriverModal(context);
-            } else if (state is RideRequestFailureState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  dismissDirection: DismissDirection.horizontal,
-                  content: Row(
-                    children: [
-                      Icon(Icons.warning),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: Text(
-                          'No internet connection',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
-                  ),
-                  backgroundColor: Colors.red,
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
-            }
-          },
-          builder: (context, state) {
-            return const SizedBox();
-          },
-        )
+        //         String encodedPassenger = jsonEncode(passenger.toJson());
+        //         context.go('/onJourney', extra: {
+        //           "currentLocation": currentLocationState.soureLocation,
+        //           "destination": currentLocationState.destinationLocation,
+        //           'passenger': passenger,
+        //         });
+        //       }
+        //     } else if (state is RideRequestWaitingState) {
+        //       showSearchDriverModal(context);
+        //     } else if (state is RideRequestFailureState) {
+        //       ScaffoldMessenger.of(context).showSnackBar(
+        //         const SnackBar(
+        //           dismissDirection: DismissDirection.horizontal,
+        //           content: Row(
+        //             children: [
+        //               Icon(Icons.warning),
+        //               SizedBox(width: 10),
+        //               Expanded(
+        //                 child: Text(
+        //                   'No internet connection',
+        //                   textAlign: TextAlign.center,
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //           backgroundColor: Colors.red,
+        //           behavior: SnackBarBehavior.floating,
+        //         ),
+        //       );
+        //     }
+        //   },
+        //   builder: (context, state) {
+        //     return const SizedBox();
+        //   },
+        // )
       ],
     );
   }

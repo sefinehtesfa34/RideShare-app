@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/colors.dart';
-import 'package:rideshare/features/pick_location/presentation/bloc/passenger_home_bloc.dart';
-import 'package:rideshare/features/pick_location/presentation/widgets/map_picker.dart';
-import 'package:rideshare/features/pick_location/presentation/widgets/where_button.dart';
 
+import '../bloc/passenger_home_bloc.dart';
 import 'confirm_dialog.dart';
+import 'map_picker.dart';
+import 'where_button.dart';
 
 class ChooseLocation extends StatefulWidget {
   final GoogleMapsPlaces places;
 
-  const ChooseLocation({Key? key, required this.places}) : super(key: key);
+  const ChooseLocation({
+    Key? key,
+    required this.places,
+    required this.currentLocation,
+  }) : super(key: key);
   @override
   _ChooseLocationState createState() => _ChooseLocationState();
+  final LatLng currentLocation;
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
@@ -58,29 +64,31 @@ class _ChooseLocationState extends State<ChooseLocation> {
     }
   }
 
+  void initState() {
+    _sourceController.text = "Your Location";
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<ChooseLocationsBloc, ChooseLocationsState>(
       listener: (context, state) {
         if (state is ChooseLocationsSucess) {
-          if (state is ChooseLocationsSucess) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return SeatSelectionDialog(
-                  source: state.sourceName,
-                  destination: state.destinationName,
-                  seatCount: seatCount,
-                  onSeatCountChanged: (int count) {
-                    setState(() {
-                      seatCount = count;
-                    });
-                  },
-                  onConfirmPressed: () {},
-                );
-              },
-            );
-          }
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return SeatSelectionDialog(
+                source: state.sourceName,
+                destination: state.destinationName,
+                seatCount: seatCount,
+                onSeatCountChanged: (int count) {
+                  setState(() {
+                    seatCount = count;
+                  });
+                },
+                onConfirmPressed: () {},
+              );
+            },
+          );
         }
       },
       child: Scaffold(
