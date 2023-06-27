@@ -8,7 +8,13 @@ import '../../../pick_passengers/presentation/widgets/border_only_button.dart';
 
 class OnJourneyPassengersCard extends StatelessWidget {
   TwoButtonModal showMyModal(BuildContext context) {
-    return TwoButtonModal(title: "Drop Passenger", description: "Have you reached to the Passengers  destination?");
+    return const TwoButtonModal(
+        title: "Drop Passenger",
+        description: "Have you reached to the Passengers  destination?",
+        firstButtonText: "Yes Drop",
+        secondButtonText: "Back",
+        firstButtonColor: primaryColor,
+        secondButtonColor: primaryColor);
   }
 
   @override
@@ -18,7 +24,6 @@ class OnJourneyPassengersCard extends StatelessWidget {
         padding: EdgeInsets.all(1.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
           children: [
             Row(
               children: [
