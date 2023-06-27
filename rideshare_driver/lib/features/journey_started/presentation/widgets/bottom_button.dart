@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/colors.dart';
 import 'package:rideshare/features/journey_started/presentation/widgets/border_only.dart';
-import 'package:rideshare/features/journey_started/presentation/widgets/modal_with_two_button.dart';
+
+import 'modal_with_two_button.dart';
 
 class BottomButton extends StatelessWidget {
   TwoButtonModal showMyModal(BuildContext context) {
-    return TwoButtonModal(title: "Cancel Ride", description: "All Your added passengers are going to be removed. Do you want to cancel your ride.");
+    return TwoButtonModal(
+        title: "Cancel Ride",
+        description:
+            "All Your added passengers are going to be removed. Do you want to cancel your ride.",
+        firstButtonText: "Cancel",
+        secondButtonText: "Back",
+        firstButtonColor: red,
+        secondButtonColor: primaryColor,
+        onFirstButtonPressed: (){},);
   }
 
   const BottomButton({super.key});

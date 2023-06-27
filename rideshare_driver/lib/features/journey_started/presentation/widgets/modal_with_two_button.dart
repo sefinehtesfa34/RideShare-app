@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/colors.dart';
-import 'package:rideshare/features/pick_passengers/presentation/widgets/border_only_button.dart';
+
+import 'border_only.dart';
 
 class TwoButtonModal extends StatelessWidget {
   // Function to show the modal
   const TwoButtonModal(
-      {required this.title, required this.description, super.key});
+      {required this.title,
+      required this.description,
+      required this.firstButtonText,
+      required this.secondButtonText,
+      required this.firstButtonColor,
+      required this.secondButtonColor,
+      required this.onFirstButtonPressed,
+      super.key});
   final String title;
   final String description;
+  final String firstButtonText;
+  final String secondButtonText;
+  final Color firstButtonColor;
+  final Color secondButtonColor;
+  final Function() onFirstButtonPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +36,10 @@ class TwoButtonModal extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: "Poppins",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w500,
               ),
             ),
             SizedBox(
@@ -34,8 +47,9 @@ class TwoButtonModal extends StatelessWidget {
             ),
             Text(
               description,
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 17.sp,
                 fontFamily: 'Poppins',
               ),
             ),
@@ -44,17 +58,27 @@ class TwoButtonModal extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 BorderOnlyButton(
-                    buttonText: "Yes Drop", color: primaryColor, onPressed: () {}),
+                  buttonText: firstButtonText,
+                  color: firstButtonColor,
+                  onPressed: () {
+                    onFirstButtonPressed(); // Call the callback function
+                    Navigator.pop(context); // Close the modal
+                  },
+                  height: 5.h,
+                  width: 26.w,
+                ),
                 SizedBox(
                   width: 3.w,
                 ),
                 BorderOnlyButton(
-                  buttonText: "Back",
-                  color: primaryColor,
+                  buttonText: secondButtonText,
+                  color: secondButtonColor,
                   onPressed: () {
                     // Add functionality for the button here
                     Navigator.pop(context); // Close the modal
                   },
+                  height: 5.h,
+                  width: 26.w,
                 )
               ],
             ),
