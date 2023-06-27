@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/constants/commuter.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/signup/bloc/signup_event.dart';
 import 'package:rideshare/features/authentication/presentation/widgets/redirecting.dart';
 import '../bloc/signup/bloc/signup_bloc.dart';
@@ -30,15 +31,16 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpBloc, SignupState>(
-      listener: (BuildContext context, SignupState state) {},
+      listener: (BuildContext context, SignupState state) {
+        if (state is SuccessState) {
+          context.go('/login');
+        }
+      },
       builder: (BuildContext context, SignupState state) {
         if (state is LoadingState) {
           return const Scaffold(body: Redirecting());
         }
 
-        if (state is SuccessState) {
-          context.go('/home');
-        }
         return Scaffold(
           body: SingleChildScrollView(
             padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
@@ -95,7 +97,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     onPressed: () {
                       context.read<SignUpBloc>().add(SubmitSignupEvent(
                             age: _ageChanged,
+                            name: name,
+                            commuterId: commuterId,
                             fullName: _fullNameChanged,
+
                           ));
                     },
                     buttonName: 'Submit',

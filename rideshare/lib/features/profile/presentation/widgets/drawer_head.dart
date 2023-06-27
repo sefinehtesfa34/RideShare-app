@@ -25,7 +25,7 @@ class _DrawerHeadWidgetState extends State<DrawerHeadWidget> {
                     }),
             CircleAvatar(
               radius: 20.sp,
-              backgroundImage: const AssetImage('assets/images/passenger.jpg'),
+              backgroundImage: const AssetImage('assets/images/passenger.png'),
             ),
             SizedBox(height: 2.h),
             Text(

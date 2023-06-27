@@ -19,7 +19,6 @@ class LoginPage extends StatelessWidget {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (BuildContext context, LoginState state) {
         if (state is LoginLoginSuccessState) {
-          context.go('/login');
           context.go('/verify');
         }
       },
