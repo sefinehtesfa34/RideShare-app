@@ -7,14 +7,15 @@ import 'modal_with_two_button.dart';
 
 class BottomButton extends StatelessWidget {
   TwoButtonModal showMyModal(BuildContext context) {
-    return const TwoButtonModal(
+    return TwoButtonModal(
         title: "Cancel Ride",
         description:
             "All Your added passengers are going to be removed. Do you want to cancel your ride.",
         firstButtonText: "Cancel",
         secondButtonText: "Back",
         firstButtonColor: red,
-        secondButtonColor: primaryColor);
+        secondButtonColor: primaryColor,
+        onFirstButtonPressed: (){},);
   }
 
   const BottomButton({super.key});
