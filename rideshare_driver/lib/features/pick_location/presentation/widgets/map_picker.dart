@@ -67,7 +67,12 @@ class _MapPickerState extends State<MapPicker> {
               setState(() {
                 widget.controller.text = placemarks[0].street!;
               });
-              Navigator.pop(context);
+              Navigator.pop(
+                  context,
+                  LatLng(
+                    pos.latitude,
+                    pos.longitude,
+                  ));
             },
             child: const Icon(
               Icons.check,

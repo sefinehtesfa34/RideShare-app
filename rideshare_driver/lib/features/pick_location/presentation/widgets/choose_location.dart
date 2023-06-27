@@ -16,11 +16,9 @@ class ChooseLocation extends StatefulWidget {
   const ChooseLocation({
     Key? key,
     required this.places,
-    required this.currentLocation,
   }) : super(key: key);
   @override
   _ChooseLocationState createState() => _ChooseLocationState();
-  final LatLng currentLocation;
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
@@ -31,8 +29,11 @@ class _ChooseLocationState extends State<ChooseLocation> {
   final TextEditingController _destinationController = TextEditingController();
   FocusNode _sourceFocusNode = FocusNode();
   FocusNode _destinationFocusNode = FocusNode();
+  LatLng? _sourceLocation = null;
+  LatLng? _destinationLocation = null;
   final _formKey = GlobalKey<FormState>();
   int seatCount = 1;
+
   Future<List<Prediction>> _getPlacePredictions(String searchTerm) async {
     PlacesAutocompleteResponse response = await widget.places.autocomplete(
       searchTerm,
@@ -192,8 +193,11 @@ class _ChooseLocationState extends State<ChooseLocation> {
                               if (_formKey.currentState!.validate()) {
                                 BlocProvider.of<ChooseLocationsBloc>(context)
                                     .add(SelectecLocationsEvent(
-                                        _sourceController.text,
-                                        _destinationController.text));
+                                  _sourceController.text,
+                                  _destinationController.text,
+                                  _sourceLocation,
+                                  _destinationLocation,
+                                ));
                               }
                             },
                             child: Row(
@@ -279,13 +283,13 @@ class _ChooseLocationState extends State<ChooseLocation> {
           padding: EdgeInsets.only(left: 12.0.w, right: 4.0.w, top: 3.h),
           child: CustomButton(
               text: "Choose Location on Map",
-              onTap: () {
+              onTap: () async {
                 final CurrentLocationBloc bloc =
                     BlocProvider.of<CurrentLocationBloc>(context,
                         listen: false);
                 final CurrentLocationState state = bloc.state;
                 if (state is CurrentLocationSuccess) {
-                  Navigator.push(
+                  final result = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => MapPicker(
@@ -296,6 +300,11 @@ class _ChooseLocationState extends State<ChooseLocation> {
                       ),
                     ),
                   );
+                  if (_destinationFocusNode.hasFocus) {
+                    _destinationLocation = result;
+                  } else {
+                    _sourceLocation = result;
+                  }
                 }
               }),
         ),

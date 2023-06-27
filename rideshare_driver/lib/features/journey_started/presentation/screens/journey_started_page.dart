@@ -27,9 +27,9 @@ class JourneyStartedPage extends StatelessWidget {
               destination: destination,
               passengers: passengers,
             ),
-            const CustomBottomSheet(),
+            CustomBottomSheet(),
           ],
         ),
-        bottomNavigationBar: BottomButton());
+        bottomNavigationBar: const BottomButton());
   }
 }
