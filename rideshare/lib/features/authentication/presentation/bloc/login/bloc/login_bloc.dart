@@ -1,7 +1,4 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rideshare/core/errors/failures.dart';
-
 import '../../../../domain/usecases/login.dart';
 import 'login_event.dart';
 import 'login_state.dart';

@@ -10,22 +10,20 @@ class Redirecting extends StatefulWidget {
 class _RedirectingState extends State<Redirecting> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 16),
-            Text(
-              'Redirecting...',
-              style: TextStyle(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-              ),
+    return const Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(),
+          SizedBox(height: 16),
+          Text(
+            'Processing...',
+            style: TextStyle(
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
