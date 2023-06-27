@@ -58,7 +58,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         }, builder: (BuildContext context, FirebaseState state) {
           if (state.status == FirebaseOtpStatus.loading) {
             return const Center(
-              child: Redirecting(),
+              child: Scaffold(body: Redirecting()),
             );
           }
           return Center(
