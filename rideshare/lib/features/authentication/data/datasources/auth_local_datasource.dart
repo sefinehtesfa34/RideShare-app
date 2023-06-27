@@ -8,13 +8,13 @@ abstract class SharedPreferencesDataSource {
 
 class SharedPreferencesDataSourceImpl implements SharedPreferencesDataSource {
   final SharedPreferences sharedPreferences;
-  static const String keyPhoneNumber = '_KEY_PHONE_NUMBER';
+  static const String isLoggedInKey = 'isLoggedIn';
   SharedPreferencesDataSourceImpl({required this.sharedPreferences});
 
   @override
   Future<bool> isLoggedIn() async {
     try {
-      final bool? response = sharedPreferences.getBool(keyPhoneNumber);
+      final bool? response = sharedPreferences.getBool(isLoggedInKey);
       if (response != null && response) {
         return true;
       } else {
@@ -27,6 +27,6 @@ class SharedPreferencesDataSourceImpl implements SharedPreferencesDataSource {
 
   @override
   Future<void> setLoggedIn(bool isLoggedIn) async {
-    await sharedPreferences.setBool(keyPhoneNumber, isLoggedIn);
+    await sharedPreferences.setBool(isLoggedInKey, isLoggedIn);
   }
 }
