@@ -73,12 +73,13 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (response.statusCode == 200) {
         const String fetchUrl =
             'https://mocki.io/v1/a015cd7a-c144-46b6-acd2-a6c1539e4ec2';
-        final http.Response response = await http.get(Uri.parse(fetchUrl));
+        final http.Response response = await client.get(Uri.parse(fetchUrl));
         if (response.statusCode == 200) {
           SharedPreferences sharedPreferences =
               await cacheManager.sharedPreferences;
           sharedPreferences.setString(phoneNumber, jsonEncode(response.body));
           sharedPreferences.setString('PHONE_NUMBER', phoneNumber);
+          
         }
       }
       return jsonDecode(response.body)['code'];

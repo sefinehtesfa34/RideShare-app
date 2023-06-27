@@ -58,12 +58,13 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
 
   @override
   Future<void> verifyOTP(String verificationId, String otp) async {
+    SharedPreferences sharedPreferences = await cacheManager.sharedPreferences;
     try {
       final PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
         smsCode: otp,
       );
-
+      sharedPreferences.setBool('isLoggedIn', true);
       await firebaseAuth.signInWithCredential(credential);
     } catch (e) {
       throw Exception('Failed to verify OTP');
