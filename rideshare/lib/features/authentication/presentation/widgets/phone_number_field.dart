@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class PhoneNumberField extends StatefulWidget {
-  const PhoneNumberField({
-    super.key,
-    required this.onCodeChanged,
-    required this.onPhoneNumberChanged
-  });
-  final Function(String) onPhoneNumberChanged;
-  final Function(String) onCodeChanged;
+  const PhoneNumberField({super.key, required this.controller, this.code});
+  final TextEditingController controller;
+  final String? code;
 
   @override
   State<PhoneNumberField> createState() => _PhoneNumberFieldState();
@@ -26,13 +22,13 @@ class _PhoneNumberFieldState extends State<PhoneNumberField> {
             color: const Color(0xFFEFEFFA),
           ),
           child: TextField(
-            onChanged: widget.onCodeChanged,
+            readOnly: true,
             keyboardType: TextInputType.phone,
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 14.0.sp, vertical: 8.0.sp),
-              hintText: '+251',
+              hintText: widget.code??'+251',
               hintStyle: TextStyle(
                 color: const Color(0xFF8090BA),
                 fontSize: 15.sp,
@@ -51,14 +47,14 @@ class _PhoneNumberFieldState extends State<PhoneNumberField> {
               color: const Color(0xFFEFEFFA),
             ),
             child: TextField(
-              onChanged: widget.onPhoneNumberChanged,
               keyboardType: TextInputType.phone,
+              readOnly: true,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(
                     left: 20.sp,
                   ),
-                  hintText: '927897654',
+                  hintText: widget.controller.text,
                   hintStyle: TextStyle(
                     color: const Color(0xFF8090BA),
                     fontSize: 15.sp,

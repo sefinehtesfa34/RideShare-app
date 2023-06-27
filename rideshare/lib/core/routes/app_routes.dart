@@ -14,6 +14,7 @@ import '../../features/onboarding/presentation/screen/onboarding_holder.dart';
 import '../../features/passenger/presentation/screens/ride_completed.dart';
 import '../../features/passenger/presentation/screens/searching_for_ride_page.dart';
 import '../../features/authentication/presentation/screens/otp_verification_page.dart';
+import '../../features/profile/presentation/screen/passenger_profile.dart';
 import '../utils/colors.dart';
 
 class AppRouter extends StatelessWidget {
@@ -21,8 +22,13 @@ class AppRouter extends StatelessWidget {
 
   AppRouter({Key? key}) : super(key: key) {
     _router = GoRouter(
-      initialLocation: RoutePaths.login,
+      initialLocation: RoutePaths.profile,
       routes: <GoRoute>[
+        GoRoute(
+          path: RoutePaths.profile,
+          builder: (BuildContext context, GoRouterState state) =>
+              const ProfilePage(),
+        ),
         GoRoute(
           path: RoutePaths.locationPicker,
           builder: (BuildContext context, GoRouterState state) =>

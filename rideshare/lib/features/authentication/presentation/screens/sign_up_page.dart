@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/authentication/presentation/bloc/signup/bloc/signup_event.dart';
 import 'package:rideshare/features/authentication/presentation/widgets/redirecting.dart';
@@ -21,14 +22,22 @@ class _SignUpPageState extends State<SignUpPage> {
   int _ageChanged = 30;
   _getFullNameChange(String value) => _fullNameChanged = value;
   _getAgeChanged(String value) => _ageChanged = int.parse(value);
+  
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpBloc, SignupState>(
-      listener: (context, state) {},
-      builder: (context, state) {
+      listener: (BuildContext context, SignupState state) {},
+      builder: (BuildContext context, SignupState state) {
         if (state is LoadingState) {
           return const Redirecting();
+        }
+
+        if (state is SuccessState) {
+          context.go('/home');
         }
         return Scaffold(
           body: SingleChildScrollView(
@@ -69,12 +78,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(height: 2.0.h),
                 PassengerFormField(
                   onChanged: _getFullNameChange,
+                  controller: fullNameController,
                   hintText: 'Enter your full name',
                   label: 'Full name',
                 ),
                 SizedBox(height: 2.0.h),
                 PassengerFormField(
                   onChanged: _getAgeChanged,
+                  controller: ageController,
                   hintText: "Enter your age",
                   label: 'Age',
                 ),

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rideshare/features/authentication/presentation/widgets/text_field.dart';
+
+import '../../../authentication/presentation/widgets/text_field.dart';
 
 class PassengerFormField extends StatefulWidget {
   const PassengerFormField(
       {super.key,
       required this.onChanged,
       required this.label,
-      required this.hintText,
-      required this.controller});
-  final TextEditingController controller;
+      required this.hintText});
   final String label;
   final String hintText;
   final Function(String) onChanged;
@@ -41,7 +40,7 @@ class _PassengerFormFieldState extends State<PassengerFormField> {
             child: CustomTextField(
               onChanged: widget.onChanged,
               label: widget.label,
-              controller: widget.controller,
+              controller: TextEditingController(),
               hintText: widget.hintText,
             )),
       ],
