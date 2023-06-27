@@ -22,7 +22,7 @@ class AppRouter extends StatelessWidget {
 
   AppRouter({Key? key}) : super(key: key) {
     _router = GoRouter(
-      initialLocation: RoutePaths.login,
+      initialLocation: RoutePaths.onJourney,
       routes: <GoRoute>[
         GoRoute(
           path: RoutePaths.profile,
@@ -102,10 +102,7 @@ class AppRouter extends StatelessWidget {
             path: RoutePaths.locationPicker,
             builder: (BuildContext context, GoRouterState state) =>
                 const LocationPicker()),
-        GoRoute(
-            path: RoutePaths.home,
-            builder: (BuildContext context, GoRouterState state) =>
-                SearchingforRidePage()),
+        
         GoRoute(
             path: RoutePaths.onJourney,
             builder: (BuildContext context, GoRouterState state) {

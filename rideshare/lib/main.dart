@@ -44,9 +44,9 @@ void main() async {
     ),
     BlocProvider<BackToLocationBloc>(
         create: (_) => injection.sl<BackToLocationBloc>()),
-    BlocProvider<RideRequestBloc>(
-      create: (_) => injection.sl<RideRequestBloc>(),
-    )
+    // BlocProvider<RideRequestBloc>(
+    //   create: (_) => injection.sl<RideRequestBloc>(),
+    // )
   ], child: MyApp()));
 }
 
