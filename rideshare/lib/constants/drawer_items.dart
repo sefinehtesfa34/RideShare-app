@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:rideshare/features/authentication/presentation/bloc/firebase/bloc/firebase_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerMenuItem {
   final Widget icon;
@@ -40,10 +38,8 @@ final List<DrawerMenuItem> menuItems = <DrawerMenuItem>[
   DrawerMenuItem(
     icon: SvgPicture.asset('assets/images/logout.svg'),
     title: 'Log out',
-    onTap: () async {
-      SharedPreferences sharedPreferences =
-          await cacheManager.sharedPreferences;
-      sharedPreferences.remove('isLoggedIn');
+    onTap: () {
+      // Handle log out tap
     },
   ),
 ];

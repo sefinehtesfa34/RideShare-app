@@ -20,6 +20,7 @@ class SearchingforRidePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(),
         drawer: const MyHomePageDrawer(),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

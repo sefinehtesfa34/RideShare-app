@@ -22,7 +22,7 @@ class AppRouter extends StatelessWidget {
 
   AppRouter({Key? key}) : super(key: key) {
     _router = GoRouter(
-      initialLocation: RoutePaths.onJourney,
+      initialLocation: RoutePaths.profile,
       routes: <GoRoute>[
         GoRoute(
           path: RoutePaths.profile,
