@@ -39,17 +39,17 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
               isSignedUp: sendParams.isSignedUp,
             ));
 
-            final SharedPreferences sharedPreferences =
-                await cacheManager.sharedPreferences;
+            // final SharedPreferences sharedPreferences =
+            //     await cacheManager.sharedPreferences;
 
-            await sharedPreferences.setString(
-              'verificationId',
-              sendParams.verificationId,
-            );
-            await sharedPreferences.setBool(
-              'isSignedUp',
-              sendParams.isSignedUp,
-            );
+            // await sharedPreferences.setString(
+            //   'verificationId',
+            //   sendParams.verificationId,
+            // );
+            // await sharedPreferences.setBool(
+            //   'isSignedUp',
+            //   sendParams.isSignedUp,
+            // );
           },
         );
       } catch (e) {
@@ -71,7 +71,7 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
 
       emitSuccess() async {
         final String verificationId =
-            sharedPreferences.getString('verificationId') ?? '';
+            sharedPreferences.getString('verificationId') ?? 'Not verificationId';
         final bool isSignedUp =
             sharedPreferences.getBool('isSignedUp') ?? false;
 

@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rideshare/features/authentication/presentation/bloc/firebase/bloc/firebase_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 abstract class FirebaseDataSource {
   Future<SendParams> sendOTP(String phoneNumber);
@@ -14,6 +17,7 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
 
   @override
   Future<SendParams> sendOTP(String phoneNumber) async {
+    SharedPreferences sharedPreferences = await cacheManager.sharedPreferences;
     final Completer<SendParams> completer = Completer<SendParams>();
 
     verificationCompleted(PhoneAuthCredential credential) => {};
@@ -22,14 +26,16 @@ class FirebaseDataSourceImpl extends FirebaseDataSource {
         completer.completeError(exception);
 
     codeSent(String verificationId, int? resendToken) async {
+      sharedPreferences.setString('verificationId', verificationId);
       try {
-        final List<String> results =
-            await firebaseAuth.fetchSignInMethodsForEmail(phoneNumber);
-        final bool isSignedUp = results.isNotEmpty;
-        completer.complete(
-            SendParams(isSignedUp: isSignedUp, verificationId: verificationId));
-      } catch (error) {
-        completer.completeError(error);
+        http.Client client = http.Client();
+        final http.Response response = await client.get(
+            Uri.parse('https://rideshare-app.onrender.com/api/User/login'));
+        if (response.statusCode == 200) {
+          sharedPreferences.setBool('isSignedUp', true);
+        }
+      } catch (e) {
+        sharedPreferences.setBool('isSignedUp', false);
       }
     }
 
