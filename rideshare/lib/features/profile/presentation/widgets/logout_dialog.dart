@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LogoutDialog {
   static Future<void> show(BuildContext context) async {
+    final BuildContext dialogContext = context;
     await showDialog<void>(
-      context: context,
+      context: dialogContext,
       builder: (BuildContext context) {
         return Center(
           child: AlertDialog(
@@ -51,9 +54,11 @@ class LogoutDialog {
                         borderRadius: BorderRadius.circular(8.sp),
                       ),
                       child: TextButton(
-                        onPressed: () {
-                          // Perform logout operation here
-                          Navigator.of(context).pop(); // Close the dialog
+                        onPressed: () async {
+                          SharedPreferences sharedPreferences =
+                              await SharedPreferences.getInstance();
+                          sharedPreferences.remove('isLoggedIn');
+                          dialogContext.go('/login');
                         },
                         child: const Text(
                           'Logout',
