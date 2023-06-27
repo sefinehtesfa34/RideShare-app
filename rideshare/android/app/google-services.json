@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "341781459322",
-    "project_id": "rideshare-17f3d",
-    "storage_bucket": "rideshare-17f3d.appspot.com"
+    "project_number": "838384222587",
+    "project_id": "rideshare-6efef",
+    "storage_bucket": "rideshare-6efef.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:341781459322:android:f0be8589b60b1da5d826c3",
+        "mobilesdk_app_id": "1:838384222587:android:80d8cda602660b9756bdde",
         "android_client_info": {
           "package_name": "com.a2sv.rideshare"
         }
       },
       "oauth_client": [
         {
-          "client_id": "341781459322-tqq4llqieg68jkd6flmhc78coeskfkce.apps.googleusercontent.com",
+          "client_id": "838384222587-kdu1mmda9iakjs91kcrcjcd06akn82q8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAw9lhluXmFJYjWoWsAvhM5hFTq5SZ-kMI"
+          "current_key": "AIzaSyDmdB4t7pMWXIKF_7PVn-sm-Ijwyn5XA-g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "341781459322-tqq4llqieg68jkd6flmhc78coeskfkce.apps.googleusercontent.com",
+              "client_id": "838384222587-kdu1mmda9iakjs91kcrcjcd06akn82q8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
