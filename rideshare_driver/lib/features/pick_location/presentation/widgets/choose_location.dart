@@ -63,24 +63,24 @@ class _ChooseLocationState extends State<ChooseLocation> {
     return BlocListener<ChooseLocationsBloc, ChooseLocationsState>(
       listener: (context, state) {
         if (state is ChooseLocationsSucess) {
-          if (state is ChooseLocationsSucess) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return SeatSelectionDialog(
-                  source: state.sourceName,
-                  destination: state.destinationName,
-                  seatCount: seatCount,
-                  onSeatCountChanged: (int count) {
-                    setState(() {
-                      seatCount = count;
-                    });
-                  },
-                  onConfirmPressed: () {},
-                );
-              },
-            );
-          }
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return SeatSelectionDialog(
+                sourceLocation: state.soureLocation,
+                destinationLocation: state.destinationLocation,
+                source: state.sourceName,
+                destination: state.destinationName,
+                seatCount: seatCount,
+                onSeatCountChanged: (int count) {
+                  setState(() {
+                    seatCount = count;
+                  });
+                },
+                onConfirmPressed: () {},
+              );
+            },
+          );
         }
       },
       child: Scaffold(

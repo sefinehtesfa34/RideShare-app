@@ -21,7 +21,7 @@ class RideRequestApiProvider {
 
   Future<void> setupHubConnection() async {
     await hubConnection.start();
-    hubConnection.on('MatchFound', (dynamic data) {
+    hubConnection.on('RideAccepted', (dynamic data) {
       var rideRequest = RideRequestModel.fromJson(data);
       _rideRequestStreamController.add(rideRequest);
     });

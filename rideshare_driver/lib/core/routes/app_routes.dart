@@ -44,9 +44,13 @@ class AppRouter extends StatelessWidget {
             path: RoutePaths.passengerHome,
             builder: (BuildContext context, GoRouterState state) =>
                 const LocationPicker()),
-        GoRoute(path: RoutePaths.driverPickup,builder: (BuildContext context, GoRouterState state){
-          return PickPassengersPage();
-        })
+        GoRoute(
+            path: RoutePaths.driverPickup,
+            builder: (BuildContext context, GoRouterState state) {
+              var extra = state.extra as Map<String, dynamic>;
+
+              return PickPassengersPage(rideRequest: extra['rideRequest'],);
+            })
       ],
     );
   }

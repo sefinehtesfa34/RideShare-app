@@ -18,7 +18,6 @@ class RideRemoteDataSourceImpl implements RideRemoteDataSource {
 
   @override
   Future<Stream<RideRequest>> getRideRequest(RideOffer passegner) async {
-    await Future.delayed(Duration(seconds: 4));
     return rideRequestApiProvider.getRideRequestsForPassenger(passegner);
   }
 

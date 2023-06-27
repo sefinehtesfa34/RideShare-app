@@ -12,6 +12,7 @@ class RideRequest {
   final String carPlateNumber;
   final String driverPhoneNumber;
   final Location carLocation;
+  final Location destination;
   List<RideOffer> passengersList;
 
   RideRequest({
@@ -26,5 +27,8 @@ class RideRequest {
     required this.driverPhoneNumber,
     required this.carLocation,
     required this.passengersList,
+    required this.destination,
+
+
   });
 }

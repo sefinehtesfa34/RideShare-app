@@ -1,6 +1,7 @@
-import '../../domain/entities/ride_offer.dart';
-import '../../domain/entities/ride_request.dart';
-import '../../domain/entities/location.dart';
+
+import '../../domain/entity/location.dart';
+import '../../domain/entity/ride_offer.dart';
+import '../../domain/entity/ride_request.dart';
 import 'passenger_model.dart';
 
 class RideRequestModel extends RideRequest {
@@ -35,7 +36,7 @@ class RideRequestModel extends RideRequest {
   factory RideRequestModel.fromJson(Map<String, dynamic> json) {
     List<RideOffer> passList = [];
     for (final pass in json['passengersList']) {
-      passList.add(PassengerModel.fromJson(pass));
+      passList.add(RideOfferModel.fromJson(pass));
     }
     return RideRequestModel(
         driverName: json['driver_name'],

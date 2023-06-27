@@ -12,6 +12,7 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
+    print(json);
     return User(
       fullname: json['fullname'],
       imageUrl: json['imageUrl'],

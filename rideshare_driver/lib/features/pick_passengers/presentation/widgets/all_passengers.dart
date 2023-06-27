@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/pick_passengers/presentation/widgets/add_button.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/images.dart';
 import '../../domain/entity/ride_offer.dart';
+import '../bloc/pick_passengers/pick_passengers_bloc.dart';
 import 'custom_cache_image.dart';
 
 class AllPassengersCard extends StatelessWidget {
@@ -92,8 +94,8 @@ class AllPassengersCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.airline_seat_recline_normal_rounded,color: primaryColor),
-
+                      Icon(Icons.airline_seat_recline_normal_rounded,
+                          color: primaryColor),
                       Text(
                         "${rideOffer.seatsAllocated} seats",
                         style: TextStyle(
@@ -107,8 +109,7 @@ class AllPassengersCard extends StatelessWidget {
                   SizedBox(height: 1.h),
                   Row(
                     children: [
-                      Icon(Icons.money,color: primaryColor),
-
+                      Icon(Icons.money, color: primaryColor),
                       SizedBox(
                         width: 2.w,
                       ),
@@ -122,7 +123,12 @@ class AllPassengersCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 1.h),
-                  AddButton(onPressed: () {}),
+                  AddButton(onPressed: () {
+                      BlocProvider.of<PickPassengersBloc>(context)
+                          .add(PickPassenger(rideOffer));
+                    
+
+                  }),
                 ],
               ),
             ),
