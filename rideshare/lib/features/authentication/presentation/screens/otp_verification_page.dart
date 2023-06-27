@@ -53,6 +53,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             }
           }
           if (state.status == FirebaseOtpStatus.failure) {
+            print('Failed');
             context.go('/verify');
           }
         }, builder: (BuildContext context, FirebaseState state) {

@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:rideshare/core/errors/exceptions.dart';
 import 'package:rideshare/features/authentication/data/models/signup_model.dart';
-import 'package:rideshare/features/profile/data/model/passenger_model.dart';
-import 'package:rideshare/features/profile/domain/entity/passenger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/entities/signup_payload.dart';
@@ -17,8 +15,7 @@ abstract class AuthRemoteDataSource {
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final http.Client client;
-  static const String baseUrl =
-      'https://mocki.io/v1/bf3b82cf-101b-4d86-9082-9fd3e722ab99';
+  static const String baseUrl = 'https://rideshare-app.onrender.com/api/User';
   static const String secondBaseUrl =
       'https://mocki.io/v1/b7b78c0a-6bcf-458c-8d0e-da8a4856ce34';
 
@@ -35,26 +32,35 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<SignupPayloadModel> signup(SignupPayload model) async {
+    SharedPreferences sharedPreferences = await cacheManager.sharedPreferences;
     final SignupPayloadModel newModel = SignupPayloadModel(
-      fullName: model.fullName,
-      age: model.age,
-      imageUrl: model.imageUrl,
-    );
+        id: model.id,
+        name: model.name,
+        fullName: model.fullName,
+        age: model.age,
+        imageId: model.imageId,
+        phoneNumber: sharedPreferences.getString('PHONE_NUMBER') ??
+            'Phone number is not provided');
+    print(newModel);
     final Map<String, dynamic> jsonBody = newModel.toJson();
-    final http.Response response = await client.post(
-      Uri.parse(baseUrl),
-      body: json.encode(jsonBody),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      return SignupPayloadModel.fromJson(
-        json.decode(response.body),
+    try {
+      final http.Response response = await client.post(
+        Uri.parse(baseUrl),
+        body: json.encode(jsonBody),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       );
-    } else {
-      throw ServerException('Server failure');
+
+      if (response.statusCode == 200) {
+        return SignupPayloadModel.fromJson(
+          json.decode(response.body),
+        );
+      } else {
+        throw ServerException('Server failure');
+      }
+    } catch (e) {
+      throw ServerException;
     }
   }
 
@@ -72,6 +78,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           SharedPreferences sharedPreferences =
               await cacheManager.sharedPreferences;
           sharedPreferences.setString(phoneNumber, jsonEncode(response.body));
+          sharedPreferences.setString('PHONE_NUMBER', phoneNumber);
         }
       }
       return jsonDecode(response.body)['code'];

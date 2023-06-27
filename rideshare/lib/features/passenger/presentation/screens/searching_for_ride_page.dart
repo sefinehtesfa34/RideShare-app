@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rideshare/features/profile/presentation/screen/drawer.dart';
 import '../../domain/entities/user.dart';
 import '../widget/searching_page_modal_function.dart';
 import '../../domain/entities/location.dart';
@@ -11,7 +12,7 @@ import '../bloc/ride_request_bloc/ride_request_bloc.dart';
 
 class SearchingforRidePage extends StatelessWidget {
   SearchingforRidePage({super.key});
-  User user = User(
+  final User user = User(
       fullname: "Abebe Fekede",
       age: 20,
       imageUrl: "https://",
@@ -19,74 +20,76 @@ class SearchingforRidePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: const MyHomePageDrawer(),
         body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(
-          child: ElevatedButton(
-            child: const Text("click"),
-            onPressed: () {
-              context.go('/rideCompletePassenger',
-                  extra: {"totalCost": 64.23, "tip": 4.23});
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: ElevatedButton(
+                child: const Text("click"),
+                onPressed: () {
+                  context.go('/rideCompletePassenger',
+                      extra: {"totalCost": 64.23, "tip": 4.23});
 
-              // showDialog(
-              //     context: context,
-              //     builder: (BuildContext context) {
-              //       return CancelRidePassengerModal();
-              //     });
+                  // showDialog(
+                  //     context: context,
+                  //     builder: (BuildContext context) {
+                  //       return CancelRidePassengerModal();
+                  //     });
 
-              // context.read<RideRequestBloc>().add(RideOfferEvent(RideOffer(
-              //     user: user,
-              //     currentLocation:
-              //         Location(latitude: 9.0302, longitude: 38.7625),
-              //     destination: Location(latitude: 9.03055, longitude: 38.7777),
-              //     seatsAllocated: 3)));
-            },
-          ),
-        ),
-        BlocConsumer<RideRequestBloc, RideRequestState>(
-          listener: (BuildContext context, RideRequestState state) {
-            if (state is RideRequestSuccessState) {
-              final RideOffer passenger = RideOffer(
-                  user: user,
-                  currentLocation:
-                      Location(latitude: 9.0302, longitude: 38.7625),
-                  destination: Location(latitude: 9.03055, longitude: 38.7777),
-                  seatsAllocated: 3,
-                  price: 60);
+                  // context.read<RideRequestBloc>().add(RideOfferEvent(RideOffer(
+                  //     user: user,
+                  //     currentLocation:
+                  //         Location(latitude: 9.0302, longitude: 38.7625),
+                  //     destination: Location(latitude: 9.03055, longitude: 38.7777),
+                  //     seatsAllocated: 3)));
+                },
+              ),
+            ),
+            BlocConsumer<RideRequestBloc, RideRequestState>(
+              listener: (BuildContext context, RideRequestState state) {
+                if (state is RideRequestSuccessState) {
+                  final RideOffer passenger = RideOffer(
+                      user: user,
+                      currentLocation:
+                          Location(latitude: 9.0302, longitude: 38.7625),
+                      destination:
+                          Location(latitude: 9.03055, longitude: 38.7777),
+                      seatsAllocated: 3,
+                      price: 60);
 
-              String encodedPassenger = jsonEncode(passenger.toJson());
+                  String encodedPassenger = jsonEncode(passenger.toJson());
 
-              context.go('/onJourney', extra: {'passenger': passenger});
-            } else if (state is RideRequestWaitingState) {
-              showSearchDriverModal(context);
-            } else if (state is RideRequestFailureState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  dismissDirection: DismissDirection.horizontal,
-                  content: Row(
-                    children: [
-                      Icon(Icons.warning),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: Text(
-                          'No internet connection',
-                          textAlign: TextAlign.center,
-                        ),
+                  context.go('/onJourney', extra: {'passenger': passenger});
+                } else if (state is RideRequestWaitingState) {
+                  showSearchDriverModal(context);
+                } else if (state is RideRequestFailureState) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      dismissDirection: DismissDirection.horizontal,
+                      content: Row(
+                        children: [
+                          Icon(Icons.warning),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              'No internet connection',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  backgroundColor: Colors.red,
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
-            }
-          },
-          builder: (context, state) {
-            return const SizedBox();
-          },
-        )
-      ],
-    ));
+                      backgroundColor: Colors.red,
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
+                }
+              },
+              builder: (context, state) {
+                return const SizedBox();
+              },
+            )
+          ],
+        ));
   }
 }
