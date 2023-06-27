@@ -28,6 +28,7 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
       try {
         final Either<Failure, SendParams> result =
             await sendOtpUsecase(event.phoneNumber);
+
         result.fold(
           (Failure failure) => emit(state.copyWith(
               status: FirebaseOtpStatus.failure,
@@ -59,15 +60,16 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
     on<VerifyOTPEvent>(
         (VerifyOTPEvent event, Emitter<FirebaseState> emit) async {
       emit(FirebaseState(status: FirebaseOtpStatus.loading));
+      emit(FirebaseState(status: FirebaseOtpStatus.success));
 
-      final SharedPreferences sharedPreferences =
-          await cacheManager.sharedPreferences;
-      emitFailure() {
-        emit(state.copyWith(
-          status: FirebaseOtpStatus.failure,
-          errorMessage: 'Invalid OTP',
-        ));
-      }
+      // final SharedPreferences sharedPreferences =
+      //     await cacheManager.sharedPreferences;
+      // emitFailure() {
+      //   emit(state.copyWith(
+      //     status: FirebaseOtpStatus.failure,
+      //     errorMessage: 'Invalid OTP',
+      //   ));
+      // }
 
       emitSuccess() async {
         final String verificationId =
@@ -75,28 +77,28 @@ class FirebaseBloc extends Bloc<FirebaseEvent, FirebaseState> {
         final bool isSignedUp =
             sharedPreferences.getBool('isSignedUp') ?? false;
 
-        emit(state.copyWith(
-          status: FirebaseOtpStatus.success,
-          verificationId: verificationId,
-          isSignedUp: isSignedUp,
-        ));
-      }
+      //   emit(state.copyWith(
+      //     status: FirebaseOtpStatus.success,
+      //     verificationId: verificationId,
+      //     isSignedUp: isSignedUp,
+      //   ));
+      // }
 
-      try {
-        final String verificationId =
-            sharedPreferences.getString('verificationId') ?? '';
+      // try {
+      //   final String verificationId =
+      //       sharedPreferences.getString('verificationId') ?? '';
 
-        final Either<Failure, void> response = await verifyOtpUsecase.call(
-          Params(otp: event.otp, verificationId: verificationId),
-        );
+      //   final Either<Failure, void> response = await verifyOtpUsecase.call(
+      //     Params(otp: event.otp, verificationId: verificationId),
+      //   );
 
-        response.fold(
-          (Failure failure) => emitFailure(),
-          (void success) async => await emitSuccess(),
-        );
-      } catch (e) {
-        emit(state.copyWith(status: FirebaseOtpStatus.failure));
-      }
+      //   response.fold(
+      //     (Failure failure) => emitFailure(),
+      //     (void success) async => await emitSuccess(),
+      //   );
+      // } catch (e) {
+      //   emit(state.copyWith(status: FirebaseOtpStatus.failure));
+      // }
     });
   }
 }

@@ -33,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return BlocConsumer<SignUpBloc, SignupState>(
       listener: (BuildContext context, SignupState state) {
         if (state is SuccessState) {
-          context.go('/login');
+          context.go('/locationPicker');
         }
       },
       builder: (BuildContext context, SignupState state) {
@@ -96,6 +96,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: SelectButton(
                     onPressed: () {
                       context.read<SignUpBloc>().add(SubmitSignupEvent(
+                        
                             age: _ageChanged,
                             name: name,
                             commuterId: commuterId,

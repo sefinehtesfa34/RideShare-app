@@ -39,8 +39,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         fullName: model.fullName,
         age: model.age,
         imageId: model.imageId,
-        phoneNumber: sharedPreferences.getString('PHONE_NUMBER') ??
-            'Phone number is not provided');
+        phoneNumber: sharedPreferences.getString('PHONE_NUMBER')!);
     print(newModel);
     final Map<String, dynamic> jsonBody = newModel.toJson();
     try {
@@ -78,7 +77,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           SharedPreferences sharedPreferences =
               await cacheManager.sharedPreferences;
           sharedPreferences.setString(phoneNumber, jsonEncode(response.body));
-          sharedPreferences.setString('PHONE_NUMBER', phoneNumber);
+          sharedPreferences.setString('PHONE_NUMBER', '+251$phoneNumber');
         }
       }
       return jsonDecode(response.body)['code'];

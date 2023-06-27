@@ -15,7 +15,7 @@ class SignUpBloc extends Bloc<SignupEvent, SignupState> {
         try {
           SharedPreferences sharedPreferences =
               await cacheManager.sharedPreferences;
-              
+            
           await signup.call(SignupPayload(
               id: event.commuterId,
               name: event.name,
