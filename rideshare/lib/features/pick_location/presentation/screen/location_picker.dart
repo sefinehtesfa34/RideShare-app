@@ -9,6 +9,7 @@ import 'dart:async';
 
 import 'package:rideshare/features/pick_location/presentation/widgets/google_map_viewer.dart';
 
+import '../../../profile/presentation/screen/drawer.dart';
 import '../widgets/choose_location.dart';
 
 class LocationPicker extends StatefulWidget {
@@ -50,15 +51,16 @@ class _LocationPickerState extends State<LocationPicker>
       builder: (context, state) {
         if (state is CurrentLocationSuccess) {
           return Scaffold(
+              drawer: const MyHomePageDrawer(),
               body: Stack(
-            children: [
-              GoogleMapViewer(
-                latitude: state.location.latitude,
-                longitude: state.location.longitude,
-              ),
-              const CustomBottomSheet(),
-            ],
-          ));
+                children: [
+                  GoogleMapViewer(
+                    latitude: state.location.latitude,
+                    longitude: state.location.longitude,
+                  ),
+                  const CustomBottomSheet(),
+                ],
+              ));
         } else if (state is CurrentLocationLoading) {
           return Scaffold(
             body: Center(
