@@ -10,8 +10,12 @@ abstract class SignupEvent extends Equatable {
 class SubmitSignupEvent extends SignupEvent {
   final String fullName;
   final int age;
+  final String name;
+  final String commuterId;
   const SubmitSignupEvent({
     required this.age,
+    required this.commuterId,
+    required this.name,
     required this.fullName,
   });
 }
