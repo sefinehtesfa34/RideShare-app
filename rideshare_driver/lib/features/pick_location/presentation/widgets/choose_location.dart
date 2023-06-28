@@ -33,6 +33,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
   LatLng? _destinationLocation;
   final _formKey = GlobalKey<FormState>();
   int seatCount = 1;
+  bool _sourceSelected = true;
 
   Future<List<Prediction>> _getPlacePredictions(String searchTerm) async {
     PlacesAutocompleteResponse response = await widget.places.autocomplete(
@@ -63,6 +64,25 @@ class _ChooseLocationState extends State<ChooseLocation> {
         _predictions = [];
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _sourceFocusNode.addListener(() {
+      if (_sourceFocusNode.hasFocus) {
+        setState(() {
+          _sourceSelected = true;
+        });
+      }
+    });
+    _destinationFocusNode.addListener(() {
+      if (_destinationFocusNode.hasFocus) {
+        setState(() {
+          _sourceSelected = false;
+        });
+      }
+    });
   }
 
   @override
@@ -296,7 +316,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
                       ),
                     ),
                   );
-                  if (_destinationFocusNode.hasFocus) {
+
+                  if (!_sourceSelected) {
                     _destinationLocation = result;
                   } else {
                     _sourceLocation = result;
