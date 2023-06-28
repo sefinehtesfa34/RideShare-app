@@ -52,7 +52,11 @@ class AppRouter extends StatelessWidget {
         GoRoute(
             path: RoutePaths.driverPickup,
             builder: (BuildContext context, GoRouterState state) {
-              return PickPassengersPage();
+              var extra = state.extra as Map<String, dynamic>;
+              return PickPassengersPage(
+                sourceLocation: extra["sourceLocation"],
+                destinationLocation: extra["destinationLocation"],
+              );
             })
       ],
     );

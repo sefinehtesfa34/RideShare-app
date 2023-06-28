@@ -184,27 +184,10 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                   BlocProvider.of<ChooseLocationsBloc>(context, listen: false);
               final ChooseLocationsState currentLocationState = bloc.state;
               if (currentLocationState is ChooseLocationsSucess) {
-                final RideOffer passenger = RideOffer(
-                    user: user,
-                    currentLocation:
-                        Location(latitude: 9.0302, longitude: 38.7625),
-                    destination:
-                        Location(latitude: 9.03055, longitude: 38.7777),
-                    seatsAllocated: 3,
-                    price: 60);
-                RideOffer passenger2 = RideOffer(
-                    user: user,
-                    currentLocation:
-                        Location(latitude: 9.04, longitude: 38.7725),
-                    destination:
-                        Location(latitude: 9.03055, longitude: 38.7777),
-                    seatsAllocated: 3,
-                    price: 60);
-
-                context.go('/onJourney', extra: {
-                  "currentLocation": currentLocationState.soureLocation,
-                  "destination": currentLocationState.destinationLocation,
-                  'passengers': [passenger, passenger2],
+                context.go('/pickUpPassengers', extra: {
+                  "sourceLocation": currentLocationState.soureLocation,
+                  "destinationLocation":
+                      currentLocationState.destinationLocation,
                 });
               }
             }

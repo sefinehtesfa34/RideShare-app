@@ -2,15 +2,15 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/images.dart';
-import 'package:rideshare/features/pick_passengers/presentation/widgets/added_passenger_card.dart';
-import 'package:rideshare/features/pick_passengers/presentation/widgets/all_passengers.dart';
-import 'package:rideshare/features/pick_passengers/presentation/widgets/border_only_button.dart';
-import 'package:rideshare/features/pick_passengers/presentation/widgets/count_down.dart';
 
 import '../../../../core/utils/colors.dart';
 import '../../domain/entity/location.dart';
 import '../../domain/entity/ride_offer.dart';
 import '../../domain/entity/user.dart';
+import 'added_passenger_card.dart';
+import 'all_passengers.dart';
+import 'border_only_button.dart';
+import 'count_down.dart';
 import 'sorting_filter.dart';
 
 import 'modal_with_one_button.dart';

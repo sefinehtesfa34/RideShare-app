@@ -29,8 +29,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
   final TextEditingController _destinationController = TextEditingController();
   FocusNode _sourceFocusNode = FocusNode();
   FocusNode _destinationFocusNode = FocusNode();
-  LatLng? _sourceLocation = null;
-  LatLng? _destinationLocation = null;
+  LatLng? _sourceLocation;
+  LatLng? _destinationLocation;
   final _formKey = GlobalKey<FormState>();
   int seatCount = 1;
 
@@ -63,10 +63,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
         _predictions = [];
       });
     }
-  }
-
-  void initState() {
-    _sourceController.text = "Your Location";
   }
 
   @override
