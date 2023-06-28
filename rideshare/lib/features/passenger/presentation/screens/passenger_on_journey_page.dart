@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/location/location.dart';
 import '../../../../core/utils/colors.dart';
+import '../../../feeds/location/presentation/widgets/confirm_dialog.dart';
 import '../../domain/entities/ride_offer.dart';
 import '../../domain/entities/ride_request.dart';
 import '../bloc/ride_request_bloc/ride_request_bloc.dart';
 import '../widget/back_button_custom_icon.dart';
+import '../widget/border_only_button.dart';
 import '../widget/custom_bottom_sheet.dart';
 import '../widget/passenger_on_journey_map.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
@@ -22,55 +25,73 @@ class PassengerOnJourneyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RideRequestBloc, RideRequestState>(
-      listener: (context, state) {/* handle state changes here */},
-      builder: (context, state) {
-        if (state is RideRequestSuccessState) {
-          return StreamBuilder(
-              stream: state.stream,
-              builder:
-                  (BuildContext context, AsyncSnapshot<RideRequest> snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.none:
-                      return const Center(child: Text('No stream data'));
-
-                    case ConnectionState.waiting:
-                      final data = snapshot.data;
-                      return Center(child: Text('Waiting for data: $data'));
-
-                    case ConnectionState.active:
-                      debugPrint("I have been active watchu syaing");
-                      return bottomSheetHolder(snapshot);
-
-                    case ConnectionState.done:
-                      Future.delayed(Duration.zero, () {
-                        context.go("/home"); //! redirect to payed page.
-                      });
-
-                      return const SizedBox();
+    return Scaffold(
+      body: BlocConsumer<RideRequestBloc, RideRequestState>(
+        listener: (_, state) {/* handle state changes here */},
+        builder: (_, state) {
+          if (state is RideRequestSuccessState) {
+            return StreamBuilder(
+                stream: state.stream,
+                builder:
+                    (BuildContext _, AsyncSnapshot<RideRequest> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                        return const Center(child: Text('No stream data'));
+    
+                      case ConnectionState.waiting:
+                        return WaitingWidget(context);
+    
+                      case ConnectionState.active:
+                        return bottomSheetHolder(snapshot);
+    
+                      case ConnectionState.done:
+                        Future.delayed(Duration.zero, () {
+                          context.go("/rideCompletePassenger", extra: {
+                            "totalCost": 63.0,
+                            "tip": 0.0
+                          }); //! redirect to payed page.
+                        });
+    
+                        return const SizedBox();
+                    }
+                    // if (!snapshot.hasData) {
+                    //   return Scaffold(
+                    //     body: Center(
+                    //       child: CircularProgressIndicator(),
+                    //     ),
+                    //   );
+                    // } else if (snapshot.connectionState == ConnectionState.active) {
+                    //
+    
+                    //       debugPrint("I have been active watchu syaing");
+                    //       return bottomSheetHolder(snapshot);
+    
+                    //     case ConnectionState.done:
+                    //       Future.delayed(Duration.zero, () {
+                    //         context.go("/home");
                   }
-                }
-              });
-
-          // render widgets with updated rideRequest data here
-        } else if (state is RideRequestFailureState) {
-          final errorMessage = state.message;
-          // handle errors here
-          return Center(child: Text('Error occurred: $errorMessage'));
-        } else {
-          // handle initial and loading states here
-          return const SizedBox();
-        }
-      },
+                });
+    
+            // render widgets with updated rideRequest data here
+          } else if (state is RideRequestFailureState) {
+            final errorMessage = state.message;
+            // handle errors here
+            return Center(child: Text('Error occurred: $errorMessage'));
+          } else {
+            // handle initial and loading states here
+            return const SizedBox();
+          }
+        },
+      ),
     );
   }
 
   Widget bottomSheetHolder(AsyncSnapshot<RideRequest> snapshot) {
-    return Scaffold(
-      body: Stack(children: [
+    return SizedBox(
+      child: Stack(children: [
         OnJourneyMap(
             userLocation: LatLng(passenger.currentLocation.latitude,
                 passenger.currentLocation.longitude),
@@ -92,26 +113,52 @@ class PassengerOnJourneyPage extends StatelessWidget {
               return SliverChildBuilderDelegate(
                 (context, index) {
                   return CustomBottomSheet(
+                    passenger: passenger,
                     driverLocation: LatLng(snapshot.data!.carLocation.latitude,
                         snapshot.data!.carLocation.latitude),
                     destinationLocation: LatLng(passenger.destination.latitude,
                         passenger.destination.longitude),
-                    carModel: 'Toyota Executive 2000',
-                    seatsAvailable: 2,
-                    driverImageURL:
-                        'https://img.freepik.com/premium-photo/happy-young-male-driver-wheel_136930-4.jpg',
-                    driverName: 'Driver Name',
-                    driverRating: 4.9,
-                    driverReviews: 531,
-                    carImageURL:
-                        'https://thumbs.dreamstime.com/b/range-rover-black-matte-standing-street-florida-usa-174728616.jpg',
-                    carPlateNumber: 'ABC-123',
+                    carModel: snapshot.data!.carModel,
+                    seatsAvailable: snapshot.data!.availableSeats,
+                    driverImageURL: snapshot.data!.driverImageURL,
+                    driverName: snapshot.data!.driverName,
+                    driverRating: snapshot.data!.driverRatingAverageOutOf5,
+                    driverReviews: snapshot.data!.driverReviews,
+                    carImageURL: snapshot.data!.carImageURL,
+                    carPlateNumber: snapshot.data!.carPlateNumber,
+                    passengersList: snapshot.data!.passengersList,
+                    driverPhoneNumber: snapshot.data!.driverPhoneNumber,
                   );
                 },
                 childCount: 1,
               );
             }),
       ]),
+    );
+  }
+
+  WaitingWidget(context) {
+    return Column(
+      children: [
+        SizedBox(height: 5.h),
+        Text(
+          'Searching for Driver',
+          style: TextStyle(fontSize: 20.sp),
+        ),
+        SizedBox(height: 5.h),
+        SpinKitThreeBounce(
+          color: primaryColor,
+          size: 5.h,
+        ),
+        SizedBox(height: 5.h),
+        BorderOnlyButton(
+          buttonText: "Cancel",
+          color: Colors.red,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
     );
   }
 }

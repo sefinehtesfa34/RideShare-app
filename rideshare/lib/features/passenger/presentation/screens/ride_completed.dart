@@ -126,7 +126,7 @@ class RideCompletePassenger extends StatelessWidget {
             SizedBox(height: 8.h),
             InkWell(
               onTap: () {
-                context.go('/home');
+                context.go('/passengerHome');
               },
               child: Container(
                 height: 6.h,

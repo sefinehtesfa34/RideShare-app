@@ -96,7 +96,7 @@ class AddedPassengersCard extends StatelessWidget {
                       if (await canLaunchUrl(phoneUrl)) {
                         await launchUrl(phoneUrl);
                       } else {
-                        throw 'Could not launch $phoneUrl';
+                         print('Could not launch $phoneUrl');
                       }
                     },
                     style: ElevatedButton.styleFrom(

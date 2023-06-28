@@ -72,7 +72,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
       backgroundColor: Colors.white,
       title: Center(
         child: Text(
-          'Select Number of Seats  \n and Confirm Price',
+          'Select Number of Seats',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w600,
@@ -86,9 +86,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          SizedBox(
-            height: 4.h,
-          ),
+          
           Row(
             children: <Widget>[
               SvgPicture.asset('assets/images/current_mocation_marker.svg'),
@@ -129,31 +127,32 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
             ],
           ),
           SizedBox(
-            height: 4.h,
+            height: 2.h,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                "Total Price you will pay: ",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
-                  fontSize: 16.sp,
-                  color: const Color(0xFF414141),
-                ),
-              ),
-              Text(
-                "Br $cost ",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
-                  fontSize: 16.sp,
-                  color: const Color(0xFF414141),
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: <Widget>[
+          //     Text(
+          //       "Total Price you will pay: ",
+          //       style: TextStyle(
+          //         fontWeight: FontWeight.w500,
+          //         fontFamily: 'Poppins',
+          //         fontSize: 14.sp,
+          //         color: const Color(0xFF414141),
+          //       ),
+          //     ),
+          //     Text(
+          //       "Br $cost ",
+          //       style: TextStyle(
+          //         fontWeight: FontWeight.w500,
+          //         fontFamily: 'Poppins',
+          //         fontSize: 16.sp,
+          //         color: const Color(0xFF414141),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // SizedBox(height: 1.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -169,18 +168,18 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                       onPressed: incrementSeatCount,
                       icon: const Icon(Icons.add),
                       padding: EdgeInsets.zero,
-                      constraints: BoxConstraints.tight(const Size(32, 32)),
+                      constraints: BoxConstraints.tight(Size(5.w, 5.h)),
                     ),
                     Container(
                       width: 1,
-                      height: 32,
+                      height: 4.h,
                       color: Colors.grey,
                     ),
                     IconButton(
                       onPressed: decrementSeatCount,
                       icon: const Icon(Icons.remove),
                       padding: EdgeInsets.zero,
-                      constraints: BoxConstraints.tight(const Size(32, 32)),
+                      constraints: BoxConstraints.tight(Size(5.w, 5.h)),
                     ),
                   ],
                 ),
@@ -225,10 +224,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                   seatsAllocated: 3,
                   price: 60);
 
-              String encodedPassenger = jsonEncode(passenger.toJson());
               context.go('/onJourney', extra: {'passenger': passenger});
-            } else if (state is RideRequestWaitingState) {
-              showSearchDriverModal(context);
             } else if (state is RideRequestFailureState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(

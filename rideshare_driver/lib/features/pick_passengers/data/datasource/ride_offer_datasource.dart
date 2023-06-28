@@ -137,7 +137,19 @@ class RideOfferApiImpl implements RideOfferApi {
     });
     return _rideOfferStreamController.stream;
   }
+  
+
+  void dispose() {
+  _rideOfferStreamController.close();
+  hubConnection.stop();
 }
+}
+
+
+
+
+
+
  // try {
     //   final response = await dio.get(
     //       'https://mocki.io/v1/2226233f-e0f1-48ed-a92b-945413926dcc',
