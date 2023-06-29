@@ -2,6 +2,7 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/core/utils/colors.dart';
 
 import 'choose_location.dart';
 import 'destination_list.dart';

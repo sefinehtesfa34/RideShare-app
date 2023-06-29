@@ -11,7 +11,7 @@ abstract class DestinationDataSource {
 
 class DestinationDataSourceImp implements DestinationDataSource {
   final http.Client client;
-  String url = 'https://mocki.io/v1/f3dd3cd0-09d3-46ad-85f7-b9862e3ac787';
+  String url = 'https://mocki.io/v1/526a6616-b8af-42b6-be37-ec8148e10e1c';
 
   DestinationDataSourceImp({required this.client});
 

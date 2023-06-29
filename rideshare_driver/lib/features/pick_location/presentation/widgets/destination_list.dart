@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:rideshare/core/utils/colors.dart';
 import 'package:rideshare/core/utils/images.dart';
 import '../bloc/passenger_home_bloc.dart';
 import 'confirm_dialog.dart';
@@ -45,6 +46,7 @@ class _DestinationListState extends State<DestinationList> {
               if (state is ChooseLocationsError) {}
             },
             child: ListView.builder(
+              padding: EdgeInsets.only(top: 1.h),
               shrinkWrap: true,
               itemCount: state.names.length,
               itemBuilder: (context, index) {
@@ -96,12 +98,31 @@ class _DestinationListState extends State<DestinationList> {
           );
         } else if (state is NamesError) {
           // Error occurred, display error message
-          return Center(
-            child: Text(state.errorMessage),
+          return Padding(
+            padding: EdgeInsets.only(top: 4.h),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Network Error",
+                  style: TextStyle(color: red),
+                ),
+                SizedBox(height: 1.h),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<NamesBloc>().add(FetchNamesEvent());
+                  },
+                  child: state is NamesLoading
+                      ? CircularProgressIndicator() // Display CircularProgressIndicator when NamesLoading
+                      : Text("Reload"),
+                ),
+              ],
+            ),
           );
         } else if (state is NamesLoading) {
-          return const Center(
-            child: Center(
+          return Padding(
+            padding:  EdgeInsets.only(top: 4.h),
+            child: const Center(
               child: CircularProgressIndicator(),
             ),
           );
