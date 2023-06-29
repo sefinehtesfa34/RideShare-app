@@ -15,8 +15,9 @@ class OnJourneyPassengersCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
           children: [
-            Row(children: [
-              CircleAvatar(
+            Row(
+              children: [
+                CircleAvatar(
                   radius: 7.w,
                   child: ClipOval(
                     child: Container(
@@ -37,7 +38,7 @@ class OnJourneyPassengersCard extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 1.w),
                       child: Text(
-                        'Abebe B.',
+                        'Yared Tsegaye',
                         style: TextStyle(
                           fontSize: 17.sp,
                           fontWeight: FontWeight.w600,
@@ -56,9 +57,9 @@ class OnJourneyPassengersCard extends StatelessWidget {
                     ),
                   ],
                 ),
-            ],),
-            
-  
+              ],
+            ),
+
             Text(
               'Br 100',
               style: TextStyle(
@@ -70,7 +71,8 @@ class OnJourneyPassengersCard extends StatelessWidget {
             // SizedBox(
             //   width: 10.w,
             // ),
-            BorderOnlyButton(buttonText: "Drop", color: primaryColor, onPressed: (){})
+            BorderOnlyButton(
+                buttonText: "Drop", color: primaryColor, onPressed: () {})
           ],
           // trailing: Icon(Icons.remove), // Minus icon
         ),

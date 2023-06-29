@@ -41,7 +41,7 @@ class PassengerOnJourneyPage extends StatelessWidget {
                         return const Center(child: Text('No stream data'));
 
                       case ConnectionState.waiting:
-                        return WaitingWidget(context);
+                        return bottomSheetHolder(snapshot);
 
                       case ConnectionState.active:
                         return bottomSheetHolder(snapshot);

@@ -29,7 +29,7 @@ class CustomBottomSheet extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 5.w, 2.h),
                       child: Row(
-                        mainAxisAlignment : MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Passengers',
@@ -39,14 +39,14 @@ class CustomBottomSheet extends StatelessWidget {
                               fontFamily: 'Poppins',
                             ),
                           ),
-                          Text("Total",
+                          Text(
+                            "Total",
                             style: TextStyle(
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Poppins',
                             ),
                           ),
-                         
                           Text(
                             "Br. 400",
                             style: TextStyle(
@@ -61,12 +61,14 @@ class CustomBottomSheet extends StatelessWidget {
                     ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 6, // Replace with actual passenger count
+                      itemCount: 1, // Replace with actual passenger count
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
                             OnJourneyPassengersCard(),
-                            SizedBox(height: 2.h,)
+                            SizedBox(
+                              height: 2.h,
+                            )
                           ],
                         );
                       },
