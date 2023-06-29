@@ -31,8 +31,6 @@ class _DestinationListState extends State<DestinationList> {
                     return SeatSelectionDialog(
                       source: state.sourceName,
                       destination: state.destinationName,
-                      sourceLocation: state.soureLocation,
-                      destinationLocation: state.destinationLocation,
                       seatCount: seatCount,
                       onSeatCountChanged: (int count) {
                         setState(() {

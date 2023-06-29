@@ -22,7 +22,6 @@ class CustomBottomSheet extends StatefulWidget {
   final String driverImageURL;
   final String driverName;
   final double driverRating;
-  final int driverReviews;
   final String carImageURL;
   final String carPlateNumber;
   final lat_lng.LatLng destinationLocation;
@@ -38,7 +37,6 @@ class CustomBottomSheet extends StatefulWidget {
     required this.driverImageURL,
     required this.driverName,
     required this.driverRating,
-    required this.driverReviews,
     required this.carImageURL,
     required this.carPlateNumber,
     Key? key,
@@ -134,7 +132,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                           SizedBox(width: 0.5.w),
                           Text(
                             style: TextStyle(fontSize: 14.sp),
-                            '${widget.driverRating} (${widget.driverReviews} reviews)',
+                            '${widget.driverRating}',
                           ),
                         ],
                       ),
@@ -153,13 +151,15 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
             child: Row(
               children: [
                 BorderOnlyButton(
-                    color: primaryColor, buttonText: "Call", onPressed: () async {
-
-                      final phoneUrl = Uri.parse('tel:${widget.driverPhoneNumber}');
+                    color: primaryColor,
+                    buttonText: "Call",
+                    onPressed: () async {
+                      final phoneUrl =
+                          Uri.parse('tel:${widget.driverPhoneNumber}');
                       if (await canLaunchUrl(phoneUrl)) {
                         await launchUrl(phoneUrl);
                       } else {
-                         print('Could not launch $phoneUrl');
+                        print('Could not launch $phoneUrl');
                       }
                     }),
                 SizedBox(width: 4.w),
@@ -223,7 +223,6 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
           });
         });
       }
-      
     } catch (e) {}
   }
 

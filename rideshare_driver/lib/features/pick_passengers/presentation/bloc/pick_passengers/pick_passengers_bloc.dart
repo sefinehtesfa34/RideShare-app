@@ -15,6 +15,7 @@ class PickPassengersBloc
     on<PickPassenger>(_onPickPassenger);
   }
   _onPickPassenger(
+    
       PickPassenger event, Emitter<PickPassengersState> emit) async {
     // call the api for adding if success add it else dont add
     emit(PickPassengersLoading());

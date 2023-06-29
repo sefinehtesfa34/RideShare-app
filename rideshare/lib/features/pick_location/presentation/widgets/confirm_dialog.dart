@@ -86,7 +86,6 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          
           Row(
             children: <Widget>[
               SvgPicture.asset('assets/images/current_mocation_marker.svg'),
@@ -207,7 +206,12 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                               latitude: state.destinationLocation.latitude,
                               longitude: state.destinationLocation.longitude),
                           seatsAllocated: currentSeatCount,
-                          price: cost),
+                          price: cost,
+                          accepted: false,
+                          originAddress: '',
+                          destinationAddress: '',
+                          status: '2',
+                          rideOfferId: '1'),
                     ),
                   );
             }
@@ -216,13 +220,19 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
         BlocConsumer<RideRequestBloc, RideRequestState>(
           listener: (context, state) {
             if (state is RideRequestSuccessState) {
+              print("=================================Here");
               final RideOffer passenger = RideOffer(
                   user: user,
                   currentLocation:
                       Location(latitude: 9.0302, longitude: 38.7625),
                   destination: Location(latitude: 9.03055, longitude: 38.7777),
                   seatsAllocated: 3,
-                  price: 60);
+                  price: 60,
+                  accepted: false,
+                  originAddress: '',
+                  destinationAddress: '',
+                  status: '',
+                  rideOfferId: '');
 
               context.go('/onJourney', extra: {'passenger': passenger});
             } else if (state is RideRequestFailureState) {

@@ -64,7 +64,7 @@ class _LocationPickerState extends State<LocationPicker>
             body: Center(
               child: AnimatedBuilder(
                 animation: _animation,
-                builder: (context, child) {
+                builder: (context, child) { 
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

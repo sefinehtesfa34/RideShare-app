@@ -56,9 +56,12 @@ class SearchingforRidePage extends StatelessWidget {
                       Location(latitude: 9.0302, longitude: 38.7625),
                   destination: Location(latitude: 9.03055, longitude: 38.7777),
                   seatsAllocated: 3,
-                  price: 60);
-
-              String encodedPassenger = jsonEncode(passenger.toJson());
+                  price: 60,
+                  accepted: false,
+                  originAddress: '',
+                  destinationAddress: '',
+                  status: '',
+                  rideOfferId: '');
 
               context.go('/onJourney', extra: {'passenger': passenger});
             } else if (state is RideRequestWaitingState) {

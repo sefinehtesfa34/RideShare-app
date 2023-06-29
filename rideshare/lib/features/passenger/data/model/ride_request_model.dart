@@ -9,7 +9,6 @@ class RideRequestModel extends RideRequest {
     required String driverName,
     required String driverImageURL,
     required double driverRatingAverageOutOf5,
-    required int driverReviews,
     required String carModel,
     required int availableSeats,
     required String carImageURL,
@@ -21,7 +20,6 @@ class RideRequestModel extends RideRequest {
           driverName: driverName,
           driverImageURL: driverImageURL,
           driverRatingAverageOutOf5: driverRatingAverageOutOf5,
-          driverReviews: driverReviews,
           carModel: carModel,
           availableSeats: availableSeats,
           carImageURL: carImageURL,
@@ -33,20 +31,20 @@ class RideRequestModel extends RideRequest {
 
   factory RideRequestModel.fromJson(Map<String, dynamic> json) {
     List<RideOffer> passList = [];
-    for (final pass in json['passengersList']) {
+    for (final pass in json['matches']) {
       passList.add(PassengerModel.fromJson(pass));
     }
     return RideRequestModel(
-        driverName: json['driver_name'],
-        driverImageURL: json['driver_image_url'],
-        driverRatingAverageOutOf5: json['driver_rating_average_out_of_5'],
-        driverReviews: json['driver_reviews'],
-        carModel: json['car_model'],
-        availableSeats: json['available_seats'],
-        carImageURL: json['car_image_url'],
-        carPlateNumber: json['car_plate_number'],
-        driverPhoneNumber: json['driver_phone_number'],
-        carLocation: Location.fromJson(json['car_location']),
+        driverName: json['driverName'],
+        driverImageURL: json['driverImageUrl'],
+        driverRatingAverageOutOf5: json['averageRate'],
+        carModel: json['vehicleModel'],
+        availableSeats: json['availableSeats'],
+        carImageURL:
+            "https://www.car-mart.com/wp-content/uploads/2021/04/homepage-jeep.png",
+        carPlateNumber: json['vehiclePlateNumber'],
+        driverPhoneNumber: json['driverPhoneNumber'],
+        carLocation: Location.fromJson(json['currentLocation']),
         passengersList: passList);
   }
 
@@ -55,7 +53,6 @@ class RideRequestModel extends RideRequest {
       'driver_name': driverName,
       'driver_image_url': driverImageURL,
       'driver_rating_average_out_of_5': driverRatingAverageOutOf5,
-      'driver_reviews': driverReviews,
       'car_model': carModel,
       'available_seats': availableSeats,
       'car_image_url': carImageURL,

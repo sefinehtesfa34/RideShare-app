@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 import '../../../../../core/errors/failures.dart';
 import '../../../../../core/usecases/usecase.dart';
 import '../../../domain/entity/ride_offer.dart';
+import '../../../domain/entity/ride_request.dart';
 import '../../../domain/usecase/get_ride_offers_usecase.dart';
 
 part 'fetch_passengers_event.dart';
@@ -27,7 +28,7 @@ class FetchPassengersBloc
     emit(FetchPassengersLoading());
     print("fetch loading...");
     final Either<Failure, Stream<List<RideOffer>>> result =
-        await getOffersUseCase(NoParams());
+        await getOffersUseCase(event.request);
     await result.fold(
       (failure) {
         print("emitting failure");

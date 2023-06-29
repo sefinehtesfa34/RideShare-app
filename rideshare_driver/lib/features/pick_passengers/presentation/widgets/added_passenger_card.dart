@@ -28,7 +28,8 @@ class AddedPassengersCard extends StatelessWidget {
                       width: 14.w,
                       height: 14.h,
                       child: CustomizedCachedImage(
-                          imageURL: rideOffer.user.imageUrl,
+                          imageURL: rideOffer.user.imageUrl ??
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9CnBcwPzAb1eOKDOtfcvSogTmQ96ddf2D5r4X85k&s",
                           width: 20.w,
                           height: 8.h,
                           key: GlobalKey()),
@@ -92,11 +93,12 @@ class AddedPassengersCard extends StatelessWidget {
                   height: 4.h,
                   child: ElevatedButton(
                     onPressed: () async {
-                      final phoneUrl = Uri.parse('tel:${rideOffer.user.phoneNumber}');
+                      final phoneUrl =
+                          Uri.parse('tel:${rideOffer.user.phoneNumber}');
                       if (await canLaunchUrl(phoneUrl)) {
                         await launchUrl(phoneUrl);
                       } else {
-                         print('Could not launch $phoneUrl');
+                        print('Could not launch $phoneUrl');
                       }
                     },
                     style: ElevatedButton.styleFrom(

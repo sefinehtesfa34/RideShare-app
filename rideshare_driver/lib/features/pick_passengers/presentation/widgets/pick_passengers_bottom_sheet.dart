@@ -97,11 +97,11 @@ class CustomBottomSheet extends StatelessWidget {
                           if (state is PickPassengersInitial) {
                             return Text("Add passegers to see added passegers");
                           } else {
-                            if (state is PickPassengersSuccess && !addedOffers.contains(state.addedOffer)){
-                              
+                            if (state is PickPassengersSuccess &&
+                                !addedOffers.contains(state.addedOffer)) {
                               addedOffers.add(state.addedOffer);
                             }
-                  
+
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -163,17 +163,16 @@ class CustomBottomSheet extends StatelessWidget {
                                   itemCount: addedOffers.length,
                                   itemBuilder: (context, index) {
                                     return AddedPassengersCard(
-                                      rideOffer:
-                                          addedOffers[index],
+                                      rideOffer: addedOffers[index],
                                     );
                                   },
-                               
-
-                                ),  
-                                (state is PickPassengersLoading) ? CircularProgressIndicator() : SizedBox()
+                                ),
+                                (state is PickPassengersLoading)
+                                    ? CircularProgressIndicator()
+                                    : SizedBox()
                               ],
                             );
-                          } 
+                          }
                         },
                         listener: (context, state) {}),
                     Row(
@@ -251,7 +250,9 @@ class CustomBottomSheet extends StatelessWidget {
                                         .state;
                                 if (state is SortingSelectorInitial) {
                                   BlocProvider.of<FetchPassengersBloc>(context)
-                                      .add(FetchAllPassengers());
+                                      .add(
+                                    FetchAllPassengers(request: rideRequest),
+                                  );
                                 }
                               }),
                         );

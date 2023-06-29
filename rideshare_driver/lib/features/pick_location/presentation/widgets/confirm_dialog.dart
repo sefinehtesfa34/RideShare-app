@@ -11,13 +11,12 @@ import '../../../pick_passengers/domain/entity/location.dart';
 import '../../../pick_passengers/domain/entity/ride_request.dart';
 import '../../../pick_passengers/presentation/bloc/fetch_passengers/fetch_passengers_bloc.dart';
 
+import '../bloc/passenger_home_bloc.dart';
 import 'select_button.dart';
 
 class SeatSelectionDialog extends StatefulWidget {
   final String source;
   final String destination;
-  final LatLng sourceLocation;
-  final LatLng destinationLocation;
   final int seatCount;
   final ValueChanged<int> onSeatCountChanged;
   final VoidCallback onConfirmPressed;
@@ -28,7 +27,7 @@ class SeatSelectionDialog extends StatefulWidget {
     required this.destination,
     required this.seatCount,
     required this.onSeatCountChanged,
-    required this.onConfirmPressed, required this.sourceLocation, required this.destinationLocation,
+    required this.onConfirmPressed,
   });
 
   @override
@@ -168,27 +167,47 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
           SelectButton(
             buttonName: 'Confirm',
             onPressed: () {
-
+              final ChooseLocationsBloc bloc =
+                  BlocProvider.of<ChooseLocationsBloc>(context, listen: false);
+              final ChooseLocationsState state = bloc.state;
+              if (state is ChooseLocationsSucess) {
+                final ChooseLocationsBloc bloc =
+                    BlocProvider.of<ChooseLocationsBloc>(context,
+                        listen: false);
+                final ChooseLocationsState currentLocationState = bloc.state;
+                if (currentLocationState is ChooseLocationsSucess) {
+                  final rideRequest = RideRequest(
+                    driverName: 'Bob',
+                    driverImageURL: 'https://example.com/bob.jpg',
+                    driverRatingAverageOutOf5: 4.5,
+                    driverReviews: 100,
+                    carModel: 'Toyota Camry',
+                    availableSeats: 3,
+                    carImageURL: 'https://example.com/camry.jpg',
+                    carPlateNumber: 'AB12 CDE',
+                    driverPhoneNumber: '+1 123-456-7890',
+                    carLocation: Location(
+                        latitude: currentLocationState.soureLocation.latitude,
+                        longitude:
+                            currentLocationState.soureLocation.longitude),
+                    passengersList: [],
+                    destination: Location(
+                        latitude:
+                            currentLocationState.destinationLocation.latitude,
+                        longitude:
+                            currentLocationState.destinationLocation.longitude),
+                  );
+                  context.go('/pickUpPassengers', extra: {
+                    "sourceLocation": currentLocationState.soureLocation,
+                    "destinationLocation":
+                        currentLocationState.destinationLocation,
+                    'rideRequest': rideRequest
+                  });
+                  BlocProvider.of<FetchPassengersBloc>(context)
+                      .add(FetchAllPassengers(request: rideRequest));
+                }
+              }
               //! here it should fetch the driver and car information from cache and send it
-              final rideRequest = RideRequest(
-                driverName: 'Bob',
-                driverImageURL: 'https://example.com/bob.jpg',
-                driverRatingAverageOutOf5: 4.5,
-                driverReviews: 100,
-                carModel: 'Toyota Camry',
-                availableSeats: 3,
-                carImageURL: 'https://example.com/camry.jpg',
-                carPlateNumber: 'AB12 CDE',
-                driverPhoneNumber: '+1 123-456-7890',
-                carLocation: Location(latitude: widget.sourceLocation.latitude, longitude: widget.sourceLocation.longitude),
-                passengersList: [],
-                destination: Location(latitude: widget.destinationLocation.latitude, longitude: widget.destinationLocation.longitude),
-              );
-              
-              context.go('/pickUpPassengers',
-                  extra: {'rideRequest': rideRequest});
-              BlocProvider.of<FetchPassengersBloc>(context)
-                  .add(FetchAllPassengers());
             },
           ),
         ]);

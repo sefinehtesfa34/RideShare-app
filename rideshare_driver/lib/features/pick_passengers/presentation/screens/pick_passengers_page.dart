@@ -14,6 +14,7 @@ class PickPassengersPage extends StatelessWidget {
     return Scaffold(
         body: Stack(
           children: [
+            
             CustomBottomSheet(rideRequest: rideRequest),
           ],
         ),

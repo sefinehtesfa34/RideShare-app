@@ -11,8 +11,7 @@ import 'injection_container.dart';
 PickPassengersInit() {
   sl.registerFactory(() => FetchPassengersBloc(sl()));
   sl.registerFactory(() => SortingSelectorBloc());
-    sl.registerFactory(() => PickPassengersBloc(sl()));
-
+  sl.registerFactory(() => PickPassengersBloc(sl()));
 
   sl.registerLazySingleton(() => GetRideOffersUseCase(sl()));
   sl.registerLazySingleton(() => AddPassengerUseCase(sl()));
@@ -21,5 +20,6 @@ PickPassengersInit() {
       () => RideOfferRepositoryImpl(sl()));
 
   sl.registerLazySingleton<RideOfferApi>(
-      () => RideOfferApiImpl(baseUrl: "http://baseurl"));
+    () => RideOfferApiImpl(baseUrl: "https://rideshare-app.onrender.com"),
+  );
 }

@@ -4,5 +4,6 @@ part of 'fetch_passengers_bloc.dart';
 abstract class FetchPassengersEvent {}
 
 class FetchAllPassengers extends FetchPassengersEvent {
-  FetchAllPassengers();
+  final RideRequest request;
+  FetchAllPassengers({required this.request});
 }

@@ -15,13 +15,22 @@ class RideRequestApiProvider {
   late final HubConnection hubConnection;
   late final StreamController<RideRequest> _rideRequestStreamController;
   late Dio dio;
-
+  final String token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3ByaW1hcnlzaWQiOiJiODJkMmU0OS03ODgzLTQ4MTUtODI2MC03MDA1Zjg3ZWMzMGIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJZYXJlZCsyNTE5ODI5ODU2NzYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IllhcmVkKzI1MTk4Mjk4NTY3NiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJZYXJlZCsyNTE5ODI5ODU2NzYiLCJGdWxsTmFtZSI6IllhcmVkIiwiUGhvbmVOdW1iZXIiOiIrMjUxOTgyOTg1Njc2IiwiUm9sZXMiOiJDb21tdXRlciIsImV4cCI6MTY4ODA1MDYwNywiaXNzIjoid3d3LmV4YW1wbGUuY29tIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0MjAwIn0.q227vshODP3CskqwsJ6vKGM_BgMxmE0epns8glUkArw";
   RideRequestApiProvider({required this.baseUrl}) {
     hubConnection = HubConnectionBuilder()
-        .withUrl('https://rideshare-app.onrender.com/api/rideshare')
+        .withUrl(
+            'https://rideshare-app.onrender.com/rideshare',
+            HttpConnectionOptions(
+              skipNegotiation: true,
+              transport: HttpTransportType.webSockets,
+              accessTokenFactory: () async => token,
+            ))
+        .withAutomaticReconnect()
         .build();
-    _rideRequestStreamController = StreamController<RideRequest>.broadcast();
     setupHubConnection();
+    _rideRequestStreamController = StreamController<RideRequest>.broadcast();
+
     dio = Dio();
   }
 
@@ -48,6 +57,7 @@ class RideRequestApiProvider {
       'numberOfSeats': passenger.seatsAllocated,
     };
     print('posting');
+    print(requestData);
     try {
       final response = await dio.post(
         url,
@@ -55,22 +65,31 @@ class RideRequestApiProvider {
         options: Options(headers: {
           'Content-Type': 'application/json',
           "authorization": {
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3ByaW1hcnlzaWQiOiJkNzU2YjczOS0xYmYxLTQxNDYtOWI4My0zMDY1NTM2MDhhYzQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJOYXRuYWVsIFRhZGVsZSsyNTE5NjEwODg1OTMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6Ik5hdG5hZWxUYWRlbGUrMjUxOTYxMDg4NTkzIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6Ik5hdG5hZWxUYWRlbGUrMjUxOTYxMDg4NTkzIiwiRnVsbE5hbWUiOiJOYXRuYWVsIFRhZGVsZSIsIlBob25lTnVtYmVyIjoiKzI1MTk2MTA4ODU5MyIsIlJvbGVzIjoiQ29tbXV0ZXIiLCJleHAiOjE2ODc5NTc1MDIsImlzcyI6Ind3dy5leGFtcGxlLmNvbSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.5nAG62w1M_cFvKl5VLz4Ng2fZN0ahQxO0WEshCuElgQ"
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3ByaW1hcnlzaWQiOiJiODJkMmU0OS03ODgzLTQ4MTUtODI2MC03MDA1Zjg3ZWMzMGIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJZYXJlZCsyNTE5ODI5ODU2NzYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IllhcmVkKzI1MTk4Mjk4NTY3NiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJZYXJlZCsyNTE5ODI5ODU2NzYiLCJGdWxsTmFtZSI6IllhcmVkIiwiUGhvbmVOdW1iZXIiOiIrMjUxOTgyOTg1Njc2IiwiUm9sZXMiOiJDb21tdXRlciIsImV4cCI6MTY4ODA1MDYwNywiaXNzIjoid3d3LmV4YW1wbGUuY29tIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0MjAwIn0.q227vshODP3CskqwsJ6vKGM_BgMxmE0epns8glUkArw"
           }
         }),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         print('Ride request posted successfully!');
         hubConnection.on('Accepted', (dynamic data) {
-          print("Response from hub: $data");
-          var rideRequest = RideRequestModel.fromJson(data);
-          _rideRequestStreamController.add(rideRequest);
+          print("======================================");
+          print(data);
+          try {
+            var encoded = json.decode(json.encode(data));
+
+            var rideRequest = RideRequestModel.fromJson(encoded[0]);
+            print("Here is the model,");
+            print(rideRequest);
+            _rideRequestStreamController.add(rideRequest);
+          } catch (e) {
+            print(e);
+          }
         });
       } else {
         throw Exception("Server Error");
       }
     } catch (e) {
-      print(e);
+      print("Exception happend: $e");
       throw Exception("Server Error");
     }
 

@@ -32,21 +32,20 @@ class PassengerOnJourneyPage extends StatelessWidget {
           if (state is RideRequestSuccessState) {
             return StreamBuilder(
                 stream: state.stream,
-                builder:
-                    (BuildContext _, AsyncSnapshot<RideRequest> snapshot) {
+                builder: (BuildContext _, AsyncSnapshot<RideRequest> snapshot) {
                   if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
                     switch (snapshot.connectionState) {
                       case ConnectionState.none:
                         return const Center(child: Text('No stream data'));
-    
+
                       case ConnectionState.waiting:
                         return WaitingWidget(context);
-    
+
                       case ConnectionState.active:
                         return bottomSheetHolder(snapshot);
-    
+
                       case ConnectionState.done:
                         Future.delayed(Duration.zero, () {
                           context.go("/rideCompletePassenger", extra: {
@@ -54,7 +53,7 @@ class PassengerOnJourneyPage extends StatelessWidget {
                             "tip": 0.0
                           }); //! redirect to payed page.
                         });
-    
+
                         return const SizedBox();
                     }
                     // if (!snapshot.hasData) {
@@ -65,16 +64,16 @@ class PassengerOnJourneyPage extends StatelessWidget {
                     //   );
                     // } else if (snapshot.connectionState == ConnectionState.active) {
                     //
-    
+
                     //       debugPrint("I have been active watchu syaing");
                     //       return bottomSheetHolder(snapshot);
-    
+
                     //     case ConnectionState.done:
                     //       Future.delayed(Duration.zero, () {
                     //         context.go("/home");
                   }
                 });
-    
+
             // render widgets with updated rideRequest data here
           } else if (state is RideRequestFailureState) {
             final errorMessage = state.message;
@@ -123,7 +122,6 @@ class PassengerOnJourneyPage extends StatelessWidget {
                     driverImageURL: snapshot.data!.driverImageURL,
                     driverName: snapshot.data!.driverName,
                     driverRating: snapshot.data!.driverRatingAverageOutOf5,
-                    driverReviews: snapshot.data!.driverReviews,
                     carImageURL: snapshot.data!.carImageURL,
                     carPlateNumber: snapshot.data!.carPlateNumber,
                     passengersList: snapshot.data!.passengersList,

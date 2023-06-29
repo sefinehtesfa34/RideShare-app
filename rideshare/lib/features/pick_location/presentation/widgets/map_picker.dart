@@ -18,12 +18,21 @@ class MapPicker extends StatefulWidget {
 
 class _MapPickerState extends State<MapPicker> {
   late GoogleMapController _mapController;
-  Marker _positionMarker = const Marker(
-    markerId: MarkerId("selected-location"),
-    position: LatLng(37.7749, -122.4194),
-  );
+  late Marker _positionMarker;
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _positionMarker = Marker(
+      markerId: MarkerId("selected-location"),
+      position: LatLng(
+        widget.intialLocation.latitude,
+        widget.intialLocation.longitude,
+      ),
+    );
   }
 
   @override
@@ -58,7 +67,12 @@ class _MapPickerState extends State<MapPicker> {
               setState(() {
                 widget.controller.text = placemarks[0].street!;
               });
-              Navigator.pop(context);
+              Navigator.pop(
+                  context,
+                  LatLng(
+                    pos.latitude,
+                    pos.longitude,
+                  ));
             },
             child: const Icon(
               Icons.check,

@@ -30,7 +30,8 @@ class AllPassengersCard extends StatelessWidget {
                       width: 14.w,
                       height: 14.h,
                       child: CustomizedCachedImage(
-                          imageURL: rideOffer.user.imageUrl,
+                          imageURL: rideOffer.user.imageUrl ??
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9CnBcwPzAb1eOKDOtfcvSogTmQ96ddf2D5r4X85k&s",
                           width: 20.w,
                           height: 8.h,
                           key: GlobalKey()),
@@ -124,10 +125,8 @@ class AllPassengersCard extends StatelessWidget {
                   ),
                   SizedBox(height: 1.h),
                   AddButton(onPressed: () {
-                      BlocProvider.of<PickPassengersBloc>(context)
-                          .add(PickPassenger(rideOffer));
-                    
-
+                    BlocProvider.of<PickPassengersBloc>(context)
+                        .add(PickPassenger(rideOffer));
                   }),
                 ],
               ),

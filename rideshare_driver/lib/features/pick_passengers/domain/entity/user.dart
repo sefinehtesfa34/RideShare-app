@@ -1,12 +1,12 @@
 class User {
   final String fullname;
-  final String imageUrl;
+  final String? imageUrl;
   final String phoneNumber;
   final int age;
 
   User({
     required this.fullname,
-    required this.imageUrl,
+    this.imageUrl,
     required this.phoneNumber,
     required this.age,
   });
@@ -14,8 +14,8 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     print(json);
     return User(
-      fullname: json['fullname'],
-      imageUrl: json['imageUrl'],
+      fullname: json['fullName'],
+      imageUrl: json['profilePicture'],
       phoneNumber: json['phoneNumber'],
       age: json['age'],
     );
