@@ -186,7 +186,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                     carImageURL: 'https://example.com/camry.jpg',
                     carPlateNumber: 'AB12 CDE',
                     driverPhoneNumber: '+1 123-456-7890',
-                    carLocation: Location(
+                    carLocation: Location( 
                         latitude: currentLocationState.soureLocation.latitude,
                         longitude:
                             currentLocationState.soureLocation.longitude),

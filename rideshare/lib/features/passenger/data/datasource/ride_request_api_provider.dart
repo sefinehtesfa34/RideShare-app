@@ -76,7 +76,7 @@ class RideRequestApiProvider {
           print(data);
           try {
             var encoded = json.decode(json.encode(data));
-
+            print(encoded);
             var rideRequest = RideRequestModel.fromJson(encoded[0]);
             print("Here is the model,");
             print(rideRequest);

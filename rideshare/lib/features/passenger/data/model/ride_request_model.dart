@@ -30,10 +30,13 @@ class RideRequestModel extends RideRequest {
         );
 
   factory RideRequestModel.fromJson(Map<String, dynamic> json) {
+    print("Changing model");
     List<RideOffer> passList = [];
     for (final pass in json['matches']) {
+      print(pass);
       passList.add(PassengerModel.fromJson(pass));
     }
+    print("pass finished");
     return RideRequestModel(
         driverName: json['driverName'],
         driverImageURL: json['driverImageUrl'],
