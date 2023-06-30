@@ -14,16 +14,16 @@ void main() async {
   await injection.init();
 
   runApp(MultiBlocProvider(providers: [
-        BlocProvider<PickPassengersBloc>(
+    BlocProvider<PickPassengersBloc>(
       create: (_) => sl<PickPassengersBloc>(),
     ),
-
-    BlocProvider<FetchPassengersBloc>(create: (_) => sl<FetchPassengersBloc>(),),
-  
-    BlocProvider<SortingSelectorBloc>(create: (_) => sl<SortingSelectorBloc>(),)
+    BlocProvider<FetchPassengersBloc>(
+      create: (_) => sl<FetchPassengersBloc>(),
+    ),
+    BlocProvider<SortingSelectorBloc>(
+      create: (_) => sl<SortingSelectorBloc>(),
+    )
   ], child: MyDriverApp()));
-
-
 }
 
 class MyDriverApp extends StatelessWidget {
@@ -45,7 +45,9 @@ class MyDriverApp extends StatelessWidget {
       child: ResponsiveSizer(
         builder: (BuildContext context, Orientation orientation,
             ScreenType screenType) {
-          return AppRouter();
+          return SafeArea(
+            child: AppRouter(),
+          );
         },
       ),
     );

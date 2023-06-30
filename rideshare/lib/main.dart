@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<SignUpBloc>(
           create: (_) => injection.sl<SignUpBloc>(),
-        ), 
+        ),
         BlocProvider<LocationBloc>(
           create: (BuildContext context) => instance(),
         ),
@@ -58,7 +58,9 @@ class MyApp extends StatelessWidget {
       ],
       child: ResponsiveSizer(
         builder: (context, orientation, screenType) {
-          return AppRouter();
+          return SafeArea(
+            child: AppRouter(),
+          );
         },
       ),
     );
