@@ -7,7 +7,6 @@ class SelectButton extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.buttonName,
-    
   }) : super(key: key);
   final String buttonName;
   final VoidCallback onPressed;
@@ -15,16 +14,15 @@ class SelectButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 21.sp),
+      padding: EdgeInsets.only(left: 1.w),
       child: Container(
-        width: 339.sp,
+        width: double.infinity,
         height: 30.sp,
         margin: EdgeInsets.only(left: 2.sp, right: 2.sp, top: 3.sp),
         child: ElevatedButton(
           onPressed: onPressed,
           style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all<Color>(primaryColor),
+            backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.sp),

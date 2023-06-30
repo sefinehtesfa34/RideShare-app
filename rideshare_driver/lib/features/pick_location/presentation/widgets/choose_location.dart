@@ -40,8 +40,9 @@ class _ChooseLocationState extends State<ChooseLocation> {
       searchTerm,
       types: ['geocode'],
       components: [
-        Component(Component.country, 'et')
-      ], // Limit suggestions to Ethiopia
+        Component(Component.country, 'et'),
+      ],
+      // strictbounds: true // Limit suggestions to Ethiopia
     );
     if (response.isOkay) {
       return response.predictions;
@@ -195,7 +196,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                   vertical: 3.w,
                   horizontal: 4.w,
                 ),
-                width: 87.w,
+                width: 100.w,
                 child: BlocBuilder<ChooseLocationsBloc, ChooseLocationsState>(
                   builder: (context, state) {
                     return state is ChooseLocationsLoading
