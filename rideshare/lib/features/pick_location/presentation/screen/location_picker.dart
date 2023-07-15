@@ -50,21 +50,23 @@ class _LocationPickerState extends State<LocationPicker>
       builder: (context, state) {
         if (state is CurrentLocationSuccess) {
           return Scaffold(
-              body: Stack(
-            children: [
-              GoogleMapViewer(
-                latitude: state.location.latitude,
-                longitude: state.location.longitude,
-              ),
-              const CustomBottomSheet(),
-            ],
-          ));
+              body: SafeArea(
+                child: Stack(
+                          children: [
+                GoogleMapViewer(
+                  latitude: state.location.latitude,
+                  longitude: state.location.longitude,
+                ),
+                const CustomBottomSheet(),
+                          ],
+                        ),
+              ));
         } else if (state is CurrentLocationLoading) {
           return Scaffold(
             body: Center(
               child: AnimatedBuilder(
                 animation: _animation,
-                builder: (context, child) {
+                builder: (context, child) { 
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

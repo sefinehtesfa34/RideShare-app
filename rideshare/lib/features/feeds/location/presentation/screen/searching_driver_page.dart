@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import '../bloc/sliding_container/sliding_container_bloc.dart';
 class SlideUpContainerPage extends StatefulWidget {
-  const SlideUpContainerPage({super.key});
-
   @override
-  State<SlideUpContainerPage> createState() => _SlideUpContainerPageState();
+  _SlideUpContainerPageState createState() => _SlideUpContainerPageState();
 
   void showSearchBottomSheet(BuildContext context) {}
 }
@@ -13,6 +13,7 @@ class _SlideUpContainerPageState extends State<SlideUpContainerPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _slideAnimation;
+  final SlidingContainerBloc _slidingContainerBloc = SlidingContainerBloc();
 
   bool _isContainerVisible = false;
 
@@ -22,7 +23,7 @@ class _SlideUpContainerPageState extends State<SlideUpContainerPage>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 500),
     );
 
     _slideAnimation = Tween<double>(

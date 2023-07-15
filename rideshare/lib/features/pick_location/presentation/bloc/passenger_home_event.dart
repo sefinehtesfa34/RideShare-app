@@ -15,10 +15,14 @@ abstract class ChooseLocationsEvent {}
 class SelectecLocationsEvent extends ChooseLocationsEvent {
   final String sourceLocation;
   final String destinationLocation;
+  final LatLng? sourceCoordinates;
+  final LatLng? destinationCoordinates;
 
   SelectecLocationsEvent(
     this.sourceLocation,
     this.destinationLocation,
+    this.sourceCoordinates,
+    this.destinationCoordinates,
   );
 }
 

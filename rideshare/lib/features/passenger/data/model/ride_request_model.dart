@@ -1,15 +1,13 @@
-import 'package:rideshare/features/passenger/data/model/passenger_model.dart';
-
 import '../../domain/entities/ride_offer.dart';
 import '../../domain/entities/ride_request.dart';
 import '../../domain/entities/location.dart';
+import 'passenger_model.dart';
 
 class RideRequestModel extends RideRequest {
   RideRequestModel({
     required String driverName,
     required String driverImageURL,
     required double driverRatingAverageOutOf5,
-    required int driverReviews,
     required String carModel,
     required int availableSeats,
     required String carImageURL,
@@ -21,7 +19,6 @@ class RideRequestModel extends RideRequest {
           driverName: driverName,
           driverImageURL: driverImageURL,
           driverRatingAverageOutOf5: driverRatingAverageOutOf5,
-          driverReviews: driverReviews,
           carModel: carModel,
           availableSeats: availableSeats,
           carImageURL: carImageURL,
@@ -32,21 +29,24 @@ class RideRequestModel extends RideRequest {
         );
 
   factory RideRequestModel.fromJson(Map<String, dynamic> json) {
+    print("Changing model");
     List<RideOffer> passList = [];
-    for (final pass in json['passengersList']) {
+    for (final pass in json['matches']) {
+      print(pass);
       passList.add(PassengerModel.fromJson(pass));
     }
     return RideRequestModel(
-        driverName: json['driver_name'],
-        driverImageURL: json['driver_image_url'],
-        driverRatingAverageOutOf5: json['driver_rating_average_out_of_5'],
-        driverReviews: json['driver_reviews'],
-        carModel: json['car_model'],
-        availableSeats: json['available_seats'],
-        carImageURL: json['car_image_url'],
-        carPlateNumber: json['car_plate_number'],
-        driverPhoneNumber: json['driver_phone_number'],
-        carLocation: Location.fromJson(json['car_location']),
+        driverName: json['driverName'],
+        driverImageURL: json['driverImageUrl'] ??
+            "https://ca.slack-edge.com/T046DJBFEMD-U04GG93EFPG-0e0861ae44ed-512",
+        driverRatingAverageOutOf5: double.parse(json['averageRate'].toString()),
+        carModel: json['vehicleModel'],
+        availableSeats: json['availableSeats'],
+        carImageURL:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLRdpXRYKOaeQL5NsZdKKdOKTAXr3FNiQTcw&usqp=CAU",
+        carPlateNumber: json['vehiclePlateNumber'],
+        driverPhoneNumber: json['driverPhoneNumber'],
+        carLocation: Location.fromJson(json['currentLocation']),
         passengersList: passList);
   }
 
@@ -55,7 +55,6 @@ class RideRequestModel extends RideRequest {
       'driver_name': driverName,
       'driver_image_url': driverImageURL,
       'driver_rating_average_out_of_5': driverRatingAverageOutOf5,
-      'driver_reviews': driverReviews,
       'car_model': carModel,
       'available_seats': availableSeats,
       'car_image_url': carImageURL,

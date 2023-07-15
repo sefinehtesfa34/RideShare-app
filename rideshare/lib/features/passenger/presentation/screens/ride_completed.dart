@@ -4,6 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/images.dart';
+import '../../../feeds/location/presentation/widgets/select_button.dart';
 
 class RideCompletePassenger extends StatelessWidget {
   final double totalCost;
@@ -125,7 +126,7 @@ class RideCompletePassenger extends StatelessWidget {
             SizedBox(height: 8.h),
             InkWell(
               onTap: () {
-                context.go('/home');
+                context.go('/passengerHome');
               },
               child: Container(
                 height: 6.h,
