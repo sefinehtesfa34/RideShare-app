@@ -66,17 +66,25 @@ class ChooseLocationsBloc
   void _onNameFetch(
       SelectecLocationsEvent event, Emitter<ChooseLocationsState> emit) async {
     emit(ChooseLocationsLoading());
-
-    List<Location> sources = await locationFromAddress(event.sourceLocation);
-    List<Location> destinations =
-        await locationFromAddress(event.destinationLocation);
+    late LatLng source;
+    late LatLng destination;
+    if (event.sourceCoordinates == null) {
+      List<Location> sources = await locationFromAddress(event.sourceLocation);
+      source = LatLng(sources[0].latitude, sources[0].longitude);
+    } else {
+      source = event.sourceCoordinates!;
+    }
+    if (event.destinationCoordinates == null) {
+      List<Location> destinations =
+          await locationFromAddress(event.destinationLocation);
+      destination = LatLng(destinations[0].latitude, destinations[0].longitude);
+    } else {
+      destination = event.destinationCoordinates!;
+    }
 
     emit(
       ChooseLocationsSucess(
-          LatLng(sources[0].latitude, sources[0].longitude),
-          LatLng(destinations[0].latitude, destinations[0].longitude),
-          event.sourceLocation,
-          event.destinationLocation),
+          source, destination, event.sourceLocation, event.destinationLocation),
     );
   }
 

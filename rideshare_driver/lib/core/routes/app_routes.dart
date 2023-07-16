@@ -18,10 +18,15 @@ class AppRouter extends StatelessWidget {
       initialLocation: RoutePaths.passengerHome,
       routes: <GoRoute>[
         GoRoute(
-          path: RoutePaths.driverOnjourney,
-          builder: (BuildContext context, GoRouterState state) =>
-              const JourneyStartedPage(),
-        ),
+            path: RoutePaths.driverOnjourney,
+            builder: (BuildContext context, GoRouterState state) {
+              var extra = state.extra as Map<String, dynamic>;
+              return JourneyStartedPage(
+                currentLocation: extra["currentLocation"],
+                destination: extra["destination"],
+                passengers: extra["passengers"],
+              );
+            }),
         GoRoute(
             path: RoutePaths.pickLocation,
             builder: (BuildContext context, GoRouterState state) {
@@ -44,9 +49,17 @@ class AppRouter extends StatelessWidget {
             path: RoutePaths.passengerHome,
             builder: (BuildContext context, GoRouterState state) =>
                 const LocationPicker()),
-        GoRoute(path: RoutePaths.driverPickup,builder: (BuildContext context, GoRouterState state){
-          return PickPassengersPage();
-        })
+        GoRoute(
+            path: RoutePaths.driverPickup,
+            builder: (BuildContext context, GoRouterState state) {
+              var extra = state.extra as Map<String, dynamic>;
+
+              return PickPassengersPage(
+                rideRequest: extra['rideRequest'],
+                sourceLocation: extra['sourceLocation'],
+                destinationLocation: extra["destinationLocation"],
+              );
+            })
       ],
     );
   }

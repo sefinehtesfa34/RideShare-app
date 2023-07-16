@@ -1,20 +1,22 @@
 class User {
   final String fullname;
-  final String imageUrl;
+  final String? imageUrl;
   final String phoneNumber;
   final int age;
 
   User({
     required this.fullname,
-    required this.imageUrl,
+    this.imageUrl,
     required this.phoneNumber,
     required this.age,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
+    print("json");
     return User(
-      fullname: json['fullname'],
-      imageUrl: json['imageUrl'],
+      fullname: json['fullName'],
+      imageUrl: json['profilePicture'] ??
+          "https://ca.slack-edge.com/T046DJBFEMD-U04GG93EFPG-0e0861ae44ed-512",
       phoneNumber: json['phoneNumber'],
       age: json['age'],
     );
@@ -23,7 +25,7 @@ class User {
   Map<String, dynamic> toJson() {
     return {
       'fullname': fullname,
-      'imageUrl': imageUrl,
+      'profilePicture': imageUrl,
       'phoneNumber': phoneNumber,
       'age': age,
     };

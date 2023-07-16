@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/colors.dart';
-import 'package:rideshare/features/pick_location/presentation/bloc/passenger_home_bloc.dart';
-import 'package:rideshare/features/pick_location/presentation/widgets/map_picker.dart';
-import 'package:rideshare/features/pick_location/presentation/widgets/where_button.dart';
 
+import '../bloc/passenger_home_bloc.dart';
 import 'confirm_dialog.dart';
+import 'map_picker.dart';
+import 'where_button.dart';
 
 class ChooseLocation extends StatefulWidget {
   final GoogleMapsPlaces places;
 
-  const ChooseLocation({Key? key, required this.places}) : super(key: key);
+  const ChooseLocation({
+    Key? key,
+    required this.places,
+  }) : super(key: key);
   @override
   _ChooseLocationState createState() => _ChooseLocationState();
 }
@@ -25,8 +29,12 @@ class _ChooseLocationState extends State<ChooseLocation> {
   final TextEditingController _destinationController = TextEditingController();
   FocusNode _sourceFocusNode = FocusNode();
   FocusNode _destinationFocusNode = FocusNode();
+  LatLng? _sourceLocation;
+  LatLng? _destinationLocation;
   final _formKey = GlobalKey<FormState>();
   int seatCount = 1;
+  bool _sourceSelected = true;
+
   Future<List<Prediction>> _getPlacePredictions(String searchTerm) async {
     PlacesAutocompleteResponse response = await widget.places.autocomplete(
       searchTerm,
@@ -59,28 +67,45 @@ class _ChooseLocationState extends State<ChooseLocation> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _sourceFocusNode.addListener(() {
+      if (_sourceFocusNode.hasFocus) {
+        setState(() {
+          _sourceSelected = true;
+        });
+      }
+    });
+    _destinationFocusNode.addListener(() {
+      if (_destinationFocusNode.hasFocus) {
+        setState(() {
+          _sourceSelected = false;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<ChooseLocationsBloc, ChooseLocationsState>(
       listener: (context, state) {
         if (state is ChooseLocationsSucess) {
-          if (state is ChooseLocationsSucess) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return SeatSelectionDialog(
-                  source: state.sourceName,
-                  destination: state.destinationName,
-                  seatCount: seatCount,
-                  onSeatCountChanged: (int count) {
-                    setState(() {
-                      seatCount = count;
-                    });
-                  },
-                  onConfirmPressed: () {},
-                );
-              },
-            );
-          }
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return SeatSelectionDialog(
+                source: state.sourceName,
+                destination: state.destinationName,
+                seatCount: seatCount,
+                onSeatCountChanged: (int count) {
+                  setState(() {
+                    seatCount = count;
+                  });
+                },
+                onConfirmPressed: () {},
+              );
+            },
+          );
         }
       },
       child: Scaffold(
@@ -157,29 +182,64 @@ class _ChooseLocationState extends State<ChooseLocation> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 2.h,
+            ),
             Padding(
               padding: EdgeInsets.only(left: 9.0.w, right: 4.0.w, top: 3.h),
-              child: CustomButton(
-                  text: "Choose Location on Map",
-                  onTap: () {
-                    final CurrentLocationBloc bloc =
-                        BlocProvider.of<CurrentLocationBloc>(context,
-                            listen: false);
-                    final CurrentLocationState state = bloc.state;
-                    if (state is CurrentLocationSuccess) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MapPicker(
-                            controller: _destinationFocusNode.hasFocus
-                                ? _destinationController
-                                : _sourceController,
-                            intialLocation: state.location,
-                          ),
-                        ),
-                      );
-                    }
-                  }),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(10)),
+                padding: EdgeInsets.symmetric(
+                  vertical: 3.w,
+                  horizontal: 4.w,
+                ),
+                width: 87.w,
+                child: BlocBuilder<ChooseLocationsBloc, ChooseLocationsState>(
+                  builder: (context, state) {
+                    return state is ChooseLocationsLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: white,
+                            ),
+                          )
+                        : InkWell(
+                            onTap: () async {
+                              if (_formKey.currentState!.validate()) {
+                                BlocProvider.of<ChooseLocationsBloc>(context)
+                                    .add(SelectecLocationsEvent(
+                                  _sourceController.text,
+                                  _destinationController.text,
+                                  _sourceLocation,
+                                  _destinationLocation,
+                                ));
+                              }
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Confirm",
+                                  style: TextStyle(
+                                    fontSize: 16.5.sp,
+                                    fontFamily: "Poppins",
+                                    color: white,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                const Icon(
+                                  Icons.directions,
+                                  color: white,
+                                  size: 25,
+                                ),
+                              ],
+                            ));
+                  },
+                ),
+              ),
             ),
             SizedBox(
               height: 3.h,
@@ -235,20 +295,35 @@ class _ChooseLocationState extends State<ChooseLocation> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            if (_formKey.currentState!.validate()) {
-              BlocProvider.of<ChooseLocationsBloc>(context).add(
-                  SelectecLocationsEvent(
-                      _sourceController.text, _destinationController.text));
-            }
-          },
-          backgroundColor: primaryColor,
-          child: const Icon(
-            Icons.directions,
-            color: white,
-            size: 35,
-          ),
+        floatingActionButton: Padding(
+          padding: EdgeInsets.only(left: 12.0.w, right: 4.0.w, top: 3.h),
+          child: CustomButton(
+              text: "Choose Location on Map",
+              onTap: () async {
+                final CurrentLocationBloc bloc =
+                    BlocProvider.of<CurrentLocationBloc>(context,
+                        listen: false);
+                final CurrentLocationState state = bloc.state;
+                if (state is CurrentLocationSuccess) {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MapPicker(
+                        controller: _destinationFocusNode.hasFocus
+                            ? _destinationController
+                            : _sourceController,
+                        intialLocation: state.location,
+                      ),
+                    ),
+                  );
+
+                  if (!_sourceSelected) {
+                    _destinationLocation = result;
+                  } else {
+                    _sourceLocation = result;
+                  }
+                }
+              }),
         ),
       ),
     );
