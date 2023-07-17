@@ -35,8 +35,8 @@ To run the Rideshare app locally, follow these steps:
 
 3. Change into the project directory:
 
-   ```
    cd RideShare-app/rideshare or cd RideShare-app/rideshare_driver
+   ```
    ```
 
 4. Install the required dependencies using the following command:
