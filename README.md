@@ -74,8 +74,6 @@ For detailed instructions on setting up Flutter and running the app on different
 
 ## Contributing
 
-Contributions to RideShare-app are welcome! If you find any bugs or have suggestions for new features, feel free to open an issue or submit a pull request. Please follow the existing code style and guidelines when contributing.
+Contributions to RideShare-app are welcome! If you find any bugs or have suggestions for new features, 
+feel free to open an issue or submit a pull request. Please follow the existing code style and guidelines when contributing.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
