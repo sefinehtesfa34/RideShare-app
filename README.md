@@ -1,7 +1,9 @@
 # Rideshare
 ```
 
-Rideshare is a mobile application based on Flutter that aims to connect passengers and drivers for ride-sharing, reducing the overall cost for passengers. The app provides a platform where passengers can find available drivers heading toward their destination and request a ride.
+Rideshare is a mobile application based on Flutter that aims to connect passengers and drivers for ride-sharing,
+reducing the overall cost for passengers.
+The app provides a platform where passengers can find available drivers heading toward their destination and request a ride.
 ```
 ## Features
 ```
@@ -25,7 +27,8 @@ Rideshare is a mobile application based on Flutter that aims to connect passenge
 ```
 To run the Rideshare app locally, follow these steps:
 
-1. Make sure you have Flutter and Dart SDK installed on your machine. You can download them from the official Flutter website: https://flutter.dev/
+1. Make sure you have Flutter and Dart SDK installed on your machine.
+   You can download them from the official Flutter website: https://flutter.dev/
 
 2. Clone the repository to your local machine using the following command:
 
@@ -51,7 +54,8 @@ To run the Rideshare app locally, follow these steps:
    flutter run
    ```
 
-For detailed instructions on setting up Flutter and running the app on different platforms, refer to the official Flutter documentation: https://flutter.dev/docs
+For detailed instructions on setting up Flutter and running the app on different platforms,
+refer to the official Flutter documentation: https://flutter.dev/docs
 ```
 ## Contributing
 ```
