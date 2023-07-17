@@ -55,7 +55,9 @@ For detailed instructions on setting up Flutter and running the app on different
 ```
 ## Contributing
 ```
-Contributions to Rideshare are welcome! If you find any bugs or have suggestions for new features, <br> feel free to open an issue or submit a pull request. Please follow the existing code style and guidelines when contributing.
+Contributions to Rideshare are welcome! If you find any bugs or have suggestions for new features,
+feel free to open an issue or submit a pull request.
+Please follow the existing code style and guidelines when contributing.
 ```
 ## License
 ```
