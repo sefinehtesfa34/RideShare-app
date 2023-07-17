@@ -6,15 +6,16 @@ class User {
 
   User({
     required this.fullname,
-    required this.imageUrl,
+    this.imageUrl =
+        "https://img.freepik.com/free-icon/user_318-563642.jpg?w=360",
     required this.phoneNumber,
     required this.age,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      fullname: json['fullname'],
-      imageUrl: json['imageUrl'],
+      fullname: json['fullName'],
+      imageUrl: json['profilePicture'] ?? "https://img.freepik.com/free-icon/user_318-563642.jpg?w=360",
       phoneNumber: json['phoneNumber'],
       age: json['age'],
     );
@@ -22,8 +23,8 @@ class User {
 
   Map<String, dynamic> toJson() {
     return {
-      'fullname': fullname,
-      'imageUrl': imageUrl,
+      'fullName': fullname,
+      'profilePicture': imageUrl,
       'phoneNumber': phoneNumber,
       'age': age,
     };

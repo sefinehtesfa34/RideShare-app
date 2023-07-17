@@ -15,6 +15,7 @@ class RideRequestModel extends RideRequest {
     required String carPlateNumber,
     required String driverPhoneNumber,
     required Location carLocation,
+    required Location destination,
     required List<RideOffer> passengersList,
   }) : super(
           driverName: driverName,
@@ -28,6 +29,7 @@ class RideRequestModel extends RideRequest {
           driverPhoneNumber: driverPhoneNumber,
           carLocation: carLocation,
           passengersList: passengersList,
+          destination: destination,
         );
 
   factory RideRequestModel.fromJson(Map<String, dynamic> json) {
@@ -46,6 +48,7 @@ class RideRequestModel extends RideRequest {
         carPlateNumber: json['car_plate_number'],
         driverPhoneNumber: json['driver_phone_number'],
         carLocation: Location.fromJson(json['car_location']),
+        destination: Location.fromJson(json['destination']),
         passengersList: passList);
   }
 

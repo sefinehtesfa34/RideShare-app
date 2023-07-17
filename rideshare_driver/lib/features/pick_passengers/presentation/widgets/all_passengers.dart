@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/pick_passengers/presentation/widgets/add_button.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/images.dart';
 import '../../domain/entity/ride_offer.dart';
+import '../bloc/pick_passengers/pick_passengers_bloc.dart';
 import 'custom_cache_image.dart';
 
 class AllPassengersCard extends StatelessWidget {
@@ -22,9 +24,19 @@ class AllPassengersCard extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  radius: 6.w, // Adjust the size of the circular image
-                  backgroundImage:
-                      AssetImage(person), // Replace with your image path
+                  radius: 7.w,
+                  child: ClipOval(
+                    child: Container(
+                      width: 14.w,
+                      height: 14.h,
+                      child: CustomizedCachedImage(
+                          imageURL: rideOffer.user.imageUrl ??
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9CnBcwPzAb1eOKDOtfcvSogTmQ96ddf2D5r4X85k&s",
+                          width: 20.w,
+                          height: 8.h,
+                          key: GlobalKey()),
+                    ),
+                  ), // Example placeholder
                 ),
                 SizedBox(width: 1.w),
                 Column(
@@ -112,7 +124,10 @@ class AllPassengersCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 1.h),
-                  AddButton(onPressed: () {}),
+                  AddButton(onPressed: () {
+                    BlocProvider.of<PickPassengersBloc>(context)
+                        .add(PickPassenger(rideOffer));
+                  }),
                 ],
               ),
             ),

@@ -28,13 +28,12 @@ void main() async {
     ),
   );
   await injection.init();
- 
 
   runApp(MultiBlocProvider(providers: [
-    BlocProvider<UpdateProfileBloc>(create: (_) => injection.sl<UpdateProfileBloc>()),
-    BlocProvider<FetchPassengerBloc>(create: (_) => injection.sl<FetchPassengerBloc>()),
-    
-    
+    BlocProvider<UpdateProfileBloc>(
+        create: (_) => injection.sl<UpdateProfileBloc>()),
+    BlocProvider<FetchPassengerBloc>(
+        create: (_) => injection.sl<FetchPassengerBloc>()),
     BlocProvider<LoginBloc>(create: (_) => injection.sl<LoginBloc>()),
     BlocProvider<SignUpBloc>(
       create: (_) => injection.sl<SignUpBloc>(),
@@ -44,9 +43,9 @@ void main() async {
     ),
     BlocProvider<BackToLocationBloc>(
         create: (_) => injection.sl<BackToLocationBloc>()),
-    // BlocProvider<RideRequestBloc>(
-    //   create: (_) => injection.sl<RideRequestBloc>(),
-    // )
+    BlocProvider<RideRequestBloc>(
+      create: (_) => injection.sl<RideRequestBloc>(),
+    )
   ], child: MyApp()));
 }
 

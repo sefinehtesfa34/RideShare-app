@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:mapbox_api/mapbox_api.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/passenger/presentation/widget/border_only_button.dart';
 import 'package:rideshare/features/passenger/presentation/widget/passenger_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/utils/colors.dart';
 import '../../domain/entities/location.dart';
 import '../../domain/entities/ride_offer.dart';
@@ -12,25 +15,29 @@ import 'custom_cached_image.dart';
 import "package:latlong2/latlong.dart" as lat_lng;
 
 class CustomBottomSheet extends StatefulWidget {
+  final String driverPhoneNumber;
+  final RideOffer passenger;
+  final List<RideOffer> passengersList;
   final String carModel;
   final int seatsAvailable;
   final String driverImageURL;
   final String driverName;
   final double driverRating;
-  final int driverReviews;
   final String carImageURL;
   final String carPlateNumber;
   final lat_lng.LatLng destinationLocation;
   final lat_lng.LatLng driverLocation;
-  lat_lng.LatLng userLocation = lat_lng.LatLng(4, 38);
+  lat_lng.LatLng userLocation = lat_lng.LatLng(9, 38);
 
   CustomBottomSheet({
+    required this.driverPhoneNumber,
+    required this.passenger,
+    required this.passengersList,
     required this.carModel,
     required this.seatsAvailable,
     required this.driverImageURL,
     required this.driverName,
     required this.driverRating,
-    required this.driverReviews,
     required this.carImageURL,
     required this.carPlateNumber,
     Key? key,
@@ -52,22 +59,6 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
   final TextStyle grayPoppinsStyle =
       const TextStyle(color: greyTextColor, fontFamily: "Poppins");
   String minutesLeft = "estimatting";
-
-  List<RideOffer> passengers = [
-    RideOffer(
-       
-        user: User(fullname: "Abebe Fekede", age: 20, imageUrl: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ufGVufDB8fDB8fHww&w=1000&q=80",phoneNumber: "0961088592"),
-        currentLocation: Location(latitude: 9, longitude: 38),
-        destination: Location(latitude: 9.2, longitude: 38),
-        seatsAllocated: 2,
-        price: 60),
-    RideOffer(
-        user : User(fullname: "Abebe Fekede", age: 20, imageUrl: "https://",phoneNumber: "0961088592"),
-        currentLocation: Location(latitude: 9, longitude: 38.3),
-        destination: Location(latitude: 9.7, longitude: 38),
-        seatsAllocated: 2,
-        price: 50)
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +133,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
                           SizedBox(width: 0.5.w),
                           Text(
                             style: TextStyle(fontSize: 14.sp),
-                            '${widget.driverRating} (${widget.driverReviews} reviews)',
+                            '${widget.driverRating}',
                           ),
                         ],
                       ),
@@ -161,40 +152,64 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
             child: Row(
               children: [
                 BorderOnlyButton(
-                    color: primaryColor, buttonText: "Call", onPressed: () {}),
+                    color: primaryColor,
+                    buttonText: "Call",
+                    onPressed: () async {
+                      final phoneUrl =
+                          Uri.parse('tel:${widget.driverPhoneNumber}');
+                      if (await canLaunchUrl(phoneUrl)) {
+                        await launchUrl(phoneUrl);
+                      } else {
+                        print('Could not launch $phoneUrl');
+                      }
+                    }),
                 SizedBox(width: 4.w),
                 BorderOnlyButton(
-                    color: red, buttonText: "Cancel", onPressed: () {}),
+                    color: red,
+                    buttonText: "Cancel",
+                    onPressed: () {
+                      context.go("/passengerHome");
+                    }),
                 SizedBox(width: 12.w),
                 TextButton(
                     style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                         backgroundColor: primaryAccentColor),
-                    onPressed: () async {
-                      debugPrint(await getEstimatedTime(
-                          lat_lng.LatLng(9, 38), lat_lng.LatLng(9, 38)));
-                    },
+                    onPressed: null,
                     child: Text(widget.carPlateNumber, style: grayPoppinsStyle))
               ],
             )),
         SizedBox(height: 2.h),
-        Padding(
-          padding: EdgeInsets.only(left: 4.w),
-          child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Passengers",
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 4.w),
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Passengers",
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: "Poppins"))),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 2.w),
+              child: Text("You will pay: ${widget.passenger.price} Birr",
                   style: TextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
-                      fontFamily: "Poppins"))),
+                      fontFamily: "Poppins")),
+            )
+          ],
         ),
         ListView.builder(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: passengers.length,
+            itemCount: widget.passengersList.length,
             itemBuilder: (context, index) {
-              return PassengerCard(passenger: passengers[index]);
+              return PassengerCard(passenger: widget.passengersList[index]);
             }),
       ]),
     );
@@ -202,13 +217,20 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
 
   setUserLocation() async {
     try {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      setState(() {
-        widget.userLocation =
-            lat_lng.LatLng(position.latitude, position.longitude);
-      });
-      getEstimatedTime(widget.userLocation, widget.destinationLocation);
+      if (await Geolocator.isLocationServiceEnabled()) {
+        var _positionStream = Geolocator.getPositionStream(
+                locationSettings: LocationSettings(
+                    accuracy: LocationAccuracy.high, distanceFilter: 10))
+            .asBroadcastStream();
+        _positionStream.listen((Position position) {
+          setState(() {
+            print(
+                "user location change latlng ${position.latitude}, ${position.longitude}");
+            widget.userLocation = LatLng(position.latitude, position.longitude);
+            getEstimatedTime(widget.userLocation, widget.destinationLocation);
+          });
+        });
+      }
     } catch (e) {}
   }
 

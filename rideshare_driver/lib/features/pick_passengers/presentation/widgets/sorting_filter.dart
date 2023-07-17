@@ -1,45 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SortingSelector extends StatefulWidget {
-  const SortingSelector({Key? key}) : super(key: key);
+import '../bloc/sorting_selector/sorting_selector_bloc.dart';
 
-  @override
-  _SortingSelectorState createState() => _SortingSelectorState();
-}
+class SortingSelector extends StatelessWidget {
+  SortingSelector({Key? key}) : super(key: key);
 
-class _SortingSelectorState extends State<SortingSelector> {
-  final List<Map<String, dynamic>> sortingOptions = [
-    {"text": "Sort by price", "icon": Icons.money},
-    {"text": "Sort by distance", "icon": Icons.location_on},
-    {"text": "Sort by rating", "icon": Icons.star},
-  ];
-
-  Map<String, dynamic> selectedOption = {
-    "text": "Sort by price",
-    "icon": Icons.sort,
-  };
+  final List<String> sortingOptions = ["price", "distance", 'seats'];
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        _showSortingOptions(context, sortingOptions, selectedOption);
-      },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(selectedOption["icon"]),
-          SizedBox(width: 8),
-          Text(selectedOption["text"]),
-        ],
-      ),
-    );
+    return BlocConsumer<SortingSelectorBloc, SortingSelectorState>(
+        builder: (context, state) {
+          if (state is SortingSelectorInitial) {
+            return GestureDetector(
+              onTap: () {
+                _showSortingOptions(context, sortingOptions, state.opitons);
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.sort),
+                  SizedBox(width: 8),
+                  Text(state.opitons),
+                ],
+              ),
+            );
+          } else {
+            return Text("Failed");
+          }
+        },
+        listener: (context, state) {});
   }
 
-  Future<void> _showSortingOptions(
-      BuildContext context,
-      List<Map<String, dynamic>> sortingOptions,
-      Map<String, dynamic> selectedOption) async {
+  Future<void> _showSortingOptions(BuildContext context,
+      List<String> sortingOptions, String selectedOption) async {
     final option = await showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -60,8 +55,8 @@ class _SortingSelectorState extends State<SortingSelector> {
                   itemBuilder: (context, index) {
                     final option = sortingOptions[index];
                     return ListTile(
-                      leading: Icon(option["icon"]),
-                      title: Text(option["text"]),
+                      leading: Icon(Icons.sort),
+                      title: Text(sortingOptions[index]),
                       onTap: () {
                         Navigator.of(context).pop(option);
                       },
@@ -78,9 +73,11 @@ class _SortingSelectorState extends State<SortingSelector> {
     );
 
     if (option != null) {
-      setState(() {
-        selectedOption = option;
-      });
+
+          BlocProvider.of<SortingSelectorBloc>(context)
+              .add(SortingSelected(option));
+          selectedOption = option;
+    
     }
   }
 }

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/images.dart';
+import 'package:rideshare/features/journey_started/presentation/widgets/border_only.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../core/errors/failures.dart';
+import '../../../../core/injections/injection_container.dart';
 import '../../../../core/utils/colors.dart';
 import '../../domain/entity/ride_offer.dart';
+import '../../domain/usecase/drop_passenger_usecase.dart';
 import 'custom_cache_image.dart';
 
 class AddedPassengersCard extends StatelessWidget {
@@ -21,11 +26,21 @@ class AddedPassengersCard extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  radius: 5.w, // Adjust the size of the circular image
-                  backgroundImage:
-                      AssetImage(person), // Replace with your image path
+                  radius: 7.w,
+                  child: ClipOval(
+                    child: Container(
+                      width: 14.w,
+                      height: 14.h,
+                      child: CustomizedCachedImage(
+                          imageURL: rideOffer.user.imageUrl ??
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9CnBcwPzAb1eOKDOtfcvSogTmQ96ddf2D5r4X85k&s",
+                          width: 20.w,
+                          height: 8.h,
+                          key: GlobalKey()),
+                    ),
+                  ), // Example placeholder
                 ),
-                // SizedBox(width: 1.w),
+                SizedBox(width: 1.w),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +59,7 @@ class AddedPassengersCard extends StatelessWidget {
                     Row(
                       children: [
                         Image.asset(currentLocation),
-                        Text("5 mins away")
+                        Text("16 mins away")
                       ],
                     ),
                     Padding(
@@ -87,7 +102,7 @@ class AddedPassengersCard extends StatelessWidget {
                       if (await canLaunchUrl(phoneUrl)) {
                         await launchUrl(phoneUrl);
                       } else {
-                        throw 'Could not launch $phoneUrl';
+                        print('Could not launch $phoneUrl');
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -106,9 +121,28 @@ class AddedPassengersCard extends StatelessWidget {
             // SizedBox(
             //   width: 15.w,
             // ),
+            // BorderOnlyButton(
+            //     buttonText: "Drop",
+            //     color: primaryColor,
+            //     onPressed: () async {
+            //       final drop = DropPassengerUseCase(sl());
+            //       final response = await drop(rideOffer.rideOfferId);
+
+            //       response.fold((failure) => null, (success) {
+            //         if (success == true) {}
+            //       });
+            //     },
+            //     height: 4.h,
+            //     width: 18.5.w)
             InkWell(
-              onTap: () {
+              onTap: () async {
                 // Handle the image pressed event here
+                final drop = DropPassengerUseCase(sl());
+                final response = await drop(rideOffer.rideOfferId);
+
+                response.fold((failure) => null, (success) {
+                  if (success == true) {}
+                });
               },
               child: Image.asset(delete),
             ),

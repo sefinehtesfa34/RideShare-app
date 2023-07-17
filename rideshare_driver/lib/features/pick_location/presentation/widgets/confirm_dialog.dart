@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../domain/entities/location.dart';
-import '../../domain/entities/ride_offer.dart';
-import '../../domain/entities/user.dart';
+import '../../../pick_passengers/domain/entity/location.dart';
+import '../../../pick_passengers/domain/entity/ride_request.dart';
+import '../../../pick_passengers/presentation/bloc/fetch_passengers/fetch_passengers_bloc.dart';
+
 import '../bloc/passenger_home_bloc.dart';
-import '../bloc/ride_request_bloc/ride_request_bloc.dart';
-import 'searching_page_modal_function.dart';
 import 'select_button.dart';
 
 class SeatSelectionDialog extends StatefulWidget {
@@ -36,13 +36,6 @@ class SeatSelectionDialog extends StatefulWidget {
 
 class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
   int currentSeatCount = 0;
-  double cost = 50;
-  int amount = 50;
-  User user = User(
-      fullname: "Abebe Fekede",
-      age: 20,
-      imageUrl: "https://",
-      phoneNumber: "0961088592");
 
   @override
   void initState() {
@@ -53,7 +46,6 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
   void incrementSeatCount() {
     setState(() {
       currentSeatCount++;
-      cost += amount;
     });
   }
 
@@ -61,7 +53,6 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
     setState(() {
       if (currentSeatCount > 0) {
         currentSeatCount--;
-        cost -= amount;
       }
     });
   }
@@ -69,176 +60,156 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.white,
-      title: Center(
-        child: Text(
-          'Available Seats',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Poppins',
-            fontSize: 19.sp,
-            color: const Color(0xFF414141),
+        backgroundColor: Colors.white,
+        title: Center(
+          child: Text(
+            'Available Seats',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Poppins',
+              fontSize: 19.sp,
+              color: const Color(0xFF414141),
+            ),
           ),
         ),
-      ),
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          SizedBox(
-            height: 4.h,
-          ),
-          Row(
-            children: <Widget>[
-              Image.asset(
-                "assets/images/star_icon.jpg",
-                width: 4.w,
-              ),
-              SizedBox(width: 1.0.w),
-              SizedBox(
-                width: 60.w,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 2.w),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(
+              height: 4.h,
+            ),
+            Row(
+              children: <Widget>[
+                Image.asset(
+                  "assets/images/star_icon.jpg",
+                  width: 4.w,
+                ),
+                SizedBox(width: 1.0.w),
+                SizedBox(
+                  width: 60.w,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 2.w),
+                    child: Text(
+                      widget.source,
+                      softWrap: true,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Poppins',
+                        fontSize: 14.sp,
+                        color: const Color(0xFF414141),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 2.0.h),
+            Row(
+              children: <Widget>[
+                Image.asset("assets/images/location.png"),
+                SizedBox(width: 1.0.h),
+                SizedBox(
+                  width: 60.w,
                   child: Text(
-                    widget.source,
+                    widget.destination,
                     softWrap: true,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontFamily: 'Poppins',
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       color: const Color(0xFF414141),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 2.0.h),
-          Row(
-            children: <Widget>[
-              Image.asset("assets/images/location.png"),
-              SizedBox(width: 1.0.h),
-              SizedBox(
-                width: 60.w,
-                child: Text(
-                  widget.destination,
-                  softWrap: true,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins',
-                    fontSize: 16.sp,
-                    color: const Color(0xFF414141),
+              ],
+            ),
+            SizedBox(
+              height: 4.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('Seats: $currentSeatCount'),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(4),
                   ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 4.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text('Seats: $currentSeatCount'),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    IconButton(
-                      onPressed: incrementSeatCount,
-                      icon: const Icon(Icons.add),
-                      padding: EdgeInsets.zero,
-                      constraints: BoxConstraints.tight(const Size(32, 32)),
-                    ),
-                    Container(
-                      width: 1,
-                      height: 32,
-                      color: Colors.grey,
-                    ),
-                    IconButton(
-                      onPressed: decrementSeatCount,
-                      icon: const Icon(Icons.remove),
-                      padding: EdgeInsets.zero,
-                      constraints: BoxConstraints.tight(const Size(32, 32)),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-      actions: <Widget>[
-        SelectButton(
-          buttonName: 'Confirm',
-          onPressed: () {
-            final ChooseLocationsBloc bloc =
-                BlocProvider.of<ChooseLocationsBloc>(context, listen: false);
-            final ChooseLocationsState state = bloc.state;
-            if (state is ChooseLocationsSucess) {
-              context.read<RideRequestBloc>().add(
-                    RideOfferEvent(
-                      RideOffer(
-                          user: user,
-                          currentLocation: Location(
-                              latitude: state.soureLocation.latitude,
-                              longitude: state.soureLocation.longitude),
-                          destination: Location(
-                              latitude: state.destinationLocation.latitude,
-                              longitude: state.destinationLocation.longitude),
-                          seatsAllocated: currentSeatCount,
-                          price: cost),
-                    ),
-                  );
-            }
-          },
-        ),
-        BlocConsumer<RideRequestBloc, RideRequestState>(
-          listener: (context, state) {
-            if (state is RideRequestSuccessState) {
-              final RideOffer passenger = RideOffer(
-                  user: user,
-                  currentLocation:
-                      Location(latitude: 9.0302, longitude: 38.7625),
-                  destination: Location(latitude: 9.03055, longitude: 38.7777),
-                  seatsAllocated: 3,
-                  price: 60);
-
-              String encodedPassenger = jsonEncode(passenger.toJson());
-              context.go('/onJourney', extra: {'passenger': passenger});
-            } else if (state is RideRequestWaitingState) {
-              showSearchDriverModal(context);
-            } else if (state is RideRequestFailureState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  dismissDirection: DismissDirection.horizontal,
-                  content: Row(
-                    children: [
-                      Icon(Icons.warning),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: Text(
-                          'No internet connection',
-                          textAlign: TextAlign.center,
-                        ),
+                  child: Row(
+                    children: <Widget>[
+                      IconButton(
+                        onPressed: incrementSeatCount,
+                        icon: const Icon(Icons.add),
+                        padding: EdgeInsets.zero,
+                        constraints: BoxConstraints.tight(Size(4.w, 4.h)),
+                      ),
+                      Container(
+                        width: 1,
+                        height: 32,
+                        color: Colors.grey,
+                      ),
+                      IconButton(
+                        onPressed: decrementSeatCount,
+                        icon: const Icon(Icons.remove),
+                        padding: EdgeInsets.zero,
+                        constraints: BoxConstraints.tight(Size(4.w, 4.h)),
                       ),
                     ],
                   ),
-                  backgroundColor: Colors.red,
-                  behavior: SnackBarBehavior.floating,
                 ),
-              );
-            }
-          },
-          builder: (context, state) {
-            return const SizedBox();
-          },
-        )
-      ],
-    );
+              ],
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          SelectButton(
+            buttonName: 'Confirm',
+            onPressed: () {
+              final ChooseLocationsBloc bloc =
+                  BlocProvider.of<ChooseLocationsBloc>(context, listen: false);
+              final ChooseLocationsState state = bloc.state;
+              if (state is ChooseLocationsSucess) {
+                final ChooseLocationsBloc bloc =
+                    BlocProvider.of<ChooseLocationsBloc>(context,
+                        listen: false);
+                final ChooseLocationsState currentLocationState = bloc.state;
+                if (currentLocationState is ChooseLocationsSucess) {
+                  final rideRequest = RideRequest(
+                    driverName: 'Bob',
+                    driverImageURL: 'https://example.com/bob.jpg',
+                    driverRatingAverageOutOf5: 4.5,
+                    driverReviews: 100,
+                    carModel: 'Toyota Camry',
+                    availableSeats: 3,
+                    carImageURL: 'https://example.com/camry.jpg',
+                    carPlateNumber: 'AB12 CDE',
+                    driverPhoneNumber: '+1 123-456-7890',
+                    carLocation: Location( 
+                        latitude: currentLocationState.soureLocation.latitude,
+                        longitude:
+                            currentLocationState.soureLocation.longitude),
+                    passengersList: [],
+                    destination: Location(
+                        latitude:
+                            currentLocationState.destinationLocation.latitude,
+                        longitude:
+                            currentLocationState.destinationLocation.longitude),
+                  );
+                  context.go('/pickUpPassengers', extra: {
+                    "sourceLocation": currentLocationState.soureLocation,
+                    "destinationLocation":
+                        currentLocationState.destinationLocation,
+                    'rideRequest': rideRequest
+                  });
+                  BlocProvider.of<FetchPassengersBloc>(context)
+                      .add(FetchAllPassengers(request: rideRequest));
+                }
+              }
+              //! here it should fetch the driver and car information from cache and send it
+            },
+          ),
+        ]);
   }
 }

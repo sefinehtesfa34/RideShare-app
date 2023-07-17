@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/features/feeds/location/presentation/widgets/select_button.dart';
 import 'package:rideshare/features/pick_location/presentation/bloc/passenger_home_bloc.dart';
 
+import '../../../../core/utils/colors.dart';
 import '../../../passenger/domain/entities/location.dart';
 import '../../../passenger/domain/entities/ride_offer.dart';
 import '../../../passenger/domain/entities/user.dart';
@@ -72,7 +74,7 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
       backgroundColor: Colors.white,
       title: Center(
         child: Text(
-          'Select Number of Seats  \n and Confirm Price',
+          'Select Number of Seats',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w600,
@@ -86,9 +88,6 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          SizedBox(
-            height: 4.h,
-          ),
           Row(
             children: <Widget>[
               SvgPicture.asset('assets/images/current_mocation_marker.svg'),
@@ -129,31 +128,32 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
             ],
           ),
           SizedBox(
-            height: 4.h,
+            height: 2.h,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                "Total Price you will pay: ",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
-                  fontSize: 16.sp,
-                  color: const Color(0xFF414141),
-                ),
-              ),
-              Text(
-                "Br $cost ",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
-                  fontSize: 16.sp,
-                  color: const Color(0xFF414141),
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: <Widget>[
+          //     Text(
+          //       "Total Price you will pay: ",
+          //       style: TextStyle(
+          //         fontWeight: FontWeight.w500,
+          //         fontFamily: 'Poppins',
+          //         fontSize: 14.sp,
+          //         color: const Color(0xFF414141),
+          //       ),
+          //     ),
+          //     Text(
+          //       "Br $cost ",
+          //       style: TextStyle(
+          //         fontWeight: FontWeight.w500,
+          //         fontFamily: 'Poppins',
+          //         fontSize: 16.sp,
+          //         color: const Color(0xFF414141),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // SizedBox(height: 1.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -169,18 +169,18 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                       onPressed: incrementSeatCount,
                       icon: const Icon(Icons.add),
                       padding: EdgeInsets.zero,
-                      constraints: BoxConstraints.tight(const Size(32, 32)),
+                      constraints: BoxConstraints.tight(Size(5.w, 5.h)),
                     ),
                     Container(
                       width: 1,
-                      height: 32,
+                      height: 4.h,
                       color: Colors.grey,
                     ),
                     IconButton(
                       onPressed: decrementSeatCount,
                       icon: const Icon(Icons.remove),
                       padding: EdgeInsets.zero,
-                      constraints: BoxConstraints.tight(const Size(32, 32)),
+                      constraints: BoxConstraints.tight(Size(5.w, 5.h)),
                     ),
                   ],
                 ),
@@ -208,7 +208,12 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                               latitude: state.destinationLocation.latitude,
                               longitude: state.destinationLocation.longitude),
                           seatsAllocated: currentSeatCount,
-                          price: cost),
+                          price: cost,
+                          accepted: false,
+                          originAddress: '',
+                          destinationAddress: '',
+                          status: '2',
+                          rideOfferId: '1'),
                     ),
                   );
             }
@@ -217,41 +222,56 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
         BlocConsumer<RideRequestBloc, RideRequestState>(
           listener: (context, state) {
             if (state is RideRequestSuccessState) {
+              print("=================================Here");
               final RideOffer passenger = RideOffer(
                   user: user,
                   currentLocation:
                       Location(latitude: 9.0302, longitude: 38.7625),
                   destination: Location(latitude: 9.03055, longitude: 38.7777),
                   seatsAllocated: 3,
-                  price: 60);
+                  price: 60,
+                  accepted: false,
+                  originAddress: '',
+                  destinationAddress: '',
+                  status: '',
+                  rideOfferId: '');
 
-              String encodedPassenger = jsonEncode(passenger.toJson());
               context.go('/onJourney', extra: {'passenger': passenger});
-            } else if (state is RideRequestWaitingState) {
-              showSearchDriverModal(context);
             } else if (state is RideRequestFailureState) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                SnackBar(
                   dismissDirection: DismissDirection.horizontal,
                   content: Row(
                     children: [
-                      Icon(Icons.warning),
-                      SizedBox(width: 10),
+                      Icon(Icons.face),
+                      SizedBox(width: 3.w),
                       Expanded(
                         child: Text(
-                          'No internet connection',
-                          textAlign: TextAlign.center,
-                        ),
+                            "We couldn't find any driver arround. Please try again later.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontFamily: "Poppins", fontSize: 16.sp,color:Colors.black)),
                       ),
                     ],
                   ),
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.amber,
                   behavior: SnackBarBehavior.floating,
                 ),
               );
+              Navigator.of(context).pop();
             }
           },
           builder: (context, state) {
+            if (state is RideRequestWaitingState) {
+              return Padding(
+                padding: EdgeInsets.all(3.h),
+                child: SpinKitThreeBounce(
+                  color: primaryColor,
+                  size: 5.h,
+                ),
+              );
+              
+            }
             return const SizedBox();
           },
         )

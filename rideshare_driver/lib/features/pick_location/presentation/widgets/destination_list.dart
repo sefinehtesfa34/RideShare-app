@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/images.dart';
+import '../../../../core/utils/colors.dart';
 import '../bloc/passenger_home_bloc.dart';
 import 'confirm_dialog.dart';
 
@@ -45,6 +47,7 @@ class _DestinationListState extends State<DestinationList> {
               if (state is ChooseLocationsError) {}
             },
             child: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: state.names.length,
               itemBuilder: (context, index) {
@@ -85,7 +88,9 @@ class _DestinationListState extends State<DestinationList> {
                           SizedBox(
                             height: 1.h,
                           ),
-                          Text("Addis Ababa, Ethiopia")
+                          Text("Addis Ababa, Ethiopia",
+                              style: TextStyle(
+                                  fontFamily: "Poppins", fontSize: 14.sp))
                         ],
                       ),
                     ],
@@ -100,9 +105,11 @@ class _DestinationListState extends State<DestinationList> {
             child: Text(state.errorMessage),
           );
         } else if (state is NamesLoading) {
-          return const Center(
-            child: Center(
-              child: CircularProgressIndicator(),
+          return Padding(
+            padding: EdgeInsets.all(3.h),
+            child: SpinKitThreeBounce(
+              color: primaryColor,
+              size: 5.h,
             ),
           );
         }

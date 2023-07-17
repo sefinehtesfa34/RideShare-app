@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/colors.dart';
 import 'modal_with_two_button.dart';
 
 class BottomButton extends StatelessWidget {
+  final LatLng sourceLocation;
+  final LatLng destinationLocation;
+
   TwoButtonModal showMyModal(BuildContext context) {
-    return TwoButtonModal(title: "Start Journey", description: "By starting your journey you should start collecting each riders. Are you sure you want to start your journey.");
+    return TwoButtonModal(
+      sourceLocation: sourceLocation,
+      destinationLocation: destinationLocation,
+      title: "Start Journey",
+      description:
+          "By starting your journey you should start collecting each riders. Are you sure you want to start your journey.",
+      passengers: [],
+    );
   }
 
-  const BottomButton({super.key});
+  const BottomButton(
+      {super.key,
+      required this.sourceLocation,
+      required this.destinationLocation});
 
   @override
   Widget build(BuildContext context) {

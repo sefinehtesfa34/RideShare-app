@@ -61,7 +61,7 @@ class _LocationPickerState extends State<LocationPicker>
           ));
         } else if (state is CurrentLocationLoading) {
           return Scaffold(
-            body: Center(
+            body: Center( 
               child: AnimatedBuilder(
                 animation: _animation,
                 builder: (context, child) {

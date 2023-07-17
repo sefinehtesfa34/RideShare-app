@@ -26,7 +26,7 @@ class _GoogleMapViewerState extends State<GoogleMapViewer> {
       myLocationButtonEnabled: true,
       // padding: EdgeInsets.only(top: 40.0.h),
       initialCameraPosition: CameraPosition(
-        target: LatLng(widget.latitude, widget.longitude),
+        target: LatLng(9.030098, 38.762868),
         zoom: 14.5,
       ),
       onMapCreated: (GoogleMapController controller) {
