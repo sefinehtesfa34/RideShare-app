@@ -1,12 +1,10 @@
-Sure! Here's an example of a README file for your Rideshare mobile application based on Flutter:
-
-```
 # Rideshare
+```
 
-Rideshare is a mobile application based on Flutter that aims to connect passengers and drivers for ride-sharing, reducing the overall cost for passengers. The app provides a platform where passengers can find available drivers heading towards their destination and request a ride.
-
+Rideshare is a mobile application based on Flutter that aims to connect passengers and drivers for ride-sharing, reducing the overall cost for passengers. The app provides a platform where passengers can find available drivers heading toward their destination and request a ride.
+```
 ## Features
-
+```
 - Passenger Registration: Passengers can create an account using their email address or social media accounts to access the app's features.
 
 - Driver Registration: Drivers can register by providing their details, including their vehicle information, driving license, and other necessary documents.
@@ -22,9 +20,9 @@ Rideshare is a mobile application based on Flutter that aims to connect passenge
 - Rating and Reviews: Passengers can rate and provide feedback on their ride experience, helping maintain a reliable and trustworthy community of drivers.
 
 - Notifications: The app sends push notifications to passengers and drivers regarding ride requests, acceptance, cancellation, and other important updates.
-
+```
 ## Installation
-
+```
 To run the Rideshare app locally, follow these steps:
 
 1. Make sure you have Flutter and Dart SDK installed on your machine. You can download them from the official Flutter website: https://flutter.dev/
@@ -32,13 +30,13 @@ To run the Rideshare app locally, follow these steps:
 2. Clone the repository to your local machine using the following command:
 
    ```
-   git clone https://github.com/your-username/rideshare.git
+   git clone https://github.com/sefinehtesfa34/RideShare-app.git
    ```
 
 3. Change into the project directory:
 
    ```
-   cd rideshare
+   cd RideShare-app/rideshare or cd RideShare-app/rideshare_driver
    ```
 
 4. Install the required dependencies using the following command:
@@ -54,14 +52,12 @@ To run the Rideshare app locally, follow these steps:
    ```
 
 For detailed instructions on setting up Flutter and running the app on different platforms, refer to the official Flutter documentation: https://flutter.dev/docs
-
+```
 ## Contributing
-
+```
 Contributions to Rideshare are welcome! If you find any bugs or have suggestions for new features, feel free to open an issue or submit a pull request. Please follow the existing code style and guidelines when contributing.
-
+```
 ## License
-
+```
 This project is licensed under the [MIT License](LICENSE).
 ```
-
-Feel free to modify and customize the README file according to your specific requirements and project structure.
