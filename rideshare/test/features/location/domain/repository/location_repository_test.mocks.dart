@@ -8,9 +8,9 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:rideshare/features/feeds/location/data/datasource/remote_location_data.dart'
+import 'package:rideshare/features/feeds/data/datasource/remote_location_data.dart'
     as _i3;
-import 'package:rideshare/features/feeds/location/domain/entity/location.dart'
+import 'package:rideshare/features/feeds/domain/entity/location.dart'
     as _i2;
 
 // ignore_for_file: type=lint

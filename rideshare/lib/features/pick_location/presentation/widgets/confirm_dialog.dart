@@ -6,15 +6,15 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:rideshare/features/feeds/location/presentation/widgets/select_button.dart';
+import 'package:rideshare/features/feeds/presentation/widgets/select_button.dart';
 import 'package:rideshare/features/pick_location/presentation/bloc/passenger_home_bloc.dart';
 
 import '../../../../core/utils/colors.dart';
-import '../../../passenger/domain/entities/location.dart';
-import '../../../passenger/domain/entities/ride_offer.dart';
-import '../../../passenger/domain/entities/user.dart';
-import '../../../passenger/presentation/bloc/ride_request_bloc/ride_request_bloc.dart';
-import '../../../passenger/presentation/widget/searching_page_modal_function.dart';
+import '../../../passenger_on_journey/domain/entities/location.dart';
+import '../../../passenger_on_journey/domain/entities/ride_offer.dart';
+import '../../../passenger_on_journey/domain/entities/user.dart';
+import '../../../passenger_on_journey/presentation/bloc/ride_request_bloc/ride_request_bloc.dart';
+import '../../../passenger_on_journey/presentation/widget/searching_page_modal_function.dart';
 
 class SeatSelectionDialog extends StatefulWidget {
   final String source;
@@ -222,7 +222,6 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
         BlocConsumer<RideRequestBloc, RideRequestState>(
           listener: (context, state) {
             if (state is RideRequestSuccessState) {
-              print("=================================Here");
               final RideOffer passenger = RideOffer(
                   user: user,
                   currentLocation:

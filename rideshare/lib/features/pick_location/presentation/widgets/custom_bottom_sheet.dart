@@ -1,5 +1,6 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:rideshare/core/utils/colors.dart';
@@ -7,8 +8,10 @@ import 'choose_location.dart';
 import 'destination_list.dart';
 import 'where_button.dart';
 
+final mapApiKey = dotenv.env['GOOGLE_MAPS_API_KEY'];
+
 class CustomBottomSheet extends StatelessWidget {
-  const CustomBottomSheet({super.key});
+  CustomBottomSheet({super.key});
   @override
   Widget build(BuildContext context) {
     return FlexibleBottomSheet(
@@ -29,8 +32,8 @@ class CustomBottomSheet extends StatelessWidget {
                     child: CustomButton(
                       text: "Where do you want to go?",
                       onTap: () {
-                        final GoogleMapsPlaces _places = GoogleMapsPlaces(
-                            apiKey: 'AIzaSyCxqriQbYf-UMvPX2vfrvtNYzOvB8Jn_t8');
+                        final GoogleMapsPlaces _places =
+                            GoogleMapsPlaces(apiKey: mapApiKey);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -43,7 +46,8 @@ class CustomBottomSheet extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 6.w, top: 2.h,bottom: 1.5.h),
+                      padding:
+                          EdgeInsets.only(left: 6.w, top: 2.h, bottom: 1.5.h),
                       child: Text(
                         "Popular Destinations",
                         textAlign: TextAlign.start,

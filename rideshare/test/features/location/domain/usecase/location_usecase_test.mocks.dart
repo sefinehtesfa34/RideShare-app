@@ -10,9 +10,9 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:rideshare/core/errors/failures.dart' as _i5;
-import 'package:rideshare/features/feeds/location/domain/entity/location.dart'
+import 'package:rideshare/features/feeds/domain/entity/location.dart'
     as _i6;
-import 'package:rideshare/features/feeds/location/domain/repository/location_repository.dart'
+import 'package:rideshare/features/feeds/domain/repository/location_repository.dart'
     as _i3;
 
 // ignore_for_file: type=lint

@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rideshare/features/feeds/location/domain/usecase/location_usecase.dart';
+import 'package:rideshare/features/feeds/domain/usecase/location_usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rideshare/core/errors/failures.dart';
-import 'package:rideshare/features/feeds/location/domain/entity/location.dart';
-import 'package:rideshare/features/feeds/location/data/model/location_model.dart';
+import 'package:rideshare/features/feeds/domain/entity/location.dart';
+import 'package:rideshare/features/feeds/data/model/location_model.dart';
 
 import 'location_usecase_test.mocks.dart';
 
