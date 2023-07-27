@@ -57,7 +57,7 @@ class _LocationPickerState extends State<LocationPicker>
                   latitude: state.location.latitude,
                   longitude: state.location.longitude,
                 ),
-                const CustomBottomSheet(),
+                CustomBottomSheet(),
                           ],
                         ),
               ));

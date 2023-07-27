@@ -3,12 +3,12 @@ import 'package:rideshare/core/network/network_info.dart';
 import 'package:rideshare/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:rideshare/features/authentication/data/repositories/authentication_repository_impl.dart';
 
-import 'package:rideshare/features/feeds/location/data/datasource/remote_location_data.dart';
-import 'package:rideshare/features/feeds/location/data/repository/location_repository.dart';
-import 'package:rideshare/features/feeds/location/domain/repository/location_repository.dart';
-import 'package:rideshare/features/feeds/location/domain/usecase/location_usecase.dart';
-import 'package:rideshare/features/feeds/location/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
-import 'package:rideshare/features/feeds/location/presentation/bloc/location_bloc.dart';
+import 'package:rideshare/features/feeds/data/datasource/remote_location_data.dart';
+import 'package:rideshare/features/feeds/data/repository/location_repository.dart';
+import 'package:rideshare/features/feeds/domain/repository/location_repository.dart';
+import 'package:rideshare/features/feeds/domain/usecase/location_usecase.dart';
+import 'package:rideshare/features/feeds/presentation/bloc/back_to_location/bloc/back_to_location_bloc.dart';
+import 'package:rideshare/features/feeds/presentation/bloc/location_bloc.dart';
 import 'package:rideshare/features/pick_location/domain/usecases/destination_usecase.dart';
 import 'package:rideshare/features/pick_location/presentation/bloc/passenger_home_bloc.dart';
 import 'package:rideshare/features/pick_location/domain/repositories/destination_repository.dart';
