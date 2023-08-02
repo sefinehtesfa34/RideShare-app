@@ -10,9 +10,9 @@ class DestinationModel extends Destination {
   factory DestinationModel.fromJson(Map<String, dynamic> json) {
     print("json $json");
     return DestinationModel(
-      latitude: json['latitude'],
-      longitude: json['longitude'],
-      name: json['name'],
+      latitude: (json['latitude'] as double?) ?? 0.0,
+      longitude: (json['longitude'] as double?) ?? 0.0,
+      name: json['name'] as String? ?? '',
     );
   }
 
