@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:dio/dio.dart';
 import 'package:signalr_core/signalr_core.dart';
 
 import '../../domain/entities/ride_offer.dart';
@@ -20,22 +19,25 @@ class RideRequestApiProvider {
   }
 
   Future<void> setupHubConnection() async {
-    await hubConnection.start();
-    hubConnection.on('MatchFound', (dynamic data) {
-      var rideRequest = RideRequestModel.fromJson(data);
-      _rideRequestStreamController.add(rideRequest);
-    });
+    if (hubConnection.state == HubConnectionState.disconnected) {
+      await hubConnection.start();
+      hubConnection.on('MatchFound', (dynamic data) {
+        var rideRequest = RideRequestModel.fromJson(data);
+        _rideRequestStreamController.add(rideRequest);
+      });
+    }
   }
 
   Future<Stream<RideRequest>> getRideRequestsForPassenger(
       RideOffer passenger) async {
     if (hubConnection.state == HubConnectionState.disconnected) {
       return Future.value(Stream.empty());
+    } else {
+      hubConnection.invoke('GetRideRequestsForPassenger', args: [
+        PassengerModel.fromJson(PassengerModel.toJsonGivenPassenger(passenger))
+      ]);
+      return _rideRequestStreamController.stream;
     }
-    hubConnection.invoke('GetRideRequestsForPassenger', args: [
-      PassengerModel.fromJson(PassengerModel.toJsonGivenPassenger(passenger))
-    ]);
-    return _rideRequestStreamController.stream;
   }
 
   void dispose() {

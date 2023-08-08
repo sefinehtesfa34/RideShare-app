@@ -13,6 +13,6 @@ class DropPassengerUseCase extends UseCase<bool, String> {
 
   @override
   Future<Either<Failure, bool>> call(String rideOfferId) async {
-    return await _rideOfferRepository.dropPassegner(rideOfferId);
+    return await _rideOfferRepository.dropPassenger(rideOfferId);
   }
 }

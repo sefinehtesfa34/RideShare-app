@@ -1,7 +1,9 @@
+import 'package:equatable/equatable.dart';
+
 import 'location.dart';
 import 'user.dart';
 
-class RideOffer {
+class RideOffer extends Equatable {
   final User user;
   final Location currentLocation;
   final Location destination;
@@ -24,4 +26,9 @@ class RideOffer {
     data['price'] = this.price;
     return data;
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props =>
+      [user, currentLocation, destination, seatsAllocated, price];
 }

@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/entities/ride_offer.dart';
 import '../../domain/entities/ride_request.dart';

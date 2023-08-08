@@ -84,13 +84,10 @@ class RideOfferApiImpl implements RideOfferApi {
   @override
   Future<bool> addPassenger(String rideOfferId) async {
     try {
-      print("==================");
-      final response = await hubConnection
+      await hubConnection
           .invoke('AddPassenger', args: [int.parse(rideOfferId)]);
-      print("Response   $response");
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }

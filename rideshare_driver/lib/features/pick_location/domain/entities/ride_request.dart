@@ -1,7 +1,9 @@
+import 'package:equatable/equatable.dart';
+
 import 'location.dart';
 import 'ride_offer.dart';
 
-class RideRequest {
+class RideRequest extends Equatable {
   final String driverName;
   final String driverImageURL;
   final double driverRatingAverageOutOf5;
@@ -28,7 +30,22 @@ class RideRequest {
     required this.carLocation,
     required this.passengersList,
     required this.destination,
-
-
   });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        driverName,
+        driverImageURL,
+        driverRatingAverageOutOf5,
+        driverReviews,
+        carModel,
+        availableSeats,
+        carImageURL,
+        carPlateNumber,
+        driverPhoneNumber,
+        carLocation,
+        destination,
+        passengersList
+      ];
 }

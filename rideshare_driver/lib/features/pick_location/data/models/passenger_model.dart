@@ -18,7 +18,8 @@ class PassengerModel extends RideOffer {
         );
 
   factory PassengerModel.fromJson(Map<String, dynamic> json) => PassengerModel(
-        price: json['price'],
+        price:(json['price'] ?? 0.0).toDouble(),
+        // price: json['price'] ,
         user: User.fromJson(json["user"]),
         currentLocation: Location.fromJson(json['currentLocation']),
         destination: Location.fromJson(json['destination']),
