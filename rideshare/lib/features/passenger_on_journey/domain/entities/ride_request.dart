@@ -26,4 +26,19 @@ class RideRequest {
     required this.carLocation,
     required this.passengersList,
   });
+
+  factory RideRequest.fromJson(Map<String, dynamic> json) {
+  return RideRequest(
+    driverName: json['driverName'],
+    driverImageURL: json['driverImageURL'],
+    driverRatingAverageOutOf5: json['driverRatingAverageOutOf5'],
+    carModel: json['carModel'],
+    availableSeats: json['availableSeats'],
+    carImageURL: json['carImageURL'],
+    carPlateNumber: json['carPlateNumber'],
+    driverPhoneNumber: json['driverPhoneNumber'],
+    carLocation: Location.fromJson(json['carLocation']),
+    passengersList: List<RideOffer>.from(json['passengersList'].map((x) => RideOffer.fromJson(x))),
+  );
+}
 }

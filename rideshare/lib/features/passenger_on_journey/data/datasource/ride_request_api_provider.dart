@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:signalr_core/signalr_core.dart';
 
 import '../../domain/entities/location.dart';
@@ -15,12 +16,11 @@ class RideRequestApiProvider {
   late final HubConnection hubConnection;
   late final StreamController<RideRequest> _rideRequestStreamController;
   late Dio dio;
-  final String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3ByaW1hcnlzaWQiOiIwZmQ2OTMzYy04MWYxLTRmYjgtOTkyMS1mYTkwOGY3NmUwMjgiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJTYW11ZWwgQWJhdG5laCsyNTE5MzQ1Njc4OTAiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IlNhbXVlbEFiYXRuZWgrMjUxOTM0NTY3ODkwIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IlNhbXVlbEFiYXRuZWgrMjUxOTM0NTY3ODkwIiwiRnVsbE5hbWUiOiJTYW11ZWwgQWJhdG5laCIsIlBob25lTnVtYmVyIjoiKzI1MTkzNDU2Nzg5MCIsIlJvbGVzIjoiQ29tbXV0ZXIiLCJleHAiOjE2ODgyMDE3NjgsImlzcyI6Ind3dy5leGFtcGxlLmNvbSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.4DABb4t8ecPBb2VfymJlPn8H3eFPH12a0Kc2K2dtfU0";
+  final String token = dotenv.env['RIDE_REQUEST_API_PROVIDER_TOKEN']!;
   RideRequestApiProvider({required this.baseUrl}) {
     hubConnection = HubConnectionBuilder()
         .withUrl(
-            'https://rideshare-app.onrender.com/rideshare',
+            'https://rideshare-swdm.onrender.com',
             HttpConnectionOptions(
               skipNegotiation: true,
               transport: HttpTransportType.webSockets,
@@ -43,7 +43,7 @@ class RideRequestApiProvider {
     // if (hubConnection.state == HubConnectionState.disconnected) {
     //   return Future.value(Stream.empty());
     // }
-    final url = 'https://rideshare-app.onrender.com/api/RideRequest';
+    final url = 'https://rideshare-swdm.onrender.com/api/RideRequest';
 
     final requestData = {
       'origin': {
@@ -72,6 +72,7 @@ class RideRequestApiProvider {
       );
       if (response.statusCode == 201) {
         print('Ride request posted successfully!');
+        
         hubConnection.on('Accepted', (dynamic data) {
           print("======================================");
           print(data);

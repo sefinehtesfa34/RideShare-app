@@ -25,4 +25,20 @@ class RideOffer {
       required this.destination,
       required this.seatsAllocated,
       required this.price});
+
+  factory RideOffer.fromJson(Map<String, dynamic> json) {
+  return RideOffer(
+    rideOfferId: json['rideOfferId'],
+    originAddress: json['originAddress'],
+    destinationAddress: json['destinationAddress'],
+    user: User.fromJson(json['user']),
+    currentLocation: Location.fromJson(json['currentLocation']),
+    destination: Location.fromJson(json['destination']),
+    seatsAllocated: json['seatsAllocated'],
+    price: json['price'],
+    status: json['status'],
+    accepted: json['accepted'],
+  );
+}
+
 }
