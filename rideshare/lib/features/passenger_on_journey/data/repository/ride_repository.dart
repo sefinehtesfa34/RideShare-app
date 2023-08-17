@@ -9,17 +9,20 @@ import '../../domain/entities/ride_request.dart';
 import '../../domain/repository/ride_repository.dart';
 import '../datasource/ride_remote_data_source.dart';
 
+/// Ride Repository Implementation
+///
+/// Implements the [RideRepository] interface and handles data retrieval and operations related to ride offers and requests.
 class RideRepositoryImpl extends RideRepository {
   final RideRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
 
+  /// Creates a [RideRepositoryImpl] instance with the provided [remoteDataSource] and [networkInfo].
   RideRepositoryImpl(
       {required this.remoteDataSource, required this.networkInfo});
 
   @override
   Future<Either<Failure, Stream<RideRequest>>> getRideRequest(
       RideOffer passenger) async {
-  
     try {
       final Stream<RideRequest> rideRequest =
           await remoteDataSource.getRideRequest(passenger);

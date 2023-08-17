@@ -3,14 +3,22 @@ import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rideshare/core/utils/colors.dart';
 
+/// MapPicker Widget
+///
+/// A widget that allows users to pick a location on a Google Map and returns the selected LatLng.
 class MapPicker extends StatefulWidget {
-  final TextEditingController controller;
-  final LatLng intialLocation;
+  /// Constructs a MapPicker widget with the given controller and initial location.
   const MapPicker({
     Key? key,
     required this.controller,
     required this.intialLocation,
   }) : super(key: key);
+
+  /// The controller for the text field where the selected location address will be displayed.
+  final TextEditingController controller;
+
+  /// The initial location to be displayed on the map.
+  final LatLng intialLocation;
 
   @override
   _MapPickerState createState() => _MapPickerState();
@@ -19,6 +27,8 @@ class MapPicker extends StatefulWidget {
 class _MapPickerState extends State<MapPicker> {
   late GoogleMapController _mapController;
   late Marker _positionMarker;
+
+  /// Callback when the Google Map is created.
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
   }
@@ -44,7 +54,7 @@ class _MapPickerState extends State<MapPicker> {
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
-          target: LatLng(9.030098, 38.762868),
+          target: widget.intialLocation,
           zoom: 16.0,
         ),
         markers: {_positionMarker},
@@ -68,11 +78,12 @@ class _MapPickerState extends State<MapPicker> {
                 widget.controller.text = placemarks[0].street!;
               });
               Navigator.pop(
-                  context,
-                  LatLng(
-                    pos.latitude,
-                    pos.longitude,
-                  ));
+                context,
+                LatLng(
+                  pos.latitude,
+                  pos.longitude,
+                ),
+              );
             },
             child: const Icon(
               Icons.check,

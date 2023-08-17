@@ -12,6 +12,9 @@ import '../../domain/usecases/destination_usecase.dart';
 part 'passenger_home_event.dart';
 part 'passenger_home_state.dart';
 
+/// Sliding Container Bloc
+///
+/// This bloc manages the sliding container's state based on user actions.
 class SlidingContainerBloc
     extends Bloc<SlidingContainerEvent, SlidingContainerState> {
   SlidingContainerBloc() : super(SearchDriverContainerVisibleState()) {
@@ -32,6 +35,9 @@ class SlidingContainerBloc
   }
 }
 
+/// Names Bloc
+///
+/// This bloc manages the retrieval and presentation of passenger names.
 class NamesBloc extends Bloc<NamesEvent, NamesState> {
   final FetchPassengerHistoryUseCase fetchPassengerHistoryUseCase;
 
@@ -56,6 +62,9 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
   }
 }
 
+/// Choose Locations Bloc
+///
+/// This bloc manages the process of selecting source and destination locations.
 class ChooseLocationsBloc
     extends Bloc<ChooseLocationsEvent, ChooseLocationsState> {
   ChooseLocationsBloc() : super(ChooseLocationsInitial()) {
@@ -106,6 +115,9 @@ class ChooseLocationsBloc
   }
 }
 
+/// Current Location Bloc
+///
+/// This bloc manages the retrieval of the current device location.
 class CurrentLocationBloc
     extends Bloc<CurrentLocationEvent, CurrentLocationState> {
   CurrentLocationBloc() : super(CurrentLocationInitial()) {
@@ -126,6 +138,7 @@ class CurrentLocationBloc
     }
   }
 }
+
 
   // @override
   // on<NamesState>((event,emit) {};)

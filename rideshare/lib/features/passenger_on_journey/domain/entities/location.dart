@@ -1,9 +1,17 @@
+/// Location Model
+///
+/// Represents a geographical location with latitude and longitude.
 class Location {
-  final  double latitude;
+  /// The latitude value of the location.
+  final double latitude;
+
+  /// The longitude value of the location.
   final double longitude;
 
-  Location({required this.latitude, required this.longitude});
+  /// Constructs a [Location] instance with the provided [latitude] and [longitude].
+  const Location({required this.latitude, required this.longitude});
 
+  /// Factory constructor to create a [Location] instance from JSON data.
   factory Location.fromJson(dynamic json) {
     return Location(
       latitude: json['latitude'] as double,
@@ -11,6 +19,7 @@ class Location {
     );
   }
 
+  /// Converts the [Location] instance to a JSON object.
   Map<String, dynamic> toJson() {
     return {
       'latitude': latitude,

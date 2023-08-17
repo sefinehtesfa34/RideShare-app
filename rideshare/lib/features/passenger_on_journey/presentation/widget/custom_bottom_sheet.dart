@@ -15,6 +15,8 @@ import '../../domain/entities/user.dart';
 import 'custom_cached_image.dart';
 import "package:latlong2/latlong.dart" as lat_lng;
 
+/// This widget displays a custom bottom sheet with information about the ride,
+/// driver, passengers, and various buttons.
 class CustomBottomSheet extends StatefulWidget {
   final String driverPhoneNumber;
   final RideOffer passenger;

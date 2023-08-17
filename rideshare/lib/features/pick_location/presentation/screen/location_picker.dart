@@ -9,8 +9,9 @@ import 'dart:async';
 
 import 'package:rideshare/features/pick_location/presentation/widgets/google_map_viewer.dart';
 
-import '../widgets/choose_location.dart';
-
+/// Location Picker Widget
+///
+/// This widget provides a location picker interface for users to choose locations.
 class LocationPicker extends StatefulWidget {
   const LocationPicker({super.key});
 
@@ -22,6 +23,7 @@ class _LocationPickerState extends State<LocationPicker>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +43,7 @@ class _LocationPickerState extends State<LocationPicker>
     super.dispose();
   }
 
+  /// Completer for Google Map Controller
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
@@ -50,23 +53,24 @@ class _LocationPickerState extends State<LocationPicker>
       builder: (context, state) {
         if (state is CurrentLocationSuccess) {
           return Scaffold(
-              body: SafeArea(
-                child: Stack(
-                          children: [
-                GoogleMapViewer(
-                  latitude: state.location.latitude,
-                  longitude: state.location.longitude,
-                ),
-                CustomBottomSheet(),
-                          ],
-                        ),
-              ));
+            body: SafeArea(
+              child: Stack(
+                children: [
+                  GoogleMapViewer(
+                    latitude: state.location.latitude,
+                    longitude: state.location.longitude,
+                  ),
+                  CustomBottomSheet(),
+                ],
+              ),
+            ),
+          );
         } else if (state is CurrentLocationLoading) {
           return Scaffold(
             body: Center(
               child: AnimatedBuilder(
                 animation: _animation,
-                builder: (context, child) { 
+                builder: (context, child) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -98,7 +102,7 @@ class _LocationPickerState extends State<LocationPicker>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: 16),
-                  Text('Please allow location access in setting to continue'),
+                  Text('Please allow location access in settings to continue'),
                 ],
               ),
             ),
@@ -106,7 +110,7 @@ class _LocationPickerState extends State<LocationPicker>
         }
       },
       listener: (context, state) {
-        // Execute side effects for CurrentLocationState
+        // Execute side effects for CurrentLocationState if needed
       },
     );
   }

@@ -8,22 +8,29 @@ import '../../../domain/usecases/cancel_ride_usecase.dart';
 part 'cancel_ride_event.dart';
 part 'cancel_ride_state.dart';
 
+/// A BLoC responsible for managing the state of ride cancellation requests.
 class CancelRideBloc extends Bloc<CancelRideEvent, CancelRideState> {
   final CancelRideRequest cancelRideRequest;
+
+  /// Creates a [CancelRideBloc] instance with the provided [cancelRideRequest].
   CancelRideBloc(this.cancelRideRequest) : super(CancelRideInitial()) {
     on<CancelRideTrigger>(_onCancelRide);
   }
 
-  _onCancelRide(CancelRideTrigger event, Emitter<CancelRideState> emit) async {
-    emit(CancelRideLoding());
+  /// Handles the ride cancellation trigger event.
+  ///
+  /// Emits a [CancelRideLoading] state followed by either a [CancelRideSuccess] or [CancelRideFailed] state.
+  void _onCancelRide(CancelRideTrigger event, Emitter<CancelRideState> emit) async {
+    emit(CancelRideLoading());
     
     final Either<Failure, bool> requestStreamOrFailure =
-        await cancelRideRequest(CancelRideParams(rideRequestId: event.rideRequestId,userPhone: event.userPhone));
+        await cancelRideRequest(CancelRideParams(rideRequestId: event.rideRequestId, userPhone: event.userPhone));
 
-    emit(_onCanceOrFailure(requestStreamOrFailure));
+    emit(_onCancelOrFailure(requestStreamOrFailure));
   }
 
-  _onCanceOrFailure(
+  /// Handles the result of the ride cancellation or failure.
+  CancelRideState _onCancelOrFailure(
       Either<Failure, bool> requestStreamOrFailure) {
     return requestStreamOrFailure.fold((Failure failure) {
       return CancelRideFailed(failure.message);

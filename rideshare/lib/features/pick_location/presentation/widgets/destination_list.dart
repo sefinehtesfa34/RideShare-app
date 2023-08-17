@@ -7,6 +7,9 @@ import '../../../../core/utils/colors.dart';
 import '../bloc/passenger_home_bloc.dart';
 import 'confirm_dialog.dart';
 
+/// DestinationList Widget
+///
+/// A widget that displays a list of destination options for users to choose from.
 class DestinationList extends StatefulWidget {
   @override
   State<DestinationList> createState() => _DestinationListState();
@@ -44,7 +47,9 @@ class _DestinationListState extends State<DestinationList> {
                   },
                 );
               }
-              if (state is ChooseLocationsError) {}
+              if (state is ChooseLocationsError) {
+                // Handle error case
+              }
             },
             child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
@@ -83,12 +88,20 @@ class _DestinationListState extends State<DestinationList> {
                           Text(
                             state.names[index].name,
                             style: TextStyle(
-                                fontSize: 4.w, fontWeight: FontWeight.bold),
+                              fontSize: 4.w,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           SizedBox(
                             height: 1.h,
                           ),
-                          Text("Addis Ababa, Ethiopia",style: TextStyle( fontFamily:"Poppins", fontSize: 14.sp))
+                          Text(
+                            "Addis Ababa, Ethiopia",
+                            style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 14.sp,
+                            ),
+                          ),
                         ],
                       ),
                     ],

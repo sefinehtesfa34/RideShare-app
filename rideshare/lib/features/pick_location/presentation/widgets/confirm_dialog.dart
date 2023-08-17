@@ -16,13 +16,14 @@ import '../../../passenger_on_journey/domain/entities/user.dart';
 import '../../../passenger_on_journey/presentation/bloc/ride_request_bloc/ride_request_bloc.dart';
 import '../../../passenger_on_journey/presentation/widget/searching_page_modal_function.dart';
 
+/// Seat Selection Dialog Widget
+///
+/// This widget displays a dialog for selecting the number of seats for a ride offer.
 class SeatSelectionDialog extends StatefulWidget {
-  final String source;
-  final String destination;
-  final int seatCount;
-  final ValueChanged<int> onSeatCountChanged;
-  final VoidCallback onConfirmPressed;
-
+  /// Constructs a SeatSelectionDialog widget.
+  ///
+  /// The [source], [destination], [seatCount], [onSeatCountChanged], and [onConfirmPressed]
+  /// parameters are required for configuring the dialog.
   const SeatSelectionDialog({
     super.key,
     required this.source,
@@ -31,6 +32,21 @@ class SeatSelectionDialog extends StatefulWidget {
     required this.onSeatCountChanged,
     required this.onConfirmPressed,
   });
+
+  /// The source location name.
+  final String source;
+
+  /// The destination location name.
+  final String destination;
+
+  /// The initial seat count.
+  final int seatCount;
+
+  /// Callback when seat count changes.
+  final ValueChanged<int> onSeatCountChanged;
+
+  /// Callback when the confirm button is pressed.
+  final VoidCallback onConfirmPressed;
 
   @override
   State<SeatSelectionDialog> createState() => _SeatSelectionDialogState();
@@ -202,8 +218,8 @@ class _SeatSelectionDialogState extends State<SeatSelectionDialog> {
                       RideOffer(
                           user: user,
                           currentLocation: Location(
-                              latitude: state.soureLocation.latitude,
-                              longitude: state.soureLocation.longitude),
+                              latitude: state.sourceLocation.latitude,
+                              longitude: state.sourceLocation.longitude),
                           destination: Location(
                               latitude: state.destinationLocation.latitude,
                               longitude: state.destinationLocation.longitude),

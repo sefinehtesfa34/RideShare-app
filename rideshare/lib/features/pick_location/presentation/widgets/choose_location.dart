@@ -10,6 +10,9 @@ import 'confirm_dialog.dart';
 import 'map_picker.dart';
 import 'where_button.dart';
 
+/// ChooseLocation Widget
+///
+/// A widget that allows the user to choose source and destination locations.
 class ChooseLocation extends StatefulWidget {
   final GoogleMapsPlaces places;
 
@@ -35,6 +38,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
   int seatCount = 1;
   bool _sourceSelected = true;
 
+  /// Fetch place predictions using GoogleMapsPlaces based on a search term.
   Future<List<Prediction>> _getPlacePredictions(String searchTerm) async {
     PlacesAutocompleteResponse response = await widget.places.autocomplete(
       searchTerm,
@@ -50,6 +54,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
     }
   }
 
+  /// Handle text change in the search input field.
   void _onSearchTextChanged(String value) async {
     setState(() {
       _searchTerm = value;
@@ -330,6 +335,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
   }
 }
 
+/// Creates a decoration for input fields.
 InputDecoration decoration(String hintText) {
   return InputDecoration(
     contentPadding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 4.w),

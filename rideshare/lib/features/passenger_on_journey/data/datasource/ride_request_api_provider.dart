@@ -11,12 +11,17 @@ import '../../domain/entities/user.dart';
 import '../model/passenger_model.dart';
 import '../model/ride_request_model.dart';
 
+/// Ride Request API Provider
+///
+/// Provides methods for interacting with the remote API related to ride requests and offers.
 class RideRequestApiProvider {
   final String baseUrl;
   late final HubConnection hubConnection;
   late final StreamController<RideRequest> _rideRequestStreamController;
   late Dio dio;
   final String token = dotenv.env['RIDE_REQUEST_API_PROVIDER_TOKEN']!;
+
+  /// Creates a [RideRequestApiProvider] instance with the provided [baseUrl].
   RideRequestApiProvider({required this.baseUrl}) {
     hubConnection = HubConnectionBuilder()
         .withUrl(
@@ -34,10 +39,15 @@ class RideRequestApiProvider {
     dio = Dio();
   }
 
+  /// Sets up the SignalR hub connection.
   Future<void> setupHubConnection() async {
     await hubConnection.start();
   }
 
+  /// Retrieves a stream of ride requests for a given ride offer.
+  ///
+  /// Takes a [RideOffer] instance as input and returns a [Stream] of [RideRequest].
+  /// Throws a [ServerException] if an error occurs during data retrieval.
   Future<Stream<RideRequest>> getRideRequestsForPassenger(
       RideOffer passenger) async {
     // if (hubConnection.state == HubConnectionState.disconnected) {
@@ -72,7 +82,7 @@ class RideRequestApiProvider {
       );
       if (response.statusCode == 201) {
         print('Ride request posted successfully!');
-        
+
         hubConnection.on('Accepted', (dynamic data) {
           print("======================================");
           print(data);
@@ -225,6 +235,7 @@ class RideRequestApiProvider {
     return _rideRequestStreamController.stream;
   }
 
+  /// Disposes of resources used by the [RideRequestApiProvider].
   void dispose() {
     _rideRequestStreamController.close();
     hubConnection.stop();

@@ -4,6 +4,8 @@ import 'onboarding_page_one.dart';
 import 'onboarding_page_three.dart';
 import 'onboarding_page_two.dart';
 
+/// A widget that orchestrates the display of a sequence of onboarding pages.
+/// This widget provides a scaffold for navigating through multiple onboarding pages.
 class OnBoardingHolder extends StatefulWidget {
   const OnBoardingHolder({super.key});
 
@@ -17,7 +19,16 @@ class _OnBoardingHolderState extends State<OnBoardingHolder> {
     return Scaffold(
       body: PageView(
         scrollDirection: Axis.horizontal,
-        children: [OnBoardingPage(context), OnboardingPageTwo(context), OnboardingPageThree(context)],
+        children: [
+          // First onboarding page
+          OnBoardingPage(context),
+
+          // Second onboarding page
+          OnboardingPageTwo(context),
+
+          // Third onboarding page
+          OnboardingPageThree(context),
+        ],
       ),
     );
   }

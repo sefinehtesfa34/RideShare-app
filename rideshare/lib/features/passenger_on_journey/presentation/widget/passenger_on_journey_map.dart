@@ -11,11 +11,14 @@ import 'package:mapbox_api/mapbox_api.dart';
 
 import '../../../../core/utils/images.dart';
 
+/// A widget that displays the map with user, driver, and destination locations,
+/// along with the route polyline.
 class OnJourneyMap extends StatefulWidget {
-  OnJourneyMap(
-      {required this.userLocation,
-      required this.driverLocation,
-      required this.destinationLocation});
+  OnJourneyMap({
+    required this.userLocation,
+    required this.driverLocation,
+    required this.destinationLocation,
+  });
 
   final lat_lng.LatLng userLocation;
   final lat_lng.LatLng driverLocation;
@@ -34,10 +37,11 @@ class _OnJourneyMapState extends State<OnJourneyMap> {
     getDirectionsResponse(widget.userLocation, widget.destinationLocation);
   }
 
-
-  
+  // Get route directions response using Mapbox API
   Future<void> getDirectionsResponse(
-      lat_lng.LatLng startPosition, lat_lng.LatLng endPosition) async {
+    lat_lng.LatLng startPosition,
+    lat_lng.LatLng endPosition,
+  ) async {
     final coordinates = <List<double>>[
       <double>[
         startPosition.latitude, // latitude
@@ -49,11 +53,12 @@ class _OnJourneyMapState extends State<OnJourneyMap> {
       ],
     ];
     final response = await mapbox.directions.request(
-        profile: NavigationProfile.DRIVING_TRAFFIC,
-        overview: NavigationOverview.FULL,
-        geometries: NavigationGeometries.GEOJSON,
-        steps: true,
-        coordinates: coordinates);
+      profile: NavigationProfile.DRIVING_TRAFFIC,
+      overview: NavigationOverview.FULL,
+      geometries: NavigationGeometries.GEOJSON,
+      steps: true,
+      coordinates: coordinates,
+    );
     final latLngList = <lat_lng.LatLng>[];
 
     try {
@@ -86,6 +91,7 @@ class _OnJourneyMapState extends State<OnJourneyMap> {
         maxZoom: 19,
       ),
       children: [
+        // Base map layer
         TileLayer(
           urlTemplate: mapUrl,
           additionalOptions: {'accessToken': accessToken, 'id': mapTypeId},
@@ -93,6 +99,7 @@ class _OnJourneyMapState extends State<OnJourneyMap> {
               'net.tlserver6y.flutter_map_location_marker.example',
           maxZoom: 19,
         ),
+        // Display current user's location marker
         CurrentLocationLayer(
           style: LocationMarkerStyle(
             marker: const DefaultLocationMarker(
@@ -110,26 +117,27 @@ class _OnJourneyMapState extends State<OnJourneyMap> {
           ),
           moveAnimationDuration: Duration.zero, // disable animation
         ),
+        // Display driver's car marker
         MarkerLayer(
           markers: [
             Marker(
-              point: widget
-                  .driverLocation, // replace with your latitude and longitude values
+              point: widget.driverLocation,
               builder: (context) =>
                   Container(child: Image(image: AssetImage(carImageIcon))),
             ),
           ],
         ),
+        // Display destination marker
         MarkerLayer(
           markers: [
             Marker(
-              point: widget
-                  .destinationLocation, // replace with your latitude and longitude values
+              point: widget.destinationLocation,
               builder: (context) => Container(
                   child: Image(image: AssetImage(destinationPinMarker))),
             ),
           ],
         ),
+        // Display route polyline
         PolylineLayer(
           polylines: [
             Polyline(

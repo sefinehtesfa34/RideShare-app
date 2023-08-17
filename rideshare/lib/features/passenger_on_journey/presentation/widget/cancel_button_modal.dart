@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-// import 'package:rideshare/features/feeds/presentation/widgets/select_button.dart';
-import 'package:rideshare/features/passenger_on_journey/presentation/widget/border_only_button.dart';
+
 import '../../../../core/injections/injection_container.dart';
 import '../../../../core/utils/colors.dart';
 
 import '../bloc/cancel_ride_bloc/cancel_ride_bloc.dart';
+import '../widget/border_only_button.dart';
 
+
+/// This widget displays a modal for canceling a ride order.
 class CancelRidePassengerModal extends StatelessWidget {
+  /// Creates a [CancelRidePassengerModal].
   const CancelRidePassengerModal({
     super.key,
   });
@@ -54,13 +57,12 @@ class CancelRidePassengerModal extends StatelessWidget {
                 buttonText: 'Cancel',
                 color: red,
                 onPressed: () {
-                  // context.read().of<CancelRideBloc>(context).add(CancelRideTrigger(rideRequestId: "some id",userPhone: "0961088592"));
                   BlocProvider.of<CancelRideBloc>(context).add(
                       CancelRideTrigger(
                           rideRequestId: "some id", userPhone: "0961088592"));
                 },
               );
-            } else if (state is CancelRideLoding) {
+            } else if (state is CancelRideLoading) {
               return BorderOnlyButton(
                 buttonText: 'Cancel',
                 color: greyTextColor,
@@ -73,7 +75,6 @@ class CancelRidePassengerModal extends StatelessWidget {
               Navigator.pop(context);
               print(state.status);
             }
-            
           }),
           SizedBox(width: 3.w),
           BorderOnlyButton(
@@ -89,9 +90,9 @@ class CancelRidePassengerModal extends StatelessWidget {
   }
 }
 
-//? use this to add the modal
+//? Use this to add the modal
 // showDialog(
-//  context: context,
-//  builder: (BuildContext context) {
-//    return CancelRidePassengerModal();
-//  });
+//   context: context,
+//   builder: (BuildContext context) {
+//     return CancelRidePassengerModal();
+//   });

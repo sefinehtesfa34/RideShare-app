@@ -6,12 +6,15 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../core/utils/colors.dart';
 import 'border_only_button.dart';
 
-
-
-showSearchDriverModal(BuildContext context) {
+/// Displays a bottom modal sheet to indicate that the app is searching for a driver.
+/// It includes a loading spinner and a cancel button.
+///
+/// Parameters:
+/// - [context]: The build context.
+void showSearchDriverModal(BuildContext context) {
   showModalBottomSheet(
-    isDismissible: false,
-    enableDrag: false,
+    isDismissible: false, // Prevent dismissing the modal by dragging
+    enableDrag: false, // Disable dragging the modal
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(30),
@@ -24,7 +27,6 @@ showSearchDriverModal(BuildContext context) {
       return Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(50),
@@ -50,7 +52,7 @@ showSearchDriverModal(BuildContext context) {
                 buttonText: "Cancel",
                 color: Colors.red,
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pop(); // Close the modal
                 },
               ),
             ],

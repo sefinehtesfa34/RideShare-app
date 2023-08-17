@@ -6,6 +6,8 @@ import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/images.dart';
 // import '../../../feeds/presentation/widgets/select_button.dart';
 
+/// Displays the completion of the ride for the passenger, including the total cost,
+/// taxes, tip, and options to finish the ride.
 class RideCompletePassenger extends StatelessWidget {
   final double totalCost;
   final double tip;

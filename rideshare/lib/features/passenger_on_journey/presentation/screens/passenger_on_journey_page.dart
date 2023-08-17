@@ -19,9 +19,11 @@ import '../widget/passenger_on_journey_map.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import "package:latlong2/latlong.dart" as lat_lng;
 
+/// A page to display the journey details and map for the passenger.
 class PassengerOnJourneyPage extends StatelessWidget {
   final RideOffer passenger;
 
+  /// Constructor for PassengerOnJourneyPage
   const PassengerOnJourneyPage({super.key, required this.passenger});
 
   @override
@@ -89,6 +91,7 @@ class PassengerOnJourneyPage extends StatelessWidget {
     );
   }
 
+  /// Widget to hold the bottom sheet and the journey map.
   Widget bottomSheetHolder(AsyncSnapshot<RideRequest> snapshot) {
     return SizedBox(
       child: Stack(children: [
@@ -136,6 +139,7 @@ class PassengerOnJourneyPage extends StatelessWidget {
     );
   }
 
+  /// Widget to display while waiting for the driver.
   WaitingWidget(BuildContext context) {
     return Column(
       mainAxisAlignment : MainAxisAlignment.center,

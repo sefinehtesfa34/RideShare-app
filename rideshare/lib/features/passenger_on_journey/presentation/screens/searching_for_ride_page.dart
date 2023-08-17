@@ -12,6 +12,8 @@ import '../../domain/entities/location.dart';
 import '../../domain/entities/ride_offer.dart';
 import '../bloc/ride_request_bloc/ride_request_bloc.dart';
 
+/// This page is responsible for initiating the search for a ride. It allows the user
+/// to simulate the process of searching for a ride, and handles the responses from the RideRequestBloc.
 class SearchingforRidePage extends StatelessWidget {
   SearchingforRidePage({super.key});
   User user = User(
@@ -50,6 +52,7 @@ class SearchingforRidePage extends StatelessWidget {
         BlocConsumer<RideRequestBloc, RideRequestState>(
           listener: (context, state) {
             if (state is RideRequestSuccessState) {
+              // If the ride request is successful, navigate to the PassengerOnJourneyPage
               final RideOffer passenger = RideOffer(
                   user: user,
                   currentLocation:
@@ -65,8 +68,10 @@ class SearchingforRidePage extends StatelessWidget {
 
               context.go('/onJourney', extra: {'passenger': passenger});
             } else if (state is RideRequestWaitingState) {
+              // If waiting for a ride request, show the search driver modal
               showSearchDriverModal(context);
             } else if (state is RideRequestFailureState) {
+              // If there's a failure, show a snackbar indicating no internet connection
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   dismissDirection: DismissDirection.horizontal,
@@ -89,6 +94,7 @@ class SearchingforRidePage extends StatelessWidget {
             }
           },
           builder: (context, state) {
+            // Return an empty SizedBox to build the UI
             return const SizedBox();
           },
         )
