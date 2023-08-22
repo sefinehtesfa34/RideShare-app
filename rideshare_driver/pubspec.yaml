@@ -57,6 +57,7 @@ dependencies:
   responsive_sizer: ^3.1.1
   signalr_core: ^1.1.1
   url_launcher: ^6.1.11
+  bloc_test: ^9.1.4
 
 dev_dependencies:
   flutter_lints: ^2.0.0

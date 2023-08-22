@@ -8,23 +8,23 @@ import 'package:signalr_core/signalr_core.dart';
 
 import 'ride_request_api_provider_test.mocks.dart';
 
-@GenerateMocks([HubConnection, RideOffer])
+@GenerateMocks([HubConnection, RideOffer, RideRequestApiProvider])
 void main() {
-  late RideRequestApiProvider rideRequestApiProvider;
+  late MockRideRequestApiProvider rideRequestApiProvider;
   late MockHubConnection mockHubConnection;
   late MockRideOffer mockRideOffer;
 
   setUp(() {
     mockHubConnection = MockHubConnection();
     mockRideOffer = MockRideOffer();
-    rideRequestApiProvider = RideRequestApiProvider(
-        baseUrl: 'http://test.com',);
+    rideRequestApiProvider = MockRideRequestApiProvider();
   });
 
   group('setupHubConnection', () {
     test('starts the connection if it is disconnected', () async {
       when(mockHubConnection.state).thenReturn(HubConnectionState.disconnected);
       await rideRequestApiProvider.setupHubConnection();
+      verify(rideRequestApiProvider.setupHubConnection()).called(1);
       verify(mockHubConnection.start()).called(1);
     });
 

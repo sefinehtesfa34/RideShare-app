@@ -6,10 +6,14 @@
 import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:rideshare/features/pick_location/data/datasources/ride_request_api_provider.dart'
+    as _i7;
 import 'package:rideshare/features/pick_location/domain/entities/location.dart'
     as _i3;
 import 'package:rideshare/features/pick_location/domain/entities/ride_offer.dart'
     as _i6;
+import 'package:rideshare/features/pick_location/domain/entities/ride_request.dart'
+    as _i8;
 import 'package:rideshare/features/pick_location/domain/entities/user.dart'
     as _i2;
 import 'package:signalr_core/signalr_core.dart' as _i4;
@@ -37,6 +41,16 @@ class _FakeUser_0 extends _i1.SmartFake implements _i2.User {
 
 class _FakeLocation_1 extends _i1.SmartFake implements _i3.Location {
   _FakeLocation_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeHubConnection_2 extends _i1.SmartFake implements _i4.HubConnection {
+  _FakeHubConnection_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -263,4 +277,64 @@ class MockRideOffer extends _i1.Mock implements _i6.RideOffer {
         ),
         returnValue: <String, dynamic>{},
       ) as Map<String, dynamic>);
+}
+
+/// A class which mocks [RideRequestApiProvider].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRideRequestApiProvider extends _i1.Mock
+    implements _i7.RideRequestApiProvider {
+  MockRideRequestApiProvider() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get baseUrl => (super.noSuchMethod(
+        Invocation.getter(#baseUrl),
+        returnValue: '',
+      ) as String);
+  @override
+  _i4.HubConnection get hubConnection => (super.noSuchMethod(
+        Invocation.getter(#hubConnection),
+        returnValue: _FakeHubConnection_2(
+          this,
+          Invocation.getter(#hubConnection),
+        ),
+      ) as _i4.HubConnection);
+  @override
+  set hubConnection(_i4.HubConnection? _hubConnection) => super.noSuchMethod(
+        Invocation.setter(
+          #hubConnection,
+          _hubConnection,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i5.Future<void> setupHubConnection() => (super.noSuchMethod(
+        Invocation.method(
+          #setupHubConnection,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<_i5.Stream<_i8.RideRequest>> getRideRequestsForPassenger(
+          _i6.RideOffer? passenger) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getRideRequestsForPassenger,
+          [passenger],
+        ),
+        returnValue: _i5.Future<_i5.Stream<_i8.RideRequest>>.value(
+            _i5.Stream<_i8.RideRequest>.empty()),
+      ) as _i5.Future<_i5.Stream<_i8.RideRequest>>);
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
