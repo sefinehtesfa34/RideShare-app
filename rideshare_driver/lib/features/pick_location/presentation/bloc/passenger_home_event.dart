@@ -10,7 +10,7 @@ abstract class NamesEvent {}
 
 class FetchNamesEvent extends NamesEvent {}
 
-abstract class ChooseLocationsEvent {}
+abstract class ChooseLocationsEvent extends Equatable {}
 
 class SelectecLocationsEvent extends ChooseLocationsEvent {
   final String sourceLocation;
@@ -24,6 +24,15 @@ class SelectecLocationsEvent extends ChooseLocationsEvent {
     this.sourceCoordinates,
     this.destinationCoordinates,
   );
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        sourceLocation,
+        destinationLocation,
+        sourceCoordinates,
+        destinationCoordinates
+      ];
 }
 
 class SelectecLocationFromList extends ChooseLocationsEvent {
@@ -39,8 +48,22 @@ class SelectecLocationFromList extends ChooseLocationsEvent {
     this.sourceLatitude,
     this.sourcelongitude,
   );
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        destinationLatitude,
+        destinationLongitude,
+        destinationName,
+        sourceLatitude,
+        sourcelongitude
+      ];
 }
 
-abstract class CurrentLocationEvent {}
+abstract class CurrentLocationEvent extends Equatable {}
 
-class FetchCurrentLocationEvent extends CurrentLocationEvent {}
+class FetchCurrentLocationEvent extends CurrentLocationEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}

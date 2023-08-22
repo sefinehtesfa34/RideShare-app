@@ -45,3 +45,17 @@ class RideRequestApiProvider {
     hubConnection.stop();
   }
 }
+
+/// `RideRequestApiProvider` is a class that provides methods to interact with the ride request API.
+///
+/// It uses SignalR for real-time communication with the server.
+///
+/// The class requires a `baseUrl` to be passed in the constructor to establish the connection.
+///
+/// It has a `StreamController` to handle the stream of `RideRequest` objects.
+///
+/// The `setupHubConnection` method is used to setup the SignalR connection and listen for 'MatchFound' events.
+///
+/// The `getRideRequestsForPassenger` method is used to get the ride requests for a specific passenger.
+///
+/// The `dispose` method is used to close the `StreamController` and stop the SignalR connection.

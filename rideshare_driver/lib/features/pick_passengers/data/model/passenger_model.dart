@@ -98,3 +98,30 @@ class RideOfferModel extends RideOffer {
     };
   }
 }
+
+/// This file contains the `RideOfferModel` class which extends the `RideOffer` class.
+/// It is used to model a ride offer in the application.
+/// 
+/// The `RideOfferModel` class has the following properties:
+/// - `rideOfferId`: A unique identifier for the ride offer.
+/// - `user`: The user who is offering the ride.
+/// - `currentLocation`: The current location of the ride.
+/// - `destination`: The destination of the ride.
+/// - `seatsAllocated`: The number of seats allocated for the ride.
+/// - `price`: The price of the ride.
+/// - `originAddress`: The address of the origin of the ride.
+/// - `destinationAddress`: The address of the destination of the ride.
+/// - `status`: The status of the ride offer.
+/// - `accepted`: A boolean indicating whether the ride offer has been accepted or not.
+/// 
+/// The `RideOfferModel` class also has the following methods:
+/// - `fromJson`: A factory method that creates a `RideOfferModel` instance from a JSON object.
+/// - `toJson`: A method that converts a `RideOfferModel` instance into a JSON object.
+/// - `toJsonGivenPassenger`: A static method that converts a `RideOffer` instance into a JSON object.
+/// 
+/// Example usage:
+/// 
+/// ```dart
+/// final rideOfferModel = RideOfferModel.fromJson(json);
+/// final json = rideOfferModel.toJson();
+/// ```

@@ -26,7 +26,7 @@ class RideOfferRepositoryImpl implements RideOfferRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> addPassegner(String rideOfferId) async {
+  Future<Either<Failure, bool>> addPassenger(String rideOfferId) async {
     try {
       final result = await _rideOfferApi.addPassenger(rideOfferId);
       return Right(result);
@@ -34,8 +34,9 @@ class RideOfferRepositoryImpl implements RideOfferRepository {
       return Left(ServerFailure());
     }
   }
+
   @override
-  Future<Either<Failure, bool>> dropPassegner(String rideOfferId) async {
+  Future<Either<Failure, bool>> dropPassenger(String rideOfferId) async {
     try {
       final result = await _rideOfferApi.dropPassegner(rideOfferId);
       return Right(result);
@@ -43,7 +44,6 @@ class RideOfferRepositoryImpl implements RideOfferRepository {
       return Left(ServerFailure());
     }
   }
-  
 
   @override
   Either<Failure, bool> updateDriverLocation(
@@ -69,3 +69,16 @@ class RideOfferRepositoryImpl implements RideOfferRepository {
     }
   }
 }
+
+/// `RideOfferRepositoryImpl` is an implementation of the `RideOfferRepository` interface.
+/// It uses the `RideOfferApi` to perform operations related to ride offers.
+///
+/// It has the following methods:
+/// - `getRideOffers(RideRequest request)`: Fetches a stream of ride offers based on the given ride request.
+/// - `addPassenger(String rideOfferId)`: Adds a passenger to a ride offer with the given ID.
+/// - `dropPassenger(String rideOfferId)`: Drops a passenger from a ride offer with the given ID.
+/// - `updateDriverLocation(StreamController carLocationController)`: Updates the driver's location.
+/// - `stopSendingLocation(StreamController carLocationStreamController)`: Stops sending the driver's location.
+///
+/// Each method returns an `Either` type, which can be a `Failure` or the expected result.
+/// If an error occurs during the operation, a `ServerFailure` is returned.

@@ -49,3 +49,24 @@ class RideRequest extends Equatable {
         passengersList
       ];
 }
+/**
+ * This file defines the `RideRequest` class which represents a ride request in the system.
+ *
+ * The `RideRequest` class extends the `Equatable` class to allow for value comparison.
+ *
+ * Each `RideRequest` object has the following properties:
+ * - `driverName`: The name of the driver.
+ * - `driverImageURL`: The URL of the driver's image.
+ * - `driverRatingAverageOutOf5`: The average rating of the driver out of 5.
+ * - `driverReviews`: The number of reviews the driver has received.
+ * - `carModel`: The model of the car.
+ * - `availableSeats`: The number of available seats in the car.
+ * - `carImageURL`: The URL of the car's image.
+ * - `carPlateNumber`: The plate number of the car.
+ * - `driverPhoneNumber`: The phone number of the driver.
+ * - `carLocation`: The current location of the car.
+ * - `destination`: The destination of the ride.
+ * - `passengersList`: The list of passengers who have accepted the ride offer.
+ *
+ * The `props` getter is used to facilitate the comparison of `RideRequest` objects.
+ */
