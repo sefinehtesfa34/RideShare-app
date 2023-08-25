@@ -41,3 +41,20 @@ class RideRepositoryImpl extends RideRepository {
     }
   }
 }
+
+/**
+ * RideRepositoryImpl class.
+ * 
+ * This class extends the abstract class RideRepository and implements its methods.
+ * It uses a remote data source and network information to perform its operations.
+ * 
+ * It has two main methods:
+ * 
+ * 1. getRideRequest(RideOffer passenger): This method takes a RideOffer object as input and returns a Future of Either Failure or a Stream of RideRequest.
+ *    It tries to get the ride request from the remote data source and returns it. If it fails, it returns a ServerFailure.
+ * 
+ * 2. cancelRideRequest(String rideRequestId, String userPhone): This method takes a ride request ID and a user phone number as input and returns a Future of Either Failure or a boolean.
+ *    It tries to cancel the ride request using the remote data source and returns the result. If it fails, it returns a ServerFailure.
+ * 
+ * The class constructor requires a remote data source and network information to be passed in.
+ */

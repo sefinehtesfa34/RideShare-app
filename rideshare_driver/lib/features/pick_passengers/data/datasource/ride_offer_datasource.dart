@@ -84,13 +84,10 @@ class RideOfferApiImpl implements RideOfferApi {
   @override
   Future<bool> addPassenger(String rideOfferId) async {
     try {
-      print("==================");
-      final response = await hubConnection
+      await hubConnection
           .invoke('AddPassenger', args: [int.parse(rideOfferId)]);
-      print("Response   $response");
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -233,3 +230,27 @@ class RideOfferApiImpl implements RideOfferApi {
     // } catch (ex) {
     //   throw ServerException("Server Error");
     // }
+
+
+
+    /**
+ * This file contains the data source for the ride offer feature of the application.
+ * It includes the abstract class `RideOfferApi` and its implementation `RideOfferApiImpl`.
+ * 
+ * The `RideOfferApi` abstract class declares the methods that must be implemented by any class that aims to act as a data source for ride offers.
+ * 
+ * The `RideOfferApiImpl` class implements the `RideOfferApi` abstract class. It uses the `dio` package for HTTP requests and the `signalr_core` package for real-time communication.
+ * 
+ * The `RideOfferApiImpl` class has the following methods:
+ * 
+ * - `updateDriverLocation`: Listens to a stream of driver location updates and sends them to the server.
+ * - `dropPassenger`: Sends a request to the server to drop a passenger from a ride offer.
+ * - `addPassenger`: Sends a request to the server to add a passenger to a ride offer.
+ * - `stopSendingLocation`: Closes the stream of driver location updates.
+ * - `getRideOffers`: Sends a ride request to the server and listens for ride offers in response.
+ * - `dispose`: Closes the stream of ride offers and stops the SignalR connection.
+ * 
+ * The `RideOfferApiImpl` class also has a private `_rideOfferStreamController` that it uses to manage the stream of ride offers.
+ * 
+ * Note: The `RideOfferApiImpl` class uses a hardcoded token for authentication. This is not secure and should be replaced with a secure method of authentication.
+ */

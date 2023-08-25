@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:bloc/bloc.dart';

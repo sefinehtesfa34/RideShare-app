@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:dio/dio.dart';
 import 'package:signalr_core/signalr_core.dart';
 
 import '../../domain/entities/ride_offer.dart';
@@ -20,22 +19,25 @@ class RideRequestApiProvider {
   }
 
   Future<void> setupHubConnection() async {
-    await hubConnection.start();
-    hubConnection.on('MatchFound', (dynamic data) {
-      var rideRequest = RideRequestModel.fromJson(data);
-      _rideRequestStreamController.add(rideRequest);
-    });
+    if (hubConnection.state == HubConnectionState.disconnected) {
+      await hubConnection.start();
+      hubConnection.on('MatchFound', (dynamic data) {
+        var rideRequest = RideRequestModel.fromJson(data);
+        _rideRequestStreamController.add(rideRequest);
+      });
+    }
   }
 
   Future<Stream<RideRequest>> getRideRequestsForPassenger(
       RideOffer passenger) async {
     if (hubConnection.state == HubConnectionState.disconnected) {
       return Future.value(Stream.empty());
+    } else {
+      hubConnection.invoke('GetRideRequestsForPassenger', args: [
+        PassengerModel.fromJson(PassengerModel.toJsonGivenPassenger(passenger))
+      ]);
+      return _rideRequestStreamController.stream;
     }
-    hubConnection.invoke('GetRideRequestsForPassenger', args: [
-      PassengerModel.fromJson(PassengerModel.toJsonGivenPassenger(passenger))
-    ]);
-    return _rideRequestStreamController.stream;
   }
 
   void dispose() {
@@ -43,3 +45,17 @@ class RideRequestApiProvider {
     hubConnection.stop();
   }
 }
+
+/// `RideRequestApiProvider` is a class that provides methods to interact with the ride request API.
+///
+/// It uses SignalR for real-time communication with the server.
+///
+/// The class requires a `baseUrl` to be passed in the constructor to establish the connection.
+///
+/// It has a `StreamController` to handle the stream of `RideRequest` objects.
+///
+/// The `setupHubConnection` method is used to setup the SignalR connection and listen for 'MatchFound' events.
+///
+/// The `getRideRequestsForPassenger` method is used to get the ride requests for a specific passenger.
+///
+/// The `dispose` method is used to close the `StreamController` and stop the SignalR connection.
